@@ -6,6 +6,7 @@ const path = require("path");
 const mongoose = require('mongoose');
 
 const app = express();
+
 app.use(cookieParser());
 app.use(session({
     secret: `process.env.SECRET_TOKEN`,
