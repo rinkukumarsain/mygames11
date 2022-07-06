@@ -1,0 +1,222 @@
+<%- include("../../partials/head") %>
+
+    <%- include("../../partials/bodyStartWithNavBar/") %>
+        <%- include("../../partials/sideNav") %>
+
+            <div id="layoutSidenav_content">
+                <main>
+
+                    <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+                        <div class="container-fluid">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <div class="page-header-content">
+                                        <h1 class="page-header-title fs-md-35 fs-20">
+
+                                            <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                                            <span class=" text-capitalize">
+                                                Banner Manager
+                                            </span>
+                                        </h1>
+                                        <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                                            Add New Banner
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-md-0 mb-3">
+                                    <a href="/view-all-Banner"
+                                        class="btn btn-sm btn-light font-weight-bold text-uppercase text-primary float-right"><i
+                                            class="fad fa-eye"></i>&nbsp; View All Banners</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid mt-n10">
+
+
+                        <div class="card">
+                            <div class="card-header">Add New Banner</div>
+                            <form method="POST" action="/add-banner-Data" enctype="multipart/form-data">
+                                <input type="hidden" name="typename" value="sideBanner">
+                                <input name="adminId" type="hidden" value="<%=adminId %>">
+
+                                <div class="card-body">
+                                    <div class="sbp-preview">
+                                        <div class="sbp-preview-content p-2">
+                                            <div class="row mx-0">
+                                                <div class="col-12">
+                                                    <div class="form-group my-3">
+                                                        <label for="type">Type*</label>
+                                                        <select required name="type"
+                                                            class="form-control form-control-solid " required>
+                                                            <option value="" disabled selected>Select Type</option>
+                                                            <option value="app">App</option>
+                                                            <option value="web">Web</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="form-group my-3">
+                                                        <label for="type">Banner Type*</label>
+                                                        <select required name="bannerType"
+                                                            class="form-control form-control-solid "
+                                                            data-container="body" data-live-search="true"
+                                                            title="Select Type" data-hide-disabled="true" required
+                                                            onchange="show_hide_link(this)">
+                                                            <option value="" disabled selected>Select banner Type</option>
+                                                            <option value="invite">Invite</option>
+                                                            <option value="add_cash">Add Cash</option>
+                                                            <option value="others">Others</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <div class="row justify-content-center py-0">
+                                                            <h1 class="fs-14 font-weight-bold text-center mt-3 col-12">
+                                                                Image</h1>
+                                                            <div class="avatar-upload col-auto position-relative">
+                                                                <div
+                                                                    class="avatar-edit position-absolute right-0px z-index-1 top-2px">
+                                                                    <input type='file' name="image" id="image"
+                                                                        accept=".png" class="imageUpload d-none" />
+                                                                    <label
+                                                                        class="d-grid w-40px h-40px mb-0 rounded-pill bg-white text-success fs-20 shadow pointer font-weight-normal align-items-center justify-content-center"
+                                                                        for="image"><i
+                                                                            class="fad fa-pencil"></i></label>
+                                                                </div>
+                                                                <div
+                                                                    class="avatar-preview w-100px h-100px position-relative rounded-pill shadow">
+
+                                                                    <div class="w-100 h-100 rounded-pill"
+                                                                        id="image-imagePreview"
+                                                                        style="background-image: url(/uploadImage/defaultImage.jpg);">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="form-group" style="display:none;" id="link">
+                                                        <label for="Link"
+                                                            class="control-label text-bold">Link</label><br>
+                                                        <input name="url" class="form-control form-control-solid "
+                                                            type="url"
+                                                            placeholder="Enter link: example=http://www.google.com">
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 text-right mt-4 mb-2">
+                                                    <button class="btn btn-sm btn-success text-uppercase"
+                                                        type="submit"><i
+                                                            class="far fa-check-circle"></i>&nbsp;Submit</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+
+                        <script>
+                            function show_hide_link(element) {
+                                if (element.value == 'others') {
+                                    $('#link').show();
+                                } else {
+                                    $('#link').hide();
+                                }
+                            }
+                        </script>
+                    </div>
+                </main>
+                <%- include("../../partials/footer") %>
+
+                    <script>
+                        $(window).on('load', function () {
+
+                            $('#preloader_admin').hide();
+
+                        })
+                    </script>
+
+                    <script>
+                        $(document).ready(function () {
+
+                            if ($('#accordionSidenavPages a').hasClass('active')) {
+                                $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
+                                $('#accordionSidenavPages a.active').parent().parent().addClass('show');
+                                // console.log(id);
+                            } else {
+                                $('#takeonebar').addClass('slamdown');
+                            }
+                        });
+                    </script>
+                    <script>
+                        $("#sortable, #sortable2").sortable();
+                    </script>
+
+
+
+                    <script type="text/javascript">
+                        $.datetimepicker.setLocale('en');
+                        $('.datetimepickerget').datetimepicker({
+                            lang: 'en',
+                            formatDate: 'd.m.Y',
+                            step: 5,
+                            startDate: new Date()
+                        });
+                    </script>
+                    <script type="text/javascript">
+                        $('.datepicker').datepicker({
+                            lang: 'en',
+                            formatDate: 'd.m.Y',
+                            step: 5,
+                        });
+                    </script>
+
+                    <script>
+                        function isNumberKey(evt) {
+                            //var e = evt || window.event;
+
+                            var charCode = (evt.which) ? evt.which : evt.keyCode
+                            if (charCode != 46 && charCode > 31 &&
+                                (charCode < 48 || charCode > 57))
+
+                                return false;
+                            else {
+                                var itemdecimal = evt.srcElement.value.split('.');
+                                if (itemdecimal.length > 1 && charCode == 46)
+                                    return false;
+
+                                return true;
+                            }
+                        }
+                    </script>
+
+                    <script>
+                        function readURL(input) {
+                            if (input.files && input.files[0]) {
+                                var reader = new FileReader();
+                                reader.onload = function (e) {
+                                    $('#' + input.id + '-imagePreview').css('background-image', 'url(' + e.target.result + ')');
+                                    $('#' + input.id + '-imagePreview').hide();
+                                    $('#' + input.id + '-imagePreview').fadeIn(650);
+                                }
+                                reader.readAsDataURL(input.files[0]);
+                            }
+                        }
+                        $(".imageUpload").change(function () {
+                            readURL(this);
+                        });
+                    </script>
+
+
+                    <script>
+                        jQuery(document).ready(function () {
+                            'use strict';
+
+                            jQuery('#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date').datetimepicker();
+                        });
+                    </script>

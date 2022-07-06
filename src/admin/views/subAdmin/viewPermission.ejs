@@ -1,0 +1,1599 @@
+<%- include("../../partials/head") %>
+<%- include("../../partials/bodyStartWithNavBar/") %>
+<%- include("../../partials/sideNav") %>
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <div class="page-header-content">
+                            <h1 class="page-header-title fs-md-35 fs-20">
+                                <div class="page-header-icon">
+                                    <i class="fad fa-at text-white"></i>
+                                </div>
+                                <span class="text-capitalize"> Sub Admin Manager </span>
+                            </h1>
+                            <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                                View Permissions
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto mb-md-0 mb-3"></div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid mt-n10">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row w-100 align-items-center mx-0">
+                        <div class="col-md col-12 mb-md-0 mb-2 text-md-left text-center">
+                            View Permissions
+                        </div>
+                        <div class="col-md-auto col-12 px-md-3 px-0 text-center">
+                            <a href="/view-sub-admin"
+                                class="btn btn-secondary text-uppercase btn-sm rounded-pill" data-toggle="tooltip"
+                                font-weight-600 title="Return Back"><i class="far fa-undo-alt"></i>&nbsp; Return
+                                Back</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="sbp-preview">
+                        <div class="sbp-preview-content p-3">
+                            <div class="row mx-0">
+                                <div
+                                    class="form-group col-md-4 align-self-stretch align-items-center h-revert my-0 pb-5">
+                                    <label class="control-label text-bold text-dark fs-md-15 fs-14"><i
+                                            class="fad fa-shield-alt text-success"></i> Settings Manager</label>
+                                    <div class="row mx-0 shadow rounded h-100 py-2 align-content-start mb-n4">
+                                        <% if(settings_manager.includes('/ui-settings') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i> UI
+                                            Settings
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i> UI
+                                            Settings
+                                        </div>
+                                        <% } %>
+                                        <% if(settings_manager.includes('/facebook-settings') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Facebook Settings
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Facebook Settings
+                                        </div>
+                                        <% } %>
+
+                                        <% if(settings_manager.includes('/google-settings') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Google Settings
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Google Settings
+                                        </div>
+                                        <% } %>
+
+                                        <% if(settings_manager.includes('/alert-settings') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Alert Settings
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Alert Settings
+                                        </div>
+                                        <% } %>
+
+                                        <% if(settings_manager.includes('/payment-gateway-settings') === true) { %>
+                                        <div class="col-12 mb-1 fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Payment Gateway Settings
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Payment Gateway Settings
+                                        </div>
+                                        <% } %>
+
+                                        <% if(settings_manager.includes('/reset-admin-theme') === true) { %>
+                                        <div class="col-12 mb-1 fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Reset Admin Theme
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Reset Admin Theme
+                                        </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+                                <div
+                                    class="form-group col-md-4 align-self-stretch align-items-center h-revert my-0 pb-5">
+                                    <label class="control-label text-bold text-dark fs-md-15 fs-14"><i
+                                            class="fad fa-shield-alt text-success"></i> Series Manager</label>
+                                    <div class="row mx-0 shadow rounded h-100 py-2 align-content-start mb-n4">
+                                        <% if(series_manager.includes('/add-series') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i> Create
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i> Create
+                                        </div>
+                                        <% } %>
+
+                                        <% if(series_manager.includes('/edit-series/:id') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Edit
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Edit
+                                        </div>
+                                        <% } %>
+                                        <% if(series_manager.includes('/view-series,/series-Data-Table') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            View
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            View
+                                        </div>
+                                        <% } %>
+
+                                        <% if(series_manager.includes('/update-series-status/:id') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Update Series status
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Update Series status
+                                        </div>
+                                        <% } %>
+
+                                    </div>
+                                </div>
+                                <div
+                                    class="form-group col-md-4 align-self-stretch align-items-center h-revert my-0 pb-5">
+                                    <label class="control-label text-bold text-dark fs-md-15 fs-14"><i
+                                            class="fad fa-shield-alt text-success"></i> Teams Manager</label>
+                                    <div class="row mx-0 shadow rounded h-100 py-2 align-content-start mb-n4">
+                                        <% if(teams_manager.includes('/edit-Team/:id') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Edit
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Edit
+                                        </div>
+                                        <% } %>
+
+                                        <% if(teams_manager.includes('/view-teams,/teams-Data-Table') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            View
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            View
+                                        </div>
+                                        <% } %>
+                                        <% if(teams_manager.includes('/download-team-data') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Download Team Data
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Download Team Data
+                                        </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+                                <div
+                                    class="form-group col-md-4 align-self-stretch align-items-center h-revert my-0 pb-5">
+                                    <label class="control-label text-bold text-dark fs-md-15 fs-14"><i
+                                            class="fad fa-shield-alt text-success"></i> Player Manager</label>
+                                    <div class="row mx-0 shadow rounded h-100 py-2 align-content-start mb-n4">
+                                        <% if(player_manager.includes('/edit-player') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Edit
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Edit
+                                        </div>
+                                        <% } %>
+                                        <% if(player_manager.includes('/view-player,/view-player-datatable') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            View
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            View
+                                        </div>
+                                        <% } %>
+                                        <% if(player_manager.includes('/save-player-roles') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Update Credit
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Update Credit
+                                        </div>
+                                        <% } %>
+                                        <% if(player_manager.includes('/add-player-manually') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i> Add
+                                            manually
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i> Add
+                                            manually
+                                        </div>
+                                        <% } %>
+                                        <% if(player_manager.includes('/download-all-player-details') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Download players data
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Download players data
+                                        </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="form-group col-md-4 align-self-stretch align-items-center h-revert my-0 pb-5">
+                                    <label class="control-label text-bold text-dark fs-md-15 fs-14"><i
+                                            class="fad fa-shield-alt text-success"></i> Upcoming Matches</label>
+                                    <div class="row mx-0 shadow rounded h-100 py-2 align-content-start mb-n4">
+                                        <% if(upcoming_matches.includes('/view_AllUpcomingMatches,/view_AllUpcomingMatches-data-table,/upcoming-matches-datatable') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            View
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            View
+                                        </div>
+                                        <% } %>
+                                        <% if(upcoming_matches.includes('/edit-match/:id') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Edit matches & series
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Edit matches & series
+                                        </div>
+                                        <% } %>
+                                        <% if(upcoming_matches.includes('/import-squad') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Import players
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Import players
+                                        </div>
+                                        <% } %>
+                                        <% if(upcoming_matches.includes('/launch/:id,/launch-match/:id') === true) { %>
+                                        <div class="col-12 mb-1 fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Launch match
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Launch match
+                                        </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="form-group col-md-4 align-self-stretch align-items-center h-revert my-0 pb-5">
+                                    <label class="control-label text-bold text-dark fs-md-15 fs-14"><i
+                                            class="fad fa-shield-alt text-success"></i> All Matches</label>
+                                    <div class="row mx-0 shadow rounded h-100 py-2 align-content-start mb-n4">
+                                        <% if(all_matches.includes('/view-AllMatches,/view-AllMatches-data-table') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            View
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            View
+                                        </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="form-group col-md-4 align-self-stretch align-items-center h-revert my-0 pb-5">
+                                    <label class="control-label text-bold text-dark fs-md-15 fs-14"><i
+                                            class="fad fa-shield-alt text-success"></i> Update Playing XI</label>
+                                    <div class="row mx-0 shadow rounded h-100 py-2 align-content-start mb-n4">
+                                        <% if(update_playing_xi.includes('/update-playing-11') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            View
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            View
+                                        </div>
+                                        <% } %>
+                                        <% if(update_playing_xi.includes('/match-player1,/match-player2,/pp1,/pp2,/launch-playing') === true) { %>
+                                        <div class="col-12 mb-1 fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Players Select / Launch Playing11
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Players Select / Launch Playing11
+                                        </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="form-group col-md-4 align-self-stretch align-items-center h-revert my-0 pb-5">
+                                    <label class="control-label text-bold text-dark fs-md-15 fs-14"><i
+                                            class="fad fa-shield-alt text-success"></i> User Manager</label>
+                                    <div class="row mx-0 shadow rounded h-100 py-2 align-content-start mb-n4">
+                                        <% if(user_manager.includes('/index,/view-users-datatable') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i> All Users
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i> All Users
+                                        </div>
+                                        <% } %>
+                                        <% if(user_manager.includes('/user-details') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Users details
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Users details
+                                        </div>
+                                        <% } %>
+                                        <% if(user_manager.includes('/edit-user-details') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Edit user details
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Edit user details
+                                        </div>
+                                        <% } %>
+                                        <% if(user_manager.includes('/update-user-details') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Update user details
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Update user details
+                                        </div>
+                                        <% } %>
+                                        <% if(user_manager.includes('/update-user-status') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Users status
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Users status
+                                        </div>
+                                        <% } %>
+                                        <% if(user_manager.includes('/download-all-user-details') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Download users
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Download users
+                                        </div>
+                                        <% } %>
+                                        <% if(user_manager.includes('/download-all-users-transaction') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Download users transaction
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Download users transaction
+                                        </div>
+                                        <% } %>
+                                        <% if(user_manager.includes('/view-transactions,/view-transactions-table') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Users transactions
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Users transactions
+                                        </div>
+                                        <% } %>
+                                        <% if(user_manager.includes('/users-wallet,/users-wallet-table') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            User Wallet
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            User Wallet
+                                        </div>
+                                        <% } %>
+                                        <% if(user_manager.includes('/admin-wallet,/wallet-list') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Admin Wallet
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Admin Wallet
+                                        </div>
+                                        <% } %>
+                                        <% if(user_manager.includes('/give-admin-wallet,/search-admin-wallet,/deduct-money-in-wallet,/add-money-in-wallet,/details') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Admin add / delete money to / from wallet
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Admin add / delete money to / from wallet
+                                        </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+                                <div
+                                    class="form-group col-md-4 align-self-stretch align-items-center h-revert my-0 pb-5">
+                                    <label class="control-label text-bold text-dark fs-md-15 fs-14"><i
+                                            class="fad fa-shield-alt text-success"></i> Verify Manager</label>
+                                    <div class="row mx-0 shadow rounded h-100 py-2 align-content-start mb-n4">
+                                        <% if(verify_manager.includes('/verify-pan,/verify-pan-table') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Verify Pan
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Verify Pan
+                                        </div>
+                                        <% } %>
+                                        <% if(verify_manager.includes('/view-pan-details') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            View Pan detail
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            View Pan detail
+                                        </div>
+                                        <% } %>
+                                        <% if(verify_manager.includes('/edit-pan-details,/update-pan-status') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Edit Pan detail
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Edit Pan detail
+                                        </div>
+                                        <% } %>
+                                        <% if(verify_manager.includes('/verify-bank-account,/verify-bank-account-table') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Verify Bank
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Verify Bank
+                                        </div>
+                                        <% } %>
+                                        <% if(verify_manager.includes('/view-bank-details') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            View Bank detail
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            View Bank detail
+                                        </div>
+                                        <% } %>
+                                        <% if(verify_manager.includes('/edit-bank-details,/update-bank-status') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Edit Bank detail
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Edit Bank detail
+                                        </div>
+                                        <% } %>
+                                        <% if(verify_manager.includes('/withdraw-amount,/withdrawl-amount-table') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Withdraw Requests
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Withdraw Requests
+                                        </div>
+                                        <% } %>
+                                        <% if(verify_manager.includes('/download-withdrawal-data') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Download Withdraw Requests
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Download Withdraw Requests
+                                        </div>
+                                        <% } %>
+                                        <% if(verify_manager.includes('/approve,/withdrawl-amount-table') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Approve and Cancel withdraw
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Approve and Cancel withdraw
+                                        </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+                                <div
+                                    class="form-group col-md-4 align-self-stretch align-items-center h-revert my-0 pb-5">
+                                    <label class="control-label text-bold text-dark fs-md-15 fs-14"><i
+                                            class="fad fa-shield-alt text-success"></i> Received fund</label>
+                                    <div class="row mx-0 shadow rounded h-100 py-2 align-content-start mb-n4">
+                                        <% if(received_fund.includes('/card,/cardtable') === true) { %>
+                                        <div class="col-12 mb-1 fs-13">
+                                            <i class="fas fa-check-circle text-success"></i> View
+                                            Received Fund
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i> View
+                                            Received Fund
+                                        </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+                                <div
+                                    class="form-group col-md-4 align-self-stretch align-items-center h-revert my-0 pb-5">
+                                    <label class="control-label text-bold text-dark fs-md-15 fs-14"><i
+                                            class="fad fa-shield-alt text-success"></i>
+                                        Notifications</label>
+                                    <div class="row mx-0 shadow rounded h-100 py-2 align-content-start mb-n4">
+                                        <% if(notifications.includes('/push-notifications,/getusers,/addmodule,/import') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Android Notifications
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Android Notifications
+                                        </div>
+                                        <% } %>
+                                        <% if(notifications.includes('/email-notifications,/getusers,/addmodule,/import') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Email Notifications
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Email Notifications
+                                        </div>
+                                        <% } %>
+                                        <% if(notifications.includes('/sms-notifications,/getusers,/addmodule,/import') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i> SMS
+                                            Notifications
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i> SMS
+                                            Notifications
+                                        </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="form-group col-md-4 align-self-stretch align-items-center h-revert my-0 pb-5">
+                                    <label class="control-label text-bold text-dark fs-md-15 fs-14"><i
+                                            class="fad fa-shield-alt text-success"></i> Contest Full Detail</label>
+                                    <div class="row mx-0 shadow rounded h-100 py-2 align-content-start mb-n4">
+                                        <% if(contest_full_detail.includes('/full-detail1') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            View
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            View
+                                        </div>
+                                        <% } %>
+                                        <% if(contest_full_detail.includes('/all-contests,/all-users,/user-team,/view-join-users-datatable') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i> All
+                                            Contest
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i> All
+                                            Contest
+                                        </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="form-group col-md-4 align-self-stretch align-items-center h-revert my-0 pb-5">
+                                    <label class="control-label text-bold text-dark fs-md-15 fs-14"><i
+                                            class="fad fa-shield-alt text-success"></i> Contest Category
+                                        Managers</label>
+                                    <div class="row mx-0 shadow rounded h-100 py-2 align-content-start mb-n4">
+                                        <% if(contest_catagory_manager.includes('/create-contest-category') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i> Add
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i> Add
+                                        </div>
+                                        <% } %>
+                                        <% if(contest_catagory_manager.includes('/edit-contest-category') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Edit
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Edit
+                                        </div>
+                                        <% } %>
+                                        <% if(contest_catagory_manager.includes('/view-contest-Category,/contest-Category-table') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            View
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            View
+                                        </div>
+                                        <% } %>
+                                        <% if(contest_catagory_manager.includes('/delete-contest-category') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Delete
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Delete
+                                        </div>
+                                        <% } %>
+                                        <% if(contest_catagory_manager.includes('/view-search-contest-category') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Search
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Search
+                                        </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="form-group col-md-4 align-self-stretch align-items-center h-revert my-0 pb-5">
+                                    <label class="control-label text-bold text-dark fs-md-15 fs-14"><i
+                                            class="fad fa-shield-alt text-success"></i> Global Contest</label>
+                                    <div class="row mx-0 shadow rounded h-100 py-2 align-content-start mb-n4">
+                                        <% if(global_contest.includes('/create-global,/add-pricecard') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i> Add
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i> Add
+                                        </div>
+                                        <% } %>
+                                        <% if(global_contest.includes('/edit-global-contest') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Edit
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Edit
+                                        </div>
+                                        <% } %>
+                                        <% if(global_contest.includes('/global-index,/global-index-datatable') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            View
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            View
+                                        </div>
+                                        <% } %>
+                                        <% if(global_contest.includes('/global-cat-mul-delete') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Multi delete
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Multi delete
+                                        </div>
+                                        <% } %>
+                                        <% if(global_contest.includes('/delete-global-contest') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Delete
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Delete
+                                        </div>
+                                        <% } %>
+                                        <% if(global_contest.includes('/add-price-card,/delete-match-price-card') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Price Card
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Price Card
+                                        </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="form-group col-md-4 align-self-stretch align-items-center h-revert my-0 pb-5">
+                                    <label class="control-label text-bold text-dark fs-md-15 fs-14"><i
+                                            class="fad fa-shield-alt text-success"></i> Custom Contest</label>
+                                    <div class="row mx-0 shadow rounded h-100 py-2 align-content-start mb-n4">
+                                        <% if(custom_contest.includes('/create-custom') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i> Add
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i> Add
+                                        </div>
+                                        <% } %>
+                                        <% if(custom_contest.includes('/edit-custom-contest') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Edit
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Edit
+                                        </div>
+                                        <% } %>
+                                        <% if(custom_contest.includes('/create-custom-contest') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            View
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            View
+                                        </div>
+                                        <% } %>
+                                        <% if(custom_contest.includes('/delete-custom-contest') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Delete
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Delete
+                                        </div>
+                                        <% } %>
+                                        <% if(custom_contest.includes('/make-confirmed') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Make Confirmed
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Make Confirmed
+                                        </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="form-group col-md-4 align-self-stretch align-items-center h-revert my-0 pb-5">
+                                    <label class="control-label text-bold text-dark fs-md-15 fs-14"><i
+                                            class="fad fa-shield-alt text-success"></i> Import League In Contest</label>
+                                    <div class="row mx-0 shadow rounded h-100 py-2 align-content-start mb-n4">
+                                        <% if(import_leauge_in_contest.includes('/import-data') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Import Contest
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Import Contest
+                                        </div>
+                                        <% } %>
+                                        <% if(import_leauge_in_contest.includes('/contest-cancel') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Cancel Contest
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Cancel Contest
+                                        </div>
+                                        <% } %>
+                                        <% if(import_leauge_in_contest.includes('/add-match-price-card,/delete-price-card') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Add/Edit Price Cards
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Add/Edit Price Cards
+                                        </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+                                <div
+                                    class="form-group col-md-4 align-self-stretch align-items-center h-revert my-0 pb-5">
+                                    <label class="control-label text-bold text-dark fs-md-15 fs-14"><i
+                                            class="fad fa-shield-alt text-success"></i>
+                                        Results</label>
+                                    <div class="row mx-0 shadow rounded h-100 py-2 align-content-start mb-n4">
+                                        <% if(results.includes('/match-result,/match-detail') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            View Result
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            View Result
+                                        </div>
+                                        <% } %>
+                                        <% if(results.includes('/update-points,/batting-points,/bowling-points,/fielding-points,/team-points,/match-score,/select-join-person') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Update Points
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Update Points
+                                        </div>
+                                        <% } %>
+                                        <% if(results.includes('/refund-all-amount,/refund-amount,/refund-process') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Refund amount
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Refund amount
+                                        </div>
+                                        <% } %>
+                                        <% if(results.includes('/update-match-final-status,/update-scores,/user-points') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Update Match Final Status
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Update Match Final Status
+                                        </div>
+                                        <% } %>
+                                        <% if(results.includes('/match-points,/view-winners,/distribute-winning-amount') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i> Is
+                                            Reviewed or Declare Winner
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i> Is
+                                            Reviewed or Declare Winner
+                                        </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+                                <div
+                                    class="form-group col-md-4 align-self-stretch align-items-center h-revert my-0 pb-5">
+                                    <label class="control-label text-bold text-dark fs-md-15 fs-14"><i
+                                            class="fad fa-shield-alt text-success"></i>
+                                        Banner</label>
+                                    <div class="row mx-0 shadow rounded h-100 py-2 align-content-start mb-n4">
+                                        <% if(banner.includes('/view-all-Banner') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            View
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            View
+                                        </div>
+                                        <% } %>
+                                        <% if(banner.includes('/add-banner,/sidebanner') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i> Add
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i> Add
+                                        </div>
+                                        <% } %>
+                                        <% if(banner.includes('/edit-sideBanner') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Edit
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Edit
+                                        </div>
+                                        <% } %>
+                                        <% if(banner.includes('/delete-sidebanner') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Delete
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Delete
+                                        </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+                                <div
+                                    class="form-group col-md-4 align-self-stretch align-items-center h-revert my-0 pb-5">
+                                    <label class="control-label text-bold text-dark fs-md-15 fs-14"><i
+                                            class="fad fa-shield-alt text-success"></i> General Tabs Manager</label>
+                                    <div class="row mx-0 shadow rounded h-100 py-2 align-content-start mb-n4">
+                                        <% if(general_tab_manager.includes('/index,/viewrefer,/delete,/deleterefer') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Update Bonus
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Update Bonus
+                                        </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+                                <div
+                                    class="form-group col-md-4 align-self-stretch align-items-center h-revert my-0 pb-5">
+                                    <label class="control-label text-bold text-dark fs-md-15 fs-14"><i
+                                            class="fad fa-shield-alt text-success"></i> Add point Manager</label>
+                                    <div class="row mx-0 shadow rounded h-100 py-2 align-content-start mb-n4">
+                                        <% if(add_point_manager.includes('/point,/add-pointt') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Add/View
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Add/View
+                                        </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+                                <div
+                                    class="form-group col-md-4 align-self-stretch align-items-center h-revert my-0 pb-5">
+                                    <label class="control-label text-bold text-dark fs-md-15 fs-14"><i
+                                            class="fad fa-shield-alt text-success"></i> Offers Manager</label>
+                                    <div class="row mx-0 shadow rounded h-100 py-2 align-content-start mb-n4">
+                                        <% if(offers_manager.includes('/view-all-offer,/viewAllOffer-data-table') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            View
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            View
+                                        </div>
+                                        <% } %>
+                                        <% if(offers_manager.includes('/add-offer') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i> Add
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i> Add
+                                        </div>
+                                        <% } %>
+                                        <% if(offers_manager.includes('/editoffers') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Edit
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Edit
+                                        </div>
+                                        <% } %>
+                                        <% if(offers_manager.includes('/deleteoffers') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Delete
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Delete
+                                        </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+                                <div
+                                    class="form-group col-md-4 align-self-stretch align-items-center h-revert my-0 pb-5">
+                                    <label class="control-label text-bold text-dark fs-md-15 fs-14"><i
+                                            class="fad fa-shield-alt text-success"></i> Youtuber Manager</label>
+                                    <div class="row mx-0 shadow rounded h-100 py-2 align-content-start mb-n4">
+                                        <% if(youtuber_manager.includes('/view-youtuber,/view-youtuber-dt') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            View
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            View
+                                        </div>
+                                        <% } %>
+                                        <% if(youtuber_manager.includes('/add-youtuber') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i> Add
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i> Add
+                                        </div>
+                                        <% } %>
+                                        <% if(youtuber_manager.includes('/edit-youtuber') === true) { %>
+                                        <div class="col-12 mb-1 fs-13">
+                                            <i class="fas fa-check-circle text-success"></i> Edit
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i> Edit
+                                        </div>
+                                        <% } %>
+                                        <% if(youtuber_manager.includes('/delete-youtuber') === true) { %>
+                                        <div class="col-12 mb-1 fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Delete
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Delete
+                                        </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+                                <div
+                                    class="form-group col-md-4 align-self-stretch align-items-center h-revert my-0 pb-5">
+                                    <label class="control-label text-bold text-dark fs-md-15 fs-14"><i
+                                            class="fad fa-shield-alt text-success"></i> Point System Manager</label>
+                                    <div class="row mx-0 shadow rounded h-100 py-2 align-content-start mb-n4">
+                                        <% if(point_system_manager.includes('/pointSystem') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            View Point System
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            View Point System
+                                        </div>
+                                        <% } %>
+                                        <% if(point_system_manager.includes('/update_point_system') === true) { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            Update Point System
+                                        </div>
+                                        <% } else { %>
+                                        <div class="col-12 mb-1 text-dark fs-13">
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            Update Point System
+                                        </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <%- include("../../partials/footer") %>
+
+    <script>
+        $(window).on("load", function () {
+            $("#preloader_admin").hide();
+        });
+    </script>
+
+    <script>
+        $("#b1").click(function () {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: "btn btn-sm btn-success",
+                    cancelButton: "btn btn-sm btn-danger",
+                },
+                buttonsStyling: false,
+            });
+
+            swalWithBootstrapButtons
+                .fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "success",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes, delete it!",
+                    cancelButtonText: "No, cancel!",
+                    reverseButtons: true,
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        swalWithBootstrapButtons.fire(
+                            "Deleted!",
+                            "Your file has been deleted.",
+                            "success"
+                        );
+                    } else if (
+                        /* Read more about handling dismissals below */
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+                        swalWithBootstrapButtons.fire(
+                            "Cancelled",
+                            "Your imaginary file is safe :)",
+                            "error"
+                        );
+                    }
+                });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            var table = $("#dataTabless").DataTable({
+                responsive: true,
+            });
+
+            // Handle click on "Expand All" button
+            $("#btn-show-all-children").on("click", function () {
+                // Expand row details
+                table
+                    .rows(":not(.parent)")
+                    .nodes()
+                    .to$()
+                    .find("td:first-child")
+                    .trigger("click");
+            });
+
+            // Handle click on "Collapse All" button
+            $("#btn-hide-all-children").on("click", function () {
+                // Collapse row details
+                table
+                    .rows(".parent")
+                    .nodes()
+                    .to$()
+                    .find("td:first-child")
+                    .trigger("click");
+            });
+        });
+    </script>
+
+    <script>
+        $("#special").on("click", function () {
+            mySelect.find("option:selected").prop("disabled", true);
+            mySelect.selectpicker("refresh");
+        });
+
+        $("#special2").on("click", function () {
+            mySelect.find("option:disabled").prop("disabled", false);
+            mySelect.selectpicker("refresh");
+        });
+
+        $("#basic2").selectpicker({
+            liveSearch: true,
+            maxOptions: 1,
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            if ($("#accordionSidenavPages a").hasClass("active")) {
+                $("#accordionSidenavPages a.active")
+                    .parent()
+                    .parent()
+                    .prev("a")
+                    .removeClass("collapsed");
+                $("#accordionSidenavPages a.active").parent().parent().addClass("show");
+                // console.log(id);
+            } else {
+                $("#takeonebar").addClass("slamdown");
+            }
+        });
+    </script>
+    <script>
+        $("#sortable, #sortable2").sortable();
+    </script>
+    <script>
+        $(".alert").delay(3000).fadeOut();
+    </script>
+
+    <script type="text/javascript">
+        $.datetimepicker.setLocale("en");
+        $(".datetimepickerget").datetimepicker({
+            lang: "en",
+            formatDate: "d.m.Y",
+            step: 5,
+            startDate: new Date(),
+        });
+    </script>
+    <script type="text/javascript">
+        $(".datepicker").datepicker({
+            lang: "en",
+            formatDate: "d.m.Y",
+            step: 5,
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#select_all").on("click", function () {
+                if (this.checked) {
+                    $(".checkbox").each(function () {
+                        this.checked = true;
+                    });
+                } else {
+                    $(".checkbox").each(function () {
+                        this.checked = false;
+                    });
+                }
+            });
+
+            $(".checkbox").on("click", function () {
+                if ($(".checkbox:checked").length == $(".checkbox").length) {
+                    $("#select_all").prop("checked", true);
+                } else {
+                    $("#select_all").prop("checked", false);
+                }
+            });
+        });
+    </script>
+    <script>
+        function isNumberKey(evt) {
+            // Function to accept only numeric values
+            //var e = evt || window.event;
+
+            var charCode = (evt.which) ? evt.which : evt.keyCode
+            if (charCode != 46 && charCode > 31 &&
+                (charCode < 48 || charCode > 57))
+
+                return false;
+            else {
+                var itemdecimal = evt.srcElement.value.split('.');
+                if (itemdecimal.length > 1 && charCode == 46)
+                    return false;
+
+                return true;
+            }
+        }
+    </script>
+   
+    <script>
+        function divshowhide(value) {
+            if (value == "specific") {
+                $("#specificdiv").removeClass("d-none");
+                $("#specificdiv1").show();
+                $("#specificdiv2").show();
+            } else {
+                $("#specificdiv").addClass("d-none");
+                $("#specificdiv1").hide();
+                $("#specificdiv2").hide();
+            }
+        }
+
+        function deletediv1(e, item) {
+            $("#dsafd" + item).remove();
+        }
+    </script>
+
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $("#" + input.id + "-imagePreview").css(
+                        "background-image",
+                        "url(" + e.target.result + ")"
+                    );
+                    $("#" + input.id + "-imagePreview").hide();
+                    $("#" + input.id + "-imagePreview").fadeIn(650);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $(".imageUpload").change(function () {
+            readURL(this);
+        });
+    </script>
+
+    <script>
+        // This is only for the Inputs to work dynamically
+
+        function setTheme(H, inputType) {
+            // Convert hex to RGB first
+            let r = 0,
+                g = 0,
+                b = 0;
+            if (H.length == 4) {
+                r = "0x" + H[1] + H[1];
+                g = "0x" + H[2] + H[2];
+                b = "0x" + H[3] + H[3];
+            } else if (H.length == 7) {
+                r = "0x" + H[1] + H[2];
+                g = "0x" + H[3] + H[4];
+                b = "0x" + H[5] + H[6];
+            }
+            // Then to HSL
+            r /= 255;
+            g /= 255;
+            b /= 255;
+            let cmin = Math.min(r, g, b),
+                cmax = Math.max(r, g, b),
+                delta = cmax - cmin,
+                h = 0,
+                s = 0,
+                l = 0;
+
+            if (delta == 0) h = 0;
+            else if (cmax == r) h = ((g - b) / delta) % 6;
+            else if (cmax == g) h = (b - r) / delta + 2;
+            else h = (r - g) / delta + 4;
+
+            h = Math.round(h * 60);
+
+            if (h < 0) h += 360;
+
+            l = (cmax + cmin) / 2;
+            s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+            s = +(s * 100).toFixed(1);
+            l = +(l * 100).toFixed(1);
+
+            document.documentElement.style.setProperty(`--${inputType}-color-h`, h);
+            document.documentElement.style.setProperty(
+                `--${inputType}-color-s`,
+                s + "%"
+            );
+            document.documentElement.style.setProperty(
+                `--${inputType}-color-l`,
+                l + "%"
+            );
+
+            hsl = h + " " + s + " " + l + "";
+
+            //   $('#'+inputType+'-color-input').val( hsl );
+
+            $('input[name="input[' + inputType + '_hsl]"').val(hsl);
+        }
+
+        const inputs = [
+            "primary",
+            "secondary",
+            "info",
+            "success",
+            "danger",
+            "warning",
+            "muted",
+            "dark",
+            "light",
+            "black",
+            "white",
+            "blue",
+            "indigo",
+            "purple",
+            "pink",
+            "red",
+            "orange",
+            "yellow",
+            "green",
+            "teal",
+            "cyan",
+            "gray",
+            "graydark",
+        ];
+
+        inputs.forEach((inputType) => {
+            document
+                .querySelector(`#${inputType}-color-input`)
+                .addEventListener("change", (e) => {
+                    setTheme(e.target.value, inputType);
+                });
+        });
+    </script>
+
+    <script>
+        /*jslint browser:true*/
+        /*global jQuery, document*/
+
+        jQuery(document).ready(function () {
+            "use strict";
+
+            jQuery(
+                "#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date"
+            ).datetimepicker();
+        });
+    </script>
+
+    <script>
+        function copyToClipboard(element, element1) {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val($(element).text()).select();
+            document.execCommand("copy");
+            $temp.remove();
+
+            $(element1).addClass("copied_success animated bounceIn");
+            setTimeout(RemoveClass, 1000);
+
+            function RemoveClass() {
+                $(element1).removeClass("copied_success animated bounceIn");
+            }
+        }
+    </script>
+
+    <script>
+        function delete_sweet_alert(url, msg) {
+            // sweet alert
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: "btn btn-sm btn-success ml-2",
+                    cancelButton: "btn btn-sm btn-danger",
+                },
+                buttonsStyling: false,
+            });
+
+            swalWithBootstrapButtons
+                .fire({
+                    title: msg,
+                    text: "You won't be able to revert this!",
+                    icon: "success",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes",
+                    cancelButtonText: "No",
+                    reverseButtons: true,
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        swalWithBootstrapButtons.fire("", "Successfully Done", "success");
+
+                        window.location.href = url;
+                    } else if (
+                        /* Read more about handling dismissals below */
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+                        swalWithBootstrapButtons.fire(
+                            "Cancelled",
+                            "Cancelled successfully :)",
+                            "error"
+                        );
+                        return false;
+                    }
+                });
+        }
+    </script>
+</div>

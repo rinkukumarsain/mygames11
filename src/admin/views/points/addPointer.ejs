@@ -1,0 +1,180 @@
+<%- include("../../partials/head") %>
+
+<%- include("../../partials/bodyStartWithNavBar/") %>
+<%- include("../../partials/sideNav") %>
+<div id="layoutSidenav_content">
+    <main>
+
+        <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <div class="page-header-content">
+                            <h1 class="page-header-title fs-md-35 fs-20">
+
+                                <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                                <span class=" text-capitalize">
+                                        Point
+                                </span>
+                            </h1>
+                            <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                                    Add Point
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto mb-md-0 mb-3">
+                                                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid mt-n10">
+            
+
+<div class="card">
+<div class="card-header">Add Point</div>
+<form  data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" action="/add-point-data" method="post">
+
+<div class="sbp-preview">
+    <div class="sbp-preview-content">
+        <div class="row mx-0">
+            <div class="col-12">
+                <div class="form-group my-3">
+                    <label for="firt-name">Points*</label>
+                     <textarea required="required" name="updation_points" class="form-control form-control-solid ckeditor" type="text" placeholder="Enter points" onkeypress='isNumberKey(event)'><%=data %></textarea>
+                </div>
+            </div>
+            <div class="col-12 text-right mt-4 mb-2">
+              <button class="btn btn-sm btn-success text-uppercase" type="submit"><i class="far fa-check-circle"></i>&nbsp;Submit</button>
+          </div>
+        </div>
+    </div>
+</div>
+</form>
+</div>
+
+        </div>
+    </main>
+<%- include("../../partials/footer") %>
+
+<script>
+
+    $(window).on('load', function(){
+
+       $('#preloader_admin').hide();
+
+      })
+  </script>
+
+
+
+
+<script>
+$(document).ready(function(){
+  
+if ($('#accordionSidenavPages a').hasClass('active')){
+  $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
+  $('#accordionSidenavPages a.active').parent().parent().addClass('show');
+  // console.log(id);
+} else {
+  $('#takeonebar').addClass('slamdown');
+}
+});
+
+</script>
+
+
+</script>
+
+
+
+  <script>
+      function readURL(input) {
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function(e) {
+              $('#' + input.id + '-imagePreview').css('background-image', 'url('+e.target.result +')');
+              $('#' + input.id + '-imagePreview').hide();
+              $('#' + input.id + '-imagePreview').fadeIn(650);
+          }
+          reader.readAsDataURL(input.files[0]);
+      }
+  }
+  $(".imageUpload").change(function() {
+      readURL(this);
+  });
+  </script>
+
+
+
+
+
+
+<!-- <script>
+  // This is only for the Inputs to work dynamically
+
+function setTheme(H, inputType) {
+// Convert hex to RGB first
+let r = 0, g = 0, b = 0;
+if (H.length == 4) {
+  r = "0x" + H[1] + H[1];
+  g = "0x" + H[2] + H[2];
+  b = "0x" + H[3] + H[3];
+} else if (H.length == 7) {
+  r = "0x" + H[1] + H[2];
+  g = "0x" + H[3] + H[4];
+  b = "0x" + H[5] + H[6];
+}
+// Then to HSL
+r /= 255;
+g /= 255;
+b /= 255;
+let cmin = Math.min(r,g,b),
+    cmax = Math.max(r,g,b),
+    delta = cmax - cmin,
+    h = 0,
+    s = 0,
+    l = 0;
+
+if (delta == 0)
+  h = 0;
+else if (cmax == r)
+  h = ((g - b) / delta) % 6;
+else if (cmax == g)
+  h = (b - r) / delta + 2;
+else
+  h = (r - g) / delta + 4;
+
+h = Math.round(h * 60);
+
+if (h < 0)
+  h += 360;
+
+l = (cmax + cmin) / 2;
+s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+s = +(s * 100).toFixed(1);
+l = +(l * 100).toFixed(1);
+
+document.documentElement.style.setProperty(`--${inputType}-color-h`, h);
+document.documentElement.style.setProperty(`--${inputType}-color-s`, s + '%');
+document.documentElement.style.setProperty(`--${inputType}-color-l`, l + '%');
+
+hsl = h + ' ' + s + ' ' + l + '';
+
+//   $('#'+inputType+'-color-input').val( hsl );
+
+$('input[name="input[' + inputType + '_hsl]"').val( hsl );
+}
+
+const inputs = ['primary', 'secondary', 'info', 'success', 'danger', 'warning', 'muted', 'dark', 'light', 'black', 'white', 'blue','indigo', 'purple', 'pink', 'red', 'orange','yellow', 'green', 'teal', 'cyan', 'gray', 'graydark'];
+
+inputs.forEach((inputType) => {
+document.querySelector(`#${inputType}-color-input`)
+  .addEventListener('change', (e) => {
+  setTheme(e.target.value, inputType);
+
+});
+
+});
+
+</script> -->
+

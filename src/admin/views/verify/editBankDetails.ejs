@@ -1,0 +1,266 @@
+<%- include("../../partials/head") %>
+
+    <%- include("../../partials/bodyStartWithNavBar/") %>
+        <%- include("../../partials/sideNav") %>
+<div id="layoutSidenav_content">
+    <main>
+
+        <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <div class="page-header-content">
+                            <h1 class="page-header-title fs-md-35 fs-20">
+
+                                <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                                <span class=" text-capitalize">
+                                        Verification Manager
+                                </span>
+                            </h1>
+                            <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                                Edit Bank Details
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto mb-md-0 mb-3">
+         <a  href="/verifybankaccount" class="btn btn-sm btn-light font-weight-bold text-uppercase mr-2 text-primary float-right"><i class="fad fa-eye"></i> View all Bank requests</a>
+                 </div>
+              </div>
+            </div>
+        </div>
+        <div class="container-fluid mt-n10">
+ 
+<div class="card">
+    <div class="card-header">Edit bank details</div>
+      <form class="card-body" action="/Update-Credentials-Bank" method="post" id="firstform">
+        <input type="hidden" name="userid" id="userid" value="<%=editUser._id %>">
+
+        <div class="sbp-preview">
+            <div class="sbp-preview-content">
+                <div class="row mx-0">
+                    <div class="col-6">
+                        <label>Account Number</label>
+                        <div class="form-group my-3">
+                            <input type="text" class="p-1 form-control form-control-solid col-xsm-3" value="<%=editUser.bank.accno || 0 %>" placeholder="Enter Account Number Here" name="accno" id="accno">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label>IFSC Number</label>
+                        <div class="form-group my-3">
+                        <input type="text" class="p-1 form-control form-control-solid col-xsm-3" value="<%=editUser.bank.ifsc || 0 %>" placeholder="Enter IFSC Code Here" name="ifsc" id="ifsc">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label>Bank Name</label>
+                        <div class="form-group my-3">
+                            <input type="text" class="p-1 form-control form-control-solid col-xsm-3" value="<%=editUser.bank.bankname || '' %>" name="bankname" id="bankname">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label>Bank Branch</label>
+                        <div class="form-group my-3">
+                            <input type="text" class="p-1 form-control form-control-solid col-xsm-3" value="<%=editUser.bank.bankbranch || '' %>" name="bankbranch" id="bankbranch">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group my-3">
+                                <select class="p-1 form-control form-control-solid col-xsm-3" name="state" id="state" placeholder="-- Select Status --">
+                                    <option value="">Select State</option> 
+    <option value="Andaman and Nicobar Islands"<%=editUser.bank.state == 'Andaman and Nicobar Islands' ? 'selected' : '' %>>Andaman and Nicobar Islands</option>
+    <option value="Andhra Pradesh"<%=editUser.bank.state == 'Andhra Pradesh' ? 'selected' : '' %>>Andhra Pradesh</option>
+    <option value="Arunachal Pradesh"<%=editUser.bank.state == 'Arunachal Pradesh' ? 'selected' : '' %>>Arunachal Pradesh</option>
+    <option value="Bihar" <%=editUser.bank.state == 'Bihar' ? 'selected' : '' %>>Bihar</option>
+    <option value="Chandigarh"  <%=editUser.bank.state == 'Chandigarh' ? 'selected' : '' %>>Chandigarh</option>
+    <option value="Chhattisgarh" <%=editUser.bank.state == 'Chhattisgarh' ? 'selected' : '' %>>Chhattisgarh</option>
+    <option value="Dadra and Nagar Haveli"<%=editUser.bank.state == 'Dadra and Nagar Haveli' ? 'selected' : '' %>>Dadra and Nagar Haveli</option>
+    <option value="Daman and Diu" <%=editUser.bank.state == 'Daman and Diu' ? 'selected' : '' %>>Daman and Diu</option>
+    <option value="Delhi"  <%=editUser.bank.state == 'Delhi' ? 'selected' : '' %>>Delhi</option>
+    <option value="Goa" <%=editUser.bank.state == 'Goa' ? 'selected' : '' %>>Goa</option>
+    <option value="Gujarat" <%=editUser.bank.state == 'Gujarat' ? 'selected' : '' %>>Gujarat</option>
+    <option value="Haryana"  <%=editUser.bank.state == 'Haryana' ? 'selected' : '' %>>Haryana</option>
+    <option value="Himachal Pradesh" <%=editUser.bank.state == 'Himachal Pradesh' ? 'selected' : '' %>>Himachal Pradesh</option>
+    <option value="Jammu & Kashmir"  <%=editUser.bank.state == 'Jammu & Kashmir' ? 'selected' : '' %>>Jammu & Kashmir</option>
+    <option value="Jharkhand" <%=editUser.bank.state == 'Jharkhand' ? 'selected' : '' %>>Jharkhand</option>
+    <option value="Karnataka"  <%=editUser.bank.state == 'Karnataka' ? 'selected' : '' %>>Karnataka</option>
+    <option value="Kerala" <%=editUser.bank.state == 'Kerala' ? 'selected' : '' %>>Kerala</option>
+    <option value="Lakshadweep" <%=editUser.bank.state == 'Lakshadweep' ? 'selected' : '' %>>Lakshadweep</option>
+    <option value="Madhya Pradesh"<%=editUser.bank.state == 'Madhya Pradesh' ? 'selected' : '' %>>Madhya Pradesh</option>
+    <option value="Maharashtra"  <%=editUser.bank.state == 'Maharashtra' ? 'selected' : '' %>>Maharashtra</option>
+    <option value="Manipur"  <%=editUser.bank.state == 'Manipur' ? 'selected' : '' %>>Manipur</option>
+    <option value="Meghalaya"   <%=editUser.bank.state == 'Meghalaya' ? 'selected' : '' %>>Meghalaya</option>
+    <option value="Mizoram" <%=editUser.bank.state == 'Mizoram' ? 'selected' : '' %>>Mizoram</option>
+    <option value="Nagaland"  <%=editUser.bank.state == 'Nagaland' ? 'selected' : '' %>>Nagaland</option>
+    <option value="Orissa"  <%=editUser.bank.state == 'Orissa' ? 'selected' : '' %>>Orissa</option>
+    <option value="Pondicherry" <%=editUser.bank.state == 'Pondicherry' ? 'selected' : '' %>>Pondicherry</option>
+    <option value="Punjab"  <%=editUser.bank.state == 'Punjab' ? 'selected' : '' %>>Punjab</option>
+    <option value="Rajasthan" <%=editUser.bank.state == 'Rajasthan' ? 'selected' : '' %>>Rajasthan</option>
+    <option value="Sikkim"   <%=editUser.bank.state == 'Sikkim' ? 'selected' : '' %>>Sikkim</option>
+    <option value="Tamil Nadu"  <%=editUser.bank.state == 'Tamil Nadu' ? 'selected' : '' %>>Tamil Nadu</option>
+    <option value="Telangana" <%=editUser.bank.state == 'Telangana' ? 'selected' : '' %>>Telangana</option>
+    <option value="Tripura" <%=editUser.bank.state == 'Tripura' ? 'selected' : '' %>>Tripura</option>
+    <option value="Uttar Pradesh"  <%=editUser.bank.state == 'Uttar Pradesh' ? 'selected' : '' %>>Uttar Pradesh</option>
+    <option value="Uttaranchal" <%=editUser.bank.state == 'Uttaranchal' ? 'selected' : '' %>>Uttaranchal</option>
+    <option value="West Bengal"<%=editUser.bank.state == 'West Bengal' ? 'selected' : '' %>>West Bengal</option>
+                                </select>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group my-3">
+                            <select class="form-control form-control-solid p-1" id="status" required="" name="status">
+                            <option value=""> Select status </option>
+                    <option value="1" <%=editUser.bank.status == 1  ? 'selected' : '' %>> Approved </option>
+                    <option value="2" <%=editUser.bank.status == 2  ? 'selected' : '' %>> Reject </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group my-3">
+                            <textarea value="<%=editUser.bank.comment || '' %>" type="text" rows="3" class="form-control form-control-solid float-left mr-1" required="" name="comment" placeholder="Comment" id="commentpan" style="width:100%;"><%=editUser.bank.comment %></textarea>
+                        </div>
+                    </div>
+                    <div class="col-12 text-right mt-4 mb-2">
+	                    <button type="button" class="btn-sm btn btn-primary mt-1" id="onclickbtn" onclick="pandetailsupdate()"><i class="icon-lock"></i>Update Bank Details</button>
+	                </div>
+                </div>
+            </div>
+        </div>
+     </form>
+     <%- include("../../partials/alertMsg") %>
+
+</div> 
+       
+<script type="text/javascript">
+  function pandetailsupdate(){
+    var accno = $("#accno").val();
+    var ifsc = $("#ifsc").val();
+    var bankbranch = $("#bankbranch").val();
+    var bankname = $("#bankname").val();
+    var state = $("#state").val();
+    var getcomment = $("#commentpan").val();
+    var status = $("#status").val();
+    if(accno!="" && ifsc!="" && bankbranch!="" && bankname!="" && state!="" && status != ''){
+      if(status!=""){
+        if(status==2){
+          if(getcomment==""){
+            Swal.fire('Please Enter comment first.');
+            return false;
+          }
+        }
+        document.getElementById("firstform").submit();
+      }
+    }
+    else{
+      Swal.fire('Please fill out all the fields');
+    }
+  }
+  </script>
+<script>
+$(window).on("load", function() {
+
+var success = '';
+var danger = '';
+var error = '';
+var warning = '';
+
+if(success) {
+$("#toastBasic4").toast('show');
+}
+
+if(danger || error) {
+$("#toastBasic3").toast('show');
+}
+
+if(warning) {
+$("#toastBasic2").toast('show');
+}
+});
+</script>
+
+<script>
+$(document).ready(function() {
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+});
+</script>
+        </div>
+    </main>
+    <%- include("../../partials/footer") %>
+
+    <script>
+
+        $(window).on('load', function(){
+  
+           $('#preloader_admin').hide();
+  
+          })
+      </script>
+  
+<script>
+  $(document).ready(function(){
+      
+    if ($('#accordionSidenavPages a').hasClass('active')){
+      $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
+      $('#accordionSidenavPages a.active').parent().parent().addClass('show');
+      // console.log(id);
+    } else {
+      $('#takeonebar').addClass('slamdown');
+    }
+  });
+  
+</script>
+<script type="text/javascript">
+      $.datetimepicker.setLocale('en');
+      $('.datetimepickerget').datetimepicker({
+      lang:'en',
+      formatDate:'d.m.Y',
+      step:5,
+      startDate:  new Date()
+       });
+      </script>
+      <script type="text/javascript">
+      $('.datepicker').datepicker({
+      lang:'en',
+      formatDate:'d.m.Y',
+      step:5,
+      });
+      </script>
+  
+      <script type="text/javascript">
+       $(document).ready(function(){
+   $('#select_all').on('click',function(){
+       if(this.checked){
+           $('.checkbox').each(function(){
+               this.checked = true;
+           });
+       }else{
+            $('.checkbox').each(function(){
+               this.checked = false;
+           });
+       }
+   });
+  
+   $('.checkbox').on('click',function(){
+       if($('.checkbox:checked').length == $('.checkbox').length){
+           $('#select_all').prop('checked',true);
+       }else{
+           $('#select_all').prop('checked',false);
+       }
+   });
+  });
+  </script>
+  
+  
+  <script>
+    /*jslint browser:true*/
+    /*global jQuery, document*/
+  
+    jQuery(document).ready(function () {
+        'use strict';
+  
+        jQuery('#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date').datetimepicker();
+    });
+  </script>
+  

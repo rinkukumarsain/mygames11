@@ -1,0 +1,490 @@
+<%- include("../../partials/head") %>
+
+<%- include("../../partials/bodyStartWithNavBar") %>
+<%- include("../../partials/sideNav") %>
+<div id="layoutSidenav_content">
+    <main>
+      <%- include("../../partials/alertMsg") %>
+        <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <div class="page-header-content">
+                            <h1 class="page-header-title fs-md-35 fs-20">
+
+                                <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                                <span class=" text-capitalize">
+                                        Notification Manager
+                                </span>
+                            </h1>
+                            <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                                    Send Android App Notification
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto mb-md-0 mb-3">
+                                                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid mt-n10">
+            
+<div class="card  md-4">
+<div class="card-header">Send App Notification</div>
+<form method="POST" action="/my-admin/pushnotifications" accept-charset="UTF-8" id="j-forms" class="j-forms" enctype="multipart/form-data"><input name="_token" type="hidden" value="CRHm6id3mN0snJp9RqcgUuOvpAeatpTo4LJRqZFv">
+
+  <input type="hidden" name="_token" value="CRHm6id3mN0snJp9RqcgUuOvpAeatpTo4LJRqZFv">
+
+
+
+<div class="sbp-preview">
+    <div class="sbp-preview-content">
+        <div class="row mx-0">
+            <div class="col-12">
+               <input type="hidden" id="uservalues" name="uservalues">
+                <div class="form-group my-3">
+                  <label for="Select User*" class="d-flex">Select User*</label>
+                  <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" id="customRadio1" name="usertype" value="all" checked onclick="divshowhide('all')" class="custom-control-input">
+                      <label class="custom-control-label fs-15" for="customRadio1">All Users</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" id="customRadio2" name="usertype" class="custom-control-input" value="specific" onclick="divshowhide('specific')">
+                      <label class="custom-control-label fs-15" for="customRadio2">Specific users</label>
+                    </div>
+                    <!--<input type="radio" name="usertype" value="all" checked onclick="divshowhide('all')"> All Users
+                    <input type="radio" name="usertype" value="specific" onclick="divshowhide('specific')"> Specific users-->
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="form-group my-3 d-none" id="specificdiv">
+                     <label for="Search User*" class="">Search User*</label>
+                   <input placeholder="Search Users" class="multipleInputDynamic form-control form-control-solid" id="selectusers" name="users" type="text">
+
+                                           </div>
+                 <div id="boxx" class="saerach-box-list d-none position-absolute left-15px right-15px top-91px bg-white shadow rounded border border-primary z-index-1 px-3 py-2" >
+                        <ul id="item_list" class="d-none list-unstyled mb-0"></ul>
+                    </div>
+                    <div id="showusers" class="row" >
+                    </div>
+            </div>
+             <div class="col-12">
+                <div class="form-group my-3">
+                  <label for="Notification Title*" class="">Notification Title*</label>
+
+                   <input required="" placeholder="Enter Notification Title Here" class="form-control form-control-solid multipleInputDynamic" autocomplete="off" id="first-name" name="title" type="text">
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group my-3">
+                  <label for="Enter Message*" class="">Enter Message*</label>
+                    <textarea class="form-control form-control-solid" required placeholder="Enter Message Here" name="message"></textarea>
+                </div>
+            </div>
+            <div class="col-12 text-right mt-4 mb-2">
+               <a class="btn btn-sm btn-warning" onclick='window.location.href=window.location.href'><i class="fas fa-undo" ></i>&nbsp; Reset</a>
+              <button class="btn btn-sm btn-success text-uppercase"><i class="far fa-check-circle" ></i>&nbsp;Submit</button>
+          </div>
+        </div>
+    </div>
+</div>
+</form>
+</div>
+
+        </div>
+    </main>
+    <%- include("../../partials/footer") %>
+    <script>
+
+        $(window).on('load', function(){
+  
+           $('#preloader_admin').hide();
+  
+          })
+      </script>
+  
+  
+      <script>
+    $('#b1').click(function(){
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-sm btn-success',
+          cancelButton: 'btn btn-sm btn-danger'
+        },
+        buttonsStyling: false
+      })
+  
+      swalWithBootstrapButtons.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'success',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+          swalWithBootstrapButtons.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+          )
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'Cancelled',
+            'Your imaginary file is safe :)',
+            'error'
+          )
+        }
+      })
+    });
+  </script>
+  
+  
+      <script>
+          $(document).ready(function (){
+              var table = $('#dataTabless').DataTable({
+                  'responsive': true
+              });
+      
+              // Handle click on "Expand All" button
+              $('#btn-show-all-children').on('click', function(){
+                  // Expand row details
+                  table.rows(':not(.parent)').nodes().to$().find('td:first-child').trigger('click');
+              });
+      
+              // Handle click on "Collapse All" button
+              $('#btn-hide-all-children').on('click', function(){
+                  // Collapse row details
+                  table.rows('.parent').nodes().to$().find('td:first-child').trigger('click');
+              });
+          });
+      </script>
+  
+  
+  <script>
+    
+    $('#special').on('click', function () {
+      mySelect.find('option:selected').prop('disabled', true);
+      mySelect.selectpicker('refresh');
+    });
+    
+    $('#special2').on('click', function () {
+      mySelect.find('option:disabled').prop('disabled', false);
+      mySelect.selectpicker('refresh');
+    });
+    
+    $('#basic2').selectpicker({
+      liveSearch: true,
+      maxOptions: 1
+    });
+  </script>
+  
+  
+  
+  <script>
+  $(document).ready(function(){
+      
+    if ($('#accordionSidenavPages a').hasClass('active')){
+      $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
+      $('#accordionSidenavPages a.active').parent().parent().addClass('show');
+      // console.log(id);
+    } else {
+      $('#takeonebar').addClass('slamdown');
+    }
+  });
+  
+  </script>
+  <script>
+      $( "#sortable, #sortable2" ).sortable();
+  </script>
+      <script>
+      $(".alert").delay(3000).fadeOut();
+      </script>
+  
+  
+      <script type="text/javascript">
+      $.datetimepicker.setLocale('en');
+      $('.datetimepickerget').datetimepicker({
+      lang:'en',
+      formatDate:'d.m.Y',
+      step:5,
+      startDate:  new Date()
+       });
+      </script>
+      <script type="text/javascript">
+      $('.datepicker').datepicker({
+      lang:'en',
+      formatDate:'d.m.Y',
+      step:5,
+      });
+      </script>
+  
+      <script type="text/javascript">
+       $(document).ready(function(){
+   $('#select_all').on('click',function(){
+       if(this.checked){
+           $('.checkbox').each(function(){
+               this.checked = true;
+           });
+       }else{
+            $('.checkbox').each(function(){
+               this.checked = false;
+           });
+       }
+   });
+  
+   $('.checkbox').on('click',function(){
+       if($('.checkbox:checked').length == $('.checkbox').length){
+           $('#select_all').prop('checked',true);
+       }else{
+           $('#select_all').prop('checked',false);
+       }
+   });
+  });
+  </script>
+  <script>
+  function isNumberKey(evt){
+      //var e = evt || window.event;
+  
+     var charCode = (evt.which) ? evt.which : evt.keyCode
+      if (charCode != 46 && charCode > 31
+     && (charCode < 48 || charCode > 57))
+  
+      return false;
+    else {
+         var itemdecimal = evt.srcElement.value.split('.');
+         if (itemdecimal.length > 1 && charCode == 46)
+             return false;
+  
+         return true;
+    }
+  }
+  
+  </script>
+  <script>
+      var usersarry=[];
+      $("#selectusers").keyup(function(){
+        var gettypevalue = $("#selectusers").val();
+        if(gettypevalue!=""){
+            $.ajax({
+               type:'POST',
+               url:'/my-admin/getusers',
+               data:'_token=CRHm6id3mN0snJp9RqcgUuOvpAeatpTo4LJRqZFv&gettypevalue='+gettypevalue+'&userspresent='+usersarry,
+               success:function(data){
+                 $('#item_list').removeClass('d-none');
+                 $('#boxx').removeClass('d-none');
+                 $("#item_list").html(data);
+              }
+            });
+        }
+      });
+      function set_item(item){
+        usersarry.push(item);
+        $("#uservalues").val(usersarry);
+        $("#selectusers").val('');
+            $('#item_list').addClass('d-none');
+        var gettext = $('#userid'+item).html();
+        $("#showusers").append('<div class="col-md-6" id="showuserseses">'+gettext+'</div>');
+            $('#boxx').addClass('d-none');
+          }
+          function deletediv(e,item){
+              usersarry.splice( usersarry.indexOf(item), 1 );
+              $("#uservalues").val(usersarry);
+              // e.parentNode.parentNode.remove(e.parentNode);
+              $('#showuserseses').remove();
+          }
+          $(function(){
+            $(document).click(function(){
+                $('#box').addClass('d-none'); //hide the button
+                //$('#boxx').hide(); //hide the button
+              });
+          });
+    </script>
+      <script>
+      function divshowhide(value){
+        if(value=='specific'){
+          $("#specificdiv").removeClass('d-none');
+          $("#specificdiv1").show();
+          $("#specificdiv2").show();
+        }else{
+          $("#specificdiv").addClass('d-none');
+          $("#specificdiv1").hide();
+          $("#specificdiv2").hide();
+        }
+      }
+       function deletediv1(e,item){
+          $('#dsafd'+item).remove();
+      }
+  
+    </script>
+  
+  
+      <script>
+          function readURL(input) {
+          if (input.files && input.files[0]) {
+              var reader = new FileReader();
+              reader.onload = function(e) {
+                  $('#' + input.id + '-imagePreview').css('background-image', 'url('+e.target.result +')');
+                  $('#' + input.id + '-imagePreview').hide();
+                  $('#' + input.id + '-imagePreview').fadeIn(650);
+              }
+              reader.readAsDataURL(input.files[0]);
+          }
+      }
+      $(".imageUpload").change(function() {
+          readURL(this);
+      });
+      </script>
+  
+  
+  
+  
+  
+  
+  <script>
+      // This is only for the Inputs to work dynamically
+  
+  function setTheme(H, inputType) {
+    // Convert hex to RGB first
+    let r = 0, g = 0, b = 0;
+    if (H.length == 4) {
+      r = "0x" + H[1] + H[1];
+      g = "0x" + H[2] + H[2];
+      b = "0x" + H[3] + H[3];
+    } else if (H.length == 7) {
+      r = "0x" + H[1] + H[2];
+      g = "0x" + H[3] + H[4];
+      b = "0x" + H[5] + H[6];
+    }
+    // Then to HSL
+    r /= 255;
+    g /= 255;
+    b /= 255;
+    let cmin = Math.min(r,g,b),
+        cmax = Math.max(r,g,b),
+        delta = cmax - cmin,
+        h = 0,
+        s = 0,
+        l = 0;
+  
+    if (delta == 0)
+      h = 0;
+    else if (cmax == r)
+      h = ((g - b) / delta) % 6;
+    else if (cmax == g)
+      h = (b - r) / delta + 2;
+    else
+      h = (r - g) / delta + 4;
+  
+    h = Math.round(h * 60);
+  
+    if (h < 0)
+      h += 360;
+  
+    l = (cmax + cmin) / 2;
+    s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+    s = +(s * 100).toFixed(1);
+    l = +(l * 100).toFixed(1);
+  
+    document.documentElement.style.setProperty(`--${inputType}-color-h`, h);
+    document.documentElement.style.setProperty(`--${inputType}-color-s`, s + '%');
+    document.documentElement.style.setProperty(`--${inputType}-color-l`, l + '%');
+  
+    hsl = h + ' ' + s + ' ' + l + '';
+  
+  //   $('#'+inputType+'-color-input').val( hsl );
+  
+    $('input[name="input[' + inputType + '_hsl]"').val( hsl );
+  }
+  
+  const inputs = ['primary', 'secondary', 'info', 'success', 'danger', 'warning', 'muted', 'dark', 'light', 'black', 'white', 'blue','indigo', 'purple', 'pink', 'red', 'orange','yellow', 'green', 'teal', 'cyan', 'gray', 'graydark'];
+  
+  inputs.forEach((inputType) => {
+    document.querySelector(`#${inputType}-color-input`)
+      .addEventListener('change', (e) => {
+      setTheme(e.target.value, inputType);
+  
+    });
+  
+  });
+  
+  </script>
+  
+  
+  <script>
+    /*jslint browser:true*/
+    /*global jQuery, document*/
+  
+    jQuery(document).ready(function () {
+        'use strict';
+  
+        jQuery('#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date').datetimepicker();
+    });
+  </script>
+  
+  <script>
+    function copyToClipboard(element,element1) {
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val($(element).text()).select();
+        document.execCommand("copy");
+        $temp.remove();
+  
+        $(element1).addClass("copied_success animated bounceIn");
+        setTimeout(RemoveClass, 1000);
+    function RemoveClass() {
+        $(element1).removeClass("copied_success animated bounceIn");
+    }
+    }
+  </script>
+  
+  <script>
+  function delete_sweet_alert(url, msg) {
+    // sweet alert
+      const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+          confirmButton: 'btn btn-sm btn-success ml-2',
+          cancelButton: 'btn btn-sm btn-danger'
+      },
+      buttonsStyling: false
+      })
+  
+      swalWithBootstrapButtons.fire({
+      title: msg,
+      text: "You won't be able to revert this!",
+      icon: 'success',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+      reverseButtons: true
+      }).then((result) => {
+      if (result.isConfirmed) {
+  
+        swalWithBootstrapButtons.fire(
+                  '',
+                  'Successfully Done',
+                  'success'
+                  );
+  
+        window.location.href = url;
+  
+          
+      } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+      ) {
+          swalWithBootstrapButtons.fire(
+          'Cancelled',
+          'Cancelled successfully :)',
+          'error'
+          );
+          return false;
+      }
+    })
+  }
+  </script>

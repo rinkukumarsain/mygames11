@@ -1,0 +1,245 @@
+<%- include("../../partials/head") %>
+
+  <%- include("../../partials/bodyStartWithNavBar/") %>
+    <%- include("../../partials/sideNav") %>
+      <div id="layoutSidenav_content">
+        <main>
+
+          <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+            <div class="container-fluid">
+              <div class="row align-items-center">
+                <div class="col">
+                  <div class="page-header-content">
+                    <h1 class="page-header-title fs-md-35 fs-20">
+
+                      <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                      <span class=" text-capitalize">
+                        Banner Manager
+                      </span>
+                    </h1>
+                    <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                      View All Banners
+                    </div>
+                  </div>
+                </div>
+                <div class="col-auto mb-md-0 mb-3">
+                  <a href="/add-banner"
+                    class="btn btn-sm btn-light font-weight-bold text-uppercase text-primary float-right"
+                    data-toggle="tooltip" title="Add New Banner"><i class="fa fa-plus"></i>&nbsp; Add</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container-fluid mt-n10">
+
+            <div class="card mb-4">
+              <div class="card-header">View All Banners</div>
+              <div class="card-body">
+                <div class="datatable table-responsive">
+                  <table class="table table-bordered table-striped table-hover text-center text-nowrap"
+                    id="viewSideBanner" width="100%" cellspacing="0">
+                    <thead>
+                      <tr>
+                        <th>Sno.</th>
+                        <th>Type</th>
+                        <th>Banner Type</th>
+                        <th>Image</th>
+                        <th>Link</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tfoot>
+                      <tr>
+                        <th>Sno.</th>
+                        <th>Type</th>
+                        <th>Banner Type</th>
+                        <th>image</th>
+                        <th>Link</th>
+                        <th>Actions</th>
+                      </tr>
+                    </tfoot>
+                    <tbody>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+
+            <script type="text/javascript">
+              $(document).ready(function () {
+                $.fn.dataTable.ext.errMode = 'none';
+
+                $('#viewSideBanner').DataTable({
+                  searching: false,
+                  language: {
+              zeroRecords: "No records to display",
+            },
+                  ajax: {
+                    url: `/view-all-sideBanner`,
+                    type: 'post',
+                    dataSrc: 'data',
+                    error: function () {
+                      console.log(error)
+                    }
+                  },
+                  "lengthMenu": [
+                    [10, 25, 50, 100, 1000, 10000],
+                    [10, 25, 50, 100, 1000, 10000]
+                  ],
+                  columns: [{
+                    data: "newcount"
+                  }, {
+                    data: "type"
+                  },{
+                    data: "bannerType"
+                  }, {
+                    data: "image"
+                  },  {
+                    data: "url"
+                  }, {
+                    data: "Action",orderable: false
+                  },]
+                })
+
+              });
+            </script>
+
+          </div>
+        </main>
+        <%- include("../../partials/footer") %>
+
+
+          <script>
+
+            $(window).on('load', function () {
+
+              $('#preloader_admin').hide();
+
+            })
+          </script>
+
+
+          <script>
+            $('#b1').click(function () {
+              const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                  confirmButton: 'btn btn-sm btn-success',
+                  cancelButton: 'btn btn-sm btn-danger'
+                },
+                buttonsStyling: false
+              })
+
+              swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  swalWithBootstrapButtons.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                  )
+                } else if (
+                  /* Read more about handling dismissals below */
+                  result.dismiss === Swal.DismissReason.cancel
+                ) {
+                  swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Your imaginary file is safe :)',
+                    'error'
+                  )
+                }
+              })
+            });
+          </script>
+
+
+
+
+          <script>
+
+            $('#special').on('click', function () {
+              mySelect.find('option:selected').prop('disabled', true);
+              mySelect.selectpicker('refresh');
+            });
+
+            $('#special2').on('click', function () {
+              mySelect.find('option:disabled').prop('disabled', false);
+              mySelect.selectpicker('refresh');
+            });
+
+            $('#basic2').selectpicker({
+              liveSearch: true,
+              maxOptions: 1
+            });
+          </script>
+
+
+
+          <script>
+            $(document).ready(function () {
+
+              if ($('#accordionSidenavPages a').hasClass('active')) {
+                $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
+                $('#accordionSidenavPages a.active').parent().parent().addClass('show');
+                // console.log(id);
+              } else {
+                $('#takeonebar').addClass('slamdown');
+              }
+            });
+
+          </script>
+         
+
+
+          <script>
+            function delete_sweet_alert(url, msg) {
+              // sweet alert
+              const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                  confirmButton: 'btn btn-sm btn-success ml-2',
+                  cancelButton: 'btn btn-sm btn-danger'
+                },
+                buttonsStyling: false
+              })
+
+              swalWithBootstrapButtons.fire({
+                title: msg,
+                text: "You won't be able to revert this!",
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+                reverseButtons: true
+              }).then((result) => {
+                if (result.isConfirmed) {
+
+                  swalWithBootstrapButtons.fire(
+                    '',
+                    'Successfully Done',
+                    'success'
+                  );
+
+                  window.location.href = url;
+
+
+                } else if (
+                  /* Read more about handling dismissals below */
+                  result.dismiss === Swal.DismissReason.cancel
+                ) {
+                  swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Cancelled successfully :)',
+                    'error'
+                  );
+                  return false;
+                }
+              })
+            }
+          </script>

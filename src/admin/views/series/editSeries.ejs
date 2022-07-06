@@ -1,0 +1,150 @@
+<%- include("../../partials/head") %>
+
+  <%- include("../../partials/bodyStartWithNavBar/") %>
+    <%- include("../../partials/sideNav") %>
+      <div id="layoutSidenav_content">
+        <main>
+          <%- include("../../partials/alertMsg") %>
+          <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+            <div class="container-fluid">
+              <div class="row align-items-center">
+                <div class="col">
+                  <div class="page-header-content">
+                    <h1 class="page-header-title fs-md-35 fs-20">
+
+                      <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                      <span class=" text-capitalize">
+                        Series Manager
+                      </span>
+                    </h1>
+                    <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                      Edit Series
+                    </div>
+                  </div>
+                </div>
+                <div class="col-auto mb-md-0 mb-3">
+                  <a href="/view-series"
+                    class="btn btn-sm btn-sm rounded-pill btn-light font-weight-bold text-primary float-right"><i
+                      class="fad fa-eye"></i>&nbsp; View All Series</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container-fluid mt-n10">
+
+            <div class="card">
+              <div class="card-header">Edit Series</div>
+              <form class="card-body" action='/edit-series-data/<%=data._id %>' method="post">
+                <% if(msg) {%>
+                  <span style="color: red;font-size: small;">
+                    <%=msg %>
+                  </span>
+                  <%} %>
+                    <div class="sbp-preview">
+                      <div class="sbp-preview-content">
+                        <div class="row mx-0">
+                          <div class="col-12">
+                            <div class="form-group my-3">
+                              <label for="job-title">Series Name*</label>
+                              <% if(data.name) {%>
+                                <input class="form-control form-control-solid" id="seriesName" type="text"
+                                  name="seriesName" required value="<%=data.name %>">
+                                <% }else{ %>
+                                  <input class="form-control form-control-solid" id="seriesName" type="text"
+                                    placeholder="add Series Name" name="seriesName" required>
+                                  <% }%>
+                            </div>
+                          </div>
+                          <div class="col-6">
+                            <div class="form-group my-3">
+                              <label for="example-text-input">Start Date*</label>
+                              <% if(data.start_date) {%>
+                                <input class="form-control form-control-solid datetimepickerget" id="start_date"
+                                  type="text" name="start_date" required datetimepickerget value="<%=data.start_date %>"
+                                  autocomplete="off">
+                                <% }else{ %>
+                                  <input class="form-control form-control-solid datetimepickerget" id="start_date"
+                                    type="text" placeholder="Enter Start Date*" name="startdate" required
+                                    datetimepickerget autocomplete="off">
+                                  <% }%>
+                            </div>
+                          </div>
+                          <div class="col-6">
+                            <div class="form-group my-3">
+                              <label for="example-text-input">End Date*</label>
+                              <% if(data.end_date) {%>
+                                <input class="form-control form-control-solid datetimepickerget" id="end_date"
+                                  type="text" name="end_date" required datetimepickerget value="<%=data.end_date %>"
+                                  autocomplete="off">
+                                <% }else{ %>
+                                  <input class="form-control form-control-solid datetimepickerget" id="end_date"
+                                    type="text" placeholder="Enter End Date" name="end_date" required datetimepickerget
+                                    autocomplete="off">
+                                  <% }%>
+                            </div>
+                          </div>
+                          <div class="col-12 text-right mt-4 mb-2">
+                            <button class="btn btn-sm btn-success text-uppercase"><i
+                                class="far fa-check-circle"></i>&nbsp;Submit</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+              </form>
+            </div>
+          </div>
+        </main>
+        <%- include("../../partials/footer") %>
+          <script>
+
+            $(window).on('load', function () {
+
+              $('#preloader_admin').hide();
+
+            })
+          </script>
+
+          <script>
+            $(document).ready(function () {
+
+              if ($('#accordionSidenavPages a').hasClass('active')) {
+                $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
+                $('#accordionSidenavPages a.active').parent().parent().addClass('show');
+                // console.log(id);
+              } else {
+                $('#takeonebar').addClass('slamdown');
+              }
+            });
+
+          </script>
+        
+
+
+          <script type="text/javascript">
+            $.datetimepicker.setLocale('en');
+            $('.datetimepickerget').datetimepicker({
+              lang: 'en',
+              formatDate: 'd.m.Y',
+              step: 5,
+              startDate: new Date()
+            });
+          </script>
+          <script type="text/javascript">
+            $('.datepicker').datepicker({
+              lang: 'en',
+              formatDate: 'd.m.Y',
+              step: 5,
+            });
+          </script>
+
+          <script>
+            /*jslint browser:true*/
+            /*global jQuery, document*/
+
+            jQuery(document).ready(function () {
+              'use strict';
+
+              jQuery('#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date').datetimepicker();
+            });
+          </script>
+

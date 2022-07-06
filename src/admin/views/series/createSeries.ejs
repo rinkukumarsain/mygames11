@@ -1,0 +1,151 @@
+<%- include("../../partials/head") %>
+
+    <%- include("../../partials/bodyStartWithNavBar/") %>
+        <%- include("../../partials/sideNav") %>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+                        <div class="container-fluid">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <div class="page-header-content">
+                                        <h1 class="page-header-title fs-md-35 fs-20">
+
+                                            <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                                            <span class=" text-capitalize">
+                                        Series Manager
+                                </span>
+                                        </h1>
+                                        <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                                            Create New Series
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-md-0 mb-3">
+                                    <a href="/view-series" class="btn btn-sm  btn-sm rounded-pill btn-light font-weight-bold text-primary float-right"><i class="fad fa-eye"></i>&nbsp; View All Series</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid mt-n10">
+
+
+                        <div class="card">
+                            <div class="card-header">Create Series</div>
+                            <form method="post" action="/add-series" accept-charset="UTF-8" id="j-forms" class="card-body">
+                                <% if(msg){%>
+                                    <span style="color: red;">**<%=msg %>**</span>
+                                    <%}%>
+                                        <div class="sbp-preview">
+                                            <div class="sbp-preview-content p-2">
+                                                <div class="row mx-0">
+                                                    <div class="col-12">
+                                                        <div class="form-group my-3">
+                                                            <label for="job-title">Series Name*</label>
+                                                            <input class="form-control form-control-solid" id="job-title" type="text" placeholder="Enter Series Title" name="seriesName" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                         <div class="form-group my-3"> 
+                                                             <label for="">Fantasy Type*</label> 
+                                                             <select class="form-control form-control-solid" name="fantasy_type"  required> 
+                                                                 <option value="Cricket" selected>Cricket</option> 
+                                                                 <!-- <option value="Football">Football</option>  -->
+                                                            </select> 
+                                                        </div> 
+                                                    </div>
+                                                    <div class="col-md-6 col-12">
+                                                        <div class="form-group my-3">
+                                                            <label for="example-datetime-local-input">Start Date*</label>
+                                                            <input class="form-control form-control-solid" type="text" placeholder="Enter Start Date" id="example-datetime-local-input" autocomplete="off" value="" name="startdate" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-12">
+                                                        <div class="form-group my-3">
+                                                            <label for="example-datetime-local-input2">End Date*</label>
+                                                            <input class="form-control form-control-solid" type="text" placeholder="Enter End Date" value="" name="enddate" autocomplete="off" id="example-datetime-local-input2" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 text-right mt-4 mb-2">
+                                                        <button class="btn btn-sm btn-success text-uppercase"><i class="far fa-check-circle"></i>&nbsp;Submit</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                        </div>
+                    </div>
+                </main>
+
+                <%- include("../../partials/alertMsg") %>
+                <%- include("../../partials/footer") %>
+                    <script>
+                        $(window).on('load', function() {
+
+                            $('#preloader_admin').hide();
+
+                        })
+                    </script>
+
+
+                   
+                    <script>
+                        $('#special').on('click', function() {
+                            mySelect.find('option:selected').prop('disabled', true);
+                            mySelect.selectpicker('refresh');
+                        });
+
+                        $('#special2').on('click', function() {
+                            mySelect.find('option:disabled').prop('disabled', false);
+                            mySelect.selectpicker('refresh');
+                        });
+
+                        $('#basic2').selectpicker({
+                            liveSearch: true,
+                            maxOptions: 1
+                        });
+                    </script>
+
+
+
+                    <script>
+                        $(document).ready(function() {
+
+                            if ($('#accordionSidenavPages a').hasClass('active')) {
+                                $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
+                                $('#accordionSidenavPages a.active').parent().parent().addClass('show');
+                                // console.log(id);
+                            } else {
+                                $('#takeonebar').addClass('slamdown');
+                            }
+                        });
+                    </script>
+                   
+
+
+                    <script type="text/javascript">
+                        $.datetimepicker.setLocale('en');
+                        $('.datetimepickerget').datetimepicker({
+                            lang: 'en',
+                            formatDate: 'd.m.Y',
+                            step: 5,
+                            startDate: new Date()
+                        });
+                    </script>
+                    <script type="text/javascript">
+                        $('.datepicker').datepicker({
+                            lang: 'en',
+                            formatDate: 'd.m.Y',
+                            step: 5,
+                        });
+                    </script>
+
+                    <script>
+                        /*jslint browser:true*/
+                        /*global jQuery, document*/
+
+                        jQuery(document).ready(function() {
+                            'use strict';
+
+                            jQuery('#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date').datetimepicker();
+                        });
+                    </script>

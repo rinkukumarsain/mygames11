@@ -1,0 +1,775 @@
+<%- include("../partials/head") %>
+
+    <%- include("../partials/bodyStartWithNavBar/") %>
+        <%- include("../partials/sideNav") %>
+            <div id="layoutSidenav_content">
+                <main>
+                    <%- include("../partials/alertMsg") %>
+                    <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+                        <div class="container-fluid">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <div class="page-header-content">
+                                        <h1 class="page-header-title fs-md-35 fs-20">
+
+                                            <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                                            <span class=" text-capitalize">
+                                    Dashboard
+                            </span>
+                                        </h1>
+                                        <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-md-0 mb-3">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid mt-n10">
+                   
+                        <div class="row">
+                            <div class="col-xl-4 col-md-4 mb-4">
+                                <!-- Dashboard info widget 1-->
+                                <div class="card border-top-0 border-bottom-0 border-right-0 border-left-lg border-primary h-100">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-grow-1">
+                                                <div class="small font-weight-bold text-capitalize text-primary mb-1">Pending pan requests</div>
+                                                <div class="h5"><%=dashData.pendingPanRequests %> </div>
+                                                <div class="text-xs font-weight-bold d-inline-flex align-items-center">
+                                                    <a href="/verifypan" class="btn btn-primary text-uppercase btn-xs px-2">OPEN &nbsp; &nbsp; <i class="fad fa-chevron-right"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="ml-2 fs-50 position-relative">
+                                                <i class="fad fa-address-card"></i>
+                                                <i class="fas fa-info-circle position-absolute fs-22 top-8px right-n8px rounded-pill bg-white text-primary"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-md-4 mb-4">
+                                <!-- Dashboard info widget 2-->
+                                <div class="card border-top-0 border-bottom-0 border-right-0 border-left-lg border-orange h-100">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-grow-1">
+                                                <div class="small font-weight-bold text-capitalize text-orange mb-1">Not Uploaded pan users</div>
+                                                <div class="h5"><%=dashData.notUploadedPanUsers %></div>
+                                                <div class="text-xs font-weight-bold text-danger d-inline-flex align-items-center">
+                                                    <a href="/view_all_users?status=4" class="btn btn-orange text-uppercase btn-xs px-2">approval &nbsp; &nbsp; <i class="fad fa-chevron-right"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="ml-2 fs-50 position-relative">
+                                                <i class="fad fa-address-card"></i>
+                                                <i class="fas fa-question-circle position-absolute fs-22 top-8px right-n8px rounded-pill bg-white text-warning"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-md-4 mb-4">
+                                <!-- Dashboard info widget 3-->
+                                <div class="card border-top-0 border-bottom-0 border-right-0 border-left-lg border-success h-100">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-grow-1">
+                                                <div class="small font-weight-bold text-capitalize text-success mb-1">Verified pan requests</div>
+                                                <div class="h5"><%=dashData.verifiedPanRequests %></div>
+                                                <div class="text-xs font-weight-bold text-success d-inline-flex align-items-center">
+                                                    <a href="/verifypan?status=1" class="btn btn-success text-uppercase btn-xs px-2">OPEN &nbsp; &nbsp; <i class="fad fa-chevron-right"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="ml-2 fs-50 position-relative">
+                                                <i class="fad fa-address-card"></i>
+                                                <i class="fas fa-check-circle position-absolute fs-22 top-8px right-n8px rounded-pill bg-white text-success"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card mb-4 p-3">
+                                    <div class="card-header py-2 px-3 bg-light rounded-20 shadow-sm d-flex justify-content-between"><span class="text-secondary">Total amount received</span><span class="text-primary" id="tReceived">₹0</span></div>
+                                    <div class="card-body px-1 pb-0">
+                                        <div class="chart-area">
+                                            <canvas id="myAreaChart1" width="100%" height="30"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card mb-4 p-3">
+                                    <div class="card-header py-2 px-3 bg-light rounded-20 shadow-sm d-flex justify-content-between"><span class="text-secondary">Total withdrawal amount</span><span id="tWithdrawalAmount" class="text-primary">₹0</span></div>
+                                    <div class="card-body px-1 pb-0">
+                                        <div class="chart-bar">
+                                            <canvas id="myBarChart1" width="100%" height="30"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row dashboard_row_1 mt-4">
+                            <div class="col-lg-3 col-md-6">
+                                <div class="card bg-danger text-white mb-4 p-1">
+                                    <div class="row mx-0 rounded overflow-hidden bg-white position-relative">
+                                        <div class="card-body col-12">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="">
+                                                    <div class="text-danger small font-weight-bold"> Live Matches</div>
+                                                    <div class="text-lg font-weight-bold mt-2 text-black"><%=dashData.liveMatchLength %></div>
+                                                </div>
+
+                                                <i class="fad fa-dot-circle fs-45 text-danger"></i>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer bg-white d-flex align-items-center justify-content-between border-0 col-12 p-0">
+                                            <a class="small text-dark d-flex justify-content-between px-3 pb-3 w-100 text-decoration-none text-uppercase font-weight-bold" href="/view-AllMatches?sStatus=started&status=launched"><span>View</span><span><i class="fad fa-chevron-right"></i></span></a>
+                                            <!-- <div class="small text-white"><svg class="svg-inline--fa fa-angle-right fa-w-8" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg><i class="fas fa-angle-right"></i></div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+                                <div class="card bg-primary text-white mb-4 p-1">
+                                    <div class="row mx-0 rounded overflow-hidden bg-white position-relative">
+                                        <div class="card-body col-12">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="">
+                                                    <div class="text-primary small font-weight-bold"> Launched matches</div>
+                                                    <div class="text-lg font-weight-bold mt-2 text-black"><%=dashData.launchMatchLength %></div>
+                                                </div>
+
+                                                <i class="fad fa-rocket-launch fs-45 text-primary"></i>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer bg-white d-flex align-items-center justify-content-between border-0 col-12 p-0">
+                                            <a class="small text-dark d-flex justify-content-between px-3 pb-3 w-100 text-decoration-none text-uppercase font-weight-bold" href="/view-AllMatches?status=launched"><span>View</span><span><i class="fad fa-chevron-right"></i></span></a>
+                                            <!-- <div class="small text-white"><svg class="svg-inline--fa fa-angle-right fa-w-8" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg><i class="fas fa-angle-right"></i></div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+                                <div class="card bg-indigo text-white mb-4 p-1">
+                                    <div class="row mx-0 rounded overflow-hidden bg-white position-relative">
+                                        <div class="card-body col-12">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="">
+                                                    <div class="text-indigo small font-weight-bold"> Number of matches</div>
+                                                    <div class="text-lg font-weight-bold mt-2 text-black"><%=dashData.allMatchLength %></div>
+                                                </div>
+
+                                                <i class="fad fa-tally fs-45 text-indigo"></i>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer bg-white d-flex align-items-center justify-content-between border-0 col-12 p-0">
+                                            <a class="small text-dark d-flex justify-content-between px-3 pb-3 w-100 text-decoration-none text-uppercase font-weight-bold" href="/view-AllMatches"><span>View</span><span><i class="fad fa-chevron-right"></i></span></a>
+                                            <!-- <div class="small text-white"><svg class="svg-inline--fa fa-angle-right fa-w-8" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg><i class="fas fa-angle-right"></i></div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+                                <div class="card bg-success text-white mb-4 p-1">
+                                    <div class="row mx-0 rounded overflow-hidden bg-white position-relative">
+                                        <div class="card-body col-12">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="">
+                                                    <div class="text-success small font-weight-bold"> Completed matches</div>
+                                                    <div class="text-lg font-weight-bold mt-2 text-black"><%=dashData.completeMatchLength %></div>
+                                                </div>
+
+                                                <i class="fad fa-cricket fs-45 text-success"></i>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer bg-white d-flex align-items-center justify-content-between border-0 col-12 p-0">
+                                            <a class="small text-dark d-flex justify-content-between px-3 pb-3 w-100 text-decoration-none text-uppercase font-weight-bold" href="/view-AllMatches?sStatus=completed"><span>View</span><span><i class="fad fa-chevron-right"></i></span></a>
+                                            <!-- <div class="small text-white"><svg class="svg-inline--fa fa-angle-right fa-w-8" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg><i class="fas fa-angle-right"></i></div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row dashboard_row_2 mt-4">
+                            <div class="col-xl-4 col-md-4 mb-4">
+                                <!-- Dashboard info widget 1-->
+                                <div class="card h-100 border-0 request-card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-grow-1">
+                                                <div class="small font-weight-bold text-capitalize text-primary mb-1">Pending bank requests</div>
+                                                <div class="h5"><%=dashData.pendingBankRequests %></div>
+                                                <div class="text-xs font-weight-bold d-inline-flex align-items-center">
+                                                    <a href="/verifybankaccount?status=0" class="btn btn-primary text-uppercase btn-xs px-2">OPEN &nbsp; &nbsp; <i class="fad fa-chevron-right"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="ml-2 fs-50 position-relative">
+                                                <i class="fad fa-university"></i>
+                                                <i class="fas fa-info-circle position-absolute fs-22 top-8px right-n8px rounded-pill bg-white text-primary"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-md-4 mb-4">
+                                <!-- Dashboard info widget 2-->
+                                <div class="card h-100 border-0 pending-card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-grow-1">
+                                                <div class="small font-weight-bold text-capitalize text-orange mb-1">Not uploaded Bank Users</div>
+                                                <div class="h5"><%=dashData.notUploadBankUserLength %></div>
+                                                <div class="text-xs font-weight-bold text-danger d-inline-flex align-items-center">
+                                                    <a href="/view_all_users?status=3" class="btn btn-orange text-uppercase btn-xs px-2">approval &nbsp; &nbsp; <i class="fad fa-chevron-right"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="ml-2 fs-50 position-relative">
+                                                <i class="fad fa-university"></i>
+                                                <i class="fas fa-question-circle position-absolute fs-22 top-8px right-n8px rounded-pill bg-white text-warning"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-md-4 mb-4">
+                                <!-- Dashboard info widget 3-->
+                                <div class="card h-100 border-0 verified-card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-grow-1">
+                                                <div class="small font-weight-bold text-capitalize text-success mb-1">Verified Bank requests</div>
+                                                <div class="h5"><%=dashData.VerifiedBankRequests %> </div>
+                                                <div class="text-xs font-weight-bold text-success d-inline-flex align-items-center">
+                                                    <a href="/verifybankaccount?status=1" class="btn btn-success text-uppercase btn-xs px-2">OPEN &nbsp; &nbsp; <i class="fad fa-chevron-right"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="ml-2 fs-50 position-relative">
+                                                <i class="fad fa-university"></i>
+                                                <i class="fas fa-check-circle position-absolute fs-22 top-8px right-n8px rounded-pill bg-white text-success"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row dashboard_row_2">
+                            <div class="col-xl-4 col-md-4 mb-4">
+                                <!-- Dashboard info widget 2-->
+                                <div class="card h-100 border-0 pending-card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-grow-1">
+                                                <div class="small font-weight-bold text-capitalize text-orange mb-1">Pending withdrawal request</div>
+                                                <div class="h5"><%=dashData.PendingWithdrawalRequest %></div>
+                                                <div class="text-xs font-weight-bold text-danger d-inline-flex align-items-center">
+                                                    <a href="/withdraw_amount?status=0" class="btn btn-orange text-uppercase btn-xs px-2">approval &nbsp; &nbsp; <i class="fad fa-chevron-right"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="ml-2 fs-50 position-relative">
+                                                <i class="fad fa-sack-dollar"></i>
+                                                <i class="fas fa-question-circle position-absolute fs-22 top-8px right-n8px rounded-pill bg-white text-warning"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-md-4 mb-4">
+                                <!-- Dashboard info widget 3-->
+                                <div class="card h-100 border-0 verified-card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-grow-1">
+                                                <div class="small font-weight-bold text-capitalize text-success mb-1">Verified withdrawal request</div>
+                                                <div class="h5"><%=dashData.VerifiedWithdrawalRequest %> </div>
+                                                <div class="text-xs font-weight-bold text-success d-inline-flex align-items-center">
+                                                    <a href="/withdraw_amount?status=1" class="btn btn-success text-uppercase btn-xs px-2">OPEN &nbsp; &nbsp; <i class="fad fa-chevron-right"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="ml-2 fs-50 position-relative">
+                                                <i class="fad fa-sack-dollar"></i>
+                                                <i class="fas fa-check-circle position-absolute fs-22 top-8px right-n8px rounded-pill bg-white text-success"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-md-4 mb-4">
+                                <!-- Dashboard info widget 1-->
+                                <div class="card h-100 border-0 request-card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-grow-1">
+                                                <div class="small font-weight-bold text-capitalize text-primary mb-1">Total withdrawal amount</div>
+                                                <div class="h5"><%=dashData.totalWithdrawAmount %></div>
+                                                <div class="text-xs font-weight-bold d-inline-flex align-items-center">
+                                                    <a href="/withdraw_amount" class="btn btn-primary text-uppercase btn-xs px-2 invisible">OPEN &nbsp; &nbsp; <i class="fad fa-chevron-right"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="ml-2 fs-50 position-relative">
+                                                <i class="fad fa-sack-dollar text-orange"></i>
+                                                <i class="fas fa-check-circle position-absolute fs-22 top-8px right-n8px rounded-pill bg-white text-success"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row dashboard_row_1 mt-4">
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card bg-primary text-white mb-4 p-1">
+                                    <div class="row mx-0 rounded overflow-hidden bg-white position-relative">
+                                        <div class="card-body col-12">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="">
+                                                    <div class="text-primary small font-weight-bold">No. of user register</div>
+                                                    <div class="text-lg font-weight-bold mt-2 text-black"><%=dashData.NoOfUserRegister %></div>
+                                                </div>
+
+                                                <i class="fad fa-user-circle fs-45 text-primary"></i>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer bg-white d-flex align-items-center justify-content-between border-0 col-12 p-0">
+                                            <a class="small text-dark d-flex justify-content-between px-3 pb-3 w-100 text-decoration-none text-uppercase" href="/view_all_users"><span>View</span><span><i class="fad fa-chevron-right"></i></span></a>
+                                            <!-- <div class="small text-white"><svg class="svg-inline--fa fa-angle-right fa-w-8" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg><i class="fas fa-angle-right"></i></div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card bg-success text-white mb-4 p-1">
+                                    <div class="row mx-0 rounded overflow-hidden bg-white position-relative">
+                                        <div class="card-body col-12">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="">
+                                                    <div class="text-success small font-weight-bold">No. of active users</div>
+                                                    <div class="text-lg font-weight-bold mt-2 text-black"><%=dashData.NoOfActiveUsers %></div>
+                                                </div>
+
+                                                <i class="fad fa-users fs-45 text-success"></i>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer bg-white d-flex align-items-center justify-content-between border-0 col-12 p-0">
+                                            <a class="small text-dark d-flex justify-content-between px-3 pb-3 w-100 text-decoration-none text-uppercase invisible" href="/view_all_users?status=activated"><span>View</span><span><i class="fad fa-chevron-right"></i></span></a>
+                                            <!-- <div class="small text-white"><svg class="svg-inline--fa fa-angle-right fa-w-8" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg><i class="fas fa-angle-right"></i></div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card bg-orange text-white mb-4 p-1">
+                                    <div class="row mx-0 rounded overflow-hidden bg-white position-relative">
+                                        <div class="card-body col-12">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="">
+                                                    <div class="text-orange small font-weight-bold">Pending Winner Declare</div>
+                                                    <div class="text-lg font-weight-bold mt-2 text-black"><%=dashData.PendingWinnerDeclare %></div>
+                                                </div>
+
+                                                <i class="fad fa-trophy fs-45 text-orange"></i>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer bg-white d-flex align-items-center justify-content-between border-0 col-12 p-0">
+                                            <a class="small text-dark d-flex justify-content-between px-3 pb-3 w-100 text-decoration-none text-uppercase" href="/match-result"><span>View</span><span><i class="fad fa-chevron-right"></i></span></a>
+                                            <!-- <div class="small text-white"><svg class="svg-inline--fa fa-angle-right fa-w-8" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg><i class="fas fa-angle-right"></i></div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card bg-indigo text-white mb-4 p-1">
+                                    <div class="row mx-0 rounded overflow-hidden bg-white position-relative">
+                                        <div class="card-body col-12">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="">
+                                                    <div class="text-indigo small font-weight-bold">Total number of teams</div>
+                                                    <div class="text-lg font-weight-bold mt-2 text-black"><%=dashData.allTeamsLength %></div>
+                                                </div>
+
+                                                <i class="fad fa-user fs-45 text-indigo"></i>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer bg-white d-flex align-items-center justify-content-between border-0 col-12 p-0">
+                                            <a class="small text-dark d-flex justify-content-between px-3 pb-3 w-100 text-decoration-none text-uppercase" href="/view-teams"><span>View</span><span><i class="fad fa-chevron-right"></i></span></a>
+                                            <!-- <div class="small text-white"><svg class="svg-inline--fa fa-angle-right fa-w-8" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg><i class="fas fa-angle-right"></i></div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card bg-blue text-white mb-4 p-1">
+                                    <div class="row mx-0 rounded overflow-hidden bg-white position-relative">
+                                        <div class="card-body col-12">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="">
+                                                    <div class="text-blue small font-weight-bold">Total number of players</div>
+                                                    <div class="text-lg font-weight-bold mt-2 text-black"><%=dashData.allPlayerLength %></div>
+                                                </div>
+
+                                                <i class="fad fa-users fs-45 text-blue"></i>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer bg-white d-flex align-items-center justify-content-between border-0 col-12 p-0">
+                                            <a class="small text-dark d-flex justify-content-between px-3 pb-3 w-100 text-decoration-none text-uppercase" href="/view-all-players"><span>View</span><span><i class="fad fa-chevron-right"></i></span></a>
+                                            <!-- <div class="small text-white"><svg class="svg-inline--fa fa-angle-right fa-w-8" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg><i class="fas fa-angle-right"></i></div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card bg-red text-white mb-4 p-1">
+                                    <div class="row mx-0 rounded overflow-hidden bg-white position-relative">
+                                        <div class="card-body col-12">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="">
+                                                    <div class="text-red small font-weight-bold">Global Contest</div>
+                                                    <div class="text-lg font-weight-bold mt-2 text-black"><%=dashData.globelContestLength %></div>
+                                                </div>
+
+                                                <i class="fad fa-globe fs-45 text-red"></i>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer bg-white d-flex align-items-center justify-content-between border-0 col-12 p-0">
+                                            <a class="small text-dark d-flex justify-content-between px-3 pb-3 w-100 text-decoration-none text-uppercase" href="/view-all-global-contests-challengers"><span>View</span><span><i class="fad fa-chevron-right"></i></span></a>
+                                            <!-- <div class="small text-white"><svg class="svg-inline--fa fa-angle-right fa-w-8" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg><i class="fas fa-angle-right"></i></div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script>
+                            $(document).ready(function() {
+                                showGraph();
+                                showBar();
+                            });
+
+
+                            function showGraph() {
+                                
+
+                                $.post("/total_amount_received_in_week",
+                                    function(data) {
+                                        console.log("data..recive",data)
+                                        var labels = data[0];
+                                        var amounts = data[1];
+                                        let totalAmount=data[2];
+                                         $('#tReceived').replaceWith(`<span id="tReceived" class="text-primary">₹${totalAmount}</span>`)
+
+
+                                        var ctx = document.getElementById("myAreaChart1");
+                                        var myLineChart = new Chart(ctx, {
+                                            type: "line",
+                                            data: {
+                                                labels: labels,
+                                                datasets: [{
+                                                    label: "Amount Received",
+                                                    lineTension: 0.3,
+                                                    backgroundColor: "rgba(0, 97, 22, 0.05)",
+                                                    borderColor: getComputedStyle(document.documentElement)
+                                                        .getPropertyValue('--color-primary'),
+                                                    pointRadius: 3,
+                                                    pointBackgroundColor: getComputedStyle(document.documentElement)
+                                                        .getPropertyValue('--color-primary'),
+                                                    pointBorderColor: getComputedStyle(document.documentElement)
+                                                        .getPropertyValue('--color-primary'),
+                                                    pointHoverRadius: 3,
+                                                    pointHoverBackgroundColor: "rgba(0, 97, 242, 1)",
+                                                    pointHoverBorderColor: "rgba(0, 97, 242, 1)",
+                                                    pointHitRadius: 10,
+                                                    pointBorderWidth: 2,
+                                                    data: amounts,
+                                                }, ],
+                                            },
+                                            options: {
+                                                maintainAspectRatio: false,
+                                                layout: {
+                                                    padding: {
+                                                        left: 10,
+                                                        right: 25,
+                                                        top: 25,
+                                                        bottom: 0,
+                                                    },
+                                                },
+                                                scales: {
+                                                    xAxes: [{
+                                                        time: {
+                                                            unit: "date",
+                                                        },
+                                                        gridLines: {
+                                                            display: false,
+                                                            drawBorder: false,
+                                                        },
+                                                        ticks: {
+                                                            maxTicksLimit: 7,
+                                                        },
+                                                    }, ],
+                                                    yAxes: [{
+                                                        ticks: {
+                                                            maxTicksLimit: 5,
+                                                            padding: 10,
+                                                            // Include a dollar sign in the ticks
+                                                            callback: function(value, index, values) {
+                                                                return "" + number_format(value);
+                                                            },
+                                                        },
+                                                        gridLines: {
+                                                            color: "rgb(234, 236, 244)",
+                                                            zeroLineColor: "rgb(234, 236, 244)",
+                                                            drawBorder: false,
+                                                            borderDash: [2],
+                                                            zeroLineBorderDash: [2],
+                                                        },
+                                                    }, ],
+                                                },
+                                                legend: {
+                                                    display: false,
+                                                },
+                                                tooltips: {
+                                                    backgroundColor: "rgb(255,255,255)",
+                                                    bodyFontColor: "#858796",
+                                                    titleMarginBottom: 10,
+                                                    titleFontColor: "#6e707e",
+                                                    titleFontSize: 14,
+                                                    borderColor: "#dddfeb",
+                                                    borderWidth: 1,
+                                                    xPadding: 15,
+                                                    yPadding: 15,
+                                                    displayColors: false,
+                                                    intersect: false,
+                                                    mode: "index",
+                                                    caretPadding: 10,
+                                                    callbacks: {
+                                                        label: function(tooltipItem, chart) {
+                                                            var datasetLabel =
+                                                                chart.datasets[tooltipItem.datasetIndex].label || "";
+                                                            return (
+                                                                datasetLabel + ":" + number_format(tooltipItem.yLabel)
+                                                            );
+                                                        },
+                                                    },
+                                                },
+                                            },
+                                        });
+                                    });
+                            }
+                        </script>
+
+                        <script>
+                            function showBar() {
+                                // var post_data = {
+                                //     _token: 'rtTuDhsIGeaIxjfKTaO7Lm1L0K7RqzyzmD28hOES'
+                                // }
+
+                                $.post("/total_amount_withdraw_in_week",
+                                    // post_data,
+                                    function(data) {
+                                        console.log(data,"data///")
+                                        var labels = data[0];
+                                        var amounts = data[1];
+                                         let totalAmount=data[2];
+                                         $('#tWithdrawalAmount').replaceWith(`<span id="tWithdrawalAmount" class="text-primary">₹${totalAmount}</span>`)
+
+                                        // Bar Chart Example
+                                        var ctx = document.getElementById("myBarChart1");
+                                        var myBarChart = new Chart(ctx, {
+                                            type: "bar",
+                                            data: {
+                                                labels: labels,
+                                                datasets: [{
+                                                    label: "Withdraw Amount",
+                                                    backgroundColor: getComputedStyle(document.documentElement)
+                                                        .getPropertyValue('--color-primary'),
+                                                    hoverBackgroundColor: "rgba(0, 97, 242, 0.9)",
+                                                    borderColor: getComputedStyle(document.documentElement)
+                                                        .getPropertyValue('--color-primary'),
+                                                    data: amounts,
+                                                }]
+                                            },
+                                            options: {
+                                                maintainAspectRatio: false,
+                                                layout: {
+                                                    padding: {
+                                                        left: 10,
+                                                        right: 25,
+                                                        top: 25,
+                                                        bottom: 0
+                                                    }
+                                                },
+                                                scales: {
+                                                    xAxes: [{
+                                                        time: {
+                                                            unit: "month"
+                                                        },
+                                                        gridLines: {
+                                                            display: false,
+                                                            drawBorder: false
+                                                        },
+                                                        ticks: {
+                                                            maxTicksLimit: 6
+                                                        },
+                                                        maxBarThickness: 25
+                                                    }],
+                                                    yAxes: [{
+                                                        ticks: {
+                                                            min: 0,
+                                                            max: totalAmount,
+                                                            maxTicksLimit: 5,
+                                                            padding: 10,
+                                                            // Include a dollar sign in the ticks
+                                                            callback: function(value, index, values) {
+                                                                return "" + number_format(value);
+                                                            }
+                                                        },
+                                                        gridLines: {
+                                                            color: "rgb(234, 236, 244)",
+                                                            zeroLineColor: "rgb(234, 236, 244)",
+                                                            drawBorder: false,
+                                                            borderDash: [2],
+                                                            zeroLineBorderDash: [2]
+                                                        }
+                                                    }]
+                                                },
+                                                legend: {
+                                                    display: false
+                                                },
+                                                tooltips: {
+                                                    titleMarginBottom: 10,
+                                                    titleFontColor: "#6e707e",
+                                                    titleFontSize: 14,
+                                                    backgroundColor: "rgb(255,255,255)",
+                                                    bodyFontColor: "#858796",
+                                                    borderColor: "#dddfeb",
+                                                    borderWidth: 1,
+                                                    xPadding: 15,
+                                                    yPadding: 15,
+                                                    displayColors: false,
+                                                    caretPadding: 10,
+                                                    callbacks: {
+                                                        label: function(tooltipItem, chart) {
+                                                            var datasetLabel =
+                                                                chart.datasets[tooltipItem.datasetIndex].label || "";
+                                                            return datasetLabel + ": " + number_format(tooltipItem.yLabel);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        });
+                                    });
+                            }
+                        </script>
+                    </div>
+
+
+                </main>
+                <%- include("../partials/footer") %>
+
+                    <script>
+                        $(window).on('load', function() {
+
+                            $('#preloader_admin').hide();
+
+                        })
+                    </script>
+
+
+                    <script>
+                        $(document).ready(function() {
+
+                            if ($('#accordionSidenavPages a').hasClass('active')) {
+                                $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
+                                $('#accordionSidenavPages a.active').parent().parent().addClass('show');
+                                // console.log(id);
+                            } else {
+                                $('#takeonebar').addClass('slamdown');
+                            }
+                        });
+                    </script>
+                   
+
+
+                    <script type="text/javascript">
+                                          
+
+                   
+                        // function isNumberKey(evt){
+                        //    <!--Function to accept only numeric values-->
+                        //     //var e = evt || window.event;
+
+                        //    var charCode = (evt.which) ? evt.which : evt.keyCode
+                        //     if (charCode != 46 && charCode > 31
+                        //    && (charCode < 48 || charCode > 57))
+
+                        //     return false;
+                        //   else {
+                        //        var itemdecimal = evt.srcElement.value.split('.');
+                        //        if (itemdecimal.length > 1 && charCode == 46)
+                        //            return false;
+
+                        //        return true;
+                        //   }
+                        // }
+                    </script>
+                  
+            
+
+        
+
+
+                    <script>
+                        function delete_sweet_alert(url, msg) {
+                            // sweet alert
+                            const swalWithBootstrapButtons = Swal.mixin({
+                                customClass: {
+                                    confirmButton: 'btn btn-sm btn-success ml-2',
+                                    cancelButton: 'btn btn-sm btn-danger'
+                                },
+                                buttonsStyling: false
+                            })
+
+                            swalWithBootstrapButtons.fire({
+                                title: msg,
+                                text: "You won't be able to revert this!",
+                                icon: 'success',
+                                showCancelButton: true,
+                                confirmButtonText: 'Yes',
+                                cancelButtonText: 'No',
+                                reverseButtons: true
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+
+                                    swalWithBootstrapButtons.fire(
+                                        '',
+                                        'Successfully Done',
+                                        'success'
+                                    );
+
+                                    window.location.href = url;
+
+
+                                } else if (
+                                    /* Read more about handling dismissals below */
+                                    result.dismiss === Swal.DismissReason.cancel
+                                ) {
+                                    swalWithBootstrapButtons.fire(
+                                        'Cancelled',
+                                        'Cancelled successfully :)',
+                                        'error'
+                                    );
+                                    return false;
+                                }
+                            })
+                        }
+                    </script>

@@ -1,0 +1,510 @@
+<%- include("../../partials/head") %>
+
+<%- include("../../partials/bodyStartWithNavBar/") %>
+<%- include("../../partials/sideNav") %>
+<div id="layoutSidenav_content">
+  <main>
+
+    <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          <div class="col">
+            <div class="page-header-content">
+              <h1 class="page-header-title fs-md-35 fs-20">
+
+                <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                <span class=" text-capitalize">
+                  Sub Admin Manager
+                </span>
+              </h1>
+              <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                View Sub Admin
+              </div>
+            </div>
+          </div>
+          <div class="col-auto mb-md-0 mb-3">
+            <a href="/add-sub-admin"
+              class="btn btn-sm btn-light font-weight-bold text-uppercase mr-2 text-primary float-right"
+              style="float: right;" data-toggle="tooltip" title="Add Sub admin"><i class="fa fa-plus"></i> Add</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid mt-n10">
+
+
+      <div class="card mb-3">
+        <div class="card-body">
+          <div class="sbp-preview">
+            <div class="sbp-preview-content p-3">
+              <form method="GET" action="/view-sub-admin" accept-charset="UTF-8" id="j-forms" class="j-forms row">
+
+
+                <div class="col-md-4 pull-left">
+                  <label for="name1" class="control-label text-bold">Sub Admin Name</label>
+                  <% if(name) { %>
+                  <input value="<%= name %>" placeholder="Search By Sub Admin Name" id="name"
+                    class="form-control form-control-solid" style="color:black;" name="name" type="text">
+                  <% } else { %>
+                  <input value="" placeholder="Search By Sub Admin Name" id="name"
+                    class="form-control form-control-solid" style="color:black;" name="name" type="text">
+                  <% } %>
+                </div>
+
+                <div class="col-md-4 pull-left">
+                  <label for="Email" class="control-label text-bold">Email</label>
+                  <% if(email) { %>
+                  <input value="<%= email %>" placeholder="Search By email" id="email"
+                    class="form-control form-control-solid" style="color:black;" name="email" type="text">
+                  <% } else { %>
+                  <input value="" placeholder="Search By email" id="email" class="form-control form-control-solid"
+                    style="color:black;" name="email" type="text">
+                  <% } %>
+                </div>
+
+                <div class="col-md-4 pull-left">
+                  <label for="Mobile" class="control-label text-bold">Mobile</label>
+                  <% if(mobile) { %>
+                  <input value="<%= mobile %>" name="mobile" class="form-control form-control-solid" type="text"
+                    placeholder="Search By Mobile" id="mobile" maxlength="10" value="">
+                  <% } else { %>
+                  <input value="" name="mobile" class="form-control form-control-solid" type="text"
+                    placeholder="Search By Mobile" id="mobile" maxlength="10" value="">
+                  <% } %>
+
+                </div>
+
+                <div class="col-12 text-right mt-4 mb-2">
+                  <button class="btn btn-sm btn-success text-uppercase"><i
+                      class="far fa-check-circle"></i>&nbsp;Submit</button>
+                  <a href="/view-sub-admin" class="btn btn-sm btn-warning text-uppercase"><i
+                      class="far fa-undo"></i>&nbsp; Reset</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">View Sub Admin</div>
+        <div class="card-body">
+
+          <div class="datatable table-responsive">
+            <table class="table table-bordered table-striped table-hover text-nowrap" id="allmatches_datatable"
+              width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>S No.</th>
+                  <th>name</th>
+                  <th>email</th>
+                  <th>mobile</th>
+                  <th>password</th>
+                  <th>permission</th>
+                  <th>action</th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  <th>S No.</th>
+                  <th>name</th>
+                  <th>email</th>
+                  <th>mobile</th>
+                  <th>password</th>
+                  <th>permission</th>
+                  <th>action</th>
+                </tr>
+              </tfoot>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <script type="text/javascript">
+        $(document).ready(function () {
+          $.fn.dataTable.ext.errMode = 'none';
+
+          let name = $('#name').val();
+          let email = $('#email').val();
+          let mobile = $('#mobile').val();
+
+          $('#allmatches_datatable').DataTable({
+            serverSide: true,
+            searching: false,
+            language: {
+              zeroRecords: "No records to display",
+            },
+            ajax: {
+              url: `/view-sub-admin-table?name=${name}&email=${email}&mobile=${mobile}`,
+              type: "POST",
+            },
+            columns: [{
+                data: "count"
+              },
+              {
+                data: "name"
+              },
+              {
+                data: "email"
+              },
+              {
+                data: "mobile"
+              },
+              {
+                data: "password"
+              },
+              {
+                data: "permissions"
+              },
+              {
+                data: "action"
+              },
+            ]
+          });
+
+        });
+      </script>
+
+    </div>
+  </main>
+  <%- include("../../partials/footer") %>
+
+  <script>
+    $(window).on('load', function () {
+
+      $('#preloader_admin').hide();
+
+    })
+  </script>
+
+
+  <script>
+    $('#b1').click(function () {
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-sm btn-success',
+          cancelButton: 'btn btn-sm btn-danger'
+        },
+        buttonsStyling: false
+      })
+
+      swalWithBootstrapButtons.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'success',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+          swalWithBootstrapButtons.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+          )
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'Cancelled',
+            'Your imaginary file is safe :)',
+            'error'
+          )
+        }
+      })
+    });
+  </script>
+
+
+  <script>
+    $('#special').on('click', function () {
+      mySelect.find('option:selected').prop('disabled', true);
+      mySelect.selectpicker('refresh');
+    });
+
+    $('#special2').on('click', function () {
+      mySelect.find('option:disabled').prop('disabled', false);
+      mySelect.selectpicker('refresh');
+    });
+
+    $('#basic2').selectpicker({
+      liveSearch: true,
+      maxOptions: 1
+    });
+  </script>
+
+
+
+  <script>
+    $(document).ready(function () {
+
+      if ($('#accordionSidenavPages a').hasClass('active')) {
+        $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
+        $('#accordionSidenavPages a.active').parent().parent().addClass('show');
+        // console.log(id);
+      } else {
+        $('#takeonebar').addClass('slamdown');
+      }
+    });
+  </script>
+  <script>
+    $("#sortable, #sortable2").sortable();
+  </script>
+  <script>
+    $(".alert").delay(3000).fadeOut();
+  </script>
+
+
+  <script type="text/javascript">
+    $.datetimepicker.setLocale('en');
+    $('.datetimepickerget').datetimepicker({
+      lang: 'en',
+      formatDate: 'd.m.Y',
+      step: 5,
+      startDate: new Date()
+    });
+  </script>
+  <script type="text/javascript">
+    $('.datepicker').datepicker({
+      lang: 'en',
+      formatDate: 'd.m.Y',
+      step: 5,
+    });
+  </script>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('#select_all').on('click', function () {
+        if (this.checked) {
+          $('.checkbox').each(function () {
+            this.checked = true;
+          });
+        } else {
+          $('.checkbox').each(function () {
+            this.checked = false;
+          });
+        }
+      });
+
+      $('.checkbox').on('click', function () {
+        if ($('.checkbox:checked').length == $('.checkbox').length) {
+          $('#select_all').prop('checked', true);
+        } else {
+          $('#select_all').prop('checked', false);
+        }
+      });
+    });
+  </script>
+  <script>
+    function isNumberKey(evt) {
+      //var e = evt || window.event;
+
+      var charCode = (evt.which) ? evt.which : evt.keyCode
+      if (charCode != 46 && charCode > 31 &&
+        (charCode < 48 || charCode > 57))
+
+        return false;
+      else {
+        var itemdecimal = evt.srcElement.value.split('.');
+        if (itemdecimal.length > 1 && charCode == 46)
+          return false;
+
+        return true;
+      }
+    }
+  </script>
+
+  <script>
+    function divshowhide(value) {
+      if (value == 'specific') {
+        $("#specificdiv").removeClass('d-none');
+        $("#specificdiv1").show();
+        $("#specificdiv2").show();
+      } else {
+        $("#specificdiv").addClass('d-none');
+        $("#specificdiv1").hide();
+        $("#specificdiv2").hide();
+      }
+    }
+
+    function deletediv1(e, item) {
+      $('#dsafd' + item).remove();
+    }
+  </script>
+
+
+  <script>
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          $('#' + input.id + '-imagePreview').css('background-image', 'url(' + e.target.result + ')');
+          $('#' + input.id + '-imagePreview').hide();
+          $('#' + input.id + '-imagePreview').fadeIn(650);
+        }
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+    $(".imageUpload").change(function () {
+      readURL(this);
+    });
+  </script>
+
+
+
+
+
+
+  <script>
+    // This is only for the Inputs to work dynamically
+
+    function setTheme(H, inputType) {
+      // Convert hex to RGB first
+      let r = 0,
+        g = 0,
+        b = 0;
+      if (H.length == 4) {
+        r = "0x" + H[1] + H[1];
+        g = "0x" + H[2] + H[2];
+        b = "0x" + H[3] + H[3];
+      } else if (H.length == 7) {
+        r = "0x" + H[1] + H[2];
+        g = "0x" + H[3] + H[4];
+        b = "0x" + H[5] + H[6];
+      }
+      // Then to HSL
+      r /= 255;
+      g /= 255;
+      b /= 255;
+      let cmin = Math.min(r, g, b),
+        cmax = Math.max(r, g, b),
+        delta = cmax - cmin,
+        h = 0,
+        s = 0,
+        l = 0;
+
+      if (delta == 0)
+        h = 0;
+      else if (cmax == r)
+        h = ((g - b) / delta) % 6;
+      else if (cmax == g)
+        h = (b - r) / delta + 2;
+      else
+        h = (r - g) / delta + 4;
+
+      h = Math.round(h * 60);
+
+      if (h < 0)
+        h += 360;
+
+      l = (cmax + cmin) / 2;
+      s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+      s = +(s * 100).toFixed(1);
+      l = +(l * 100).toFixed(1);
+
+      document.documentElement.style.setProperty(`--${inputType}-color-h`, h);
+      document.documentElement.style.setProperty(`--${inputType}-color-s`, s + '%');
+      document.documentElement.style.setProperty(`--${inputType}-color-l`, l + '%');
+
+      hsl = h + ' ' + s + ' ' + l + '';
+
+      //   $('#'+inputType+'-color-input').val( hsl );
+
+      $('input[name="input[' + inputType + '_hsl]"').val(hsl);
+    }
+
+    const inputs = ['primary', 'secondary', 'info', 'success', 'danger', 'warning', 'muted', 'dark', 'light', 'black',
+      'white', 'blue', 'indigo', 'purple', 'pink', 'red', 'orange', 'yellow', 'green', 'teal', 'cyan', 'gray',
+      'graydark'
+    ];
+
+    inputs.forEach((inputType) => {
+      document.querySelector(`#${inputType}-color-input`)
+        .addEventListener('change', (e) => {
+          setTheme(e.target.value, inputType);
+
+        });
+
+    });
+  </script>
+
+
+  <script>
+    /*jslint browser:true*/
+    /*global jQuery, document*/
+
+    jQuery(document).ready(function () {
+      'use strict';
+
+      jQuery(
+        '#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date'
+      ).datetimepicker();
+    });
+  </script>
+
+  <script>
+    function copyToClipboard(element, element1) {
+      var $temp = $("<input>");
+      $("body").append($temp);
+      $temp.val($(element).text()).select();
+      document.execCommand("copy");
+      $temp.remove();
+
+      $(element1).addClass("copied_success animated bounceIn");
+      setTimeout(RemoveClass, 1000);
+
+      function RemoveClass() {
+        $(element1).removeClass("copied_success animated bounceIn");
+      }
+    }
+  </script>
+
+  <script>
+    function delete_sweet_alert(url, msg) {
+      // sweet alert
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-sm btn-success ml-2',
+          cancelButton: 'btn btn-sm btn-danger'
+        },
+        buttonsStyling: false
+      })
+
+      swalWithBootstrapButtons.fire({
+        title: msg,
+        text: "You won't be able to revert this!",
+        icon: 'success',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+
+          swalWithBootstrapButtons.fire(
+            '',
+            'Successfully Done',
+            'success'
+          );
+
+          window.location.href = url;
+
+
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'Cancelled',
+            'Cancelled successfully :)',
+            'error'
+          );
+          return false;
+        }
+      })
+    }
+  </script>

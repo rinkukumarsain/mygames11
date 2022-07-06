@@ -1,0 +1,540 @@
+  
+  <%- include("../../partials/head") %>
+
+  <%- include("../../partials/bodyStartWithNavBar/") %>
+    <%- include("../../partials/sideNav") %>
+  <div id="layoutSidenav_content">
+            <main>
+
+                <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <div class="page-header-content">
+                                    <h1 class="page-header-title fs-md-35 fs-20">
+
+                                        <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                                        <span class=" text-capitalize">
+                                                Contest Manager
+                                        </span>
+                                    </h1>
+                                    <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                                           Edit custom contest
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto mb-md-0 mb-3">
+                                <a  href="/create-custom-contest" class="btn btn-sm btn-light font-weight-bold text-uppercase text-primary text-uppercase" data-toggle="tooltip" title="View All Custom Contests"><i class="fas fa-eye"></i>&nbsp; View</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid mt-n10">
+                    
+<div class="row mt-3">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">Edit Custom Contest</div>
+            <div class="card-body">
+            <form action="/editcustomcontest/<%=data._id %>" method="post" >
+            <%- include("../../partials/alertMsg") %>            
+            <div class="sbp-preview">
+                <div class="sbp-preview-content">
+                    <div class="row mx-0">
+                        <div class="col-12">
+                          
+                            <div class="form-group">
+                                <label class="label-control text-bold">Match Name*</label>
+                                <select name="matchkey" class="form-control form-control-solid p-1 " required="">
+                                <option value="" disabled selected>Select Match</option>
+                                <% if(launchMatchData) {%>
+                                <% for(let key of launchMatchData) {%>
+                                    <option value="<%=key.id %>" <%=key.id ==data.matchkey ? 'selected' : '' %>><%=key.name %></option>
+                                <% }%>
+                                <% }%>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-12 my-md-3">
+                            <div class="form-group">
+                                <label class="label-control text-bold">Contest Amount Type*</label><br>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="contest_type" <%=data.contest_type == 'Amount'? 'checked' : '' %> value="Amount" checked id="customRadio1" class="custom-control-input">
+                                    <label class="custom-control-label fs-15" for="customRadio1">Amount Based</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="contest_type" <%=data.contest_type == 'Percentage'? 'checked' : '' %> value="Percentage"  id="customRadio2" class="custom-control-input">
+                                    <label class="custom-control-label fs-15" for="customRadio2">Percentage based</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-12 my-md-3">
+                            <div class="form-group"  id="pricecard_contest">
+                            <label class="label-control text-bold" >Contest Price Card Type*</label><br>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" name="pricecard_type" value="Amount"  <%=data.pricecard_type == 'Amount'? 'checked' : '' %> id="customRadio11" class="custom-control-input">
+                                <label class="custom-control-label fs-15" for="customRadio11">Amount Based</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" name="pricecard_type" value="Percentage" <%=data.pricecard_type == 'Percentage'? 'checked' : '' %>  id="customRadio12" class="custom-control-input">
+                                <label class="custom-control-label fs-15" for="customRadio12">Percentage based</label>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                            <label class="label-control text-bold">Contest Category*</label>
+                            <select name="contest_cat" class="p-1 form-control form-control-solid selectpicker show-tick" data-container="body" data-live-search="true" title="Select Contest Category" data-hide-disabled="true" required="">
+                            <!-- <option value="" disabled selected>Select Contest Category</option> -->
+                            <% if(contestData) {%>
+                            <% for(let keys of contestData){%>
+                                <option value="<%=keys._id %>" <%=(keys._id).toString() ==(data.contest_cat).toString() ? 'selected' : '' %> > <%=keys.name %> </option>
+                            <% }%>
+                            <% }%>                         
+                            </select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                            <label class="label-control text-bold">Entry Fee*</label>
+                            <% if(data.entryfee) {%>
+                                <input type="number" onkeypress="return isNumberKey(event)" id="first-name" min="0" class="form-control form-control-solid" placeholder="Enter Entry Fee" name="entryfee" value="<%= data.entryfee %>" required="" >
+                              <% }else{%>
+                                <input type="number" onkeypress="return isNumberKey(event)" id="first-name" min="0" class="form-control form-control-solid" placeholder="Enter Entry Fee" name="entryfee" value="" required="" >
+                            <% }%>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                        <div class="form-group">
+                            <label class="label-control text-bold">Winning Amount*</label>
+                            <% if(data.win_amount) {%>
+                            <input type="number" onkeypress="return isNumberKey(event)" min="0" class="form-control form-control-solid" placeholder="Enter Winning Amount"  name="win_amount" required="" value="<%=data.win_amount %>" >
+                            <% }else{%>
+                            <input type="number" onkeypress="return isNumberKey(event)" min="0" class="form-control form-control-solid" placeholder="Enter Winning Amount"  name="win_amount" required="" value="" >
+                            <% }%>
+                        </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                        <div class="form-group" id="max_user">
+                            <label class="label-control text-bold">Maximum number of users*</label>
+                            <% if(data.maximum_user) {%>
+                            <input type="number" onkeypress="return isNumberKey(event)"  min="0" class="form-control form-control-solid" placeholder="Enter Maximum Number Of Users"  name="maximum_user" value="<%=data.maximum_user %>" >
+                            <% }else{%>
+                            <input type="number" onkeypress="return isNumberKey(event)"  min="0" class="form-control form-control-solid" placeholder="Enter Maximum Number Of Users"  name="maximum_user" value="" >
+                            <% }%>
+                        </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                        <div class="form-group"  id="pert" style="display: none;">
+                            <label class="label-control text-bold">Percentage of users who will win (In case of percentage)*</label>
+                            <% if(data.winning_percentage) {%>
+                            <input type="number" onkeypress="return isNumberKey(event)" disabled="" id="ch1" class="form-control form-control-solid"  min="0" placeholder="Enter percentage of users winning this challenge"  name="winning_percentage" required="" value="<%=data.winning_percentage %>" >
+                            <% }else{%>
+                            <input type="number" onkeypress="return isNumberKey(event)" disabled="" id="ch1" class="form-control form-control-solid"  min="0" placeholder="Enter percentage of users winning this challenge"  name="winning_percentage" required="" value="" >
+                            <% }%>
+                        </div>
+                        </div>
+                        <div class="col-12 mt-3" id="team_limit" style="display:none">
+                            <div class="form-group">
+                                <label class="label-control text-bold">Team Limit</label>
+                                <% if(data.team_limit) {%>
+                                <input disabled="" id="ch21" type="number" onkeypress="return isNumberKey(event)" class="form-control form-control-solid"  name="team_limit" value="<%=data.team_limit %>" placeholder="Enter Team Limit" required="">
+                                <% }else{%>
+                                <input disabled="" id="ch21" type="number" onkeypress="return isNumberKey(event)" class="form-control form-control-solid"  name="team_limit" value="11" placeholder="Enter Team Limit" required="">
+                                <% }%>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-12 mt-md-3 ">
+                        <div class="form-group my-3">
+                            <div class="custom-control custom-checkbox custom-control-inline">
+                            <input type="checkbox" class="custom-control-input sel_all" <%=data.multi_entry == 1 ? 'checked' : '' %> id="select_all" name="multi_entry" value="1" checked>                           
+                                <label class="custom-control-label fs-15" for="select_all">Multi Entry</label>
+                            </div>
+                        </div>
+                        </div>
+
+                        <div class="col-md-3 col-sm-6 col-12 mt-md-3">
+                        <div class="form-group my-3">
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                            <input type="checkbox" class="custom-control-input sel_all" <%=data.confirmed_challenge == 1 ? 'checked' : '' %> id="select_all1" name="confirmed_challenge" value="1" >
+                                <label class="custom-control-label fs-15" for="select_all1">Is Confirmed</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6 col-12 mt-md-3">
+                        <div class="form-group my-3">
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                            <input type="checkbox" class="custom-control-input sel_all" id="select_all2" <%=data.is_running == 1 ? 'checked' : '' %> name="is_running" value="1" >
+                                <label class="custom-control-label fs-15" for="select_all2">Is Running</label>
+                            </div>
+                        </div>
+                    </div>
+
+                        <div class="col-md-3 col-sm-6 col-12 mt-md-3">
+                        <div class="form-group my-3">
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                            <input type="checkbox" class="custom-control-input sel_all" id="select_all3" <%=data.is_bonus == 1 ? 'checked' : '' %> name="is_bonus" value="1" >
+                                <label class="custom-control-label fs-15" for="select_all3">Is Bonus Allowed</label>
+                            </div>
+                        </div>
+                    </div>
+
+                        <div class="col-sm-12">
+                        <div class="form-group" id="bonuspercentage" style="display:none;">
+                            <label class="label-control text-bold">Bonus Percentage (No need to enter % here. Just enter number here)*</label>
+                          <% if(data.bonus_percentage) {%>
+                            <input disabled="" id="ch2" type="text" class="form-control form-control-solid"  name="bonus_percentage"  value="<%=data.bonus_percentage %>"  placeholder="Enter Bonus Percentage" required="">
+                            <% }else{ %>
+                            <input disabled="" id="ch2" type="text" class="form-control form-control-solid"  name="bonus_percentage"  value="0"  placeholder="Enter Bonus Percentage" required="">
+                          <% }%>
+                        </div>
+                        </div>
+                        <div class="col-12 text-right mt-4 mb-2">
+                            <button class="btn btn-sm btn-sm btn-warning"  onclick="window.location.href=window.location.href"><i class="fa fa-undo">&nbsp;</i>Reset</button>
+                            <button class="btn btn-sm btn-sm btn-success" type="submit"><i class="far fa-check-circle"></i>&nbsp; Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    if($('input[name=multi_entry]').prop('checked')==true){
+        // $('input[name=team_limit]').val('');
+        $("input[name=team_limit]").prop('disabled', false);
+        $("#team_limit").stop().slideDown();
+    }
+    if($('input[name=multi_entry]').prop('checked')==false){
+        $("input[name=team_limit]").prop('disabled', true);
+        $("#team_limit").stop().slideUp();
+    }
+  
+    $('input[name=multi_entry]').change(function() { 
+        if($('input[name=multi_entry]').prop('checked')==true){
+        // $('input[name=team_limit]').val('');
+        $("input[name=team_limit]").prop('disabled', false);
+        $("#team_limit").stop().slideDown();
+        }
+        if($('input[name=multi_entry]').prop('checked')==false){
+        $("input[name=team_limit]").prop('disabled', true);
+        $("#team_limit").stop().slideUp();
+        }
+    
+    });
+
+ if($('input[name=is_bonus]').prop('checked')==true){
+
+    $("input[name=bonus_percentage]").prop('disabled', false);
+    $("#bonuspercentage").show();
+  }
+  if($('input[name=is_bonus]').prop('checked')==false){
+      $('input[name=bonus_percentage]').val('');
+    $("input[name=bonus_percentage]").prop('disabled', true);
+    $("#bonuspercentage").hide();
+  }
+$('input[name=is_bonus]').change(function() {
+  if($('input[name=is_bonus]').prop('checked')==true){
+    $('input[name=bonus_percentage]').val('');
+    $("input[name=bonus_percentage]").prop('disabled', false);
+    $("#bonuspercentage").show();
+  }
+  if($('input[name=is_bonus]').prop('checked')==false){
+    $("input[name=bonus_percentage]").prop('disabled', true);
+    $("#bonuspercentage").hide();
+  }
+
+});
+  if ($('input[name=contest_type]:checked').val() == "Amount") {
+      $('#pert').hide();
+      $('#max_user').show();
+      $("#ch1").prop('disabled', true);
+  }
+  if ($('input[name=contest_type]:checked').val() == "Percentage") {
+      $('#pert').show();
+      $('#max_user').hide();
+      $("#ch1").prop('disabled', false);
+  }
+$("input[name=contest_type]").change(function () {
+  if ($('input[name=contest_type]:checked').val() == "Amount") {
+      $('#pert').hide();
+      $('#max_user').show();
+      $("#ch1").prop('disabled', true);
+  }
+  if ($('input[name=contest_type]:checked').val() == "Percentage") {
+      $('#pert').show();
+      $('#max_user').hide();
+      $("#ch1").prop('disabled', false);
+  }
+});
+</script>
+<script type="text/javascript">
+ if ($('input[name=contest_type]:checked').val() == "Amount") {
+      $('#pert').hide();
+      $('#max_user').show();
+      $("#ch1").prop('disabled', true);
+  }
+  if ($('input[name=contest_type]:checked').val() == "Percentage") {
+      $('#pert').show();
+      $('#max_user').hide();
+      $("#ch1").prop('disabled', false);
+  }
+$("input[name=contest_type]").change(function () {
+  if ($('input[name=contest_type]:checked').val() == "Amount") {
+      $('#pert').hide();
+      $('#max_user').show();
+      $("#ch1").prop('disabled', true);
+  }
+  if ($('input[name=contest_type]:checked').val() == "Percentage") {
+      $('#pert').show();
+      $('#max_user').hide();
+      $("#ch1").prop('disabled', false);
+  }
+});
+</script>
+<script type="text/javascript">
+  if ($('input[name=contest_type]:checked').val() == "Amount") {
+      $('#pricecard_contest').show();
+      document.getElementById("pricecard_contest").style.display = "block";
+  }
+  if ($('input[name=contest_type]:checked').val() == "Percentage") {
+      $('#pricecard_contest').hide();
+      document.getElementById("pricecard_contest").style.display = "none";
+  }
+  $("input[name=contest_type]").change(function () {
+  if ($('input[name=contest_type]:checked').val() == "Amount") {
+      $('#pricecard_contest').show();
+      document.getElementById("pricecard_contest").style.display = "block";
+  }
+  if ($('input[name=contest_type]:checked').val() == "Percentage") {
+      $('#pricecard_contest').hide();
+      document.getElementById("pricecard_contest").style.display = "none";
+  }
+});
+</script>
+<script>
+    function check(){
+        $('#checks').html('*sorry you can not edit this!');
+        $('#checks').delay(3200).fadeOut(300);
+
+    }
+</script>
+                </div>
+            </main>
+            <%- include("../../partials/footer") %>
+
+
+            <script>
+
+                $(window).on('load', function(){
+          
+                   $('#preloader_admin').hide();
+          
+                  })
+              </script>
+          
+          
+              <script>
+            $('#b1').click(function(){
+              const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                  confirmButton: 'btn btn-sm btn-success',
+                  cancelButton: 'btn btn-sm btn-danger'
+                },
+                buttonsStyling: false
+              })
+          
+              swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  swalWithBootstrapButtons.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                  )
+                } else if (
+                  /* Read more about handling dismissals below */
+                  result.dismiss === Swal.DismissReason.cancel
+                ) {
+                  swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Your imaginary file is safe :)',
+                    'error'
+                  )
+                }
+              })
+            });
+          </script>
+          
+  
+          <script>
+          $(document).ready(function(){
+              
+            if ($('#accordionSidenavPages a').hasClass('active')){
+              $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
+              $('#accordionSidenavPages a.active').parent().parent().addClass('show');
+              // console.log(id);
+            } else {
+              $('#takeonebar').addClass('slamdown');
+            }
+          });
+          
+          </script>
+          <script>
+              $( "#sortable, #sortable2" ).sortable();
+          </script>
+              <script>
+              $(".alert").delay(3000).fadeOut();
+              </script>
+          
+          
+              <script type="text/javascript">
+              $.datetimepicker.setLocale('en');
+              $('.datetimepickerget').datetimepicker({
+              lang:'en',
+              formatDate:'d.m.Y',
+              step:5,
+              startDate:  new Date()
+               });
+              </script>
+              <script type="text/javascript">
+              $('.datepicker').datepicker({
+              lang:'en',
+              formatDate:'d.m.Y',
+              step:5,
+              });
+              </script>
+          
+              <script type="text/javascript">
+               $(document).ready(function(){
+           $('#select_all').on('click',function(){
+               if(this.checked){
+                   $('.checkbox').each(function(){
+                       this.checked = true;
+                   });
+               }else{
+                    $('.checkbox').each(function(){
+                       this.checked = false;
+                   });
+               }
+           });
+          
+           $('.checkbox').on('click',function(){
+               if($('.checkbox:checked').length == $('.checkbox').length){
+                   $('#select_all').prop('checked',true);
+               }else{
+                   $('#select_all').prop('checked',false);
+               }
+           });
+          });
+          </script>
+          <script>
+          function isNumberKey(evt){
+              //var e = evt || window.event;
+          
+             var charCode = (evt.which) ? evt.which : evt.keyCode
+              if (charCode != 46 && charCode > 31
+             && (charCode < 48 || charCode > 57))
+          
+              return false;
+            else {
+                 var itemdecimal = evt.srcElement.value.split('.');
+                 if (itemdecimal.length > 1 && charCode == 46)
+                     return false;
+          
+                 return true;
+            }
+          }
+          
+          </script>
+        
+      
+          
+          
+              <script>
+                  function readURL(input) {
+                  if (input.files && input.files[0]) {
+                      var reader = new FileReader();
+                      reader.onload = function(e) {
+                          $('#' + input.id + '-imagePreview').css('background-image', 'url('+e.target.result +')');
+                          $('#' + input.id + '-imagePreview').hide();
+                          $('#' + input.id + '-imagePreview').fadeIn(650);
+                      }
+                      reader.readAsDataURL(input.files[0]);
+                  }
+              }
+              $(".imageUpload").change(function() {
+                  readURL(this);
+              });
+              </script>
+
+          <script>
+            /*jslint browser:true*/
+            /*global jQuery, document*/
+          
+            jQuery(document).ready(function () {
+                'use strict';
+          
+                jQuery('#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date').datetimepicker();
+            });
+          </script>
+          
+     
+          
+          <script>
+          function delete_sweet_alert(url, msg) {
+            // sweet alert
+              const swalWithBootstrapButtons = Swal.mixin({
+              customClass: {
+                  confirmButton: 'btn btn-sm btn-success ml-2',
+                  cancelButton: 'btn btn-sm btn-danger'
+              },
+              buttonsStyling: false
+              })
+          
+              swalWithBootstrapButtons.fire({
+              title: msg,
+              text: "You won't be able to revert this!",
+              icon: 'success',
+              showCancelButton: true,
+              confirmButtonText: 'Yes',
+              cancelButtonText: 'No',
+              reverseButtons: true
+              }).then((result) => {
+              if (result.isConfirmed) {
+          
+                swalWithBootstrapButtons.fire(
+                          '',
+                          'Successfully Done',
+                          'success'
+                          );
+          
+                window.location.href = url;
+          
+                  
+              } else if (
+                  /* Read more about handling dismissals below */
+                  result.dismiss === Swal.DismissReason.cancel
+              ) {
+                  swalWithBootstrapButtons.fire(
+                  'Cancelled',
+                  'Cancelled successfully :)',
+                  'error'
+                  );
+                  return false;
+              }
+            })
+          }
+          </script>

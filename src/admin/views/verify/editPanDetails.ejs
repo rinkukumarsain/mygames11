@@ -1,0 +1,233 @@
+<%- include("../../partials/head") %>
+
+    <%- include("../../partials/bodyStartWithNavBar/") %>
+        <%- include("../../partials/sideNav") %>
+<div id="layoutSidenav_content">
+    <main>
+
+        <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <div class="page-header-content">
+                            <h1 class="page-header-title fs-md-35 fs-20">
+
+                                <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                                <span class=" text-capitalize">
+                                        Verification Manager
+                                </span>
+                            </h1>
+                            <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                                Edit Pn Details
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto mb-md-0 mb-3">
+         <a  href="/verifypan" class="btn btn-sm btn-light font-weight-bold text-uppercase mr-2 text-primary float-right"><i class="fad fa-eye"></i> View all Pan requests</a>
+                 </div>
+              </div>
+            </div>
+        </div>
+        <div class="container-fluid mt-n10">
+ 
+<div class="card">
+    <div class="card-header">Edit Pan details</div>
+      <form class="card-body" action="/Update-Credentials-Pan" method="post" id="firstform">
+        <input type="hidden" name="userid" id="userid" value="<%=editUser._id %>">
+
+        <div class="sbp-preview">
+            <div class="sbp-preview-content">
+                <div class="row mx-0">
+                    <div class="col-6">
+                        <label>Name on PAN Card*</label>
+                        <div class="form-group my-3">
+         <input type="text" class="p-1 form-control form-control-solid col-xsm-3" value="<%=editUser.pancard.pan_name || '' %>" placeholder="Enter Your Name on PAN Card* Here" name="pan_name" id="pan_name">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label>PAN Card DOB*</label>
+                        <div class="form-group my-3">
+        <input type="text" class="form-control form-control-solid datetimepickerget" data-date-format="yyyy-mm-dd" value="<%=editUser.pancard.pan_dob || '' %>" placeholder="Enter Date Of Birth Here" name="DOB" id="DOB">
+                        </div>
+                    </div>
+                  
+                    <div class="col-6">
+                        <label>Approval status*</label>
+                        <div class="form-group my-3">
+                            <select class="form-control form-control-solid p-1" id="status" required="" name="status">
+                            <option value=""> Select status </option>
+                    <option value="1" <%=editUser.pancard.status == 1  ? 'selected' : '' %>> Approved </option>
+                    <option value="2" <%=editUser.pancard.status == 2  ? 'selected' : '' %>> Reject </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group my-3">
+                            <textarea value="<%=editUser.bank.comment || '' %>" type="text" rows="3" class="form-control form-control-solid float-left mr-1" required="" name="comment" placeholder="Comment" id="commentpan" style="width:100%;"><%=editUser.pancard.comment %></textarea>
+                        </div>
+                    </div>
+                    <div class="col-12 text-right mt-4 mb-2">
+	                    <button type="button" class="btn-sm btn btn-primary mt-1" id="onclickbtn" onclick="pandetailsupdate()"><i class="icon-lock"></i>Update Pan Details</button>
+	                </div>
+                </div>
+            </div>
+        </div>
+     </form>
+     <%- include("../../partials/alertMsg") %>
+
+</div> 
+       
+<script type="text/javascript">
+  function pandetailsupdate(){
+    var accno = $("#accno").val();
+    var ifsc = $("#ifsc").val();
+    var bankbranch = $("#bankbranch").val();
+    var bankname = $("#bankname").val();
+    var state = $("#state").val();
+    var getcomment = $("#commentpan").val();
+    var status = $("#status").val();
+    if(accno!="" && ifsc!="" && bankbranch!="" && bankname!="" && state!="" && status != ''){
+      if(status!=""){
+        if(status==2){
+          if(getcomment==""){
+            Swal.fire('Please Enter comment first.');
+            return false;
+          }
+        }
+        document.getElementById("firstform").submit();
+      }
+    }
+    else{
+      Swal.fire('Please fill out all the fields');
+    }
+  }
+  </script>
+  
+<script>
+$(window).on("load", function() {
+
+var success = '';
+var danger = '';
+var error = '';
+var warning = '';
+
+if(success) {
+$("#toastBasic4").toast('show');
+}
+
+if(danger || error) {
+$("#toastBasic3").toast('show');
+}
+
+if(warning) {
+$("#toastBasic2").toast('show');
+}
+});
+</script>
+
+<script>
+$(document).ready(function() {
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+});
+</script>
+<!--update withdraw script-->
+        </div>
+    </main>
+    <%- include("../../partials/footer") %>
+
+    <script>
+
+        $(window).on('load', function(){
+  
+           $('#preloader_admin').hide();
+  
+          })
+      </script>
+   <script>
+          $(document).ready(function (){
+              var table = $('#dataTabless').DataTable({
+                  'responsive': true
+              });
+      
+              // Handle click on "Expand All" button
+              $('#btn-show-all-children').on('click', function(){
+                  // Expand row details
+                  table.rows(':not(.parent)').nodes().to$().find('td:first-child').trigger('click');
+              });
+      
+              // Handle click on "Collapse All" button
+              $('#btn-hide-all-children').on('click', function(){
+                  // Collapse row details
+                  table.rows('.parent').nodes().to$().find('td:first-child').trigger('click');
+              });
+          });
+      </script>
+  <script>
+  $(document).ready(function(){
+      
+    if ($('#accordionSidenavPages a').hasClass('active')){
+      $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
+      $('#accordionSidenavPages a.active').parent().parent().addClass('show');
+      // console.log(id);
+    } else {
+      $('#takeonebar').addClass('slamdown');
+    }
+  });
+  
+  </script>
+   <script type="text/javascript">
+      $.datetimepicker.setLocale('en');
+      $('.datetimepickerget').datetimepicker({
+      lang:'en',
+      formatDate:'d.m.Y',
+      step:5,
+      startDate:  new Date()
+       });
+      </script>
+      <script type="text/javascript">
+      $('.datepicker').datepicker({
+      lang:'en',
+      formatDate:'d.m.Y',
+      step:5,
+      });
+      </script>
+  
+      <script type="text/javascript">
+       $(document).ready(function(){
+   $('#select_all').on('click',function(){
+       if(this.checked){
+           $('.checkbox').each(function(){
+               this.checked = true;
+           });
+       }else{
+            $('.checkbox').each(function(){
+               this.checked = false;
+           });
+       }
+   });
+  
+   $('.checkbox').on('click',function(){
+       if($('.checkbox:checked').length == $('.checkbox').length){
+           $('#select_all').prop('checked',true);
+       }else{
+           $('#select_all').prop('checked',false);
+       }
+   });
+  });
+  </script>
+  
+  <script>
+    /*jslint browser:true*/
+    /*global jQuery, document*/
+  
+    jQuery(document).ready(function () {
+        'use strict';
+  
+        jQuery('#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date').datetimepicker();
+    });
+  </script>
+  

@@ -1,0 +1,2377 @@
+<%- include("../../partials/head") %>
+
+  <%- include("../../partials/bodyStartWithNavBar") %>
+    <%- include("../../partials/sideNav") %>
+      <div id="layoutSidenav_content">
+        <main>
+
+          <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+            <div class="container-fluid">
+              <div class="row align-items-center">
+                <div class="col">
+                  <div class="page-header-content">
+                    <h1 class="page-header-title fs-md-35 fs-20">
+
+                      <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                      <span class=" text-capitalize">
+                        Point System Manager
+                      </span>
+                    </h1>
+                    <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                      Update Point System
+                    </div>
+                  </div>
+                </div>
+                <div class="col-auto mb-md-0 mb-3">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container-fluid mt-n10">
+
+
+            <div class="card mb-4">
+              <div class="card-header">Update Point System</div>
+              <div class="card-body">
+                <div class="card-title">Point System</div>
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+
+
+
+
+                  <li class="nav-item" role="presentation">
+                    <a class="nav-link text-capitalize active" id="od-tab" data-toggle="tab" href="#od" role="tab"
+                      aria-controls="od" aria-selected="true">od</a>
+                  </li>
+
+
+
+                  <li class="nav-item" role="presentation">
+                    <a class="nav-link text-capitalize" id="other_od-tab" data-toggle="tab" href="#other_od" role="tab"
+                      aria-controls="other_od" aria-selected="true">other od</a>
+                  </li>
+
+
+
+                  <li class="nav-item" role="presentation">
+                    <a class="nav-link text-capitalize" id="other_t20-tab" data-toggle="tab" href="#other_t20" role="tab"
+                      aria-controls="other_t20" aria-selected="true">other t20</a>
+                  </li>
+
+
+
+                  <li class="nav-item" role="presentation">
+                    <a class="nav-link text-capitalize" id="t10-tab" data-toggle="tab" href="#t10" role="tab"
+                      aria-controls="t10" aria-selected="true">t10</a>
+                  </li>
+
+
+
+                  <li class="nav-item" role="presentation">
+                    <a class="nav-link text-capitalize" id="t20-tab" data-toggle="tab" href="#t20" role="tab"
+                      aria-controls="t20" aria-selected="true">t20</a>
+                  </li>
+
+
+
+                  <li class="nav-item" role="presentation">
+                    <a class="nav-link text-capitalize" id="test-tab" data-toggle="tab" href="#test" role="tab"
+                      aria-controls="test" aria-selected="true">test</a>
+                  </li>
+
+
+                </ul>
+
+                <div class="tab-content" id="myTabContent">
+
+
+                  <div class="tab-pane fade show 
+                                                        active
+                      " id="od" role="tabpanel" aria-labelledby="od-tab">
+                    <div id="accordion">
+                      <!--batting-->
+                      <div class="card">
+                        <div class="card-header" id="headingOne">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
+                              aria-controls="collapseOne" style="cursor:pointer;">
+                              Batting
+                            </div>
+                          </h5>
+                        </div>
+
+                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                          <div class="card-body">
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">run</div>
+                              <div class="float-right text-uppercase col text-bold">
+                                <% if(data.batting.run) {%>
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data.batting.run %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'batting', 'run', this.value)">
+                                <% }else{ %>
+                                  <input type="number" onkeypress="return isNumberKey(event);" value="0" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'batting', 'run', this.value)">
+                                <% }%>
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">boundary bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+                                <% if(data.batting.boundary_bouns) {%>
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data.batting.boundary_bouns %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'batting', 'boundary_bouns', this.value)">
+                                  <% }else{ %>
+                                  <input type="number" onkeypress="return isNumberKey(event);" value="0" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'batting', 'boundary_bouns', this.value)">
+                                  <% }%>
+
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">six bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+                                <% if(data.batting.six_bonus) {%>
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data.batting.six_bonus %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'batting', 'six_bonus', this.value)">
+                                <% }else{ %>
+                                  <input type="number" onkeypress="return isNumberKey(event);" value="0" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'batting', 'six_bonus', this.value)">
+                                <% }%>
+
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">half century bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+                                <% if(data.batting.half_century_bonus) {%>
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data.batting.half_century_bonus %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'batting', 'half_century_bonus', this.value)">
+                                  <% }else{ %>
+                                  <input type="number" onkeypress="return isNumberKey(event);" value="0" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'batting', 'half_century_bonus', this.value)">
+                                  <% }%>
+
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">century bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+                                <% if(data.batting.century_bonus) {%>
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data.batting.century_bonus %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'batting', 'century_bonus', this.value)">
+                                  <% }else{ %>
+                                     <input type="number" onkeypress="return isNumberKey(event);" value="0" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'batting', 'century_bonus', this.value)">
+                                  <% }%>
+
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">dismissal for a duck</div>
+                              <div class="float-right text-uppercase col text-bold">
+                                <% if(data.batting.dismissal_for_aDuck) {%>
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data.batting.dismissal_for_aDuck %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'batting', 'dismissal_for_aDuck', this.value)">
+                                  <% }else{ %>
+                                   <input type="number" onkeypress="return isNumberKey(event);" value="0" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'batting', 'dismissal_for_aDuck', this.value)">
+                                  <% }%>
+
+                                  
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--Bowling-->
+                      <div class="card">
+                        <div class="card-header" id="headingOneBowling">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOneBowling" aria-expanded="false"
+                              aria-controls="collapseOneBowling" style="cursor:pointer;">
+                              Bowling
+                            </div>
+                          </h5>
+                        </div>
+
+                        <div id="collapseOneBowling" class="collapse" aria-labelledby="headingOneBowling"
+                          data-parent="#accordion">
+                          <div class="card-body">
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">wicket</div>
+                              <div class="float-right text-uppercase col text-bold">
+                                <% if(data.bowling.wicket) {%>
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data.bowling.wicket %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'bowling', 'wicket', this.value)">
+                                  <% }else{ %>
+                                   <input type="number" onkeypress="return isNumberKey(event);" value="0" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'bowling', 'wicket', this.value)">
+                                  <% }%>
+
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">4 wicket haul bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+                                <% if(data.bowling.wicket4_haul_bonus) {%>
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data.bowling.wicket4_haul_bonus %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'bowling', 'wicket4_haul_bonus', this.value)">
+                                  <% }else{ %>
+                                  <input type="number" onkeypress="return isNumberKey(event);" value="0" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'bowling', 'wicket4_haul_bonus', this.value)">
+                                  <% }%>
+
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">5 wicket haul bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+                                <% if(data.bowling.wicket5_haul_bonus) {%>
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data.bowling.wicket5_haul_bonus %>" class="form-control" onchange="update_point_system('cricket', 'od', 'bowling', 'wicket5_haul_bonus', this.value)">
+                                <% }else{ %>
+                                 <input type="number" onkeypress="return isNumberKey(event);" value="0" class="form-control" onchange="update_point_system('cricket', 'od', 'bowling', 'wicket5_haul_bonus', this.value)">
+                                 <% }%>
+
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">maiden over</div>
+                              <div class="float-right text-uppercase col text-bold">
+                                <% if(data.bowling.maiden_over) {%>
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data.bowling.maiden_over %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'bowling', 'maiden_over', this.value)">
+                                  <% }else{ %>
+                                   <input type="number" onkeypress="return isNumberKey(event);" value="0" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'bowling', 'maiden_over', this.value)">
+                                  <% }%>
+
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--fielding-->
+                      <div class="card">
+                        <div class="card-header" id="headingOnefielding">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOnefielding" aria-expanded="false"
+                              aria-controls="collapseOnefielding" style="cursor:pointer;">
+                              Fielding
+                            </div>
+                          </h5>
+                        </div>
+
+                        <div id="collapseOnefielding" class="collapse" aria-labelledby="headingOnefielding"
+                          data-parent="#accordion">
+                          <div class="card-body">
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">catch</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data.fielding.catchs %>" class="form-control" onchange="update_point_system('cricket', 'od', 'fielding', 'catchs', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">stumping run out</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data.fielding.stumping_run_out %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'fielding', 'stumping_run_out', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">run out thrower</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data.fielding.run_out_thrower %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'fielding', 'run_out_thrower', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">run out catcher</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data.fielding.run_out_catcher %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'fielding', 'run_out_catcher', this.value)">
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--others-->
+                      <div class="card">
+                        <div class="card-header" id="headingOneothers">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOneothers" aria-expanded="false"
+                              aria-controls="collapseOneothers" style="cursor:pointer;">
+                              Others
+                            </div>
+                          </h5>
+                        </div>
+
+                        <div id="collapseOneothers" class="collapse" aria-labelledby="headingOneothers"
+                          data-parent="#accordion">
+                          <div class="card-body">
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">captain</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data.others.captain %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'others', 'captain', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">vice captain</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data.others.vice_captain %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'others', 'vice_captain', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">in starting 11</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data.others.in_starting_11 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'others', 'in_starting_11', this.value)">
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--economy rate-->
+                      <div class="card">
+                        <div class="card-header" id="headingOneotherserate">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOneotherserate" aria-expanded="false"
+                              aria-controls="collapseOneotherserate" style="cursor:pointer;">
+                              Economy Rate
+                            </div>
+                          </h5>&nbsp;
+                          <div class="row col">
+                            (Min 5 Overs To Be Bowled)
+                          </div>
+                        </div>
+
+                        <div id="collapseOneotherserate" class="collapse" aria-labelledby="headingOneotherserate"
+                          data-parent="#accordion">
+                          <div class="card-body">
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Below 2.5 runs per over
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data.economy_rate.economy_rate11 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'economy_rate', 'economy_rate11', this.value, '', '', '2.5', '')">
+
+                              </div>
+                            </div>
+
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Between 2.5-3.49 runs per over
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data.economy_rate.economy_rate22 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'economy_rate', 'economy_rate22', this.value, '2.5', '3.49', '', '')">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Between 3.5-4.5 runs per over
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data.economy_rate.economy_rate33 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'economy_rate', 'economy_rate33', this.value, '3.5', '4.5', '', '')">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Between 7-8 runs per over
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data.economy_rate.economy_rate44 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'economy_rate', 'economy_rate44', this.value, '7', '8', '', '')">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Between 8.1-9 runs per over
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data.economy_rate.economy_rate55 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'economy_rate', 'economy_rate55', this.value, '8.1', '9', '', '')">
+
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Above 9 runs per over
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data.economy_rate.economy_rate66 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'economy_rate', 'economy_rate66', this.value, '', '', '', '9')">
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--strike_rate rate-->
+                      <div class="card">
+                        <div class="card-header" id="headingOneothersestrike_rate">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOneothersstrike_rate"
+                              aria-expanded="false" aria-controls="collapseOneothersstrike_rate"
+                              style="cursor:pointer;">
+                              Strike Rate
+                            </div>
+                          </h5>&nbsp;
+                          <div class="row col">
+                            (Min 20 Balls To Be Played)
+                          </div>
+                        </div>
+
+                        <div id="collapseOneothersstrike_rate" class="collapse"
+                          aria-labelledby="collapseOneothersstrike_rate" data-parent="#accordion">
+                          <div class="card-body">
+
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Between 50-60 runs per 100 balls
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data.strike_rate.strikeRate11 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'strike_rate', 'strikeRate11', this.value, '50', '60', '', '')">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Between 40-49.99 runs per 100 balls
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data.strike_rate.strikeRate22 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'strike_rate', 'strikeRate22', this.value, '40', '49.99', '', '')">
+
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Below 40 runs per 100 balls
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data.strike_rate.strikeRate33 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'od', 'strike_rate', 'strikeRate33', this.value, '', '', '40', '')">
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="tab-pane fade show 
+                      " id="other_od" role="tabpanel" aria-labelledby="other_od-tab">
+                    <div id="accordion">
+                      <!--batting-->
+                      <div class="card">
+                        <div class="card-header" id="headingOne">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
+                              aria-controls="collapseOne" style="cursor:pointer;">
+                              Batting
+                            </div>
+                          </h5>
+                        </div>
+
+                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                          <div class="card-body">
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">run</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data2.batting.run %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other od', 'batting', 'run', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">boundary bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data2.batting.boundary_bouns %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other od', 'batting', 'boundary_bouns', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">six bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data2.batting.six_bonus %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other od', 'batting', 'six_bonus', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">half century bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data2.batting.half_century_bonus %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other od', 'batting', 'half_century_bonus', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">century bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data2.batting.century_bonus %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other od', 'batting', 'century_bonus', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">dismissal for a duck</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data2.batting.dismissal_for_aDuck %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other od', 'batting', 'dismissal_for_aDuck', this.value)">
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--Bowling-->
+                      <div class="card">
+                        <div class="card-header" id="headingOneBowling">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOneBowling" aria-expanded="false"
+                              aria-controls="collapseOneBowling" style="cursor:pointer;">
+                              Bowling
+                            </div>
+                          </h5>
+                        </div>
+
+                        <div id="collapseOneBowling" class="collapse" aria-labelledby="headingOneBowling"
+                          data-parent="#accordion">
+                          <div class="card-body">
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">wicket</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data2.bowling.wicket %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other od', 'bowling', 'wicket', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">4 wicket haul bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data2.bowling.wicket4_haul_bonus %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other od', 'bowling', 'wicket4_haul_bonus', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">5 wicket haul bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data2.bowling.wicket5_haul_bonus %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other od', 'bowling', 'wicket5_haul_bonus', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">maiden over</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data2.bowling.maiden_over %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other od', 'bowling', 'maiden_over', this.value)">
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--fielding-->
+                      <div class="card">
+                        <div class="card-header" id="headingOnefielding">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOnefielding" aria-expanded="false"
+                              aria-controls="collapseOnefielding" style="cursor:pointer;">
+                              Fielding
+                            </div>
+                          </h5>
+                        </div>
+
+                        <div id="collapseOnefielding" class="collapse" aria-labelledby="headingOnefielding"
+                          data-parent="#accordion">
+                          <div class="card-body">
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">catch</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data2.fielding.catchs %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other od', 'fielding', 'catchs', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">stumping run out</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data2.fielding.stumping_run_out %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other od', 'fielding', 'stumping_run_out', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">run out thrower</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data2.fielding.run_out_thrower %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other od', 'fielding', 'run_out_thrower', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">run out catcher</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data2.fielding.run_out_catcher %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other od', 'fielding', 'run_out_catcher', this.value)">
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--others-->
+                      <div class="card">
+                        <div class="card-header" id="headingOneothers">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOneothers" aria-expanded="false"
+                              aria-controls="collapseOneothers" style="cursor:pointer;">
+                              Others
+                            </div>
+                          </h5>
+                        </div>
+
+                        <div id="collapseOneothers" class="collapse" aria-labelledby="headingOneothers"
+                          data-parent="#accordion">
+                          <div class="card-body">
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">captain</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data2.others.captain %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other od', 'others', 'captain', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">vice captain</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data2.others.vice_captain %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other od', 'others', 'vice_captain', this.value)">
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--economy rate-->
+                      <div class="card">
+                        <div class="card-header" id="headingOneotherserate">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOneotherserate" aria-expanded="false"
+                              aria-controls="collapseOneotherserate" style="cursor:pointer;">
+                              Economy Rate
+                            </div>
+                          </h5>&nbsp;
+                          <div class="row col">
+                            (Min 5 Overs To Be Bowled)
+                          </div>
+                        </div>
+
+                        <div id="collapseOneotherserate" class="collapse" aria-labelledby="headingOneotherserate"
+                          data-parent="#accordion">
+                          <div class="card-body">
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Below 2.5 runs per over
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data2.economy_rate.economy_rate11 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other od', 'economy_rate', 'economy_rate11', this.value, '', '', '2.5', '')">
+
+                              </div>
+                            </div>
+
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Between 2.5-3.49 runs per over
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data2.economy_rate.economy_rate22 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other od', 'economy_rate', 'economy_rate22', this.value, '2.5', '3.49', '', '')">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Between 3.5-4.5 runs per over
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data2.economy_rate.economy_rate33 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other od', 'economy_rate', 'economy_rate33', this.value, '3.5', '4.5', '', '')">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Between 7-8 runs per over
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data2.economy_rate.economy_rate44 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other od', 'economy_rate', 'economy_rate44', this.value, '7', '8', '', '')">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Between 8.1-9 runs per over
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data2.economy_rate.economy_rate55 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other od', 'economy_rate', 'economy_rate55', this.value, '8.1', '9', '', '')">
+
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Above 9 runs per over
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data2.economy_rate.economy_rate66 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other od', 'economy_rate', 'economy_rate66', this.value, '', '', '', '9')">
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--strike_rate rate-->
+                      <div class="card">
+                        <div class="card-header" id="headingOneothersestrike_rate">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOneothersstrike_rate"
+                              aria-expanded="false" aria-controls="collapseOneothersstrike_rate"
+                              style="cursor:pointer;">
+                              Strike Rate
+                            </div>
+                          </h5>&nbsp;
+                          <div class="row col">
+                            (Min 20 Balls To Be Played)
+                          </div>
+                        </div>
+
+                        <div id="collapseOneothersstrike_rate" class="collapse"
+                          aria-labelledby="collapseOneothersstrike_rate" data-parent="#accordion">
+                          <div class="card-body">
+
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Between 50-60 runs per 100 balls
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data2.strike_rate.strikeRate11 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other od', 'strike_rate', 'strikeRate11', this.value, '50', '60', '', '')">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Between 40-49.99 runs per 100 balls
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data2.strike_rate.strikeRate22 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other od', 'strike_rate', 'strikeRate22', this.value, '40', '49.99', '', '')">
+
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Below 40 runs per 100 balls
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data2.strike_rate.strikeRate33 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other od', 'strike_rate', 'strikeRate33', this.value, '', '', '40', '')">
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="tab-pane fade show 
+                      " id="other_t20" role="tabpanel" aria-labelledby="other_t20-tab">
+                    <div id="accordion">
+                      <!--batting-->
+                      <div class="card">
+                        <div class="card-header" id="headingOne">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
+                              aria-controls="collapseOne" style="cursor:pointer;">
+                              Batting
+                            </div>
+                          </h5>
+                        </div>
+
+                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                          <div class="card-body">
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">run</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data3.batting.run %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other t20', 'batting', 'run', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">boundary bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data3.batting.boundary_bouns %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other t20', 'batting', 'boundary_bouns', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">six bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data3.batting.six_bonus %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other t20', 'batting', 'six_bonus', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">half century bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data3.batting.half_century_bonus %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other t20', 'batting', 'half_century_bonus', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">century bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data3.batting.century_bonus %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other t20', 'batting', 'century_bonus', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">dismissal for a duck</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data3.batting.dismissal_for_aDuck %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other t20', 'batting', 'dismissal_for_aDuck', this.value)">
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--Bowling-->
+                      <div class="card">
+                        <div class="card-header" id="headingOneBowling">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOneBowling" aria-expanded="false"
+                              aria-controls="collapseOneBowling" style="cursor:pointer;">
+                              Bowling
+                            </div>
+                          </h5>
+                        </div>
+
+                        <div id="collapseOneBowling" class="collapse" aria-labelledby="headingOneBowling"
+                          data-parent="#accordion">
+                          <div class="card-body">
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">wicket</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data3.bowling.wicket %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other t20', 'bowling', 'wicket', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">4 wicket haul bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data3.bowling.wicket4_haul_bonus %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other t20', 'bowling', 'wicket4_haul_bonus', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">5 wicket haul bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data3.bowling.wicket5_haul_bonus %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other t20', 'bowling', 'wicket5_haul_bonus', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">maiden over</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data3.bowling.maiden_over %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other t20', 'bowling', 'maiden_over', this.value)">
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--fielding-->
+                      <div class="card">
+                        <div class="card-header" id="headingOnefielding">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOnefielding" aria-expanded="false"
+                              aria-controls="collapseOnefielding" style="cursor:pointer;">
+                              Fielding
+                            </div>
+                          </h5>
+                        </div>
+
+                        <div id="collapseOnefielding" class="collapse" aria-labelledby="headingOnefielding"
+                          data-parent="#accordion">
+                          <div class="card-body">
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">catch</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data3.fielding.catchs %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other t20', 'fielding', 'catchs', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">stumping run out</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data3.fielding.stumping_run_out %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other t20', 'fielding', 'stumping_run_out', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">run out thrower</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data3.fielding.run_out_thrower %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other t20', 'fielding', 'run_out_thrower', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">run out catcher</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data3.fielding.run_out_catcher %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other t20', 'fielding', 'run_out_catcher', this.value)">
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--others-->
+                      <div class="card">
+                        <div class="card-header" id="headingOneothers">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOneothers" aria-expanded="false"
+                              aria-controls="collapseOneothers" style="cursor:pointer;">
+                              Others
+                            </div>
+                          </h5>
+                        </div>
+
+                        <div id="collapseOneothers" class="collapse" aria-labelledby="headingOneothers"
+                          data-parent="#accordion">
+                          <div class="card-body">
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">captain</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data3.others.captain %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other t20', 'others', 'captain', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">vice captain</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data3.others.vice_captain %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other t20', 'others', 'vice_captain', this.value)">
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--economy rate-->
+                      <div class="card">
+                        <div class="card-header" id="headingOneotherserate">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOneotherserate" aria-expanded="false"
+                              aria-controls="collapseOneotherserate" style="cursor:pointer;">
+                              Economy Rate
+                            </div>
+                          </h5>&nbsp;
+                          <div class="row col">
+                            (Min 2 Overs To Be Bowled)
+                          </div>
+                        </div>
+
+                        <div id="collapseOneotherserate" class="collapse" aria-labelledby="headingOneotherserate"
+                          data-parent="#accordion">
+                          <div class="card-body">
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Below 4 runs per over
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+                                
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data3.economy_rate.economy_rate11 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other t20', 'economy_rate', 'economy_rate11', this.value, '', '', '4', '')">
+                                  
+                              </div>
+                            </div>
+
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Between 4-4.99 runs per over
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data3.economy_rate.economy_rate22 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other t20', 'economy_rate', 'economy_rate22', this.value, '4', '4.99', '', '')">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Between 5-6 runs per over
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data3.economy_rate.economy_rate33 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other t20', 'economy_rate', 'economy_rate33', this.value, '5', '6', '', '')">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Between 9-10 runs per over
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data3.economy_rate.economy_rate44 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other t20', 'economy_rate', 'economy_rate44', this.value, '9', '10', '', '')">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Between 10.1-11 runs per over
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data3.economy_rate.economy_rate55 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other t20', 'economy_rate', 'economy_rate55', this.value, '10.1', '11', '', '')">
+
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Above 11 runs per over
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data3.economy_rate.economy_rate66 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other t20', 'economy_rate', 'economy_rate66', this.value, '', '', '', '11')">
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--strike_rate rate-->
+                      <div class="card">
+                        <div class="card-header" id="headingOneothersestrike_rate">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOneothersstrike_rate"
+                              aria-expanded="false" aria-controls="collapseOneothersstrike_rate"
+                              style="cursor:pointer;">
+                              Strike Rate
+                            </div>
+                          </h5>&nbsp;
+                          <div class="row col">
+                            (Min 10 Balls To Be Played)
+                          </div>
+                        </div>
+
+                        <div id="collapseOneothersstrike_rate" class="collapse"
+                          aria-labelledby="collapseOneothersstrike_rate" data-parent="#accordion">
+                          <div class="card-body">
+
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Between 60-70 runs per 100 balls
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data3.strike_rate.strikeRate11 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other t20', 'strike_rate', 'strikeRate11', this.value, '60', '70', '', '')">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Between 50-59.9 runs per 100 balls
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data3.strike_rate.strikeRate22 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other t20', 'strike_rate', 'strikeRate22', this.value, '50', '59.9', '', '')">
+
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Below 50 runs per 100 balls
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data3.strike_rate.strikeRate33 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'other t20', 'strike_rate', 'strikeRate33', this.value, '', '', '50', '')">
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="tab-pane fade show 
+                      " id="t10" role="tabpanel" aria-labelledby="t10-tab">
+                    <div id="accordion">
+                      <!--batting-->
+                      <div class="card">
+                        <div class="card-header" id="headingOne">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
+                              aria-controls="collapseOne" style="cursor:pointer;">
+                              Batting
+                            </div>
+                          </h5>
+                        </div>
+
+                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                          <div class="card-body">
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">run</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data4.batting.run %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't10', 'batting', 'run', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">boundary bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data4.batting.boundary_bouns %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't10', 'batting', 'boundary_bouns', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">six bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data4.batting.six_bonus %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't10', 'batting', 'six_bonus', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">half century bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data4.batting.half_century_bonus %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't10', 'batting', 'half_century_bonus', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">century bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data4.batting.century_bonus %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't10', 'batting', 'century_bonus', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">dismissal for a duck</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data4.batting.dismissal_for_aDuck %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't10', 'batting', 'dismissal_for_aDuck', this.value)">
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--Bowling-->
+                      <div class="card">
+                        <div class="card-header" id="headingOneBowling">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOneBowling" aria-expanded="false"
+                              aria-controls="collapseOneBowling" style="cursor:pointer;">
+                              Bowling
+                            </div>
+                          </h5>
+                        </div>
+
+                        <div id="collapseOneBowling" class="collapse" aria-labelledby="headingOneBowling"
+                          data-parent="#accordion">
+                          <div class="card-body">
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">wicket</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data4.bowling.wicket %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't10', 'bowling', 'wicket', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">2 wicket haul bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data4.bowling.wicket4_haul_bonus %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't10', 'bowling', 'wicket4_haul_bonus', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">3 wicket haul bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data4.bowling.wicket5_haul_bonus %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't10', 'bowling', 'wicket5_haul_bonus', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">maiden over</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data4.bowling.maiden_over %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't10', 'bowling', 'maiden_over', this.value)">
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--fielding-->
+                      <div class="card">
+                        <div class="card-header" id="headingOnefielding">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOnefielding" aria-expanded="false"
+                              aria-controls="collapseOnefielding" style="cursor:pointer;">
+                              Fielding
+                            </div>
+                          </h5>
+                        </div>
+
+                        <div id="collapseOnefielding" class="collapse" aria-labelledby="headingOnefielding"
+                          data-parent="#accordion">
+                          <div class="card-body">
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">catch</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data4.fielding.catchs %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't10', 'fielding', 'catchs', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">stumping run out</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data4.fielding.stumping_run_out %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't10', 'fielding', 'stumping_run_out', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">run out thrower</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data4.fielding.run_out_thrower %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't10', 'fielding', 'run_out_thrower', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">run out catcher</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data4.fielding.run_out_catcher %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't10', 'fielding', 'run_out_catcher', this.value)">
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--others-->
+                      <div class="card">
+                        <div class="card-header" id="headingOneothers">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOneothers" aria-expanded="false"
+                              aria-controls="collapseOneothers" style="cursor:pointer;">
+                              Others
+                            </div>
+                          </h5>
+                        </div>
+
+                        <div id="collapseOneothers" class="collapse" aria-labelledby="headingOneothers"
+                          data-parent="#accordion">
+                          <div class="card-body">
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">captain</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data4.others.captain %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't10', 'others', 'captain', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">vice captain</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data4.others.vice_captain %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't10', 'others', 'vice_captain', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">in starting 11</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data4.others.in_starting_11 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't10', 'others', 'in_starting_11', this.value)">
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--economy rate-->
+                      <div class="card">
+                        <div class="card-header" id="headingOneotherserate">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOneotherserate" aria-expanded="false"
+                              aria-controls="collapseOneotherserate" style="cursor:pointer;">
+                              Economy Rate
+                            </div>
+                          </h5>&nbsp;
+                          <div class="row col">
+                            (Min 1 Overs To Be Bowled)
+                          </div>
+                        </div>
+
+                        <div id="collapseOneotherserate" class="collapse" aria-labelledby="headingOneotherserate"
+                          data-parent="#accordion">
+                          <div class="card-body">
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Below 6 runs per over
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data4.economy_rate.economy_rate11 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't10', 'economy_rate', 'economy_rate11', this.value, '', '', '6', '')">
+
+                              </div>
+                            </div>
+
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Between 6-6.99 runs per over
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data4.economy_rate.economy_rate22 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't10', 'economy_rate', 'economy_rate22', this.value, '6', '6.99', '', '')">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Between 7-8 runs per over
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data4.economy_rate.economy_rate33 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't10', 'economy_rate', 'economy_rate33', this.value, '7', '8', '', '')">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Between 11-12 runs per over
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data4.economy_rate.economy_rate44 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't10', 'economy_rate', 'economy_rate44', this.value, '11', '12', '', '')">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Between 12.01-13 runs per over
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data4.economy_rate.economy_rate55 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't10', 'economy_rate', 'economy_rate55', this.value, '12.01', '13', '', '')">
+
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Above 13 runs per over
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data4.economy_rate.economy_rate66 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't10', 'economy_rate', 'economy_rate66', this.value, '', '', '', '13')">
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--strike_rate rate-->
+                      <div class="card">
+                        <div class="card-header" id="headingOneothersestrike_rate">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOneothersstrike_rate"
+                              aria-expanded="false" aria-controls="collapseOneothersstrike_rate"
+                              style="cursor:pointer;">
+                              Strike Rate
+                            </div>
+                          </h5>&nbsp;
+                          <div class="row col">
+                            (Min 5 Balls To Be Played)
+                          </div>
+                        </div>
+
+                        <div id="collapseOneothersstrike_rate" class="collapse"
+                          aria-labelledby="collapseOneothersstrike_rate" data-parent="#accordion">
+                          <div class="card-body">
+
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Between 90-99.99 runs per 100 balls
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data4.strike_rate.strikeRate11 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't10', 'strike_rate', 'strikeRate11', this.value, '90', '99.99', '', '')">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Between 80-89.99 runs per 100 balls
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data4.strike_rate.strikeRate22 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't10', 'strike_rate', 'strikeRate22', this.value, '80', '89.99', '', '')">
+
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Below 80 runs per 100 balls
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data4.strike_rate.strikeRate33 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't10', 'strike_rate', 'strikeRate33', this.value, '', '', '80', '')">
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="tab-pane fade show 
+                      " id="t20" role="tabpanel" aria-labelledby="t20-tab">
+                    <div id="accordion">
+                      <!--batting-->
+                      <div class="card">
+                        <div class="card-header" id="headingOne">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
+                              aria-controls="collapseOne" style="cursor:pointer;">
+                              Batting
+                            </div>
+                          </h5>
+                        </div>
+
+                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                          <div class="card-body">
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">run</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data5.batting.run %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't20', 'batting', 'run', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">boundary bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data5.batting.boundary_bouns %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't20', 'batting', 'boundary_bouns', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">six bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data5.batting.six_bonus %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't20', 'batting', 'six_bonus', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">half century bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data5.batting.half_century_bonus %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't20', 'batting', 'half_century_bonus', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">century bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data5.batting.century_bonus %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't20', 'batting', 'century_bonus', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">dismissal for a duck</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data5.batting.dismissal_for_aDuck %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't20', 'batting', 'dismissal_for_aDuck', this.value)">
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--Bowling-->
+                      <div class="card">
+                        <div class="card-header" id="headingOneBowling">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOneBowling" aria-expanded="false"
+                              aria-controls="collapseOneBowling" style="cursor:pointer;">
+                              Bowling
+                            </div>
+                          </h5>
+                        </div>
+
+                        <div id="collapseOneBowling" class="collapse" aria-labelledby="headingOneBowling"
+                          data-parent="#accordion">
+                          <div class="card-body">
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">wicket</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data5.bowling.wicket %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't20', 'bowling', 'wicket', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">4 wicket haul bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data5.bowling.wicket4_haul_bonus %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't20', 'bowling', 'wicket4_haul_bonus', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">5 wicket haul bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data5.bowling.wicket5_haul_bonus %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't20', 'bowling', 'wicket5_haul_bonus', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">maiden over</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data5.bowling.maiden_over %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't20', 'bowling', 'maiden_over', this.value)">
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--fielding-->
+                      <div class="card">
+                        <div class="card-header" id="headingOnefielding">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOnefielding" aria-expanded="false"
+                              aria-controls="collapseOnefielding" style="cursor:pointer;">
+                              Fielding
+                            </div>
+                          </h5>
+                        </div>
+
+                        <div id="collapseOnefielding" class="collapse" aria-labelledby="headingOnefielding"
+                          data-parent="#accordion">
+                          <div class="card-body">
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">catch</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data5.fielding.catchs %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't20', 'fielding', 'catchs', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">stumping run out</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data5.fielding.stumping_run_out %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't20', 'fielding', 'stumping_run_out', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">run out thrower</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data5.fielding.run_out_thrower %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't20', 'fielding', 'run_out_thrower', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">run out catcher</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data5.fielding.run_out_catcher %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't20', 'fielding', 'run_out_catcher', this.value)">
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--others-->
+                      <div class="card">
+                        <div class="card-header" id="headingOneothers">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOneothers" aria-expanded="false"
+                              aria-controls="collapseOneothers" style="cursor:pointer;">
+                              Others
+                            </div>
+                          </h5>
+                        </div>
+
+                        <div id="collapseOneothers" class="collapse" aria-labelledby="headingOneothers"
+                          data-parent="#accordion">
+                          <div class="card-body">
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">captain</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data5.others.captain %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't20', 'others', 'captain', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">vice captain</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data5.others.vice_captain %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't20', 'others', 'vice_captain', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">in starting 11</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data5.others.in_starting_11 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't20', 'others', 'in_starting_11', this.value)">
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--economy rate-->
+                      <div class="card">
+                        <div class="card-header" id="headingOneotherserate">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOneotherserate" aria-expanded="false"
+                              aria-controls="collapseOneotherserate" style="cursor:pointer;">
+                              Economy Rate
+                            </div>
+                          </h5>&nbsp;
+                          <div class="row col">
+                            (Min 2 Overs To Be Bowled)
+                          </div>
+                        </div>
+
+                        <div id="collapseOneotherserate" class="collapse" aria-labelledby="headingOneotherserate"
+                          data-parent="#accordion">
+                          <div class="card-body">
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Below 4 runs per over
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data5.economy_rate.economy_rate11 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't20', 'economy_rate', 'economy_rate11', this.value, '', '', '4', '')">
+
+                              </div>
+                            </div>
+
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Between 4-4.99 runs per over
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data5.economy_rate.economy_rate22 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't20', 'economy_rate', 'economy_rate22', this.value, '4', '4.99', '', '')">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Between 5-6 runs per over
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data5.economy_rate.economy_rate33 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't20', 'economy_rate', 'economy_rate33', this.value, '5', '6', '', '')">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Between 9-10 runs per over
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data5.economy_rate.economy_rate44 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't20', 'economy_rate', 'economy_rate44', this.value, '9', '10', '', '')">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Between 10.1-11 runs per over
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data5.economy_rate.economy_rate55 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't20', 'economy_rate', 'economy_rate55', this.value, '10.1', '11', '', '')">
+
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Above 11 runs per over
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data5.economy_rate.economy_rate66 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't20', 'economy_rate', 'economy_rate66', this.value, '', '', '', '11')">
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--strike_rate rate-->
+                      <div class="card">
+                        <div class="card-header" id="headingOneothersestrike_rate">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOneothersstrike_rate"
+                              aria-expanded="false" aria-controls="collapseOneothersstrike_rate"
+                              style="cursor:pointer;">
+                              Strike Rate
+                            </div>
+                          </h5>&nbsp;
+                          <div class="row col">
+                            (Min 10 Balls To Be Played)
+                          </div>
+                        </div>
+
+                        <div id="collapseOneothersstrike_rate" class="collapse"
+                          aria-labelledby="collapseOneothersstrike_rate" data-parent="#accordion">
+                          <div class="card-body">
+
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Between 60-70 runs per 100 balls
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data5.strike_rate.strikeRate11 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't20', 'strike_rate', 'strikeRate11', this.value, '60', '70', '', '')">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Between 50-59.9 runs per 100 balls
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data5.strike_rate.strikeRate22 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't20', 'strike_rate', 'strikeRate22', this.value, '50', '59.9', '', '')">
+
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">
+                                Below 50 runs per 100 balls
+                              </div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data5.strike_rate.strikeRate33 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 't20', 'strike_rate', 'strikeRate33', this.value, '', '', '50', '')">
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="tab-pane fade show 
+                      " id="test" role="tabpanel" aria-labelledby="test-tab">
+                    <div id="accordion">
+                      <!--batting-->
+                      <div class="card">
+                        <div class="card-header" id="headingOne">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
+                              aria-controls="collapseOne" style="cursor:pointer;">
+                              Batting
+                            </div>
+                          </h5>
+                        </div>
+
+                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                          <div class="card-body">
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">run</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data6.batting.run %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'test', 'batting', 'run', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">boundary bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data6.batting.boundary_bouns %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'test', 'batting', 'boundary_bouns', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">six bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data6.batting.six_bonus %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'test', 'batting', 'six_bonus', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">half century bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data6.batting.half_century_bonus %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'test', 'batting', 'half_century_bonus', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">century bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data6.batting.century_bonus %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'test', 'batting', 'century_bonus', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">dismissal for a duck</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data6.batting.dismissal_for_aDuck %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'test', 'batting', 'dismissal_for_aDuck', this.value)">
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--Bowling-->
+                      <div class="card">
+                        <div class="card-header" id="headingOneBowling">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOneBowling" aria-expanded="false"
+                              aria-controls="collapseOneBowling" style="cursor:pointer;">
+                              Bowling
+                            </div>
+                          </h5>
+                        </div>
+
+                        <div id="collapseOneBowling" class="collapse" aria-labelledby="headingOneBowling"
+                          data-parent="#accordion">
+                          <div class="card-body">
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">wicket</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data6.bowling.wicket %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'test', 'bowling', 'wicket', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">4 wicket haul bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data6.bowling.wicket4_haul_bonus %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'test', 'bowling', 'wicket4_haul_bonus', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">5 wicket haul bonus</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data6.bowling.wicket5_haul_bonus %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'test', 'bowling', 'wicket5_haul_bonus', this.value)">
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--fielding-->
+                      <div class="card">
+                        <div class="card-header" id="headingOnefielding">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOnefielding" aria-expanded="false"
+                              aria-controls="collapseOnefielding" style="cursor:pointer;">
+                              Fielding
+                            </div>
+                          </h5>
+                        </div>
+
+                        <div id="collapseOnefielding" class="collapse" aria-labelledby="headingOnefielding"
+                          data-parent="#accordion">
+                          <div class="card-body">
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">catch</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data6.fielding.catchs %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'test', 'fielding', 'catchs', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">stumping run out</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data6.fielding.stumping_run_out %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'test', 'fielding', 'stumping_run_out', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">run out thrower</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data6.fielding.run_out_thrower %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'test', 'fielding', 'run_out_thrower', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">run out catcher</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data6.fielding.run_out_catcher %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'test', 'fielding', 'run_out_catcher', this.value)">
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--others-->
+                      <div class="card">
+                        <div class="card-header" id="headingOneothers">
+                          <h5 class="mb-0">
+                            <div data-toggle="collapse" data-target="#collapseOneothers" aria-expanded="false"
+                              aria-controls="collapseOneothers" style="cursor:pointer;">
+                              Others
+                            </div>
+                          </h5>
+                        </div>
+
+                        <div id="collapseOneothers" class="collapse" aria-labelledby="headingOneothers"
+                          data-parent="#accordion">
+                          <div class="card-body">
+
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">captain</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data6.others.captain %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'test', 'others', 'captain', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">vice captain</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data6.others.vice_captain %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'test', 'others', 'vice_captain', this.value)">
+
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="float-left text-uppercase col text-bold">in starting 11</div>
+                              <div class="float-right text-uppercase col text-bold">
+
+                                <input type="number" onkeypress="return isNumberKey(event);" value="<%=data6.others.in_starting_11 %>" class="form-control"
+                                  onchange="update_point_system('cricket', 'test', 'others', 'in_starting_11', this.value)">
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+
+                    </div>
+                  </div>
+
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+
+
+      <script>
+        function update_point_system(fantasy_type, format, type, field, point, from = '', to = '', below = '', above = '') {
+          Swal.fire(point);
+          $.ajax({
+            type: 'POST',
+            url: `/update_point_system`,
+            data:{fantasy_type,format,type,field,point,from,to,below,above},
+          });
+
+        }
+
+
+      </script>
+
+      </div>
+      </main>
+
+      <%- include("../../partials/footer") %>
+
+        <script>
+
+          $(window).on('load', function () {
+
+            $('#preloader_admin').hide();
+
+          })
+        </script>
+
+        <script>
+          $(document).ready(function () {
+
+            if ($('#accordionSidenavPages a').hasClass('active')) {
+              $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
+              $('#accordionSidenavPages a.active').parent().parent().addClass('show');
+              // console.log(id);
+            } else {
+              $('#takeonebar').addClass('slamdown');
+            }
+          });
+
+        </script>
+        <script>
+          $("#sortable, #sortable2").sortable();
+        </script>
+        <script>
+          $(".alert").delay(3000).fadeOut();
+        </script>
+
+
+     
+
+        
+        <script>
+          function isNumberKey(evt) {
+            //var e = evt || window.event;
+            
+            let  charCode = (evt.which) ? evt.which : evt.keyCode
+            if (charCode != 46 && charCode > 31
+              && (charCode < 48 || charCode > 57))
+
+              return false;
+            else {
+              let  itemdecimal = evt.srcElement.value.split('.');
+              if (itemdecimal.length > 1 && charCode == 46)
+                return false;
+
+              return true;
+            }
+          }
+
+        </script>
+
+        <script>
+          /*jslint browser:true*/
+          /*global jQuery, document*/
+
+          jQuery(document).ready(function () {
+            'use strict';
+
+            jQuery('#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date').datetimepicker();
+          });
+        </script>

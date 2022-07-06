@@ -1,0 +1,348 @@
+<%- include("../../partials/head") %>
+
+  <%- include("../../partials/bodyStartWithNavBar/") %>
+    <%- include("../../partials/sideNav") %>
+      <div id="layoutSidenav_content">
+        <main>
+
+          <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+            <div class="container-fluid">
+              <div class="row align-items-center">
+                <div class="col">
+                  <div class="page-header-content">
+                    <h1 class="page-header-title fs-md-35 fs-20">
+
+                      <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                      <span class=" text-capitalize">
+                        Contest Manager
+                      </span>
+                    </h1>
+                    <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                      Add global contest
+                    </div>
+                  </div>
+                </div>
+                <div class="col-auto mb-md-0 mb-3">
+                  <a href="/view-all-global-contests-challengers"
+                    class="btn btn-sm btn-light font-weight-bold text-uppercase text-primary text-uppercase"><i
+                      class="fad fa-eye"></i>&nbsp; View All Global Contests</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <%- include("../../partials/alertMsg") %>
+          <div class="container-fluid mt-n10">
+            <div class="card">
+              <div class="card-header">Global Contest</div>
+              <form method="POST" action="/add-global-contest-challengers-data" class="card-body">
+                <!-- <input name="_token" type="hidden" value="bTSsGdX3Z7uY7ptNccCMCJoz3YhMPTf56lRtKWSE"> -->
+                <input type="hidden" name="fantasy_type" value="cricket">
+
+                <div class="sbp-preview">
+                  <div class="sbp-preview-content py-2">
+                    <div class="row mx-0">
+                      <div class="col-md-6">
+                        <div class="form-group my-3">
+                          <label class="label-control text-bold fs-13">Contest Amount Type*</label><br>
+                          <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="customRadio1" name="contest_type" checked="" value="Amount" checked
+                              class="custom-control-input">
+                            <label class="custom-control-label" for="customRadio1">Amount Based</label>
+                          </div>
+                          <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" name="contest_type" value="Percentage" id="customRadio2"
+                              class="custom-control-input" value="specific">
+                            <label class="custom-control-label" for="customRadio2">Percentage based</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group my-3 fs-13" id="pricecard_contest">
+                          <label class="label-control text-bold">Contest Price Card Type*</label><br>
+                          <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" name="pricecard_type" checked="" value="Amount" id="customRadio11"
+                              checked class="custom-control-input">
+                            <label class="custom-control-label" for="customRadio11">Amount Based</label>
+                          </div>
+                          <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" name="pricecard_type" value="Percentage" id="customRadio12"
+                              class="custom-control-input" value="specific">
+                            <label class="custom-control-label" for="customRadio12">Percentage based</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group my-3">
+                          <label class="label-control text-bold">Contest Category*</label>
+                          <select name="contest_cat" class="form-control form-control-solid p-1 selectpicker show-tick"
+                            required="" id="contest_cat">
+                            <option value="" selected disabled>Select Contest Category</option>
+                            <% for(let key of data) {%>
+                              <option value="<%=key._id %>">
+                                <%=key.name %>
+                              </option>
+                              <% } %>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group my-3">
+                          <label class="label-control text-bold">Entry Fee*</label>
+                          <input type="number" onkeypress="return isNumberKey(event)" id="first-name" min="0" class="form-control form-control-solid"
+                            placeholder="Enter Entry Fee" name="entryfee" value="" required="" autocomplete="off">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group my-3">
+                          <label class="label-control text-bold">Winning Amount*</label>
+                          <input type="number" onkeypress="return isNumberKey(event)" min="0" class="form-control form-control-solid"
+                            placeholder="Enter Winning Amount" name="win_amount" required="" value=""
+                            autocomplete="off">
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group my-3" id="max_user">
+                          <label class="label-control text-bold">Maximum number of users*</label>
+                          <input type="number" onkeypress="return isNumberKey(event)" min="0" class="form-control form-control-solid"
+                            placeholder="Enter Maximum Number Of Users" name="maximum_user" value="" autocomplete="off">
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group my-3" id="pert" style="display:none;">
+                          <label class="label-control text-bold">Percentage of users who will win (In case of
+                            percentage)*</label>
+                          <input type="number" onkeypress="return isNumberKey(event)" disabled="" id="ch1" class="form-control form-control-solid" min="0"
+                            placeholder="Enter percentage of users winning this challenge" name="winning_percentage"
+                            value="" required="" autocomplete="off">
+                        </div>
+                      </div>
+                      <div class="col-12 mt-3" id="team_limit" style="display:none">
+                        <div class="form-group">
+                          <label class="label-control text-bold">Team Limit</label>
+                          <input disabled="" id="ch21" type="number" onkeypress="return isNumberKey(event)" class="form-control form-control-solid"
+                            name="team_limit" value="11" placeholder="Enter Team Limit" required="">
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group my-3">
+                          <div class="custom-control custom-checkbox custom-control-inline">
+                            <input type="checkbox" class="custom-control-input sel_all" id="select_all"
+                              name="multi_entry" value="1">
+                            <label class="custom-control-label" for="select_all">Multi Entry</label>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-3" id="cc">
+                        <div class="form-group my-3">
+                          <div class="custom-control custom-checkbox custom-control-inline">
+                            <input type="checkbox" class="custom-control-input sel_all" id="select_all1"
+                              name="confirmed_challenge" value="1">
+                            <label class="custom-control-label" for="select_all1">Is Confirmed</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group my-3">
+                          <div class="custom-control custom-checkbox custom-control-inline">
+                            <input type="checkbox" class="custom-control-input sel_all" id="select_all2"
+                              name="is_running" value="1">
+                            <label class="custom-control-label" for="select_all2">Is Running</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group my-3">
+                          <div class="custom-control custom-checkbox custom-control-inline">
+                            <input type="checkbox" class="custom-control-input sel_all" id="select_all3" name="is_bonus"
+                              value="1">
+                            <label class="custom-control-label" for="select_all3">Is Bonus Allowed</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 mt-3">
+                        <div class="form-group d-none" id="bonuspercentage">
+                          <label class="label-control text-bold">Bonus Percentage (No need to enter % here. Just enter
+                            number here)*</label>
+                          <input disabled="" id="ch2" type="text" class="form-control form-control-solid"
+                            name="bonus_percentage" value="" placeholder="Enter Bonus Percentage" required="">
+                        </div>
+                      </div>
+                      <div class="col-12 text-right mt-md-4 mb-md-2">
+                        <button type="reset" class="btn btn-sm text-uppercase btn-warning"
+                          onclick="window.location.href=window.location.href"><i class="far fa-undo"></i>&nbsp;
+                          Reset</a>
+                          <button type="submit" class=" btn btn-sm text-uppercase btn-success float-right ml-1"><i
+                              class="far fa-check-circle"></i>&nbsp; Submit</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+            </div>
+            <script>
+              $('input[name=is_bonus]').change(function () {
+                if ($('input[name=is_bonus]').prop('checked') == true) {
+                  $('input[name=bonus_percentage]').val('');
+                  $("input[name=bonus_percentage]").prop('disabled', false);
+                  $("#bonuspercentage").removeClass('d-none');
+                  $("#multientryteam").show();
+                }
+                if ($('input[name=is_bonus]').prop('checked') == false) {
+                  $("input[name=bonus_percentage]").prop('disabled', true);
+                  $("#bonuspercentage").addClass('d-none');
+                  $("#multientryteam").hide();
+                }
+
+              });
+              $("input[name=contest_type]").change(function () {
+                if ($('input[name=contest_type]:checked').val() == "Amount") {
+                  $('#pert').hide();
+                  $('#max_user').show();
+                  $("#ch1").prop('disabled', true);
+                }
+                if ($('input[name=contest_type]:checked').val() == "Percentage") {
+                  $('#pert').show();
+                  $('#max_user').hide();
+                  $("#ch1").prop('disabled', false);
+                }
+              });
+              $('input[name=multi_entry]').change(function () {
+                if ($('input[name=multi_entry]').prop('checked') == true) {
+                  // $('input[name=team_limit]').val('');
+                  $("input[name=team_limit]").prop('disabled', false);
+                  $("#team_limit").stop().slideDown();
+                }
+                if ($('input[name=multi_entry]').prop('checked') == false) {
+                  $("input[name=team_limit]").prop('disabled', true);
+                  $("#team_limit").stop().slideUp();
+                }
+
+              });
+            </script>
+            <script type="text/javascript">
+              $("input[name=contest_type]").change(function () {
+                if ($('input[name=contest_type]:checked').val() == "Amount") {
+                  $('#pricecard_contest').show();
+                  document.getElementById("pricecard_contest").style.display = "block";
+                }
+                if ($('input[name=contest_type]:checked').val() == "Percentage") {
+                  $('#pricecard_contest').hide();
+                  document.getElementById("pricecard_contest").style.display = "none";
+                }
+              });
+              $("input[name=pricecard_type]").change(function () {
+                if ($('input[name=pricecard_type]:checked').val() == "Percentage") {
+                  $('#cc').hide();
+                  $('input[name=confirmed_challenge]').prop('checked', true);
+                }
+                else {
+                  $('#cc').show();
+                  $('input[name=confirmed_challenge]').prop('checked', false);
+                }
+              });
+
+              function get_contest_category(value) {
+                var fantasy_type = value;
+                $.ajax({
+                  type: 'POST',
+                  url: '/get_contest_category',
+                  data: '_token=bTSsGdX3Z7uY7ptNccCMCJoz3YhMPTf56lRtKWSE&fantasy_type=' + fantasy_type,
+                  success: function (data) {
+                    $('#contest_cat').html('<option value="">Select Contest Category</option>');
+
+                    for (var i = 0; i < data.length; i++) {
+                      // alert(data[i]['id']);
+                      $('#contest_cat').append('<option value="' + data[i]['id'] + '">' + data[i]['name'] + '</option>');
+                    }
+
+                    // <option value="">Select Team</option>
+                  }
+                });
+              }
+              $(window).ready(function () {
+                var fantasy_type = $('#fantasy_type').val();
+                get_contest_category(fantasy_type);
+              });
+            </script>
+          </div>
+        </main>
+       
+        <%- include("../../partials/footer") %>
+          <script>
+
+            $(window).on('load', function () {
+
+              $('#preloader_admin').hide();
+
+            })
+          </script>
+
+          <script>
+
+            $('#special').on('click', function () {
+              mySelect.find('option:selected').prop('disabled', true);
+              mySelect.selectpicker('refresh');
+            });
+
+            $('#special2').on('click', function () {
+              mySelect.find('option:disabled').prop('disabled', false);
+              mySelect.selectpicker('refresh');
+            });
+
+            $('#basic2').selectpicker({
+              liveSearch: true,
+              maxOptions: 1
+            });
+          </script>
+
+
+
+          <script>
+            $(document).ready(function () {
+
+              if ($('#accordionSidenavPages a').hasClass('active')) {
+                $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
+                $('#accordionSidenavPages a.active').parent().parent().addClass('show');
+                // console.log(id);
+              } else {
+                $('#takeonebar').addClass('slamdown');
+              }
+            });
+
+          </script>
+       
+
+          <script>
+            function isNumberKey(evt) {
+              //var e = evt || window.event;
+
+              var charCode = (evt.which) ? evt.which : evt.keyCode
+              if (charCode != 46 && charCode > 31
+                && (charCode < 48 || charCode > 57))
+
+                return false;
+              else {
+                var itemdecimal = evt.srcElement.value.split('.');
+                if (itemdecimal.length > 1 && charCode == 46)
+                  return false;
+
+                return true;
+              }
+            }
+
+          </script>
+
+       
+
+
+          <script>
+            /*jslint browser:true*/
+            /*global jQuery, document*/
+
+            jQuery(document).ready(function () {
+              'use strict';
+
+              jQuery('#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date').datetimepicker();
+            });
+          </script>

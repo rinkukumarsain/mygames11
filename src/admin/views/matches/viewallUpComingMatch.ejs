@@ -1,0 +1,121 @@
+<%- include("../../partials/head") %>
+
+    <%- include("../../partials/bodyStartWithNavBar/") %>
+        <%- include("../../partials/sideNav") %>
+            <div id="layoutSidenav_content">
+                <main>
+                    <%- include("../../partials/alertMsg") %>
+                    <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+                        <div class="container-fluid">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <div class="page-header-content">
+                                        <h1 class="page-header-title fs-md-35 fs-20">
+
+                                            <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                                            <span class=" text-capitalize">
+                                        Match Manager
+                                </span>
+                                        </h1>
+                                        <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                                            All upcoming matches
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-md-0 mb-3">
+                                    <a href="/listMatches" class="btn my-1 btn-sm rounded-pill btn-light font-weight-bold text-primary" data-toggle="tooltip" title="Import Match From API"><i class="fa fa-download"></i>&nbsp; Import</a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid mt-n10">
+                        <div class="card mb-4">
+                            <div class="card-header">Matches</div>
+                            <div class="card-body">
+
+                                <div class="datatable table-responsive">
+                                    <table class="table table-bordered table-hover last-btn-center text-nowrap" id="dataTablematch" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">Sno.</th>
+                                                <th class="text-center">Match</th>
+                                                <th class="text-center">Match Time</th>
+                                                <th class="text-center">Squad Available</th>
+                                                <th class="text-center">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th class="text-center">Sno.</th>
+                                                <th class="text-center">Match</th>
+                                                <th class="text-center">Match Time</th>
+                                                <th class="text-center">Squad Available</th>
+                                                <th class="text-center">Action</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $.fn.dataTable.ext.errMode = 'none';
+                                $('#dataTablematch').DataTable({
+                                    searching: true,
+                                    language: {
+              zeroRecords: "No records to display",
+            },
+                                    ajax: {
+                                        url: `/view_AllUpcomingMatches-data-table`,
+                                        type: 'post',
+                                        dataSrc: 'data',
+                                        error: function() {
+                                            console.log(error)
+                                        }
+                                    },
+                                    "lengthMenu": [
+                                        [10, 25, 50, 100, 1000, 10000],
+                                        [10, 25, 50, 100, 1000, 10000]
+                                    ],
+                                    columns: [{
+                                        data: "count"
+                                    }, {
+                                        data: "match"
+                                    }, {
+                                        data: "start_date"
+                                    }, {
+                                        data: "squadstatus"
+                                    }, {
+                                        data: "Actions",orderable: false
+                                    }, ]
+                                })
+                            });
+                        </script>
+                    </div>
+                </main>
+                <%- include("../../partials/footer") %>
+
+                    <script>
+                        $(window).on('load', function() {
+
+                            $('#preloader_admin').hide();
+
+                        })
+                    </script>
+                        <script>
+                            $(document).ready(function () {
+    
+                                if ($('#accordionSidenavPages a').hasClass('active')) {
+                                    $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
+                                    $('#accordionSidenavPages a.active').parent().parent().addClass('show');
+                                    // console.log(id);
+                                } else {
+                                    $('#takeonebar').addClass('slamdown');
+                                }
+                            });
+    
+                        </script>

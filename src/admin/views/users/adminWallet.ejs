@@ -1,0 +1,674 @@
+<%- include("../../partials/head") %>
+
+<%- include("../../partials/bodyStartWithNavBar/") %>
+<%- include("../../partials/sideNav") %>
+
+<div id="layoutSidenav_content">
+    <main>
+
+        <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <div class="page-header-content">
+                            <h1 class="page-header-title fs-md-35 fs-20">
+
+                                <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                                <span class=" text-capitalize">
+                                        User Manager
+                                </span>
+                            </h1>
+                            <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                                    Admin Wallet Details
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto mb-md-0 mb-3">
+                        <a  href="/wallet-list" class="btn btn-sm btn-light font-weight-bold text-uppercase text-primary text-uppercase" ><i class="fad fa-eye"></i>&nbsp; View List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid mt-n10">
+            
+<div class="row">
+<div class="col-md-12">
+<div class="card mb-3">
+<div class="card-heading p-3">
+  <form method="get" action="/adminwallet">
+                <div class="sbp-preview position-relative">
+            <div class="form-group">
+                <div class="row mx-0">
+
+                    <div class="col-md-4">
+                        <div class="form-group my-3">
+                            <label for="Search by user Name" class="control-label text-bold">Search by user Name</label>
+                          
+                            <% if(name) {%>
+                            <input value="<%=name %>" placeholder="Search by user Name" id="name" class="form-control form-control-solid" name="name" type="text">
+                            <%}else{ %>
+                            <input placeholder="Search by user Name" id="name" class="form-control form-control-solid" name="name" type="text">
+                            <% }%> 
+                        
+                          </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group my-3">
+                            <label for="Search by mobile No" class="control-label text-bold">Search by mobile No</label>
+                            <% if(mobile) {%>
+                              <input value="<%=mobile %>" placeholder="Search By mobile No." autocomplete="off" id="mobile" class="form-control form-control-solid" name="mobile" type="number">
+                              <%}else{ %>
+                              <input placeholder="Search By mobile No" autocomplete="off" id="mobile" class="form-control form-control-solid" name="mobile" type="number">
+                              <% }%> 
+                            </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group my-3">
+                            <label for="Search by Email" class="control-label text-bold">Search by Email</label>
+                            <% if(email) {%>
+                            <input value="<%=email %>" placeholder="Search By Email" autocomplete="off" id="email" class="form-control form-control-solid" name="email" type="text">
+                            <%}else{ %>
+                            <input placeholder="Search By Email" autocomplete="off" id="email" class="form-control form-control-solid" name="email" type="text">
+                            <% }%>
+                        </div>
+                    </div>
+                    <div class="col-12 text-right mt-4 mb-2">
+                       <button  class="btn btn-sm btn-success text-uppercase"><i class="far fa-check-circle"></i>&nbsp;Submit</button>
+                        <a href="/adminwallet" class="btn btn-sm btn-warning text-uppercase"><i class="far fa-undo" ></i>&nbsp; Reset</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card mb-4">
+<div class="card-header">
+Adminwallet Details
+</div>
+<div class="card-body">
+
+<script>
+$(window).on("load", function() {
+
+var success = '';
+var danger = '';
+var error = '';
+var warning = '';
+
+if(success) {
+$("#toastBasic4").toast('show');
+}
+
+if(danger || error) {
+$("#toastBasic3").toast('show');
+}
+
+if(warning) {
+$("#toastBasic2").toast('show');
+}
+});
+</script>
+
+<div class="datatable table-responsive">
+    <table class="table table-bordered table-hover text-nowrap" id="userswallet_table" width="100%" cellspacing="0">
+        <thead>
+    <tr>
+      <th>userid</th>
+      <th>team</th>
+      <th>username</th>
+      <th>email</th>
+      <th>action</th>
+    </tr>
+    <% if(userFind) {%>
+    <tbody>
+      <td><%= userFind._id %></td>
+      <td><%= userFind.team %></td>
+      <td><%= userFind.username %></td>
+      <td><%= userFind.email %></td>
+<td><a data-toggle="modal" data-target="#addmoneymodal<%= userFind._id %>" class="editbtn" style="cursor:pointer;"><i class="fa fa-plus-circle"> add Money</i></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+  <a data-toggle="modal" data-target="#deductmoneymodal<%= userFind._id %>" class="editbtn" style="cursor:pointer;">
+    <span class="text-danger"><i class="fa fa-minus-circle"></i> deduct Money</span></a>
+</td>
+  <div id="addmoneymodal<%= userFind._id %>" class="modal fade abc px-0" role="dialog" style="z-index: 0.2%;">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable  w-100 h-100">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+          <h4 class="modal-title _head_ing">Add Money in wallet of <%= userFind.email %></h4>
+          <input type="hidden" value="<%= userFind._id %>">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+          <form action="/addmoneyinwallet" method="post" class="amount_etc_info">
+            <input type="hidden"  value="<%= userFind._id %>" name="userid" id="userid2">
+            <div class="col-md-12 col-sm-12 form-group ">
+              <label style="color: black;">  Amount </label>
+              <input type="number" onkeypress="isNumberKey(event)" autocomplete="off" name="amount" class="form-control form-control-solid" placeholder="Enter amount here" id="add-input" required>
+              <input type="hidden" value="addmoney" name="moneytype" id="userid2">
+            </div>
+            <div class="col-md-12 col-sm-12 form-group ">
+            <label style="color: black;"> Select Amount Type </label>
+            <select class="form-control form-control-solid my_sel" name="bonustype" required="required" id="add-select">
+              <option value="">Select Bonus Type</option>
+                <option value="addfund">AddFund</option>
+                <option value="bonus">Bonus</option>
+                <option value="winning">Winning</option>
+              </select>
+            </div>
+            <div class="col-md-12 col-sm-12 form-group ">
+              <label style="color: black;"> Description </label>
+              <textarea class="form-control form-control-solid" id="descripdftion" name="description"></textarea>
+            </div>
+            </div>
+          <div class="modal-footer border-0">
+            <div class="col-auto text-right ml-auto mt-4 mb-2">
+              <input type="button" class="btn btn-sm btn-success text-uppercase adsfb" value="Next" data-open-modal="#key<%= userFind._id %>" data-id="<%= userFind._id %>" data-type="add">
+              <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+         
+        </div>
+        </div>
+      </div>
+        <!-- Modal -->
+      <div id="key<%= userFind._id %>" class="modal fade px-0" role="dialog" style="z-index: 500%;">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable  w-100 h-100">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title _head_ing">Add Money in wallet of <%= userFind.email %></h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body abcd">
+
+                <div class="col-md-12 col-sm-12 form-group _m_form">
+              <label> Enter Your Master Password </label>
+          <input type="password"  name="master" class="form-control form-control-solid" placeholder="Enter password here" autocomplete="off">
+            </div>
+          </div>
+       <div class="modal-footer">
+       <div class="col-auto text-right ml-auto mt-4 mb-2">
+          <input type="submit" class="btn btn-sm btn-success text-uppercase" value="Submit">
+          <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+          </div>
+
+              </form>
+          </div>
+
+        </div>
+      </div>
+      <!-- Deduct Money modal -->
+           
+      <div id="deductmoneymodal<%= userFind._id %>" class="modal fade abc  px-0" role="dialog" style="z-index: 0.2%;">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable  h-100">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+          <h4 class="modal-title _head_ing">Deduct Money from wallet of <%= userFind.email %></h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+          <form action="/deductmoneyinwallet" method="post">
+            <input type="hidden" value="<%= userFind._id %>" name="userid" id="userid2">
+            <div class="col-md-12 col-sm-12 form-group ">
+              <label>  Amount </label>
+              <input type="number" onkeypress="isNumberKey(event)" autocomplete="off" name="amount" class="form-control" placeholder="Enter amount here" id="deduct-input<%= userFind._id %>new" required>
+              <input type="hidden" value="addmoney" name="moneytype" id="userid2" autocomplete="off">
+            </div>
+            <div class="col-md-12 col-sm-12 form-group ">
+            <label> Select Amount Type </label>
+            <select class="form-control my_sel" name="bonustype" required="required" id="deduct-select<%= userFind._id %>new">
+              <option value="">Select Bonus Type</option>
+                <option value="addfund">AddFund</option>
+                <option value="bonus">Bonus</option>
+                <option value="winning">Winning</option>
+              </select>
+            </div>
+            <div class="col-md-12 col-sm-12 form-group ">
+              <label> Description </label>
+              <textarea class="form-control" id="descripdftion" name="description"></textarea>
+            </div>
+            </div>
+          <div class="modal-footer" style="border:0px;">
+            <div class="col-auto text-right ml-auto mt-4 mb-2">
+              <input type="button" class="btn btn-sm btn-success text-uppercase adsfb" value="Next" data-open-modal="#key12<%= userFind._id %>" data-id="<%= userFind._id %>new" data-type="deduct">
+              <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+     
+        <!-- deductmoney modal -->
+      <div id="key12<%= userFind._id %>" class="modal fade px-0" role="dialog" style="z-index: 500%;">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable w-100 h-100">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title _head_ing">Deduct  Money from wallet of <%= userFind.email %></h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body abcd">
+             
+                <div class="col-md-12 col-sm-12 form-group _m_form">
+              <label> Enter Your Master Password </label>
+          <input type="password"  name="master" class="form-control" placeholder="Enter password here" autocomplete="off">
+            </div>
+          </div>
+       <div class="modal-footer">
+       <div class="col-auto text-right ml-auto mt-4 mb-2">
+          <input type="submit" class="btn btn-sm btn-success text-uppercase" value="Submit">
+          <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+          </div>
+              </form>
+          </div>
+
+        </div>
+      </div>
+    </tbody>
+    <%}else{ %>
+        <td colspan="5"><span style="color: red; letter-spacing: 5px; font-size: 20px; font-weight: 800; margin-left: 425px;">No Data Found</span></td>
+      <% }%> 
+  <tfoot>
+      <tr>
+      <th >userid</th>
+      <th>team</th>
+      <th>username</th>
+      <th>email</th>
+      <th>action</th>
+      </tr>
+  </tfoot>
+    </table>
+    <%- include("../../partials/alertMsg") %>
+            </div>
+</div>
+</div>
+<script>
+$(document).on("click", ".adsfb", function () {
+
+
+var type = $(this).attr('data-type');
+var input = $('#'+type+'-input' + $(this).attr('data-id')).val();
+var select = $('#'+type+'-select' + $(this).attr('data-id')).val();
+
+if(input == '' || select == '') {
+Swal.fire('Please fill out all required fields');
+} else {
+var modal = $(this).attr('data-open-modal');
+$('.abc').modal("hide");
+$(modal).modal('show');
+}
+$('.abc').modal("hide");
+
+var a = $('#drfgdgdfg1').val();
+var c = $('#descripdftion').val();
+var b = $('#Sel_BankApprcoval1').val();
+var d = $('#userid2').val();
+
+$(".abcd #amount1").val(a);
+$(".abcd #bonustype1").val(b);
+$(".abcd #description1").val(c);
+$(".abcd #userid1").val(d);
+
+if(a !== '' && b !== '') {
+  $('.abc').modal("hide");
+} else {
+  Swal.fire('Please fill out all required fields');
+}
+
+});
+</script>
+<script>
+  $('#b1').click(function(){
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-sm btn-success',
+        cancelButton: 'btn btn-sm btn-danger'
+      },
+      buttonsStyling: false
+    })
+  
+    swalWithBootstrapButtons.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'success',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        swalWithBootstrapButtons.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelled',
+          'Your imaginary file is safe :)',
+          'error'
+        )
+      }
+    })
+  });
+  </script>
+        </div>
+    </main>
+
+<%- include("../../partials/footer") %>
+
+<script>
+
+    $(window).on('load', function(){
+
+       $('#preloader_admin').hide();
+
+      })
+  </script>
+  <script>
+      $(document).ready(function (){
+          var table = $('#dataTabless').DataTable({
+              'responsive': true
+          });
+  
+          // Handle click on "Expand All" button
+          $('#btn-show-all-children').on('click', function(){
+              // Expand row details
+              table.rows(':not(.parent)').nodes().to$().find('td:first-child').trigger('click');
+          });
+  
+          // Handle click on "Collapse All" button
+          $('#btn-hide-all-children').on('click', function(){
+              // Collapse row details
+              table.rows('.parent').nodes().to$().find('td:first-child').trigger('click');
+          });
+      });
+  </script>
+
+
+<script>
+
+$('#special').on('click', function () {
+  mySelect.find('option:selected').prop('disabled', true);
+  mySelect.selectpicker('refresh');
+});
+
+$('#special2').on('click', function () {
+  mySelect.find('option:disabled').prop('disabled', false);
+  mySelect.selectpicker('refresh');
+});
+
+$('#basic2').selectpicker({
+  liveSearch: true,
+  maxOptions: 1
+});
+</script>
+
+
+
+<script>
+$(document).ready(function(){
+  
+if ($('#accordionSidenavPages a').hasClass('active')){
+  $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
+  $('#accordionSidenavPages a.active').parent().parent().addClass('show');
+  // console.log(id);
+} else {
+  $('#takeonebar').addClass('slamdown');
+}
+});
+
+</script>
+<script>
+  $( "#sortable, #sortable2" ).sortable();
+</script>
+  <script>
+  $(".alert").delay(3000).fadeOut();
+  </script>
+
+
+  <script type="text/javascript">
+  $.datetimepicker.setLocale('en');
+  $('.datetimepickerget').datetimepicker({
+  lang:'en',
+  formatDate:'d.m.Y',
+  step:5,
+  startDate:  new Date()
+   });
+  </script>
+  <script type="text/javascript">
+  $('.datepicker').datepicker({
+  lang:'en',
+  formatDate:'d.m.Y',
+  step:5,
+  });
+  </script>
+
+  <script type="text/javascript">
+   $(document).ready(function(){
+$('#select_all').on('click',function(){
+   if(this.checked){
+       $('.checkbox').each(function(){
+           this.checked = true;
+       });
+   }else{
+        $('.checkbox').each(function(){
+           this.checked = false;
+       });
+   }
+});
+
+$('.checkbox').on('click',function(){
+   if($('.checkbox:checked').length == $('.checkbox').length){
+       $('#select_all').prop('checked',true);
+   }else{
+       $('#select_all').prop('checked',false);
+   }
+});
+});
+</script>
+<script>
+function isNumberKey(evt){
+  //var e = evt || window.event;
+
+ var charCode = (evt.which) ? evt.which : evt.keyCode
+  if (charCode != 46 && charCode > 31
+ && (charCode < 48 || charCode > 57))
+
+  return false;
+else {
+     var itemdecimal = evt.srcElement.value.split('.');
+     if (itemdecimal.length > 1 && charCode == 46)
+         return false;
+
+     return true;
+}
+}
+
+</script>
+<script>
+  var usersarry=[];
+  $("#selectusers").keyup(function(){
+    var gettypevalue = $("#selectusers").val();
+    if(gettypevalue!=""){
+        $.ajax({
+           type:'POST',
+           url:'/getusers',
+           data:'_token=CRHm6id3mN0snJp9RqcgUuOvpAeatpTo4LJRqZFv&gettypevalue='+gettypevalue+'&userspresent='+usersarry,
+           success:function(data){
+             $('#item_list').removeClass('d-none');
+             $('#boxx').removeClass('d-none');
+             $("#item_list").html(data);
+          }
+        });
+    }
+  });
+  function set_item(item){
+    usersarry.push(item);
+    $("#uservalues").val(usersarry);
+    $("#selectusers").val('');
+        $('#item_list').addClass('d-none');
+    var gettext = $('#userid'+item).html();
+    $("#showusers").append('<div class="col-md-6" id="showuserseses">'+gettext+'</div>');
+        $('#boxx').addClass('d-none');
+      }
+      function deletediv(e,item){
+          usersarry.splice( usersarry.indexOf(item), 1 );
+          $("#uservalues").val(usersarry);
+          // e.parentNode.parentNode.remove(e.parentNode);
+          $('#showuserseses').remove();
+      }
+      $(function(){
+        $(document).click(function(){
+            $('#box').addClass('d-none'); //hide the button
+            //$('#boxx').hide(); //hide the button
+          });
+      });
+</script>
+  <script>
+  function divshowhide(value){
+    if(value=='specific'){
+      $("#specificdiv").removeClass('d-none');
+      $("#specificdiv1").show();
+      $("#specificdiv2").show();
+    }else{
+      $("#specificdiv").addClass('d-none');
+      $("#specificdiv1").hide();
+      $("#specificdiv2").hide();
+    }
+  }
+   function deletediv1(e,item){
+      $('#dsafd'+item).remove();
+  }
+
+</script>
+
+
+  <script>
+      function readURL(input) {
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function(e) {
+              $('#' + input.id + '-imagePreview').css('background-image', 'url('+e.target.result +')');
+              $('#' + input.id + '-imagePreview').hide();
+              $('#' + input.id + '-imagePreview').fadeIn(650);
+          }
+          reader.readAsDataURL(input.files[0]);
+      }
+  }
+  $(".imageUpload").change(function() {
+      readURL(this);
+  });
+  </script>
+
+
+
+
+
+
+<script>
+  // This is only for the Inputs to work dynamically
+
+function setTheme(H, inputType) {
+// Convert hex to RGB first
+let r = 0, g = 0, b = 0;
+if (H.length == 4) {
+  r = "0x" + H[1] + H[1];
+  g = "0x" + H[2] + H[2];
+  b = "0x" + H[3] + H[3];
+} else if (H.length == 7) {
+  r = "0x" + H[1] + H[2];
+  g = "0x" + H[3] + H[4];
+  b = "0x" + H[5] + H[6];
+}
+// Then to HSL
+r /= 255;
+g /= 255;
+b /= 255;
+let cmin = Math.min(r,g,b),
+    cmax = Math.max(r,g,b),
+    delta = cmax - cmin,
+    h = 0,
+    s = 0,
+    l = 0;
+
+if (delta == 0)
+  h = 0;
+else if (cmax == r)
+  h = ((g - b) / delta) % 6;
+else if (cmax == g)
+  h = (b - r) / delta + 2;
+else
+  h = (r - g) / delta + 4;
+
+h = Math.round(h * 60);
+
+if (h < 0)
+  h += 360;
+
+l = (cmax + cmin) / 2;
+s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+s = +(s * 100).toFixed(1);
+l = +(l * 100).toFixed(1);
+
+document.documentElement.style.setProperty(`--${inputType}-color-h`, h);
+document.documentElement.style.setProperty(`--${inputType}-color-s`, s + '%');
+document.documentElement.style.setProperty(`--${inputType}-color-l`, l + '%');
+
+hsl = h + ' ' + s + ' ' + l + '';
+
+//   $('#'+inputType+'-color-input').val( hsl );
+
+$('input[name="input[' + inputType + '_hsl]"').val( hsl );
+}
+
+const inputs = ['primary', 'secondary', 'info', 'success', 'danger', 'warning', 'muted', 'dark', 'light', 'black', 'white', 'blue','indigo', 'purple', 'pink', 'red', 'orange','yellow', 'green', 'teal', 'cyan', 'gray', 'graydark'];
+
+inputs.forEach((inputType) => {
+document.querySelector(`#${inputType}-color-input`)
+  .addEventListener('change', (e) => {
+  setTheme(e.target.value, inputType);
+
+});
+
+});
+
+</script>
+
+
+<script>
+/*jslint browser:true*/
+/*global jQuery, document*/
+
+jQuery(document).ready(function () {
+    'use strict';
+
+    jQuery('#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date').datetimepicker();
+});
+</script>
+
+<script>
+function copyToClipboard(element,element1) {
+    var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val($(element).text()).select();
+    document.execCommand("copy");
+    $temp.remove();
+
+    $(element1).addClass("copied_success animated bounceIn");
+    setTimeout(RemoveClass, 1000);
+function RemoveClass() {
+    $(element1).removeClass("copied_success animated bounceIn");
+}
+}
+</script>

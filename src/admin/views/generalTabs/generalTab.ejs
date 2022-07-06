@@ -1,0 +1,240 @@
+<%- include("../../partials/head") %>
+
+  <%- include("../../partials/bodyStartWithNavBar") %>
+    <%- include("../../partials/sideNav") %>
+      <div id="layoutSidenav_content">
+        <main>
+
+          <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+            <div class="container-fluid">
+              <div class="row align-items-center">
+                <div class="col">
+                  <div class="page-header-content">
+                    <h1 class="page-header-title fs-md-35 fs-20">
+
+                      <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                      <span class=" text-capitalize">
+                        General Tabs
+                      </span>
+                    </h1>
+                    <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                      Add General Tabs Features
+                    </div>
+                  </div>
+                </div>
+                <div class="col-auto mb-md-0 mb-3">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container-fluid mt-n10">
+
+
+            <!-- data-parsley-validate="" novalidate="" -->
+            <div class="card mb-4">
+              <div class="card-header">Add General Tabs</div>
+              <form  action="/general-tab-data/<%=adminId %>" method="post" class="card-body" autocomplete="">
+
+                <div class="sbp-preview">
+                  <div class="sbp-preview-content py-2">
+                    <div class="row mx-0">
+                      <div class="col-md-6">
+                        <div class="form-group my-3">
+                          <label for="title">Select Type*</label>
+                          <select name="type" class="form-control form-control-solid" required="">
+                            <option value="" disabled selected>Select Type</option>
+                            <option value="refer_bonus">Refer Bonus</option>
+                            <option value="pan_bonus">Pan Bonus</option>
+                            <option value="email_bonus">Email Bonus</option>
+                            <option value="mobile_bonus">Mobile Bonus</option>
+                            <option value="bank_bonus">Bank Bonus</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group my-3">
+                          <label for="description">Please Enter Amount*</label>
+                          <input name="amount" class="form-control form-control-solid" type="number" onkeypress="return isNumberKey(event)" min="0"
+                            placeholder="Please Enter Amount" required="">
+                        </div>
+                      </div>
+
+                      <div class="col-12 text-right mb-2">
+                        <button type="submit" class="btn btn-sm btn-success text-uppercase"><i
+                            class="far fa-check-circle"></i>&nbsp;Submit</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="card mb-4 mt-4">
+              <div class="card-header">View General Tabs</div>
+              <div class="card-body">
+                <div class="datatable table-responsive">
+                  <table class="table table-bordered table-hover general-view text-nowrap" id="viewGenralTab" width="100%"
+                    cellspacing="0">
+                    <thead>
+                      <tr>
+                        <th>S no.</th>
+                        <th>Type</th>
+                        <th class="text-center">Amount</th>
+                        <th class="text-center">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <th>S no.</th>
+                        <th>Type</th>
+                        <th class="text-center">amount</th>
+                        <th class="text-center">Action</th>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+
+            <script>
+              $(function () {
+                $('.noAutoComplete').attr('autocomplete', 'off');
+              });
+            </script>
+          </div>
+        </main>
+        <%- include("../../partials/footer") %>
+
+          <script>
+
+            $(window).on('load', function () {
+
+              $('#preloader_admin').hide();
+
+            })
+
+          </script>
+          
+<script>
+
+  $(document).ready(function() {
+    // $.fn.dataTable.ext.errMode = 'none';
+    $('#viewGenralTab').DataTable({
+        'responsive':false,
+        'bFilter':false,
+        "serverSide": true,
+        language: {
+              zeroRecords: "No records to display",
+            },
+        "ajax":{
+                 "url": '/generalTabData-table',
+                 "type": "POST",
+               },
+        "columns": [
+            { "data": "newcount" },
+            { "data": "Type" },
+            { "data": "amount" },
+            { "data": "Action" }
+        ]
+    });
+    
+    });
+
+
+</script>
+
+
+          <script>
+            $(document).ready(function () {
+
+              if ($('#accordionSidenavPages a').hasClass('active')) {
+                $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
+                $('#accordionSidenavPages a.active').parent().parent().addClass('show');
+                // console.log(id);
+              } else {
+                $('#takeonebar').addClass('slamdown');
+              }
+            });
+
+          </script>
+        
+
+
+          <!-- <script>
+            function isNumberKey(evt) {
+              //var e = evt || window.event;
+
+              var charCode = (evt.which) ? evt.which : evt.keyCode
+              if (charCode != 46 && charCode > 31
+                && (charCode < 48 || charCode > 57))
+
+                return false;
+              else {
+                var itemdecimal = evt.srcElement.value.split('.');
+                if (itemdecimal.length > 1 && charCode == 46)
+                  return false;
+
+                return true;
+              }
+            }
+
+          </script> -->
+
+          <script>
+            /*jslint browser:true*/
+            /*global jQuery, document*/
+
+            jQuery(document).ready(function () {
+              'use strict';
+
+              jQuery('#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date').datetimepicker();
+            });
+          </script>
+
+          <script>
+            function delete_sweet_alert(url, msg) {
+              // sweet alert
+              const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                  confirmButton: 'btn btn-sm btn-success ml-2',
+                  cancelButton: 'btn btn-sm btn-danger'
+                },
+                buttonsStyling: false
+              })
+
+              swalWithBootstrapButtons.fire({
+                title: msg,
+                text: "You won't be able to revert this!",
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+                reverseButtons: true
+              }).then((result) => {
+                if (result.isConfirmed) {
+
+                  swalWithBootstrapButtons.fire(
+                    '',
+                    'Successfully Done',
+                    'success'
+                  );
+
+                  window.location.href = url;
+
+                } else if (
+                  /* Read more about handling dismissals below */
+                  result.dismiss === Swal.DismissReason.cancel
+                ) {
+                  swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Cancelled successfully :)',
+                    'error'
+                  );
+                  return false;
+                }
+              })
+            }
+          </script>

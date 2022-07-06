@@ -1,0 +1,264 @@
+<%- include("../../partials/head") %>
+
+  <%- include("../../partials/bodyStartWithNavBar/") %>
+    <%- include("../../partials/sideNav") %>
+      <div id="layoutSidenav_content">
+        <main>
+
+          <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+            <div class="container-fluid">
+              <div class="row align-items-center">
+                <div class="col">
+                  <div class="page-header-content">
+                    <h1 class="page-header-title fs-md-35 fs-20">
+
+                      <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                      <span class=" text-capitalize">
+                        Player Manager
+                      </span>
+                    </h1>
+                    <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                      View All Players
+                    </div>
+                  </div>
+                </div>
+                <div class="col-auto mb-md-0 mb-3">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container-fluid mt-n10">
+
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card mb-3">
+                  <div class="card-heading p-3">
+                    <form method="get" action="/view-all-players">
+                      <div class="sbp-preview position-relative">
+                        <div class="form-group">
+                          <div class="row mx-0">
+                            <div class="col-md-4">
+                              <div class="form-group my-3">
+                                <label for="Player Role" class=" text-bold" for="role">Player Role</label>
+                                <select class="form-control form-control-solid " name="role" id="role">
+
+                                  <% if(querydata.role) {%>
+                                    <option value="batsman" <%=querydata.role=='batsman' ? 'selected' :'' %>>Batsman
+                                    </option>
+                                    <option value="bowler" <%=querydata.role=='bowler' ? 'selected' :'' %>>Bowler
+                                    </option>
+                                    <option value="allrounder" <%=querydata.role=='allrounder' ? 'selected' :'' %>>All
+                                      rounder</option>
+                                    <option value="keeper" <%=querydata.role=='keeper' ? 'selected' :'' %>>Wicket Keeper
+                                    </option>
+                                    <%}else{ %>
+                                      <option value="" selected >Select Role</option>
+                                      <option value="batsman">Batsman</option>
+                                      <option value="bowler">Bowler</option>
+                                      <option value="allrounder">All rounder</option>
+                                      <option value="keeper">Wicket Keeper</option>
+                                      <% }%>
+
+                                </select>
+                              </div>
+                            </div>
+
+                            <div class="col-md-4">
+                              <div class="form-group my-3">
+                                <label for="playername" class="">Player Name</label>
+                                <% if(querydata.playername){%>
+                                  <input value="<%=querydata.playername %>" id="playername"
+                                    class="form-control form-control-solid" name="playername" type="text">
+                                  <% }else{ %>
+                                    <input value="" placeholder="Search By Name" id="playername"
+                                      class="form-control form-control-solid" name="playername" type="text">
+                                    <% }%>
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="form-group my-3">
+                                <label for="team" class="">Team Name</label>
+                                <select class="form-control form-control-solid selectpicker show-tick"
+                                  data-container="body" data-live-search="true" title="Select Team"
+                                  data-hide-disabled="true" name="team" id="team">
+                                  <option value="" selected>Select Team</option>
+                                  <% if(teamName) {%>
+                                    <% for(let key of teamName){%>
+                                      <% if(querydata.team){%>
+                                        <option value="<%=key._id %>" <%=key._id==querydata.team ? 'selected' : '' %>>
+                                          <%=key.teamName %>
+                                        </option>
+                                        <% }else{ %>
+                                          <option value="<%=key._id %>">
+                                            <%=key.teamName %>
+                                          </option>
+                                          <% }%>
+                                            <% }%>
+                                              <% }%>
+
+                                </select>
+                              </div>
+                            </div>
+
+                            <div class="col-12 text-right mt-4 mb-2">
+                              <button class="btn btn-sm btn-success text-uppercase"><i class="far fa-check-circle"
+                                  type="submit"></i>&nbsp;Submit</button>
+                              <a href="/view-all-players" class="btn btn-sm btn-warning text-uppercase"><i
+                                  class="far fa-undo"></i>&nbsp; Reset</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card mb-4">
+              <div class="card-header">
+                <div class="row w-100 align-items-center mx-0">
+                  <div class="col-md col-12 mb-md-0 mb-2 text-md-left text-center">View All Players</div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="datatable table-responsive">
+                  <table class="table table-bordered table-hover last-btn-center text-nowrap" id="view_player_datatable"
+                    width="100%" cellspacing="0">
+                    <thead>
+                      <tr>
+
+                        <th>Sno.</th>
+                        <th>Player Name</th>
+                        <th>Player key</th>
+                        <th>Role</th>
+                        <th>Cr</th>
+                        <th class="myclass">Image</th>
+                        <th class="myclass1">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <th>Sno.</th>
+                        <th>Player Name</th>
+                        <th>Player key</th>
+                        <th>Role</th>
+                        <th>Cr</th>
+                        <th>Image</th>
+                        <th>Action</th>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <script>
+              $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+              });
+            </script>
+            <script type="text/javascript">
+              $(document).ready(function () {
+                var playername = $('#playername').val();
+                var team = $('#team').val();
+                var role = $('#role').val();
+                // var fantasy_type = $('#fantasy_type').val();
+                $.fn.dataTable.ext.errMode = 'none';
+                $('#view_player_datatable').DataTable({
+                  // 'responsive': false,
+                  'bFilter': false,
+                  // "processing": true,
+                  // "serverSide": true,
+                  language: {
+              zeroRecords: "No records to display",
+            },
+                  "ajax": {
+                    "url": '/view_player_datatable?playername=' + playername + '&team=' + team + '&role=' + role,
+                    "dataType": "json",
+                    "type": "POST",
+                  },
+                  "lengthMenu": [
+                    [10, 25, 50, 100, 1000, 10000],
+                    [10, 25, 50, 100, 1000, 10000]
+                  ],
+                  "columns": [
+                    { "data": "count" },
+                    { "data": "player_name" },
+                    { "data": "players_key" },
+                    { "data": "role" },
+                    { "data": "credit" },
+                    { "data": "image" },
+                    { "data": "action" ,orderable: false}
+                  ]
+
+                });
+
+              });
+            </script>
+
+            <script>
+              function updateplayer(id, role, credit) {
+                $(`#credittd${id}`).html('<input type="text" class="rounded-pill shadow border border-dark form-control h-32px" value="' + credit + '" name="role" id="getcredittd' + id + '" onkeypress="isNumberKey(event)">');
+                $("#updateplayer" + id).hide();
+                $("#saveplayer" + id).show();
+              }
+
+              function saveplayer(id) {
+                var credit = $("#getcredittd" + id).val();
+                if (credit > 15) {
+                  Swal.fire('You cannot enter credit of a player more than 15.');
+                } else if (credit == '.' || credit == '') {
+                  alert('Enter valid credit for player');
+                } else {
+                  $.ajax({
+                    type: 'POST',
+                    url: '/saveplayerroles',
+                    data: {id,credit},
+                    success: function (data) {
+                      if (data.data == 1) {
+                        $("#credittd" + id).html(credit);
+                        $("#updateplayer" + id).show();
+                        $("#saveplayer" + id).hide();
+
+                        $('#view_player_datatable').DataTable().ajax.reload();
+                      }else{
+                        alert(data.msg)
+                        $('#view_player_datatable').DataTable().ajax.reload();
+                      }
+                    }
+                  });
+                }
+              }
+
+            </script>
+
+          </div>
+        </main>
+        <%- include("../../partials/footer") %>
+
+          <script>
+
+            $(window).on('load', function () {
+
+              $('#preloader_admin').hide();
+
+            })
+          </script>
+
+          <script>
+            $(document).ready(function () {
+
+              if ($('#accordionSidenavPages a').hasClass('active')) {
+                $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
+                $('#accordionSidenavPages a.active').parent().parent().addClass('show');
+              } else {
+                $('#takeonebar').addClass('slamdown');
+              }
+            });
+
+          </script>
+

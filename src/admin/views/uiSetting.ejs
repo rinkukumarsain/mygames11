@@ -1,0 +1,744 @@
+
+<%- include("../partials/head") %>
+
+<%- include("../partials/bodyStartWithNavBar") %>
+<%- include("../partials/sideNav") %>
+<div id="layoutSidenav_content">
+    <main>
+        <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <div class="page-header-content">
+                            <h1 class="page-header-title fs-md-35 fs-20">
+    
+                                <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                                <span class=" text-capitalize">
+                                        Ui Settings
+                                </span>
+                            </h1>
+                            <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                                    Here we change project name, short name etc.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto mb-md-0 mb-3">
+                                                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid mt-n10">
+            
+    <div class="card">
+    <div class="card-header">UI Settings</div>
+    <form class="card-body" action="/my-admin/ui_settings" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="_token" value="rtTuDhsIGeaIxjfKTaO7Lm1L0K7RqzyzmD28hOES">        
+
+    
+    <div class="sbp-preview">
+    <div class="sbp-preview-content">
+        
+    
+    
+    
+        <div class="row mx-0">
+    
+    
+                                    
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="number-of-employees">
+                            Project Name
+                        </label>
+                        <input class="form-control form-control-solid" id="project_name" type="text" placeholder="Enter Project Name" name="input[project_name]" value="fantasybox_supreem">
+                    </div>
+                </div>
+    
+                                    
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="number-of-employees">
+                            Project Short Name
+                        </label>
+                        <input class="form-control form-control-solid" id="short_name" type="text" placeholder="Enter Project Short Name" name="input[short_name]" value="KS11">
+                    </div>
+                </div>
+    
+            
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="number-of-employees">
+                        Show project name or logo or both in admin
+                    </label>
+                    <select class="form-control form-control-solid selectpicker show-tick" data-container="body" data-live-search="true" title="Select" data-hide-disabled="true" name="input[project_name_or_logo]"  required="">
+                        <option value="project_name"
+                                                        selected
+                                                        >Project name</option>
+                        <option value="logo"
+                                                        >Logo</option>
+                        <option value="both"
+                                                        >Both</option>
+                    </select>
+    
+                </div>
+            </div>
+    
+        </div>
+    </div>
+    </div>
+    
+    <div class="sbp-preview mt-4">
+    <div class="sbp-preview-content">
+        <div class="row mx-0 justify-content-center ">
+    
+    
+            
+                                        
+                
+    
+                <div class="col-md col-sm-4 col-6">
+                    <div class="form-group">
+                        <div class="row justify-content-center py-0">
+                            <h1 class="fs-14 font-weight-bold text-center mt-3 col-12">Logo</h1>
+                            <div class="avatar-upload col-auto position-relative">
+                                <div class="avatar-edit position-absolute right-0px z-index-1 top-2px">
+                                    <input type='file' name="input[logo]" id="logo" accept=".png"  class="imageUpload d-none"/>
+                                    <label class="d-grid w-40px h-40px mb-0 rounded-pill bg-white text-success fs-20 shadow pointer font-weight-normal align-items-center justify-content-center" for="logo"><i class="fad fa-pencil"></i></label>
+                                </div>
+                                <div class="avatar-preview w-100px h-100px position-relative rounded-pill shadow">
+                                    <div class="w-100 h-100 rounded-pill" id="logo-imagePreview" style="background-image: url(/public/logo.png);">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+            
+                                        
+                
+    
+                <div class="col-md col-sm-4 col-6">
+                    <div class="form-group">
+                        <div class="row justify-content-center py-0">
+                            <h1 class="fs-14 font-weight-bold text-center mt-3 col-12">Favicon</h1>
+                            <div class="avatar-upload col-auto position-relative">
+                                <div class="avatar-edit position-absolute right-0px z-index-1 top-2px">
+                                    <input type='file' name="input[favicon]" id="favicon" accept=".png"  class="imageUpload d-none"/>
+                                    <label class="d-grid w-40px h-40px mb-0 rounded-pill bg-white text-success fs-20 shadow pointer font-weight-normal align-items-center justify-content-center" for="favicon"><i class="fad fa-pencil"></i></label>
+                                </div>
+                                <div class="avatar-preview w-100px h-100px position-relative rounded-pill shadow">
+                                    <div class="w-100 h-100 rounded-pill" id="favicon-imagePreview" style="background-image: url(/public/favicon.png);">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+            
+                                        
+                
+    
+                <div class="col-md col-sm-4 col-6">
+                    <div class="form-group">
+                        <div class="row justify-content-center py-0">
+                            <h1 class="fs-14 font-weight-bold text-center mt-3 col-12">User Default Image</h1>
+                            <div class="avatar-upload col-auto position-relative">
+                                <div class="avatar-edit position-absolute right-0px z-index-1 top-2px">
+                                    <input type='file' name="input[user_image]" id="user_image" accept=".png"  class="imageUpload d-none"/>
+                                    <label class="d-grid w-40px h-40px mb-0 rounded-pill bg-white text-success fs-20 shadow pointer font-weight-normal align-items-center justify-content-center" for="user_image"><i class="fad fa-pencil"></i></label>
+                                </div>
+                                <div class="avatar-preview w-100px h-100px position-relative rounded-pill shadow">
+                                    <div class="w-100 h-100 rounded-pill" id="user_image-imagePreview" style="background-image: url(/public/user_image.png);">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+            
+                                        
+                
+    
+                <div class="col-md col-sm-4 col-6">
+                    <div class="form-group">
+                        <div class="row justify-content-center py-0">
+                            <h1 class="fs-14 font-weight-bold text-center mt-3 col-12">Team Default Image</h1>
+                            <div class="avatar-upload col-auto position-relative">
+                                <div class="avatar-edit position-absolute right-0px z-index-1 top-2px">
+                                    <input type='file' name="input[team_image]" id="team_image" accept=".png"  class="imageUpload d-none"/>
+                                    <label class="d-grid w-40px h-40px mb-0 rounded-pill bg-white text-success fs-20 shadow pointer font-weight-normal align-items-center justify-content-center" for="team_image"><i class="fad fa-pencil"></i></label>
+                                </div>
+                                <div class="avatar-preview w-100px h-100px position-relative rounded-pill shadow">
+                                    <div class="w-100 h-100 rounded-pill" id="team_image-imagePreview" style="background-image: url(/public/team_image.png);">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+            
+                                        
+                
+    
+                <div class="col-md col-sm-4 col-6">
+                    <div class="form-group">
+                        <div class="row justify-content-center py-0">
+                            <h1 class="fs-14 font-weight-bold text-center mt-3 col-12">Player Default Image</h1>
+                            <div class="avatar-upload col-auto position-relative">
+                                <div class="avatar-edit position-absolute right-0px z-index-1 top-2px">
+                                    <input type='file' name="input[player_image]" id="player_image" accept=".png"  class="imageUpload d-none"/>
+                                    <label class="d-grid w-40px h-40px mb-0 rounded-pill bg-white text-success fs-20 shadow pointer font-weight-normal align-items-center justify-content-center" for="player_image"><i class="fad fa-pencil"></i></label>
+                                </div>
+                                <div class="avatar-preview w-100px h-100px position-relative rounded-pill shadow">
+                                    <div class="w-100 h-100 rounded-pill" id="player_image-imagePreview" style="background-image: url(/public/player_image.png);">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+            
+        </div>
+    </div>
+    </div>
+    
+    
+    <div class="sbp-preview mt-4">
+    <div class="sbp-preview-content">
+        <div class="row mx-0">
+    
+    
+                                    
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="number-of-employees">
+                            Font Family Link (Google Fonts Required)
+                        </label>
+                        <input class="form-control form-control-solid" id="font_family_link" type="text" placeholder="Enter Font Family Link (Google Fonts Required)" name="input[font_family_link]" value="https://fonts.googleapis.com/css2?family=Poppins:wght@500&amp;display=swap">
+                    </div>
+                </div>
+    
+                                    
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="number-of-employees">
+                            Font Family Name
+                        </label>
+                        <input class="form-control form-control-solid" id="font_family_name" type="text" placeholder="Enter Font Family Name" name="input[font_family_name]" value="&#039;Poppins&#039;, sans-serif">
+                    </div>
+                </div>
+    
+                                    
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="number-of-employees">
+                            Font Awesome Link (Only Official)
+                        </label>
+                        <input class="form-control form-control-solid" id="font_awesome_link" type="text" placeholder="Enter Font Awesome Link (Only Official)" name="input[font_awesome_link]" value="">
+                    </div>
+                </div>
+    
+                                    
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="number-of-employees">
+                            Font Awesome Pro
+                        </label>
+                        <input class="form-control form-control-solid" id="font_awesome_name" type="text" placeholder="Enter Font Awesome Pro" name="input[font_awesome_name]" value="">
+                    </div>
+                </div>
+    
+            
+        </div>
+    </div>
+    </div>
+    <div class="sbp-preview mt-4">
+    <div class="sbp-preview-content">
+        <div class="row mx-0">
+    
+                                <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color">
+                <div class="form-group mb-lg-3 mb-0 mt-lg-0 mt-3">
+                    <label class="text-capitalize font-weight-bold" for="number-of-employees">
+                        primary Color <span onclick="copyToClipboard('#hex_code-primary','#primary-copied_hovers')" id="primary-copied_hovers" style="color: var(--color-primary); --switch: calc((var(--primary-color-l) - var(--contrastThreshold)) * -100); background: hsl(0, 0%, var(--switch));" class="font-weight-900 p-1 rounded-5 text-uppercase d-inline-block">( <span id="hex_code-primary"> #0b6ef9 </span> )</span>
+                    </label>
+                                                
+                    <input class="form-control form-control-solid h-80px" type="color" value="#1c223f" id="primary-color-input" name="input[primary_hex]" data-id="primary"/>
+                    <input class="form-control form-control-solid" type="hidden" placeholder="primary_hsl" name="input[primary_hsl]">
+                    <input class="form-control form-control-solid" type="hidden" placeholder="rgb" name="input[primary_rgb]" id="primary-color-input_rgb">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-30">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-primary','#primary-copied_hover')" id="primary-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold bg-primary text-n-primary"><span class="mr-2 position-absolute invisible" id="copy-color-primary">var(--color-primary)</span>--color-primary (Base)</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-20">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-primary-light','#primary-light-copied_hover')" id="primary-light-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold bg-primary-light text-n-primary-light"><span class="mr-2 position-absolute invisible" id="copy-color-primary-light">var(--color-primary-light)</span>--color-primary-light (:hover)</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-10">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-primary-dark','#primary-dark-copied_hover')" id="primary-dark-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold  bg-primary-dark text-n-primary-dark"><span class="mr-2 position-absolute invisible" id="copy-color-primary-dark">var(--color-primary-dark)</span>--color-primary-dark (:hover)</div>
+                </div>
+            </div>
+                                <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color">
+                <div class="form-group mb-lg-3 mb-0 mt-lg-0 mt-3">
+                    <label class="text-capitalize font-weight-bold" for="number-of-employees">
+                        secondary Color <span onclick="copyToClipboard('#hex_code-secondary','#secondary-copied_hovers')" id="secondary-copied_hovers" style="color: var(--color-secondary); --switch: calc((var(--secondary-color-l) - var(--contrastThreshold)) * -100); background: hsl(0, 0%, var(--switch));" class="font-weight-900 p-1 rounded-5 text-uppercase d-inline-block">( <span id="hex_code-secondary"> #6b00c2 </span> )</span>
+                    </label>
+                                                
+                    <input class="form-control form-control-solid h-80px" type="color" value="#4886ea" id="secondary-color-input" name="input[secondary_hex]" data-id="secondary"/>
+                    <input class="form-control form-control-solid" type="hidden" placeholder="secondary_hsl" name="input[secondary_hsl]">
+                    <input class="form-control form-control-solid" type="hidden" placeholder="rgb" name="input[secondary_rgb]" id="secondary-color-input_rgb">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-30">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-secondary','#secondary-copied_hover')" id="secondary-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold bg-secondary text-n-secondary"><span class="mr-2 position-absolute invisible" id="copy-color-secondary">var(--color-secondary)</span>--color-secondary (Base)</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-20">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-secondary-light','#secondary-light-copied_hover')" id="secondary-light-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold bg-secondary-light text-n-secondary-light"><span class="mr-2 position-absolute invisible" id="copy-color-secondary-light">var(--color-secondary-light)</span>--color-secondary-light (:hover)</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-10">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-secondary-dark','#secondary-dark-copied_hover')" id="secondary-dark-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold  bg-secondary-dark text-n-secondary-dark"><span class="mr-2 position-absolute invisible" id="copy-color-secondary-dark">var(--color-secondary-dark)</span>--color-secondary-dark (:hover)</div>
+                </div>
+            </div>
+            
+    
+    
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12 text-right mt-lg-0 mt-4">
+                <div class="form-group mb-4 text-right">
+                    <div class="custom-control custom-switch text-right">
+                        <input type="checkbox" class="custom-control-input" id="customSwitch1" onchange="show_options(this)">
+                        <label class="custom-control-label font-weight-bold text-success fs-16" for="customSwitch1">Advance Color Options</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mx-0 mt-4" style="display:none" id="options"> 
+    
+    
+    
+                                <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color">
+                <div class="form-group mb-lg-3 mb-0 mt-lg-0 mt-3">
+                    <label class="text-capitalize font-weight-bold" for="number-of-employees">
+                        info Color <span onclick="copyToClipboard('#hex_code-info','#info-copied_hovers')" id="info-copied_hovers" style="color: var(--color-info); --switch: calc((var(--info-color-l) - var(--contrastThreshold)) * -100); background: hsl(0, 0%, var(--switch));" class="font-weight-900 p-1 rounded-5 text-uppercase d-inline-block">( <span id="hex_code-info"> #17a2b8 </span> )</span>
+                    </label>
+                                                
+                    <input class="form-control form-control-solid h-lg-80px h-md-50px h-50px" type="color" value="#17a2b8" id="info-color-input" name="input[info_hex]"  data-id="info"/>
+                    <input class="form-control form-control-solid" type="hidden" placeholder="info_hsl" name="input[info_hsl]">
+                    <input class="form-control form-control-solid" type="hidden" placeholder="rgb" name="input[info_rgb]" id="info-color-input_rgb">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-30">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-info','#info-copied_hover')" id="info-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold bg-info text-n-info"><span class="mr-2 position-absolute invisible" id="copy-color-info">var(--color-info)</span>--color-info (Base)</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-20">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-info-light','#info-light-copied_hover')" id="info-light-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold bg-info-light text-n-info-light"><span class="mr-2 position-absolute invisible" id="copy-color-info-light">var(--color-info-light)</span>--color-info-light (:hover)</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-10">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-info-dark','#info-dark-copied_hover')" id="info-dark-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold  bg-info-dark text-n-info-dark"><span class="mr-2 position-absolute invisible" id="copy-color-info-dark">var(--color-info-dark)</span>--color-info-dark (:hover)</div>
+                </div>
+            </div>
+                                <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color">
+                <div class="form-group mb-lg-3 mb-0 mt-lg-0 mt-3">
+                    <label class="text-capitalize font-weight-bold" for="number-of-employees">
+                        success Color <span onclick="copyToClipboard('#hex_code-success','#success-copied_hovers')" id="success-copied_hovers" style="color: var(--color-success); --switch: calc((var(--success-color-l) - var(--contrastThreshold)) * -100); background: hsl(0, 0%, var(--switch));" class="font-weight-900 p-1 rounded-5 text-uppercase d-inline-block">( <span id="hex_code-success"> #28a745 </span> )</span>
+                    </label>
+                                                
+                    <input class="form-control form-control-solid h-lg-80px h-md-50px h-50px" type="color" value="#28a745" id="success-color-input" name="input[success_hex]"  data-id="success"/>
+                    <input class="form-control form-control-solid" type="hidden" placeholder="success_hsl" name="input[success_hsl]">
+                    <input class="form-control form-control-solid" type="hidden" placeholder="rgb" name="input[success_rgb]" id="success-color-input_rgb">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-30">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-success','#success-copied_hover')" id="success-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold bg-success text-n-success"><span class="mr-2 position-absolute invisible" id="copy-color-success">var(--color-success)</span>--color-success (Base)</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-20">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-success-light','#success-light-copied_hover')" id="success-light-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold bg-success-light text-n-success-light"><span class="mr-2 position-absolute invisible" id="copy-color-success-light">var(--color-success-light)</span>--color-success-light (:hover)</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-10">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-success-dark','#success-dark-copied_hover')" id="success-dark-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold  bg-success-dark text-n-success-dark"><span class="mr-2 position-absolute invisible" id="copy-color-success-dark">var(--color-success-dark)</span>--color-success-dark (:hover)</div>
+                </div>
+            </div>
+                                <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color">
+                <div class="form-group mb-lg-3 mb-0 mt-lg-0 mt-3">
+                    <label class="text-capitalize font-weight-bold" for="number-of-employees">
+                        danger Color <span onclick="copyToClipboard('#hex_code-danger','#danger-copied_hovers')" id="danger-copied_hovers" style="color: var(--color-danger); --switch: calc((var(--danger-color-l) - var(--contrastThreshold)) * -100); background: hsl(0, 0%, var(--switch));" class="font-weight-900 p-1 rounded-5 text-uppercase d-inline-block">( <span id="hex_code-danger"> #dc3545 </span> )</span>
+                    </label>
+                                                
+                    <input class="form-control form-control-solid h-lg-80px h-md-50px h-50px" type="color" value="#dc3545" id="danger-color-input" name="input[danger_hex]"  data-id="danger"/>
+                    <input class="form-control form-control-solid" type="hidden" placeholder="danger_hsl" name="input[danger_hsl]">
+                    <input class="form-control form-control-solid" type="hidden" placeholder="rgb" name="input[danger_rgb]" id="danger-color-input_rgb">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-30">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-danger','#danger-copied_hover')" id="danger-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold bg-danger text-n-danger"><span class="mr-2 position-absolute invisible" id="copy-color-danger">var(--color-danger)</span>--color-danger (Base)</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-20">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-danger-light','#danger-light-copied_hover')" id="danger-light-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold bg-danger-light text-n-danger-light"><span class="mr-2 position-absolute invisible" id="copy-color-danger-light">var(--color-danger-light)</span>--color-danger-light (:hover)</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-10">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-danger-dark','#danger-dark-copied_hover')" id="danger-dark-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold  bg-danger-dark text-n-danger-dark"><span class="mr-2 position-absolute invisible" id="copy-color-danger-dark">var(--color-danger-dark)</span>--color-danger-dark (:hover)</div>
+                </div>
+            </div>
+                                <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color">
+                <div class="form-group mb-lg-3 mb-0 mt-lg-0 mt-3">
+                    <label class="text-capitalize font-weight-bold" for="number-of-employees">
+                        warning Color <span onclick="copyToClipboard('#hex_code-warning','#warning-copied_hovers')" id="warning-copied_hovers" style="color: var(--color-warning); --switch: calc((var(--warning-color-l) - var(--contrastThreshold)) * -100); background: hsl(0, 0%, var(--switch));" class="font-weight-900 p-1 rounded-5 text-uppercase d-inline-block">( <span id="hex_code-warning"> #ffc107 </span> )</span>
+                    </label>
+                                                
+                    <input class="form-control form-control-solid h-lg-80px h-md-50px h-50px" type="color" value="#ffc107" id="warning-color-input" name="input[warning_hex]"  data-id="warning"/>
+                    <input class="form-control form-control-solid" type="hidden" placeholder="warning_hsl" name="input[warning_hsl]">
+                    <input class="form-control form-control-solid" type="hidden" placeholder="rgb" name="input[warning_rgb]" id="warning-color-input_rgb">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-30">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-warning','#warning-copied_hover')" id="warning-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold bg-warning text-n-warning"><span class="mr-2 position-absolute invisible" id="copy-color-warning">var(--color-warning)</span>--color-warning (Base)</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-20">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-warning-light','#warning-light-copied_hover')" id="warning-light-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold bg-warning-light text-n-warning-light"><span class="mr-2 position-absolute invisible" id="copy-color-warning-light">var(--color-warning-light)</span>--color-warning-light (:hover)</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-10">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-warning-dark','#warning-dark-copied_hover')" id="warning-dark-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold  bg-warning-dark text-n-warning-dark"><span class="mr-2 position-absolute invisible" id="copy-color-warning-dark">var(--color-warning-dark)</span>--color-warning-dark (:hover)</div>
+                </div>
+            </div>
+                                <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color">
+                <div class="form-group mb-lg-3 mb-0 mt-lg-0 mt-3">
+                    <label class="text-capitalize font-weight-bold" for="number-of-employees">
+                        muted Color <span onclick="copyToClipboard('#hex_code-muted','#muted-copied_hovers')" id="muted-copied_hovers" style="color: var(--color-muted); --switch: calc((var(--muted-color-l) - var(--contrastThreshold)) * -100); background: hsl(0, 0%, var(--switch));" class="font-weight-900 p-1 rounded-5 text-uppercase d-inline-block">( <span id="hex_code-muted"> #dedede </span> )</span>
+                    </label>
+                                                
+                    <input class="form-control form-control-solid h-lg-80px h-md-50px h-50px" type="color" value="#dedede" id="muted-color-input" name="input[muted_hex]"  data-id="muted"/>
+                    <input class="form-control form-control-solid" type="hidden" placeholder="muted_hsl" name="input[muted_hsl]">
+                    <input class="form-control form-control-solid" type="hidden" placeholder="rgb" name="input[muted_rgb]" id="muted-color-input_rgb">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-30">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-muted','#muted-copied_hover')" id="muted-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold bg-muted text-n-muted"><span class="mr-2 position-absolute invisible" id="copy-color-muted">var(--color-muted)</span>--color-muted (Base)</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-20">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-muted-light','#muted-light-copied_hover')" id="muted-light-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold bg-muted-light text-n-muted-light"><span class="mr-2 position-absolute invisible" id="copy-color-muted-light">var(--color-muted-light)</span>--color-muted-light (:hover)</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-10">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-muted-dark','#muted-dark-copied_hover')" id="muted-dark-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold  bg-muted-dark text-n-muted-dark"><span class="mr-2 position-absolute invisible" id="copy-color-muted-dark">var(--color-muted-dark)</span>--color-muted-dark (:hover)</div>
+                </div>
+            </div>
+                                <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color">
+                <div class="form-group mb-lg-3 mb-0 mt-lg-0 mt-3">
+                    <label class="text-capitalize font-weight-bold" for="number-of-employees">
+                        dark Color <span onclick="copyToClipboard('#hex_code-dark','#dark-copied_hovers')" id="dark-copied_hovers" style="color: var(--color-dark); --switch: calc((var(--dark-color-l) - var(--contrastThreshold)) * -100); background: hsl(0, 0%, var(--switch));" class="font-weight-900 p-1 rounded-5 text-uppercase d-inline-block">( <span id="hex_code-dark"> #343a40 </span> )</span>
+                    </label>
+                                                
+                    <input class="form-control form-control-solid h-lg-80px h-md-50px h-50px" type="color" value="#343a40" id="dark-color-input" name="input[dark_hex]"  data-id="dark"/>
+                    <input class="form-control form-control-solid" type="hidden" placeholder="dark_hsl" name="input[dark_hsl]">
+                    <input class="form-control form-control-solid" type="hidden" placeholder="rgb" name="input[dark_rgb]" id="dark-color-input_rgb">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-30">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-dark','#dark-copied_hover')" id="dark-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold bg-dark text-n-dark"><span class="mr-2 position-absolute invisible" id="copy-color-dark">var(--color-dark)</span>--color-dark (Base)</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-20">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-dark-light','#dark-light-copied_hover')" id="dark-light-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold bg-dark-light text-n-dark-light"><span class="mr-2 position-absolute invisible" id="copy-color-dark-light">var(--color-dark-light)</span>--color-dark-light (:hover)</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-10">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-dark-dark','#dark-dark-copied_hover')" id="dark-dark-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold  bg-dark-dark text-n-dark-dark"><span class="mr-2 position-absolute invisible" id="copy-color-dark-dark">var(--color-dark-dark)</span>--color-dark-dark (:hover)</div>
+                </div>
+            </div>
+                                <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color">
+                <div class="form-group mb-lg-3 mb-0 mt-lg-0 mt-3">
+                    <label class="text-capitalize font-weight-bold" for="number-of-employees">
+                        light Color <span onclick="copyToClipboard('#hex_code-light','#light-copied_hovers')" id="light-copied_hovers" style="color: var(--color-light); --switch: calc((var(--light-color-l) - var(--contrastThreshold)) * -100); background: hsl(0, 0%, var(--switch));" class="font-weight-900 p-1 rounded-5 text-uppercase d-inline-block">( <span id="hex_code-light"> #f8f9fa </span> )</span>
+                    </label>
+                                                
+                    <input class="form-control form-control-solid h-lg-80px h-md-50px h-50px" type="color" value="#f8f9fa" id="light-color-input" name="input[light_hex]"  data-id="light"/>
+                    <input class="form-control form-control-solid" type="hidden" placeholder="light_hsl" name="input[light_hsl]">
+                    <input class="form-control form-control-solid" type="hidden" placeholder="rgb" name="input[light_rgb]" id="light-color-input_rgb">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-30">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-light','#light-copied_hover')" id="light-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold bg-light text-n-light"><span class="mr-2 position-absolute invisible" id="copy-color-light">var(--color-light)</span>--color-light (Base)</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-20">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-light-light','#light-light-copied_hover')" id="light-light-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold bg-light-light text-n-light-light"><span class="mr-2 position-absolute invisible" id="copy-color-light-light">var(--color-light-light)</span>--color-light-light (:hover)</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-10">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-light-dark','#light-dark-copied_hover')" id="light-dark-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold  bg-light-dark text-n-light-dark"><span class="mr-2 position-absolute invisible" id="copy-color-light-dark">var(--color-light-dark)</span>--color-light-dark (:hover)</div>
+                </div>
+            </div>
+                                <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color">
+                <div class="form-group mb-lg-3 mb-0 mt-lg-0 mt-3">
+                    <label class="text-capitalize font-weight-bold" for="number-of-employees">
+                        black Color <span onclick="copyToClipboard('#hex_code-black','#black-copied_hovers')" id="black-copied_hovers" style="color: var(--color-black); --switch: calc((var(--black-color-l) - var(--contrastThreshold)) * -100); background: hsl(0, 0%, var(--switch));" class="font-weight-900 p-1 rounded-5 text-uppercase d-inline-block">( <span id="hex_code-black"> #000000 </span> )</span>
+                    </label>
+                                                
+                    <input class="form-control form-control-solid h-lg-80px h-md-50px h-50px" type="color" value="#000000" id="black-color-input" name="input[black_hex]"  data-id="black"/>
+                    <input class="form-control form-control-solid" type="hidden" placeholder="black_hsl" name="input[black_hsl]">
+                    <input class="form-control form-control-solid" type="hidden" placeholder="rgb" name="input[black_rgb]" id="black-color-input_rgb">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-30">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-black','#black-copied_hover')" id="black-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold bg-black text-n-black"><span class="mr-2 position-absolute invisible" id="copy-color-black">var(--color-black)</span>--color-black (Base)</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-20">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-black-light','#black-light-copied_hover')" id="black-light-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold bg-black-light text-n-black-light"><span class="mr-2 position-absolute invisible" id="copy-color-black-light">var(--color-black-light)</span>--color-black-light (:hover)</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-10">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-black-dark','#black-dark-copied_hover')" id="black-dark-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold  bg-black-dark text-n-black-dark"><span class="mr-2 position-absolute invisible" id="copy-color-black-dark">var(--color-black-dark)</span>--color-black-dark (:hover)</div>
+                </div>
+            </div>
+                                <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color">
+                <div class="form-group mb-lg-3 mb-0 mt-lg-0 mt-3">
+                    <label class="text-capitalize font-weight-bold" for="number-of-employees">
+                        white Color <span onclick="copyToClipboard('#hex_code-white','#white-copied_hovers')" id="white-copied_hovers" style="color: var(--color-white); --switch: calc((var(--white-color-l) - var(--contrastThreshold)) * -100); background: hsl(0, 0%, var(--switch));" class="font-weight-900 p-1 rounded-5 text-uppercase d-inline-block">( <span id="hex_code-white"> #ffffff </span> )</span>
+                    </label>
+                                                
+                    <input class="form-control form-control-solid h-lg-80px h-md-50px h-50px" type="color" value="#ffffff" id="white-color-input" name="input[white_hex]"  data-id="white"/>
+                    <input class="form-control form-control-solid" type="hidden" placeholder="white_hsl" name="input[white_hsl]">
+                    <input class="form-control form-control-solid" type="hidden" placeholder="rgb" name="input[white_rgb]" id="white-color-input_rgb">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-30">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-white','#white-copied_hover')" id="white-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold bg-white text-n-white"><span class="mr-2 position-absolute invisible" id="copy-color-white">var(--color-white)</span>--color-white (Base)</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-20">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-white-light','#white-light-copied_hover')" id="white-light-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold bg-white-light text-n-white-light"><span class="mr-2 position-absolute invisible" id="copy-color-white-light">var(--color-white-light)</span>--color-white-light (:hover)</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 ui_settings_color z-index-10">
+                <label class="d-lg-block d-md-none d-none">&nbsp;</label>
+                <div class="row mx-0 form-group h-lg-80px h-50px d-grid align-items-center mb-lg-3 mb-0 pt-lg-3 pt-0">
+                    <div onclick="copyToClipboard('#copy-color-white-dark','#white-dark-copied_hover')" id="white-dark-copied_hover" class="col-md-12 h-lg-60px h-40px d-flex align-items-center justify-content-center shadow rounded text-lowercase border-0 fs-md-12 fs-11 font-weight-bold  bg-white-dark text-n-white-dark"><span class="mr-2 position-absolute invisible" id="copy-color-white-dark">var(--color-white-dark)</span>--color-white-dark (:hover)</div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="row mx-0">
+            <div class="col text-left mt-4 mb-2" id="resetcolor" style="display: none">
+                <div class="d-inline-block" data-toggle="tooltip" title="Reset Factory (Theme color, Font family)">
+                    <a class="btn btn-sm btn-danger text-uppercase" data-toggle="modal" data-target="#resetthemefont"><i class="far fa-redo-alt"></i>&nbsp;Reset Theme</a>
+                </div>
+            </div>
+            <div class="col-auto text-right ml-auto mt-4 mb-2">
+                <button type="submit" class="btn btn-sm btn-success text-uppercase"><i class="far fa-check-circle"></i>&nbsp;Submit</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    </form>
+    </div>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="resetthemefont" tabindex="-1" aria-labelledby="resetthemefontLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+    <form class="card-body" action="/my-admin/reset_admin_theme" method="post">
+    <input type="hidden" name="_token" value="rtTuDhsIGeaIxjfKTaO7Lm1L0K7RqzyzmD28hOES">      <div class="modal-content">
+    <div class="modal-header">
+    <h5 class="modal-title" id="resetthemefontLabel"><b class="text-black">Are you sure?</b></h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+    <p class="text-dark mb-0">You want to reset color theme and font family.</p>
+    <div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="mpassword">&nbsp;</label>
+            <input class="form-control form-control-solid" id="mpassword" type="password" placeholder="Enter Master Password" name="masterpassword">
+        </div>
+    </div>
+    </div>
+    </div>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-sm text-uppercase btn-muted" data-dismiss="modal">Close</button>
+    <button type="submit" class="btn btn-sm text-uppercase btn-danger"><i class="fad fa-redo-alt"></i>&nbsp;Reset</button>
+    </div>
+    </div>
+    </form>
+    </div>
+    </div>
+
+    </main>
+
+<%- include("../partials/footer") %>
+
+<script>
+
+    $(window).on('load', function(){
+
+       $('#preloader_admin').hide();
+
+      })
+  </script>
+</script>
+<script>
+function hex2rgb(element) {
+            // var hex_color = document.getElementById('hex-color').value
+            //     , rgb_color = document.getElementById('rgb-color')
+            //     , pattern_color = "^#([A-Fa-f0-9]{6})$";
+
+            var hex_color = element.value
+                , pattern_color = "^#([A-Fa-f0-9]{6})$";
+
+            if (hex_color.match(pattern_color)) {
+                var hex_color = hex_color.replace("#", "")
+                    , r = parseInt(hex_color.substring(0, 2), 16)
+                    , g = parseInt(hex_color.substring(2, 4), 16)
+                    , b = parseInt(hex_color.substring(4, 6), 16);
+
+                return r + ' ' + g + ' ' + b;
+            }
+            else {
+                Swal.fire('Error Color Format');
+            }
+        }
+</script>
+
+<script>
+
+    function rgbToHsl(r, g, b){
+		r /= 255, g /= 255, b /= 255;
+		var max = Math.max(r, g, b), min = Math.min(r, g, b);
+		var h, s, l = (max + min) / 2;
+
+		if (max == min) { h = s = 0; }
+		else {
+			var d = max - min;
+			s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+
+			switch (max){
+				case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+				case g: h = (b - r) / d + 2; break;
+				case b: h = (r - g) / d + 4; break;
+			}
+
+			h /= 6;
+		}
+
+		return [(h*100+0.5)|0, ((s*100+0.5)|0) + '%', ((l*100+0.5)|0) + '%'];
+	}
+
+
+</script>
+
+<script>
+$('input[type="color"]').change(
+    function() {
+        $('#' + this.id + '_rgb').val( hex2rgb(this) );
+
+        $('#hex_code-' + $(this).attr('data-id') + '').text( this.value );
+
+        var rgb = hex2rgb(this);
+
+        var r = rgb.split(' ')[0];
+        var g = rgb.split(' ')[1];
+        var b = rgb.split(' ')[2];
+
+        // alert( rgbToHsl(r, g, b) );
+
+    }
+);
+</script>
+
+<script>
+   function show_options(element) {
+
+       $('#options').toggle();
+       $('#resetcolor').toggle();
+   }
+    </script>
+
+
+
+
+<script>
+    // alert( $('#primary-color-input').val() );
+</script>
+
+

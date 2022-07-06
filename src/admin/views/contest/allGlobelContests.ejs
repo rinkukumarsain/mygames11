@@ -1,0 +1,533 @@
+<%- include("../../partials/head") %>
+
+  <%- include("../../partials/bodyStartWithNavBar/") %>
+    <%- include("../../partials/sideNav") %>
+      <div id="layoutSidenav_content">
+        <main>
+          <%- include("../../partials/alertMsg") %>
+          <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+            <div class="container-fluid">
+              <div class="row align-items-center">
+                <div class="col">
+                  <div class="page-header-content">
+                    <h1 class="page-header-title fs-md-35 fs-20">
+
+                      <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                      <span class=" text-capitalize">
+                        Contest Manager
+                      </span>
+                    </h1>
+                    <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                      View all global contests
+                    </div>
+                  </div>
+                </div>
+                <div class="col-auto mb-md-0 mb-3">
+                  <a href="/add-global-contest-challengers"
+                    class="btn btn-sm btn-light font-weight-bold text-uppercase text-primary text-uppercase"
+                    data-toggle="tooltip" title="Add New Global Contest"><i class="fa fa-plus"></i>&nbsp; Add</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container-fluid mt-n10">
+
+            <div class="card mb-4">
+              <div class="card-header">
+                <div class="row w-100 align-items-center mx-0">
+                  <div class="col-md col-12 mb-md-0 mb-2 text-md-left text-center">Global Contest</div>
+                  <div class="col-md-auto col-12 px-md-3 px-0 text-center">
+                    <button type="submit" class="btn btn-sm btn-danger text-uppercase rounded-pill" id="check"
+                      onclick="muldelete()" font-weight-600 disabled><i class="fad fa-trash-alt"></i>&nbsp;
+                      Delete</a></button>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+
+                <div class="datatable table-responsive">
+                  <table class="table table-bordered table-hover text-nowrap w-100" id="global_index_datatable"
+                    cellspacing="0">
+                    <thead>
+                      <tr>
+
+                        <th class="my_tabl">
+                          <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input sel_all" id="select_all">
+                            <label class="custom-control-label" for="select_all"></label>
+                          </div>
+                        </th>
+                        <th data-toggle="tooltip" title="S. No.">#</th>
+                        <th data-toggle="tooltip" title="Contest Category">C. C.</th>
+                        <th data-toggle="tooltip" title="Entry Fee">E. Fee</th>
+                        <th data-toggle="tooltip" title="Winning  Amount">W. Amt.</th>
+                        <th data-toggle="tooltip" title="Max  Users">M. Users</th>
+                        <th data-toggle="tooltip" title="Multi  Entry">M. Entry</th>
+                        <th data-toggle="tooltip" title="Running">R.</th>
+                        <th data-toggle="tooltip" title="Confirm">C.</th>
+                        <th data-toggle="tooltip" title="Bonus">B.</th>
+                        <th data-toggle="tooltip" title="C Type"> C. T.</th>
+                        <th data-toggle="tooltip" title="Price  Card">P. Card</th>
+                        <th data-toggle="tooltip" title="Action">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <th class="my_tabl">
+                          <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input sel_all" id="select_all2">
+                            <label class="custom-control-label" for="select_all2"></label>
+                          </div>
+                        </th>
+                        <th data-toggle="tooltip" title="S. No.">#</th>
+                        <th data-toggle="tooltip" title="Contest Category">C. C.</th>
+                        <th data-toggle="tooltip" title="Entry Fee">E. Fee</th>
+                        <th data-toggle="tooltip" title="Winning  Amount">W. Amt.</th>
+                        <th data-toggle="tooltip" title="Max  Users">M. Users</th>
+                        <th data-toggle="tooltip" title="Multi  Entry">M. Entry</th>
+                        <th data-toggle="tooltip" title="Running">R.</th>
+                        <th data-toggle="tooltip" title="Confirm">C.</th>
+                        <th data-toggle="tooltip" title="Bonus">B.</th>
+                        <th data-toggle="tooltip" title="C Type"> C. T.</th>
+                        <th data-toggle="tooltip" title="Price  Card">P. Card</th>
+                        <th data-toggle="tooltip" title="Action">Action</th>
+                      </tr>
+                    </tfoot>
+
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <script type="text/javascript">
+            $(document).ready(function () {
+              var fantasy_type = $('#fantasy_type').val();
+              $.fn.dataTable.ext.errMode = 'none';
+              $('#global_index_datatable').DataTable({
+                'bFilter': false,
+                'language': {
+              zeroRecords: "No records to display",
+            },
+                "ajax": {
+                  "url": '/global-challengers-datatable',
+                  "dataType": "json",
+                  "type": "POST",
+                },
+                "columns": [
+                  { "data": "s_no" ,orderable: false  },
+                  { "data": "count" },
+                  { "data": "cat" },
+                  { "data": "entryfee" },
+                  { "data": "win_amount" },
+                  { "data": "maximum_user" },
+                  { "data": "multi_entry" },
+                  { "data": "is_running" },
+                  { "data": "confirmed_challenge" },
+                  { "data": "is_bonus" },
+                  { "data": "edit" ,orderable: false},
+                  { "data": "contest_type", },
+                  { "data": "action", orderable: false }
+                ]
+
+              });
+
+            });
+          </script>
+
+          <script type="text/javascript">
+            $(document).ready(function () {
+              $('#select_all2').on('click', function () {
+                if (this.checked) {
+                  $('.checkbox').each(function () {
+                    this.checked = true;
+                  });
+                } else {
+                  $('.checkbox').each(function () {
+                    this.checked = false;
+                  });
+                }
+              });
+
+              $('.checkbox').on('click', function () {
+                if ($('.checkbox:checked').length == $('.checkbox').length) {
+                  $('#select_all, #select_all2').prop('checked', true);
+                } else {
+                  $('#select_all, #select_all2').prop('checked', false);
+                }
+              });
+            });
+          </script>
+          <script>
+            function muldelete() {
+              console.log("jnnnnnnnnnnnn")
+               var p = [];
+               $.each($("input[name='checkCat']:checked"), function () {
+                 p.push($(this).val());
+               });
+               if (p != "") {
+                 const swalWithBootstrapButtons = Swal.mixin({
+                   customClass: {
+                     confirmButton: 'btn btn-sm btn-success ml-2',
+                     cancelButton: 'btn btn-sm btn-danger'
+                   },
+                   buttonsStyling: false
+                 })
+
+                 swalWithBootstrapButtons.fire({
+                   title: 'Are you sure?',
+                   text: "You won't be able to revert this!",
+                   icon: 'success',
+                   showCancelButton: true,
+                   confirmButtonText: 'Yes, delete it!',
+                   cancelButtonText: 'No, cancel!',
+                   reverseButtons: true
+                 }).then((result) => {
+                   if (result.isConfirmed) {
+
+                     $.ajax({
+                       type: 'POST',
+                       url: '/delete-multi-global-challengers',
+                       data: p,
+                       success: function (data) {
+                         if (data == 1) {
+
+                           swalWithBootstrapButtons.fire(
+                             'Deleted!',
+                             'Contest deleted successfully.',
+                             'success'
+                           )
+
+                           window.location.reload();
+
+                         }
+                       }
+                     });
+
+                   } else if (
+                     /* Read more about handling dismissals below */
+                     result.dismiss === Swal.DismissReason.cancel
+                   ) {
+                     swalWithBootstrapButtons.fire(
+                       'Cancelled',
+                       'Cancelled successfully :)',
+                       'error'
+                     )
+                   }
+                 });
+
+               }
+               else {
+                 Swal.fire('Please select atlease one contest to delete');
+               }
+            }
+          </script>
+
+
+          <script>
+            function change_fantasy() {
+              $('#change_fantasy').submit();
+            }
+          </script>
+
+          <script>
+            $(document).on('click', 'input[name="checkCat"], #select_all, #select_all2', function () {
+              var total_checked_checkbox = $('input[name="checkCat"]:checked').length;
+
+              if (total_checked_checkbox > 0) {
+                $('#check').prop('disabled', false);
+              } else {
+                $('#check').prop('disabled', true);
+              }
+            });
+          </script>
+
+
+        </main>
+        <%- include("../../partials/footer") %>
+       
+
+          <script type="text/javascript">
+            $(document).ready(function () {
+              $('#select_all, #select_all2').on('click', function () {
+                if (this.checked) {
+                  $('.checkbox').each(function () {
+                    this.checked = true;
+                  });
+                } else {
+                  $('.checkbox').each(function () {
+                    this.checked = false;
+                  });
+                }
+              });
+
+              $('.checkbox').on('click', function () {
+                if ($('.checkbox:checked').length == $('.checkbox').length) {
+                  $('#select_all, #select_all2').prop('checked', true);
+                } else {
+                  $('#select_all, #select_all2').prop('checked', false);
+                }
+              });
+            });
+          </script>
+          
+
+
+          <script>
+            function change_fantasy() {
+              $('#change_fantasy').submit();
+            }
+          </script>
+
+          <script>
+            $(document).on('click', 'input[name="checkCat"], #select_all, #select_all2', function () {
+              var total_checked_checkbox = $('input[name="checkCat"]:checked').length;
+
+              if (total_checked_checkbox > 0) {
+                $('#check').prop('disabled', false);
+              } else {
+                $('#check').prop('disabled', true);
+              }
+            });
+          </script>
+
+      </div>
+      </main>
+
+
+      <footer class="footer mt-auto footer-light">
+        <div class="container-fluid">
+          <div class="row">
+            <!-- <div class="col-md-6 small">Copyright &#xA9; Admin 2020</div> -->
+            <div class="col-md-6 text-md-right small">
+              <!-- <a href="javascript:void(0);">Privacy Policy</a> &#xB7;
+              <a href="javascript:void(0);">Terms &amp; Conditions</a> -->
+            </div>
+          </div>
+        </div>
+      </footer>
+      </div>
+      </div>
+
+      <script type="text/javascript"
+        src="https://cdn.datatables.net/v/dt/dt-1.10.16/r-2.2.1/datatables.min.js"></script>
+      <script src="/js/bootstrap.bundle.min.js"></script>
+      <script src="/js/scripts.js"></script>
+      <script src="/js/jquery.datetimepicker.full.js"></script>
+      <script src="/js/bootstrap-select.js"></script>
+      <script src="/js/Chart.min.js"></script>
+      <script src="/js/demo/chart-area-demo.js"></script>
+      <script src="/js/demo/chart-bar-demo.js"></script>
+      <script src="/js/dataTables.bootstrap4.min.js"></script>
+      <script src="/js/demo/datatables-demo.js"></script>
+      <script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
+      <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+
+
+      <script>
+
+        $(window).on('load', function () {
+
+          $('#preloader_admin').hide();
+
+        })
+      </script>
+
+
+      <script>
+        $('#b1').click(function () {
+          const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+              confirmButton: 'btn btn-sm btn-success',
+              cancelButton: 'btn btn-sm btn-danger'
+            },
+            buttonsStyling: false
+          })
+
+          swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'success',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+          }).then((result) => {
+            if (result.isConfirmed) {
+              swalWithBootstrapButtons.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              )
+            } else if (
+              /* Read more about handling dismissals below */
+              result.dismiss === Swal.DismissReason.cancel
+            ) {
+              swalWithBootstrapButtons.fire(
+                'Cancelled',
+                'Your imaginary file is safe :)',
+                'error'
+              )
+            }
+          })
+        });
+      </script>
+
+
+      <script>
+        $(document).ready(function () {
+
+          if ($('#accordionSidenavPages a').hasClass('active')) {
+            $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
+            $('#accordionSidenavPages a.active').parent().parent().addClass('show');
+            // console.log(id);
+          } else {
+            $('#takeonebar').addClass('slamdown');
+          }
+        });
+
+      </script>
+     
+
+
+      <script type="text/javascript">
+        $('.datepicker').datepicker({
+          lang: 'en',
+          formatDate: 'd.m.Y',
+          step: 5,
+        });
+      </script>
+
+   
+      <script>
+        function isNumberKey(evt) {
+          //var e = evt || window.event;
+
+          var charCode = (evt.which) ? evt.which : evt.keyCode
+          if (charCode != 46 && charCode > 31
+            && (charCode < 48 || charCode > 57))
+
+            return false;
+          else {
+            var itemdecimal = evt.srcElement.value.split('.');
+            if (itemdecimal.length > 1 && charCode == 46)
+              return false;
+
+            return true;
+          }
+        }
+      </script>
+    
+
+      <script>
+        function delete_sweet_alert(url, msg) {
+          // sweet alert
+          const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+              confirmButton: 'btn btn-sm btn-success ml-2',
+              cancelButton: 'btn btn-sm btn-danger'
+            },
+            buttonsStyling: false
+          })
+
+          swalWithBootstrapButtons.fire({
+            title: msg,
+            text: "You won't be able to revert this!",
+            icon: 'success',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No',
+            reverseButtons: true
+          }).then((result) => {
+            if (result.isConfirmed) {
+
+              swalWithBootstrapButtons.fire(
+                '',
+                'Successfully Done',
+                'success'
+              );
+
+              window.location.href = url;
+
+
+            } else if (
+              /* Read more about handling dismissals below */
+              result.dismiss === Swal.DismissReason.cancel
+            ) {
+              swalWithBootstrapButtons.fire(
+                'Cancelled',
+                'Cancelled successfully :)',
+                'error'
+              );
+              return false;
+            }
+          })
+        }
+      </script>
+     
+      <script>
+        function muldelete() {
+          var pCheck = [];
+          $.each($("input[name='checkCat']:checked"), function () {
+            pCheck.push($(this).val());
+            
+          });
+            // sweet alert
+            const swalWithBootstrapButtons = Swal.mixin({
+              customClass: {
+                confirmButton: 'btn btn-sm btn-success ml-2',
+                cancelButton: 'btn btn-sm btn-danger'
+              },
+              buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+              title: 'Are you sure?',
+              text: "You won't be able to revert this!",
+              icon: 'success',
+              showCancelButton: true,
+              confirmButtonText: 'Yes, delete it!',
+              cancelButtonText: 'No, cancel!',
+              reverseButtons: true
+            }).then((result) => {
+              if (result.isConfirmed) {
+                console.log("pCheck..........",pCheck)
+                $.ajax({
+                  type: 'POST',
+                  url: '/delete-multi-global-challengers',
+                  data: {deletedId:pCheck},
+                  success: function (data) {
+                    console.log("data..many deleet............",data)
+                    if (data) {
+
+                      swalWithBootstrapButtons.fire(
+                        'Deleted!',
+                        'Contest deleted successfully.',
+                        'success'
+                      )
+
+                      window.location.reload();
+
+                    }
+                  }
+                });
+
+              } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+              ) {
+                swalWithBootstrapButtons.fire(
+                  'Cancelled',
+                  'Cancelled successfully :)',
+                  'error'
+                )
+              }
+            });
+
+          
+        }
+      </script>
+  

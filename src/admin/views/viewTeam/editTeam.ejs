@@ -1,0 +1,217 @@
+<%- include("../../partials/head") %>
+  <%- include("../../partials/bodyStartWithNavBar") %>
+    <%- include("../../partials/sideNav") %>
+      <div id="layoutSidenav_content">
+        <main>
+          <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+            <div class="container-fluid">
+              <div class="row align-items-center">
+                <div class="col">
+                  <div class="page-header-content">
+                    <h1 class="page-header-title fs-md-35 fs-20">
+                      <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                      <span class=" text-capitalize">
+                        Team Manager
+                      </span>
+                    </h1>
+                    <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                      Edit Team
+                    </div>
+                  </div>
+                </div>
+                <div class="col-auto mb-md-0 mb-3">
+                  <a href="/view-teams"
+                    class="btn btn-sm btn-light font-weight-bold text-uppercase text-primary float-right"><i
+                      class="fad fa-eye"></i>&nbsp; View All Teams</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container-fluid mt-n10">
+            <div class="card">
+              <div class="card-header">Edit Team</div>
+              <form action="/edit-Team-Data/<%=data._id %>" enctype='multipart/form-data' method="post"
+                <% if(msg) {%>
+                  <span style="color: red; font-size: small;"><%=msg %></span>
+                  <% }%>
+                class="card-body">
+                <div class="sbp-preview">
+                  <div class="sbp-preview-content">
+                    <div class="row mx-0">
+                      <input type="hidden" name="typename" value="teams">
+                      <div class="col-md-6">
+                        <div class="form-group my-3">
+                          <label for="Team Name*" class="control-label text-bold">Team Name*</label>
+                          <% if(data.teamName) {%>
+                            <input value="<%=data.teamName %>" required="" class="form-control form-control-solid"
+                              name="teamName" id="teamName" type="text" required>
+                          <%}else{ %>
+                              <input required="" placeholder="Enter Team Name" class="form-control form-control-solid"
+                                name="teamName" id="teamName" type="text" required>
+                          <% }%>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group my-3">
+                          <label for="Team Short Name*" class="control-label text-bold">Team Short Name*</label>
+                          <% if(data.short_name) {%>
+                            <input value="<%=data.short_name %>" required="" class="form-control form-control-solid"
+                              name="short_name" id="short_name" type="text" required>
+                            <%}else{ %>
+                              <input required="" placeholder="Enter Team Short Name"
+                                class="form-control form-control-solid" name="short_name" id="short_name" type="text" required>
+                              <% }%>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group my-3">
+                          <label for="Team Key*" class="control-label text-bold">Team Key*</label><br>
+                          <% if(data.team_key) {%>
+                            <input type="text" name="team_key" id="team_key" value="<%=data.team_key %>"
+                              class="form-control form-control-solid" readonly disabled>
+                            <% }else{ %>
+                              <input type="text" name="team_key" id="team_key" class="form-control form-control-solid"
+                                readonly disabled>
+                              <% }%>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group my-3">
+                          <% if(data.color) {%>
+                            <label for="Team Color*" class="control-label text-bold">Team Color*</label>
+                            <%=data.color %><br>
+                              <input type="color" class="form-control form-control-solid" name="color" id="color"
+                                value="<%=data.color %>" required>
+                              <%}else{ %>
+                                <label for="Team Color*" class="control-label text-bold">Team Color*</label><br>
+                                <input type="color" class="form-control form-control-solid" placeholder="Team Color"
+                                  name="color" id="color" required>
+                                <% }%>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="row mx-0 justify-content-center ">
+                          <div class="col-md col-sm-4 col-6">
+                            <div class="form-group">
+                              <div class="row justify-content-center py-0">
+                                <h1 class="fs-14 font-weight-bold text-center mt-3 col-12">Team Logo</h1>
+                                <div class="avatar-upload col-auto position-relative">
+                                  <div class="avatar-edit position-absolute right-0px z-index-1 top-2px">
+                                    <input type='file' name="logo" id="logo" accept=".png"
+                                      class="imageUpload d-none" />
+                                    <label
+                                      class="d-grid w-40px h-40px mb-0 rounded-pill bg-white text-success fs-20 shadow pointer font-weight-normal align-items-center justify-content-center"
+                                      for="logo"><i class="fad fa-pencil"></i></label>
+                                  </div>
+                                  <div class="avatar-preview w-100px h-100px position-relative rounded-pill shadow">
+                                    <% if(data.logo) {%>
+                                      <div class="w-100 h-100 rounded-pill" id="logo-imagePreview" name="logo"
+                                        style="background-image: url('<%=data.logo %>')"></div>
+                                    <%}else{ %>
+                                        <div class="w-100 h-100 rounded-pill" id="logo-imagePreview" name="logo"
+                                          style="background-image: url('/uploadImage/defaultImage.jpg')"></div>
+                                    <% }%>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 text-right mt-4 mb-2">
+                        <button class="btn btn-sm btn-success text-uppercase" type="submit"><i
+                            class="far fa-check-circle"></i>&nbsp;Submit</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </main>
+        <%- include("../../partials/footer") %>
+
+
+        <script>
+          $(function(){
+        var container = $('.container'), inputFile = $('#file'), img, btn, txt = 'Browse', txtAfter = 'Browse another pic';
+      
+        if(!container.find('#upload').length){
+          container.find('.input').append('<input type="button" value="'+txt+'" id="upload">');
+          btn = $('#upload');
+          container.prepend('<img src="" class="hidden" alt="Uploaded file" id="uploadImg" width="100">');
+          img = $('#uploadImg');
+        }
+      
+        btn.on('click', function(){
+          img.animate({opacity: 0}, 300);
+          inputFile.click();
+        });
+      
+        inputFile.on('change', function(e){
+          container.find('label').html( inputFile.val() );
+      
+          var i = 0;
+          for(i; i < e.originalEvent.srcElement.files.length; i++) {
+            var file = e.originalEvent.srcElement.files[i],
+              reader = new FileReader();
+      
+            reader.onloadend = function(){
+              img.attr('src', reader.result).animate({opacity: 1}, 700);
+            }
+            reader.readAsDataURL(file);
+            img.removeClass('hidden');
+          }
+      
+          btn.val( txtAfter );
+        });
+      });
+      </script>
+          <script>
+
+            $(window).on('load', function () {
+
+              $('#preloader_admin').hide();
+
+            })
+          </script>
+          <script>
+            function readURL(input) {
+              if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                  $('#' + input.id + '-imagePreview').css('background-image', 'url(' + e.target.result + ')');
+                  $('#' + input.id + '-imagePreview').hide();
+                  $('#' + input.id + '-imagePreview').fadeIn(650);
+                }
+                reader.readAsDataURL(input.files[0]);
+              }
+            }
+            $(".imageUpload").change(function () {
+              readURL(this);
+            });
+          </script>
+           
+          
+          <script>
+          $(document).ready(function(){
+              
+            if ($('#accordionSidenavPages a').hasClass('active')){
+              $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
+              $('#accordionSidenavPages a.active').parent().parent().addClass('show');
+              // console.log(id);
+            } else {
+              $('#takeonebar').addClass('slamdown');
+            }
+          });
+          
+          </script>
+         
+    
+
+
+          
+  
+          
+  
+ 

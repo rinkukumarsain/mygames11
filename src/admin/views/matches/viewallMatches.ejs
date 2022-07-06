@@ -1,0 +1,200 @@
+<%- include("../../partials/head") %>
+
+    <%- include("../../partials/bodyStartWithNavBar/") %>
+        <%- include("../../partials/sideNav") %>
+            <div id="layoutSidenav_content">
+                <main>
+                    <%- include("../../partials/alertMsg") %>
+                    <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+                        <div class="container-fluid">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <div class="page-header-content">
+                                        <h1 class="page-header-title fs-md-35 fs-20">
+
+                                            <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                                            <span class=" text-capitalize">
+                                                Match Manager
+                                            </span>
+                                        </h1>
+                                        <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                                            View All Matches
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-md-0 mb-3">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid mt-n10">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card mb-3">
+                                    <div class="card-heading p-3">
+                                        <form method="GET" action="/view-AllMatches" accept-charset="UTF-8">
+                                            <div class="sbp-preview position-relative">
+                                                <div class="form-group">
+                                                    <div class="row mx-0">
+
+                                                        <div class="col-md">
+                                                            <div class="form-group my-3">
+                                                                <label for="Match Name"
+                                                                    class="control-label text-bold">Match Name</label>
+                                                                <% if(doc.name) {%>
+                                                                <input value="<%=doc.name %>" 
+                                                                    id="name1" class="form-control form-control-solid"
+                                                                    name="name" type="text">
+                                                                    <% }else{ %>
+                                                                <input value="" placeholder="Search By Match Name" id="name1" class="form-control form-control-solid" name="name" type="text">
+                                                                    <% }%>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md">
+                                                            <div class="form-group my-3">
+                                                                <label for="Match Status"
+                                                                    class="control-label text-bold">Match Status</label>
+                                                                <select
+                                                                    class="form-control form-control-solid selectpicker show-tick"
+                                                                    data-container="body" data-live-search="true"
+                                                                    title="Select Status" data-hide-disabled="true"
+                                                                    name="status" id="status">
+                                                                    <% if(doc.status) {%>
+                                                                        <option value="completed" <%=doc.status == 'completed'? 'selected':'' %>>Completed</option>
+                                                                        <option value="launched" <%=doc.status == 'launched'? 'selected':'' %>>Launched</option>
+                                                                        <option value="pending" <%=doc.status == 'pending'? 'selected':'' %>>Pending Winner</option>
+                                                                        <option value="live" <%=doc.status == 'live'? 'selected':'' %>>Live Matches</option>
+                                                                        <% }else{%>
+                                                                            <option value="" class="d-none">Select Status</option>
+                                                                            <option value="completed">Completed</option>
+                                                                            <option value="launched">Launched</option>
+                                                                            <option value="pending">Pending Winner</option>
+                                                                            <option value="live">Live Matches</option>
+                                                                    <% }%>
+                                                                    
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <% if(doc.sStatus){%>
+                                                            <input type="hidden" name="sStatus" id="sStatus" value="<%=doc.sStatus %>">
+                                                        <% }else{%>
+                                                            <input type="hidden" id="sStatus" name="sStatus" >
+                                                        <% }%>
+                                                        
+                                                        <div class="col-md-auto mt-md-5 mt-0 text-right">
+                                                            <button class="btn btn-sm btn-success text-uppercase"
+                                                                type="submit"><i
+                                                                    class="far fa-check-circle"></i>&nbsp;Submit</button>
+                                                            <a href="/view-AllMatches"
+                                                                class="btn btn-sm btn-warning text-uppercase"><i
+                                                                    class="far fa-undo"></i>&nbsp; Reset</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mb-4">
+                            <div class="card-header">View All Matches</div>
+                            <div class="card-body">
+                                <div class="datatable table-responsive">
+                                    <table class="table table-bordered table-hover text-nowrap"
+                                        id="allmatches_datatable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+
+                                                <th class="text-center">Sno.</th>
+                                                <th class="text-center">Start Date</th>
+                                                <th class="text-center">Match</th>
+                                                <th class="text-center">Launch Status</th>
+                                                <th class="text-center">Final Status</th>
+                                                <th class="text-center">Status</th>
+                                                <th class="text-center">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th class="text-center">Sno.</th>
+                                                <th class="text-center">Start Date</th>
+                                                <th class="text-center">Match</th>
+                                                <th class="text-center">Launch Status</th>
+                                                <th class="text-center">Final Status</th>
+                                                <th class="text-center">Status</th>
+                                                <th class="text-center">Action</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script type="text/javascript">
+                            $(document).ready(function () {
+                                $.fn.dataTable.ext.errMode = 'none';
+                                let name = $('#name1').val();
+                                let status = $('#status').val();
+                                let sStatus=$('#sStatus').val();
+                                $('#allmatches_datatable').DataTable({
+                                    searching: false,
+                                    language: {
+              zeroRecords: "No records to display",
+            },
+                                    ajax: {
+                                        url: `/view-AllMatches-data-table?name=${name}&status=${status}&sStatus=${sStatus}`,
+                                        type: 'post',
+                                        dataSrc: 'data',
+                                    },
+                                    "lengthMenu": [
+                                        [10, 25, 50, 100, 1000, 10000],
+                                        [10, 25, 50, 100, 1000, 10000]
+                                    ],
+                                    columns: [{
+                                        data: "count"
+                                    }, {
+                                        data: "start_date"
+                                    }, {
+                                        data: "match"
+                                    }, {
+                                        data: "launch_status"
+                                    }, {
+                                        data: "final_status"
+                                    }, {
+                                        data: "status"
+                                    }, {
+                                        data: "Actions",orderable: false
+                                    },]
+                                })
+                            });
+                        </script>
+                    </div>
+                </main>
+                <%- include("../../partials/footer") %>
+
+                    <script>
+                        $(window).on('load', function () {
+
+                            $('#preloader_admin').hide();
+
+                        })
+                    </script>
+                        <script>
+                            $(document).ready(function () {
+    
+                                if ($('#accordionSidenavPages a').hasClass('active')) {
+                                    $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
+                                    $('#accordionSidenavPages a.active').parent().parent().addClass('show');
+                                    // console.log(id);
+                                } else {
+                                    $('#takeonebar').addClass('slamdown');
+                                }
+                            });
+    
+                        </script>

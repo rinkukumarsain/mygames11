@@ -1,0 +1,37 @@
+{
+    "name": "mygame11",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "dependencies": {
+        "@sendgrid/mail": "^7.6.2",
+        "axios": "^0.26.0",
+        "bcrypt": "^5.0.1",
+        "connect-flash": "^0.1.1",
+        "cookie-parser": "^1.4.6",
+        "cron": "^1.8.2",
+        "crypto-js": "^4.1.1",
+        "dotenv": "^16.0.0",
+        "ejs": "^3.1.6",
+        "exceljs": "^4.3.0",
+        "express": "^4.17.3",
+        "express-flash-message": "^2.1.0",
+        "express-session": "^1.17.2",
+        "fcm-node": "^1.6.1",
+        "filereader": "^0.10.3",
+        "jsonwebtoken": "^8.5.1",
+        "moment": "^2.29.1",
+        "mongoose": "^6.2.4",
+        "multer": "^1.4.4",
+        "nodemailer": "^6.7.2",
+        "randomstring": "^1.2.2",
+        "validator": "^13.7.0"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "nodemon index.js -e js,ejs",
+        "dev": "nodemon api.js -e js"
+    },
+    "author": "devanshu",
+    "license": "ISC"
+}

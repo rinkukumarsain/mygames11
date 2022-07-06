@@ -1,0 +1,336 @@
+<%- include("../../partials/head") %>
+
+  <%- include("../../partials/bodyStartWithNavBar/") %>
+    <%- include("../../partials/sideNav") %>
+<div id="layoutSidenav_content">
+            <main>
+              <%- include("../../partials/alertMsg") %>
+                <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <div class="page-header-content">
+                                    <h1 class="page-header-title fs-md-35 fs-20">
+
+                                        <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                                        <span class=" text-capitalize">
+                                                Contest Manager
+                                        </span>
+                                    </h1>
+                                    <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                                           Edit global contest
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto mb-md-0 mb-3">
+                                <a  href="/view-all-global-contests-challengers" class="btn btn-sm btn-light font-weight-bold text-uppercase text-primary text-uppercase"><i class="fad fa-eye"></i>&nbsp; View All Global Contests</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid mt-n10">
+                    
+<div class="row mt-3">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">Global Contest</div>
+            <div class="card-body">
+            <form action="/edit-global-contest-data" method="post">
+                <input type="hidden" name="globelContestsId" value="<%=data._id %>">
+                    
+
+                
+            <div class="sbp-preview">
+                <div class="sbp-preview-content">
+                    <div class="row mx-0">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="label-control text-bold">Contest Amount Type*</label><br>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="customRadio1" name="contest_type" value="Amount" <%=data.contest_type == 'Amount' ? 'checked' : '' %> class="custom-control-input"><label class="custom-control-label" for="customRadio1">Amount Based</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="contest_type" value="Percentage" id="customRadio2" class="custom-control-input" <%=data.contest_type == 'Percentage' ? 'checked' : '' %>>
+                                    <label class="custom-control-label" for="customRadio2">Percentage based</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group" id="pricecard_contest">
+                                <label class="label-control text-bold">Contest Price Card Type*</label><br>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="pricecard_type" value="Amount" checked id="customRadio11" class="custom-control-input" <%=data.pricecard_type == 'Amount' ? 'checked' : '' %>>
+                                    <label class="custom-control-label" for="customRadio11">Amount Based</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="pricecard_type" value="Percentage"  id="customRadio12" class="custom-control-input" <%=data.pricecard_type == 'Percentage' ? 'checked' : '' %>>
+                                    <label class="custom-control-label" for="customRadio12">Percentage based</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label class="label-control text-bold">Contest Category*</label>
+                                    <select name="contest_cat" class="form-control form-control-solid p-1 selectpicker show-tick" required="" id="contest_cat">
+                                                                            <% for(let key of contentNames) { %>
+                                                                                <option value="<%=key._id %>" <%=data.contest_cat == key.id ? 'selected' : '' %>><%=key.name %></option>
+                                                                            <%} %>
+                                                                        </select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group ">
+                            <label class="label-control text-bold">Entry Fee*</label>
+                            <input type="number" onkeypress="return isNumberKey(event)" value='<%=data.entryfee %>' id="first-name" min="0" class="form-control form-control-solid" placeholder="Enter Entry Fee" name="entryfee"  value="5" required="" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                        <div class="form-group">
+                            <label class="label-control text-bold">Winning Amount*</label>
+                            <input type="number" onkeypress="return isNumberKey(event)" min="0" class="form-control form-control-solid" placeholder="Enter Winning Amount"  name="win_amount" required="" value='<%=data.win_amount %>' autocomplete="off">
+                        </div>
+                        </div>
+                        <div class="col-12">
+                        <div class="form-group" id="max_user">
+                            <label class="label-control text-bold">Maximum number of users*</label>
+                            <input type="number" onkeypress="return isNumberKey(event)"  min="0" id="ch233" class="form-control form-control-solid" placeholder="Enter Maximum Number Of Users"  name="maximum_user"  value='<%=data.maximum_user %>'  autocomplete="off">
+                        </div>
+                        </div>
+                        <div class="col-12">
+                        <div class="form-group" id="pert" style="display: none;">
+                            <label class="label-control text-bold">Percentage of users who will win (In case of percentage)*</label>
+                            <input type="number" onkeypress="return isNumberKey(event)" disabled="" id="ch1" class="form-control form-control-solid"  min="0" placeholder="Enter percentage of users winning this challenge"  name="winning_percentage" required="" value='<%=data.winning_percentage %>' autocomplete="off">
+                        </div>
+                        </div>
+                        <div class="col-12 mt-3" id="team_limit" style="display:none">
+                            <div class="form-group">
+                                <label class="label-control text-bold">Team Limit</label>
+                                <input disabled="" id="ch21" type="number" onkeypress="return isNumberKey(event)" class="form-control form-control-solid"  name="team_limit" value='<%=data.team_limit %>' placeholder="Enter Team Limit" required="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group my-3">
+                                <div class="custom-control custom-checkbox custom-control-inline">
+                                <input type="checkbox" class="custom-control-input sel_all" id="select_all" name="multi_entry" value= "<%=data.multi_entry %>" <%=data.multi_entry == 1 ? 'checked': '' %>>
+                                    <label class="custom-control-label" for="select_all">Multi Entry</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <div class="form-group my-3">
+                            <div class="custom-control custom-checkbox custom-control-inline">
+                                <input type="checkbox" class="custom-control-input sel_all" id="select_all1" name="confirmed_challenge" value="<%=data.confirmed_challenge %>" <%=data.confirmed_challenge == 1 ? 'checked': '' %> >
+                                    <label class="custom-control-label" for="select_all1">Is Confirmed</label>
+                                </div>
+                            </div>
+                        </div>
+                            
+                        <div class="col-md-3">
+                            <div class="form-group my-3">
+                            <div class="custom-control custom-checkbox custom-control-inline">
+                                <input type="checkbox" class="custom-control-input sel_all" id="select_all2" name="is_running" value="<%=data.is_running %>" <%=data.is_running == 1 ? 'checked': '' %> >
+                                    <label class="custom-control-label" for="select_all2">Is Running</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group my-3">
+                            <div class="custom-control custom-checkbox custom-control-inline">
+                                <input type="checkbox" class="custom-control-input sel_all" id="select_all3" name="is_bonus" value="<%=data.is_bonus %>" <%=data.is_bonus == 1 ? 'checked': '' %> >
+                                    <label class="custom-control-label" for="select_all3">Is Bonus Allowed</label>
+                                </div>
+                            </div>
+                        </div>
+
+                            <div class="col-12 ">
+                            <div class="form-group" id="bonuspercentage" style="display: none;">
+                                <label class="label-control text-bold">Bonus Percentage (No need to enter % here. Just enter number here)*</label>
+                                <input  id="ch2" type="text" class="form-control form-control-solid"  name="bonus_percentage" value="<%=data.bonus_percentage %>" <%=data.bonus_percentage  ? ' ': 'disabled=""' %>  style="color:black;">
+                            </div>
+                            </div>
+                            <div class="col-12 text-right mt-4 mb-2">
+                                <button type="reset" class="btn btn-sm btn-warning" onclick="window.location.href=window.location.href"><i class="far fa-undo"></i>&nbsp;Reset</button>
+                                <button type="submit" class=" btn btn-sm btn-success ml-1"><i class="far fa-check-circle" ></i>&nbsp;   Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    if($('input[name=multi_entry]').prop('checked')==true){
+        // $('input[name=team_limit]').val('');
+        $("input[name=team_limit]").prop('disabled', false);
+        $("#team_limit").stop().slideDown();
+    }
+    if($('input[name=multi_entry]').prop('checked')==false){
+        $("input[name=team_limit]").prop('disabled', true);
+        $("#team_limit").stop().slideUp();
+    }
+    
+    $('input[name=multi_entry]').change(function() { 
+    if($('input[name=multi_entry]').prop('checked')==true){
+        // $('input[name=team_limit]').val('');
+        $("input[name=team_limit]").prop('disabled', false);
+        $("#team_limit").stop().slideDown();
+    }
+    if($('input[name=multi_entry]').prop('checked')==false){
+        $("input[name=team_limit]").prop('disabled', true);
+        $("#team_limit").stop().slideUp();
+    }
+    
+    });
+  if($('input[name=is_bonus]').prop('checked')==true){
+
+    $("input[name=bonus_percentage]").prop('disabled', false);
+    $("#bonuspercentage").show();
+  }
+  if($('input[name=is_bonus]').prop('checked')==false){
+      $('input[name=bonus_percentage]').val('');
+    $("input[name=bonus_percentage]").prop('disabled', true);
+    $("#bonuspercentage").hide();
+  }
+$('input[name=is_bonus]').change(function() {
+  if($('input[name=is_bonus]').prop('checked')==true){
+    $('input[name=bonus_percentage]').val('');
+    $("input[name=bonus_percentage]").prop('disabled', false);
+    $("#bonuspercentage").show();
+  }
+  if($('input[name=is_bonus]').prop('checked')==false){
+    $("input[name=bonus_percentage]").prop('disabled', true);
+    $("#bonuspercentage").hide();
+  }
+
+});
+ if ($('input[name=contest_type]:checked').val() == "Amount") {
+      $('#pert').hide();
+      $('#max_user').show();
+      $("#ch1").prop('disabled', true);
+      $("#ch233").prop('disabled', false);
+  }
+  if ($('input[name=contest_type]:checked').val() == "Percentage") {
+      $('#pert').show();
+      $('#max_user').hide();
+      $("#ch1").prop('disabled', false);
+      $("#ch233").prop('disabled', true);
+  }
+$("input[name=contest_type]").change(function () {
+  if ($('input[name=contest_type]:checked').val() == "Amount") {
+      $('#pert').hide();
+      $('#max_user').show();
+      $("#ch1").prop('disabled', true);
+      $("#ch233").prop('disabled', false);
+  }
+  if ($('input[name=contest_type]:checked').val() == "Percentage") {
+      $('#pert').show();
+      $('#max_user').hide();
+      $("#ch1").prop('disabled', false);
+      $("#ch233").prop('disabled', true);
+  }
+});
+</script>
+<script type="text/javascript">
+  if ($('input[name=contest_type]:checked').val() == "Amount") {
+      $('#pricecard_contest').show();
+      document.getElementById("pricecard_contest").style.display = "block";
+  }
+  if ($('input[name=contest_type]:checked').val() == "Percentage") {
+      $('#pricecard_contest').hide();
+      document.getElementById("pricecard_contest").style.display = "none";
+  }
+  $("input[name=contest_type]").change(function () {
+  if ($('input[name=contest_type]:checked').val() == "Amount") {
+      $('#pricecard_contest').show();
+      document.getElementById("pricecard_contest").style.display = "block";
+  }
+  if ($('input[name=contest_type]:checked').val() == "Percentage") {
+      $('#pricecard_contest').hide();
+      document.getElementById("pricecard_contest").style.display = "none";
+  }
+});
+</script>
+                </div>
+            </main>
+            <%- include("../../partials/footer") %>
+
+            <script>
+
+                $(window).on('load', function(){
+          
+                   $('#preloader_admin').hide();
+          
+                  })
+              </script>
+          
+          
+          <script>
+          $(document).ready(function(){
+              
+            if ($('#accordionSidenavPages a').hasClass('active')){
+              $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
+              $('#accordionSidenavPages a.active').parent().parent().addClass('show');
+              // console.log(id);
+            } else {
+              $('#takeonebar').addClass('slamdown');
+            }
+          });
+          
+          </script>
+          <script>
+              $( "#sortable, #sortable2" ).sortable();
+          </script>
+             
+              <script type="text/javascript">
+              $.datetimepicker.setLocale('en');
+              $('.datetimepickerget').datetimepicker({
+              lang:'en',
+              formatDate:'d.m.Y',
+              step:5,
+              startDate:  new Date()
+               });
+              </script>
+              <script type="text/javascript">
+              $('.datepicker').datepicker({
+              lang:'en',
+              formatDate:'d.m.Y',
+              step:5,
+              });
+              </script>
+          
+        
+          <script>
+          function isNumberKey(evt){
+
+             var charCode = (evt.which) ? evt.which : evt.keyCode
+              if (charCode != 46 && charCode > 31
+             && (charCode < 48 || charCode > 57))
+          
+              return false;
+            else {
+                 var itemdecimal = evt.srcElement.value.split('.');
+                 if (itemdecimal.length > 1 && charCode == 46)
+                     return false;
+          
+                 return true;
+            }
+          }
+          
+          </script>
+                  
+          
+          <script>
+            /*jslint browser:true*/
+            /*global jQuery, document*/
+          
+            jQuery(document).ready(function () {
+                'use strict';
+          
+                jQuery('#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date').datetimepicker();
+            });
+          </script>
+       

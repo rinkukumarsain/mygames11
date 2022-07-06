@@ -1,0 +1,250 @@
+<%- include("../../partials/head") %>
+
+<%- include("../../partials/bodyStartWithNavBar/") %>
+<%- include("../../partials/sideNav") %>
+<!DOCTYPE html>
+<html lang="en">
+
+  
+<body class="nav-fixed">
+
+
+    <div id="layoutSidenav">
+
+        <div id="layoutSidenav_content">
+            <main>
+
+                <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <div class="page-header-content">
+                                    <h1 class="page-header-title fs-md-35 fs-20">
+
+                                        <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                                        <span class=" text-capitalize">
+                                                User Manager
+                                        </span>
+                                    </h1>
+                                    <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                                            Edit User Details
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto mb-md-0 mb-3">
+                                <a  href="/view_all_users" class="btn btn-sm btn-light font-weight-bold text-uppercase text-primary text-uppercase"><i class="fad fa-eye"></i>&nbsp; View All Users</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid mt-n10">
+                    
+
+
+<div class="card">
+    <div class="card-header">Edit User Details</div>
+      <form class="card-body" action="/edituserdetails" enctype="multipart/form-data" method="post">
+        <input type="hidden" name="typename" value="user">
+        <input value="<%= editUserData._id %>" name="Uid" type="hidden">
+        <div class="sbp-preview">
+            <div class="sbp-preview-content">
+                <div class="row mx-0">
+                    <div class="col-6">
+                        <div class="form-group my-3">
+                            <label for="User Name*" class="control-label text-bold">User Name*</label></br>
+                            <input value="<%= editUserData.username || '' %>" placeholder="Enter name" class="form-control form-control-solid" name="username" id="username" type="text" required>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group my-3">
+
+                            <label for="Gender*" class="control-label text-bold">Gender*</label>
+                            <br/>
+                            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="customRadio1" name="gender" value="male" checked  class="custom-control-input">
+                              <label class="custom-control-label" for="customRadio1">Male</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+         <input type="radio" id="customRadio2" name="gender" class="custom-control-input" value="female" >
+                              <label class="custom-control-label" for="customRadio2">Female</label>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group my-3">
+                            <label for="Email*" class="control-label text-bold">Email*</label>
+                            <input value="<%= editUserData.email || ''  %>" placeholder="Enter Email" class="form-control form-control-solid" name="email" type="email" required>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group my-3">
+                            <label for="Mobile*" class="control-label text-bold">Mobile*</label>
+                            <input value="<%= editUserData.mobile || ''  %>" placeholder="Enter Mobile" class="form-control form-control-solid" onkeypress=" isNumberKey(event)" pattern="[789][0-9]{9}" minlength="10" maxlength="10" name="mobile" type="text" required>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group my-3">
+                            <label for="Address*" class="control-label text-bold">Address*</label>
+            <input placeholder="Enter Address" value="<%= editUserData.address || ''  %>" class="form-control form-control-solid" name="address" type="text" required>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-group my-3">
+                            <label for="D.O.B.*" class="control-label text-bold">D.O.B.*</label>
+                            <input value="<%= editUserData.dob || ''  %>"  placeholder="Enter D.O.B." class="form-control form-control-solid datetimepickerget" data-date-format="yyyy-mm-dd" name="dob" type="text" required>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-group my-3">
+                            <label for="City*" class="control-label text-bold">City*</label>
+              <input placeholder="Enter City" value="<%= editUserData.city || ''  %>" class="form-control form-control-solid" name="city" type="text" required>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group my-3">
+                            <label for="State*" class="control-label text-bold">State*</label>
+                <input value="<%= editUserData.state || ''  %>"  placeholder="Enter State" class="form-control form-control-solid" name="state" type="text" required>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-group my-3">
+                            <label for="Pincode*" class="control-label text-bold">Pincode*</label>
+                            <input value="<%= editUserData.pincode || ''  %>"  placeholder="Enter Pincode" class="form-control form-control-solid" onkeypress=" isNumberKey(event)" pattern="[0-9]{6}" name="pincode" type="text" required>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-group my-3">
+                           <label for="Team*" class="control-label text-bold">Team*</label>
+                            <input value="<%= editUserData.team || ''  %>"  placeholder="Enter Team" class="form-control form-control-solid" name="team" type="text" required>
+                        </div>
+                    </div>
+
+                    <div class="row mx-0 justify-content-center ">
+                        <div class="col-md col-sm-4 col-6">
+                            <div class="form-group">
+                                <div class="row justify-content-center py-0">
+                                    <h1 class="fs-14 font-weight-bold text-center mt-5 col-12">Image</h1>
+
+                                    <input type='file' name="image" id="image" accept=".png" class="imageUpload d-none"/>
+
+
+                                    <% if(editUserData.image) {%>                 
+                                      <div class="avatar-upload col-auto position-relative">
+                                        <div class="avatar-edit position-absolute right-0px z-index-1 top-2px">
+                    <label class="d-grid w-40px h-40px mb-0 rounded-pill bg-white text-success fs-20 shadow pointer font-weight-normal align-items-center justify-content-center" for="image"><i class="fad fa-pencil"></i></label>
+                                        </div>
+                                        <div class="avatar-preview w-100px h-100px position-relative rounded-pill shadow">
+                     <div class="w-100 h-100 rounded-pill" id="image-imagePreview" style="background-image: url('<%= editUserData.image %>');">
+                                            </div>
+                                        </div>
+                                    </div>
+                                       <%}else{ %>
+                     <div class="avatar-upload col-auto position-relative">
+                        <div class="avatar-edit position-absolute right-0px z-index-1 top-2px">
+                      <label class="d-grid w-40px h-40px mb-0 rounded-pill bg-white text-success fs-20 shadow pointer font-weight-normal align-items-center justify-content-center" for="image"><i class="fad fa-pencil"></i></label>
+                             </div>
+                    <div class="avatar-preview w-100px h-100px position-relative rounded-pill shadow">
+                    <div class="w-100 h-100 rounded-pill" id="image-imagePreview" style="background-image: url('http://128.199.27.151:8080/avtar1.png');">
+                             </div>
+                           </div>
+                        </div>
+                             <% }%>           
+                             </div>
+                            </div>
+                        </div>     
+                      </div>
+                    <div class="col-12 text-right mt-4 mb-2">
+	                    <button type="submit" class="btn btn-sm btn-success text-uppercase"><i class="far fa-check-circle"></i>&nbsp;Submit</button>
+	                </div>
+                </div>
+            </div>
+        </div>
+     </form>
+</div>
+                </div>
+            </main>
+
+
+    <%- include("../../partials/footer") %>
+    <script>
+
+      $(window).on('load', function(){
+
+         $('#preloader_admin').hide();
+
+        })
+    </script>
+
+    <script type="text/javascript">
+    $.datetimepicker.setLocale('en');
+    $('.datetimepickerget').datetimepicker({
+    lang:'en',
+    formatDate:'d.m.Y',
+    step:5,
+    startDate:  new Date()
+     });
+    </script>
+    <script type="text/javascript">
+    $('.datepicker').datepicker({
+    lang:'en',
+    formatDate:'d.m.Y',
+    step:5,
+    });
+    </script>
+
+<script>
+function isNumberKey(evt){
+    //var e = evt || window.event;
+
+   var charCode = (evt.which) ? evt.which : evt.keyCode
+    if (charCode != 46 && charCode > 31
+   && (charCode < 48 || charCode > 57))
+
+     false;
+  else {
+       var itemdecimal = evt.srcElement.value.split('.');
+       if (itemdecimal.length > 1 && charCode == 46)
+            false;
+
+        true;
+  }
+}
+
+</script>
+    <script>
+        function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#' + input.id + '-imagePreview').css('background-image', 'url('+e.target.result +')');
+                $('#' + input.id + '-imagePreview').hide();
+                $('#' + input.id + '-imagePreview').fadeIn(650);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $(".imageUpload").change(function() {
+        readURL(this);
+    });
+    </script>
+
+<script>
+  /*jslint browser:true*/
+  /*global jQuery, document*/
+
+  jQuery(document).ready(function () {
+      'use strict';
+
+      jQuery('#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date').datetimepicker();
+  });
+</script>
+
+
+</body>
+
+</html>
