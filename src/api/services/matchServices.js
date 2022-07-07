@@ -145,19 +145,19 @@ class matchServices {
                         $ifNull: [{
                             $cond: {
                                 if: { $or: [{ $eq: [{ $substr: [{ $arrayElemAt: ['$team1.logo', 0] }, 0, 1] }, '/'] }, { $eq: [{ $substr: [{ $arrayElemAt: ['$team1.logo', 0] }, 0, 1] }, 't'] }] },
-                                then: { $concat: [`${process.env.BASE_URL}`, '', { $arrayElemAt: ['$team1.logo', 0] }] },
+                                then: { $concat: [`${constant.BASE_URL}`, '', { $arrayElemAt: ['$team1.logo', 0] }] },
                                 else: { $arrayElemAt: ['$team1.logo', 0] },
                             }
-                        }, `${process.env.BASE_URL}team_image.png`]
+                        }, `${constant.BASE_URL}team_image.png`]
                     },
                     team2logo: {
                         $ifNull: [{
                             $cond: {
                                 if: { $or: [{ $eq: [{ $substr: [{ $arrayElemAt: ['$team2.logo', 0] }, 0, 1] }, '/'] }, { $eq: [{ $substr: [{ $arrayElemAt: ['$team2.logo', 0] }, 0, 1] }, 't'] }] },
-                                then: { $concat: [`${process.env.BASE_URL}`, '', { $arrayElemAt: ['$team2.logo', 0] }] },
+                                then: { $concat: [`${constant.BASE_URL}`, '', { $arrayElemAt: ['$team2.logo', 0] }] },
                                 else: { $arrayElemAt: ['$team2.logo', 0] },
                             }
-                        }, `${process.env.BASE_URL}team_image.png`]
+                        }, `${constant.BASE_URL}team_image.png`]
                     },
                     matchopenstatus: {
                         $cond: {
@@ -342,19 +342,19 @@ class matchServices {
                     $ifNull: [{
                         $cond: {
                             if: { $or: [{ $eq: [{ $substr: ['$team1.logo', 0, 1] }, '/'] }, { $eq: [{ $substr: ['$team1.logo', 0, 1] }, 't'] }] },
-                            then: { $concat: [`${process.env.BASE_URL}`, '', '$team1.logo'] },
+                            then: { $concat: [`${constant.BASE_URL}`, '', '$team1.logo'] },
                             else: '$team1.logo',
                         }
-                    }, `${process.env.BASE_URL}team_image.png`]
+                    }, `${constant.BASE_URL}team_image.png`]
                 },
                 team2logo: {
                     $ifNull: [{
                         $cond: {
                             if: { $or: [{ $eq: [{ $substr: ['$team2.logo', 0, 1] }, '/'] }, { $eq: [{ $substr: ['$team2.logo', 0, 1] }, 't'] }] },
-                            then: { $concat: [`${process.env.BASE_URL}`, '', '$team2.logo'] },
+                            then: { $concat: [`${constant.BASE_URL}`, '', '$team2.logo'] },
                             else: '$team2.logo',
                         }
-                    }, `${process.env.BASE_URL}team_image.png`]
+                    }, `${constant.BASE_URL}team_image.png`]
                 },
                 start_date: { $ifNull: ['$match.start_date', '0000-00-00 00:00:00'] },
                 status: {
@@ -542,19 +542,19 @@ class matchServices {
                     $ifNull: [{
                         $cond: {
                             if: { $or: [{ $eq: [{ $substr: ['$team1.logo', 0, 1] }, '/'] }, { $eq: [{ $substr: ['$team1.logo', 0, 1] }, 't'] }] },
-                            then: { $concat: [`${process.env.BASE_URL}`, '', '$team1.logo'] },
+                            then: { $concat: [`${constant.BASE_URL}`, '', '$team1.logo'] },
                             else: '$team1.logo',
                         }
-                    }, `${process.env.BASE_URL}team_image.png`]
+                    }, `${constant.BASE_URL}team_image.png`]
                 },
                 team2logo: {
                     $ifNull: [{
                         $cond: {
                             if: { $or: [{ $eq: [{ $substr: ['$team2.logo', 0, 1] }, '/'] }, { $eq: [{ $substr: ['$team2.logo', 0, 1] }, 't'] }] },
-                            then: { $concat: [`${process.env.BASE_URL}`, '', '$team2.logo'] },
+                            then: { $concat: [`${constant.BASE_URL}`, '', '$team2.logo'] },
                             else: '$team2.logo',
                         }
-                    }, `${process.env.BASE_URL}team_image.png`]
+                    }, `${constant.BASE_URL}team_image.png`]
                 },
                 start_date: { $ifNull: ['$match.start_date', '0000-00-00 00:00:00'] },
                 status: {
@@ -777,19 +777,19 @@ class matchServices {
                         $ifNull: [{
                             $cond: {
                                 if: { $or: [{ $eq: [{ $substr: ['$team1.logo', 0, 1] }, '/'] }, { $eq: [{ $substr: ['$team1.logo', 0, 1] }, 't'] }] },
-                                then: { $concat: [`${process.env.BASE_URL}`, '', '$team1.logo'] },
+                                then: { $concat: [`${constant.BASE_URL}`, '', '$team1.logo'] },
                                 else: '$team1.logo',
                             }
-                        }, `${process.env.BASE_URL}team_image.png`]
+                        }, `${constant.BASE_URL}team_image.png`]
                     },
                     team2logo: {
                         $ifNull: [{
                             $cond: {
                                 if: { $or: [{ $eq: [{ $substr: ['$team2.logo', 0, 1] }, '/'] }, { $eq: [{ $substr: ['$team2.logo', 0, 1] }, 't'] }] },
-                                then: { $concat: [`${process.env.BASE_URL}`, '', '$team2.logo'] },
+                                then: { $concat: [`${constant.BASE_URL}`, '', '$team2.logo'] },
                                 else: '$team2.logo',
                             }
-                        }, `${process.env.BASE_URL}team_image.png`]
+                        }, `${constant.BASE_URL}team_image.png`]
                     },
                     start_date: { $ifNull: ['$match.start_date', '0000-00-00 00:00:00'] },
                     status: {
@@ -892,19 +892,19 @@ class matchServices {
                         $ifNull: [{
                             $cond: {
                                 if: { $or: [{ $eq: [{ $substr: [{ $arrayElemAt: ['$team1.logo', 0] }, 0, 1] }, '/'] }, { $eq: [{ $substr: [{ $arrayElemAt: ['$team1.logo', 0] }, 0, 1] }, 't'] }] },
-                                then: { $concat: [`${process.env.BASE_URL}`, '', { $arrayElemAt: ['$team1.logo', 0] }] },
+                                then: { $concat: [`${constant.BASE_URL}`, '', { $arrayElemAt: ['$team1.logo', 0] }] },
                                 else: { $arrayElemAt: ['$team1.logo', 0] },
                             }
-                        }, `${process.env.BASE_URL}team_image.png`]
+                        }, `${constant.BASE_URL}team_image.png`]
                     },
                     team2logo: {
                         $ifNull: [{
                             $cond: {
                                 if: { $or: [{ $eq: [{ $substr: [{ $arrayElemAt: ['$team2.logo', 0] }, 0, 1] }, '/'] }, { $eq: [{ $substr: [{ $arrayElemAt: ['$team2.logo', 0] }, 0, 1] }, 't'] }] },
-                                then: { $concat: [`${process.env.BASE_URL}`, '', { $arrayElemAt: ['$team2.logo', 0] }] },
+                                then: { $concat: [`${constant.BASE_URL}`, '', { $arrayElemAt: ['$team2.logo', 0] }] },
                                 else: { $arrayElemAt: ['$team2.logo', 0] },
                             }
-                        }, `${process.env.BASE_URL}team_image.png`]
+                        }, `${constant.BASE_URL}team_image.png`]
                     },
                     time_start: '$start_date',
                     matchstatus: {
@@ -1015,16 +1015,16 @@ class matchServices {
                             $ifNull: [{
                                 $cond: {
                                     if: { $or: [{ $eq: [{ $substr: ['$playersData.image', 0, 1] }, '/'] }, { $eq: [{ $substr: ['$playersData.image', 0, 1] }, 'p'] }] },
-                                    then: { $concat: [`${process.env.BASE_URL}`, '', '$playersData.image'] },
+                                    then: { $concat: [`${constant.BASE_URL}`, '', '$playersData.image'] },
                                     else: {
                                         $cond: {
                                             if: { $eq: ['$playersData.image', ''] },
-                                            then: `${process.env.BASE_URL}player.png`,
+                                            then: `${constant.BASE_URL}player.png`,
                                             else: '$playersData.image'
                                         }
                                     }
                                 }
-                            }, `${process.env.BASE_URL}player.png`]
+                            }, `${constant.BASE_URL}player.png`]
                         },
                         teamName: { $toUpper: { $arrayElemAt: ['$team.teamName', 0] } },
                         teamcolor: { $ifNull: [{ $arrayElemAt: ['$team.color', 0] }, constant.TEAM_DEFAULT_COLOR.DEF1] },
@@ -1032,10 +1032,10 @@ class matchServices {
                             $ifNull: [{
                                 $cond: {
                                     if: { $or: [{ $eq: [{ $substr: [{ $arrayElemAt: ['$team.logo', 0] }, 0, 1] }, '/'] }, { $eq: [{ $substr: [{ $arrayElemAt: ['$team.logo', 0] }, 0, 1] }, 't'] }] },
-                                    then: { $concat: [`${process.env.BASE_URL}`, '', { $arrayElemAt: ['$team.logo', 0] }] },
+                                    then: { $concat: [`${constant.BASE_URL}`, '', { $arrayElemAt: ['$team.logo', 0] }] },
                                     else: { $arrayElemAt: ['$team.logo', 0] },
                                 }
-                            }, `${process.env.BASE_URL}team_image.png`]
+                            }, `${constant.BASE_URL}team_image.png`]
                         },
                         team_short_name: { $arrayElemAt: ['$team.short_name', 0] },
                         totalpoints: '0',
@@ -1138,10 +1138,10 @@ class matchServices {
                         $ifNull: [{
                             $cond: {
                                 if: { $or: [{ $eq: [{ $substr: ['$playersData.image', 0, 1] }, '/'] }, { $eq: [{ $substr: ['$playersData.image', 0, 1] }, 'p'] }] },
-                                then: { $concat: [`${process.env.BASE_URL}`, '', '$playersData.image'] },
+                                then: { $concat: [`${constant.BASE_URL}`, '', '$playersData.image'] },
                                 else: '$playersData.image',
                             }
-                        }, `${process.env.BASE_URL}avtar1.png`]
+                        }, `${constant.BASE_URL}avtar1.png`]
                     },
                     playerrole: '$role',
                     matches: '$allMatches'
@@ -1434,11 +1434,11 @@ class matchServices {
                     captainimage: element.captain ?
                         element.captain.image != '' &&
                         element.captain.image != null &&
-                        element.captain.image != undefined ? element.captain.image : `${process.env.BASE_URL}avtar1.png` : `${process.env.BASE_URL}avtar1.png`,
+                        element.captain.image != undefined ? element.captain.image : `${constant.BASE_URL}avtar1.png` : `${constant.BASE_URL}avtar1.png`,
                     vicecaptainimage: element.vicecaptain ?
                         element.vicecaptain.image != '' &&
                         element.vicecaptain.image != null &&
-                        element.vicecaptain.image != undefined ? element.vicecaptain.image : `${process.env.BASE_URL}avtar1.png` : `${process.env.BASE_URL}avtar1.png`,
+                        element.vicecaptain.image != undefined ? element.vicecaptain.image : `${constant.BASE_URL}avtar1.png` : `${constant.BASE_URL}avtar1.png`,
                     captainimage1: '',
                     vicecaptainimage1: '',
                     isSelected: false,
@@ -1494,7 +1494,7 @@ class matchServices {
                         team: listmatchData.team1Id._id.toString() == playerData.team.toString() ? 'team1' : 'team2',
                         image: playerData.image != '' &&
                             playerData.image != null &&
-                            playerData.image != undefined ? playerData.image : `${process.env.BASE_URL}avtar1.png`,
+                            playerData.image != undefined ? playerData.image : `${constant.BASE_URL}avtar1.png`,
                         image1: '',
                         captain: element.captain._id.toString() == playerData._id.toString() ? 1 : 0,
                         vicecaptain: element.vicecaptain._id.toString() == playerData._id.toString() ? 1 : 0,
@@ -1567,7 +1567,7 @@ class matchServices {
                     team: listmatchData.team1Id.toString() == playerData.team.toString() ? 'team1' : 'team2',
                     image: playerData.image != '' &&
                         playerData.image != null &&
-                        playerData.image != undefined ? playerData.image : `${process.env.BASE_URL}avtar1.png`,
+                        playerData.image != undefined ? playerData.image : `${constant.BASE_URL}avtar1.png`,
                     image1: '',
                     captain: createTeam.captain._id.toString() == playerData._id.toString() ? 1 : 0,
                     vicecaptain: createTeam.vicecaptain._id.toString() == playerData._id.toString() ? 1 : 0,
@@ -1702,7 +1702,7 @@ class matchServices {
                     points: { $ifNull: [{ $arrayElemAt: ['$jointeam.points', 0] }, '0'] },
                     lastpoints: { $ifNull: [{ $arrayElemAt: ['$jointeam.lastpoints', 0] }, '0'] },
                     team: { $ifNull: [{ $arrayElemAt: ['$user.team', 0] }, ''] },
-                    image: { $ifNull: [{ $arrayElemAt: ['$user.image', 0] }, `${process.env.BASE_URL}avtar1.png`] },
+                    image: { $ifNull: [{ $arrayElemAt: ['$user.image', 0] }, `${constant.BASE_URL}avtar1.png`] },
                 },
             });
             aggPipe.push({
@@ -1794,7 +1794,7 @@ class matchServices {
                     image: {
                         $ifNull: [
                             '$rankBypoints.image',
-                            `${process.env.BASE_URL}avtar1.png`,
+                            `${constant.BASE_URL}avtar1.png`,
                         ],
                     },
                     lastrank: '$rankBypoints.rank',
@@ -1899,7 +1899,7 @@ class matchServices {
                         $cond: {
                             if: { $and: [{ $ne: ['$rankBypoints.image', 'null'] }, { $ne: ['$regdata.image', ''] }] },
                             then: '$rankBypoints.image',
-                            else: `${process.env.BUCKET_URL}avtar1.png`,
+                            else: `${constant.BUCKET_URL}avtar1.png`,
                         },
                     },
                     userno: {
@@ -2088,16 +2088,16 @@ class matchServices {
                         $ifNull: [{
                             $cond: {
                                 if: { $or: [{ $eq: [{ $substr: ['$playerimage', 0, 1] }, '/'] }, { $eq: [{ $substr: ['$playerimage', 0, 1] }, 'p'] }] },
-                                then: { $concat: [`${process.env.BASE_URL}`, '', '$playerimage'] },
+                                then: { $concat: [`${constant.BASE_URL}`, '', '$playerimage'] },
                                 else: {
                                     $cond: {
                                         if: { $eq: ['$playerimage', ''] },
-                                        then: `${process.env.BASE_URL}player.png`,
+                                        then: `${constant.BASE_URL}player.png`,
                                         else: '$playerimage'
                                     }
                                 },
                             }
-                        }, `${process.env.BASE_URL}player.png`]
+                        }, `${constant.BASE_URL}player.png`]
                     },
                     matchname: 1,
                     duck: { $arrayElemAt: ['$result.duck', 0] },

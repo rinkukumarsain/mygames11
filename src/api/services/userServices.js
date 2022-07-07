@@ -229,7 +229,7 @@ class userServices {
                 app_key: req.body.appid || ''
             });
             let user = await adduserData.save();
-            const token = jwt.sign({ _id: user._id.toString() }, process.env.SECRET_TOKEN);
+            const token = jwt.sign({ _id: user._id.toString() }, constant.SECRET_TOKEN);
             if (findTempUser[0].refer_id != null && findTempUser[0].refer_id) {
                 await userModel.updateOne({ _id: findTempUser[0].refer_id }, { $inc: { totalrefercount: 1 } });
             }
@@ -410,7 +410,7 @@ class userServices {
                     data: { auth_key: 0, userid: 0 },
                 };
             }
-            const token = jwt.sign({ _id: user[0]._id.toString(), refer_code: user[0].refer_code }, process.env.SECRET_TOKEN);
+            const token = jwt.sign({ _id: user[0]._id.toString(), refer_code: user[0].refer_code }, constant.SECRET_TOKEN);
             await userModel.updateOne({ _id: user[0]._id }, { auth_key: token, app_key: req.body.appid || '' }, { new: true });
             return {
                 message: "Login Successfully.",
@@ -474,7 +474,7 @@ class userServices {
                 data: { auth_key: 0, userid: 0 },
             }
         }
-        const token = jwt.sign({ _id: user[0]._id.toString(), refer_code: user[0].refer_code }, process.env.SECRET_TOKEN);
+        const token = jwt.sign({ _id: user[0]._id.toString(), refer_code: user[0].refer_code }, constant.SECRET_TOKEN);
         await userModel.updateOne({ _id: user[0]._id }, { auth_key: token, app_key: req.body.appid || '' }, { new: true });
         return {
             message: "Login Successfully.",
@@ -525,8 +525,8 @@ class userServices {
         }
         const image = await images.map(item => {
             return {
-                image_local: `${process.env.BASE_URL_LOCAL}${item.image}`,
-                image: `${process.env.BASE_URL}${item.image}`
+                image_local: `${constant.BASE_URL_LOCAL}${item.image}`,
+                image: `${constant.BASE_URL}${item.image}`
             }
         });
         return {
@@ -554,8 +554,8 @@ class userServices {
         }
         const image = await images.map(item => {
             return {
-                image_local: `${process.env.BASE_URL_LOCAL}${item.image}`,
-                image: `${process.env.BASE_URL}${item.image}`
+                image_local: `${constant.BASE_URL_LOCAL}${item.image}`,
+                image: `${constant.BASE_URL}${item.image}`
             }
         });
         return {
@@ -574,8 +574,8 @@ class userServices {
     async uploadUserImage(req) {
         try {
             console.log(`req.file`, req.file);
-            // const image = `${process.env.BASE_URL_LOCAL}${req.body.typename}/${req.file.filename}`;
-            const image = `${process.env.BASE_URL}${req.body.typename}/${req.file.filename}`;
+            // const image = `${constant.BASE_URL_LOCAL}${req.body.typename}/${req.file.filename}`;
+            const image = `${constant.BASE_URL}${req.body.typename}/${req.file.filename}`;
             const payload = await userModel.findOneAndUpdate({ _id: req.user._id }, { image: image }, { new: true });
             console.log(`req.user`, req.user);
             return {
@@ -827,7 +827,7 @@ class userServices {
                 bank_verify: payload[0].user_verify.bank_verify || 0,
                 pan_verify: payload[0].user_verify.pan_verify || 0,
                 profile_image_verify: payload[0].user_verify.profile_image_verify || 0,
-                image: payload[0].image && payload[0].image != '' ? payload[0].image : `${process.env.BASE_URL}avtar_1.png`,
+                image: payload[0].image && payload[0].image != '' ? payload[0].image : `${constant.BASE_URL}avtar_1.png`,
                 email: payload[0].user_verify.email_verify === constant.PROFILE_VERIFY_EMAIL_MOBILE.VERIFY ? payload[0].email : '',
                 mobile: payload[0].user_verify.mobile_verify === constant.PROFILE_VERIFY_EMAIL_MOBILE.VERIFY ? payload[0].mobile : '',
                 pan_comment: payload[0].user_verify.pan_verify && payload[0].user_verify.pan_verify === constant.PROFILE_VERIFY_PAN_BANK.REJECTED ? payload[0].pancard.comment ? payload[0].pancard.comment : '' : '',
@@ -877,7 +877,7 @@ class userServices {
                     moment(userData[0].dob).format('YYYY') : '1970',
                 gender: userData[0].gender || '',
                 image: userData[0].image && userData[0].image != '' ?
-                    userData[0].image : `${process.env.BASE_URL}avtar_1.jpg`,
+                    userData[0].image : `${constant.BASE_URL}avtar_1.jpg`,
                 activation_status: userData[0].status || '',
                 state: userData[0].state || '',
                 city: userData[0].city || '',
@@ -1169,7 +1169,7 @@ class userServices {
             if (user) { return { message: 'This pan card number is already exist.', status: false, data: {} } }
             console.log(`req.file`, req.file);
             let image;
-            // const image = `${process.env.BASE_URL_LOCAL}${req.body.typename}/${req.file.filename}`;
+            // const image = `${constant.BASE_URL_LOCAL}${req.body.typename}/${req.file.filename}`;
             if (req.body.typename) image = `${req.body.typename}/${req.file.filename}`; // typename = pancard
             const update = {};
             update['$set'] = {
@@ -1222,7 +1222,7 @@ class userServices {
                     pannumber: user['pancard'].pan_number.toUpperCase(),
                     pandob: moment(user['pancard'].pan_dob).format('DD MMM ,YYYY'),
                     comment: user['pancard'].comment || '',
-                    image: user['pancard'].image ? `${process.env.BASE_URL}${user['pancard'].image}` : '' || '',
+                    image: user['pancard'].image ? `${constant.BASE_URL}${user['pancard'].image}` : '' || '',
                     imagetype: user['pancard'].image ? path.extname(user['pancard'].image) == 'pdf' ? 'pdf' : 'image' : '',
                 }
             }
@@ -1342,7 +1342,7 @@ class userServices {
                     bankbranch: user['bank'].bankbranch.toUpperCase(),
                     state: user['bank'].state.toUpperCase(),
                     comment: user['bank'].comment || '',
-                    image: user['bank'].image ? `${process.env.BASE_URL}${user['bank'].image}` : '',
+                    image: user['bank'].image ? `${constant.BASE_URL}${user['bank'].image}` : '',
                     imagetype: user['bank'].image ? path.extname(user['bank'].image) == 'pdf' ? 'pdf' : 'image' : ''
                 }
             }
@@ -1872,7 +1872,7 @@ class userServices {
             let txTime = req.body.txTime;
             let signature = req.body.signature;
             let data = `${orderId}${amount}${returnid}${status}${paymentby}${txMsg}${txTime}`;
-            const computedSignature = Base64.stringify(hmacSHA256(data, process.env.CASHFREE_SECRETKEY)); //process.env.CASHFREE_SECRETKEY
+            const computedSignature = Base64.stringify(hmacSHA256(data, constant.CASHFREE_SECRETKEY)); //constant.CASHFREE_SECRETKEY
             let getdata = {};
             let paymentdata = {};
             let paymentgatewayinfo = {};
@@ -1985,7 +1985,7 @@ class userServices {
     // async paymentStatus(req) {
     //     try {
     //         const dataKey = `${req.body.orderId}${req.body.orderAmount}${req.body.referenceId}${req.body.txStatus}${req.body.paymentMode}${req.body.txMsg}${req.body.txTime}`;
-    //         const computedSignature = Base64.stringify(hmacSHA256(dataKey, process.env.CASHFREE_SECRETKEY));
+    //         const computedSignature = Base64.stringify(hmacSHA256(dataKey, constant.CASHFREE_SECRETKEY));
     //         if (computedSignature == req.body.signature) {
     //             const returnData = await requestProcess({
     //                 amount: req.body.orderAmount,
@@ -2037,7 +2037,7 @@ class userServices {
                         data: { userid: '' },
                     };
                 }
-                const token = jwt.sign({ _id: userData[0]._id.toString(), refer_code: userData[0].refer_code }, process.env.SECRET_TOKEN);
+                const token = jwt.sign({ _id: userData[0]._id.toString(), refer_code: userData[0].refer_code }, constant.SECRET_TOKEN);
                 await userModel.updateOne({ _id: userData[0]._id }, { app_key: req.body.appid || '' });
                 return {
                     message: 'Login Successfully.',
@@ -2062,7 +2062,7 @@ class userServices {
                 save['userbalance'] = { bonus: 0 };
 
                 const user = await userModel.create(save);
-                const token = jwt.sign({ _id: user._id.toString(), refer_code: user.refer_code }, process.env.SECRET_TOKEN);
+                const token = jwt.sign({ _id: user._id.toString(), refer_code: user.refer_code }, constant.SECRET_TOKEN);
                 const hasUser = await userModel.findOneAndUpdate({ _id: user._id }, { app_key: req.body.appid }, { new: true });
                 const emailBonus = await new GetBouns().getBonus(
                     constant.BONUS_TYPES.EMAIL_BONUS,

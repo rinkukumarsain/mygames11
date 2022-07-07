@@ -1,6 +1,8 @@
 const nodemailer = require("nodemailer");
 const sendgrid = require('@sendgrid/mail');
-sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
+
+const constant = require('../config/const_credential');
+sendgrid.setApiKey(constant.SENDGRID_API_KEY);
 module.exports = class mail {
     otp;
     msg;

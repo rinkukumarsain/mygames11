@@ -1,10 +1,65 @@
+
+const dotenv= require('dotenv');
+const fs= require('fs');
+const path= require('path');
+
+const ENVIRONMENT = process.env.NODE_ENV || "prod";
+let appName='';
+switch (ENVIRONMENT) {
+    case "staging": {
+        if (fs.existsSync(path.join(process.cwd(), "/.env.staging"))) {
+            dotenv.config({ path: ".env.staging" });
+        } else {
+            process.exit(1);
+        }
+        break;
+    }
+    case "local": {
+        if (fs.existsSync(path.join(process.cwd(), "/.env.local"))) {
+            dotenv.config({ path: ".env.local" });
+        } else {
+            process.exit(1);
+        }
+        break;
+    }
+    default: {
+        if (fs.existsSync(path.join(process.cwd(), "/.env"))) {
+            dotenv.config({ path: ".env" });
+            appName= ''
+        } else {
+            process.exit(1);
+        }
+    }
+}
+
 const credentials = {
     DB_URL: process.env.DB_URL || "mongodb://127.0.0.1:27017/",
-    DB_NAME: process.env.DB_NAME || "mygame11",
+    DB_NAME: process.env.DB_NAME || "crown11",
+    appName: appName,
+    SECRET_TOKEN: process.env.SECRET_TOKEN,
+    BASE_URL: process.env.BASE_URL,
+    BASE_URL_LOCAL: process.env.BASE_URL_LOCAL,
+    APP_SHORT_NAME: process.env.APP_SHORT_NAME,
     PORT: process.env.PORT || 8080,
     PORT_api: process.env.PORT_api || 4040,
+    CRON_PORT: process.env.CRON_PORT || 6060,
     APP_NAME: process.env.APP_NAME || 'CROWN11',
     APP_SHORT_NAME: process.env.APP_SHORT_NAME || 'C11',
+    DEFAULT_IMAGE_FOR_PRODUCT: 'default_product.png',
+    DEFAULT_IMAGE_FOR_TICKET: 'default_product.png',
+    TEAM_LIMIT: process.env.TEAM_LIMIT,
+    CASHFREE_PAYOUT_CLIENT_ID: process.env.CASHFREE_PAYOUT_CLIENT_ID,
+    CASHFREE_PAYOUT_SECRETKEY: process.env.CASHFREE_PAYOUT_SECRETKEY,
+    CASHFREE_SECRETKEY: process.env.CASHFREE_SECRETKEY,
+    CASHFREE_CLIENT_ID: process.env.CASHFREE_CLIENT_ID,
+    privateKey: process.env.privateKey,
+    SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
+    SENDGRID_EMAIL: process.env.SENDGRID_EMAIL,
+    FCM_SERVER_KEY: process.env.FCM_SERVER_KEY,
+    SMS_AUTH_KEY: process.env.SMS_AUTH_KEY,
+    SMS_ROUTE: process.env.SMS_ROUTE,
+    SMS_SENDER: process.env.SMS_SENDER,
+    publicKey: process.env.publicKey,
     BONUS: {
         REFER_BONUS: 'Refer Bonus',
         PAN_BONUS: 'Pan Bonus',
@@ -64,6 +119,7 @@ const credentials = {
     USER_TYPE: {
         USER: 'user',
         NORMAL_USER: 'normal user',
+        YOUTUBER: 'youtuber'
     },
     ADMIN: {
         SUPER_ADMIN: 0,
@@ -110,7 +166,8 @@ const credentials = {
     ADMIN_WALLET_TYPE: {
         ADD_FUND: "addfund",
         WINNING: "winning",
-        BONUS: "bonus"
+        BONUS: "bonus",
+        CROWN:'crown'
     },
     PLAYER_TYPE: {
         CLASSIC: 'classic',
@@ -175,7 +232,31 @@ const credentials = {
     },
     TEAM_DEFAULT_COLOR: {
         DEF1: '#F60606'
-    }
+    },
+    MATCH_CHALLENGE_STATUS: {
+        CANCELED: 'canceled'
+    },
+    CONTEST_C_TYPE: {
+        CLASSIC: 'classic',
+        BATTING: 'batting',
+        BOWLING: 'bowling',
+        REVERSE: 'reverse'
+    },
+    ORDER_STATUS_TYPES: {
+        CONFIRMED: '1',
+        SUBMITED: '0',
+        REJECTED: '2',
+    },
+    PAYMENT_TYPE: {
+        ADD_CASH: 'add_cash',
+        ADD_PASS: 'add_pass'
+    },
+
+    TICKET_STATUS: {
+        PENDING: 'pending',
+        CONFIRMED: 'confirmed',
+    },
+    JWT_ExpireTime: '29 days'
 };
 // console.log(`credentials`, credentials);
 module.exports = credentials;

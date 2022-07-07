@@ -4,12 +4,12 @@ const cookieParser = require('cookie-parser');
 const moment = require('moment');
 const path = require("path");
 const mongoose = require('mongoose');
-
+const constant = require('./src/config/const_credential');
 const app = express();
 
 app.use(cookieParser());
 app.use(session({
-    secret: `process.env.SECRET_TOKEN`,
+    secret: constant.SECRET_TOKEN,
     resave: true,
     saveUninitialized: true,
     cookie: { maxAge: 6*60*60*1000, httpOnly: true }
