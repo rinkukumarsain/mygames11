@@ -94,6 +94,8 @@ router.post("/edit-Team-Data/:id", auth, upload.single("logo"), teamsController.
 
 router.get('/view_AllUpcomingMatches', auth, getUrl, matchController.view_AllUpcomingMatches);
 router.post('/view_AllUpcomingMatches-data-table', auth, matchController.view_AllUpcomingMatches_table);
+router.get("/add-match_page",auth,matchController.addMatchPage);
+router.post("/add-match-data",auth,matchController.addMatchData);
 router.get('/edit-match/:id', auth, getUrl, matchController.edit_Match);
 router.post('/edit-match-data/:id', auth, matchController.edit_match_data);
 router.get('/view-AllMatches', auth, getUrl, matchController.view_AllMatches);

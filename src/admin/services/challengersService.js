@@ -63,8 +63,8 @@ class challengersService {
     }
     async addGlobalchallengersData(req) {
         try {
-            if (req.body.entryfee && req.body.win_amount && req.body.contest_type && req.body.contest_cat) {
-                const checkData = await challengersModel.findOne({ entryfee: req.body.entryfee, win_amount: req.body.win_amount, contest_type: req.body.contest_type, contest_cat: req.body.contest_cat, is_deleted: false });
+            if (req.body.entryfee  && req.body.contest_type && req.body.contest_cat && req.body.contest_name) {
+                const checkData = await challengersModel.findOne({contest_name:req.body.contest_name, entryfee: req.body.entryfee, win_amount: req.body.win_amount, contest_type: req.body.contest_type, contest_cat: req.body.contest_cat, is_deleted: false });
                 let data = {}
                 if(Number(req.body.entryfee) == 0 || Number(req.body.win_amount) == 0 || Number(req.body.maximum_user) == 0){
                     return {
@@ -167,6 +167,7 @@ class challengersService {
                     data.entryfee = req.body.entryfee;
                     data.win_amount = req.body.win_amount;
                     data.fantasy_type = req.body.fantasy_type;
+                    data.contest_name=req.body.contest_name;
 
                     if (req.body.contest_type == 'Amount') {
                         data.winning_percentage = '0';
@@ -423,11 +424,11 @@ class challengersService {
     async editGlobalContestData(req) {
         try {
             console.log(",,,,,,,,,,req.body+++", req.body);
-            if (req.body.entryfee && req.body.win_amount && req.body.contest_type && req.body.contest_cat) {
-                if(Number(req.body.entryfee) == 0 || Number(req.body.win_amount) == 0 || Number(req.body.maximum_user) == 0){
+            if (req.body.entryfee  && req.body.contest_type && req.body.contest_cat) {
+                if (Number(req.body.entryfee) == 0 || Number(req.body.win_amount) == 0 ) {
                     return {
                         status: false,
-                        message: 'entryfee or win amount or maximum user can not equal to Zero'
+                        message: 'entryfee or win_amount can not equal to Zero'
                     }
                 }
                 let data = {}
@@ -587,6 +588,7 @@ class challengersService {
                     data.entryfee = req.body.entryfee;
                     data.win_amount = req.body.win_amount;
                     data.fantasy_type = req.body.fantasy_type;
+                    data.contest_name=req.body.contest_name;
 
                     if (req.body.contest_type == 'Amount') {
                         data.winning_percentage = 0;
@@ -847,6 +849,7 @@ class challengersService {
                     obj.status = keyy.status;
                     obj.joinedusers = keyy.joinedusers;
                     obj.contest_type = keyy.contest_type;
+                    obj.contest_name=keyy?.contest_name;
                     obj.mega_status = keyy.mega_status;
                     obj.winning_percentage = keyy.winning_percentage;
                     obj.is_bonus = keyy.is_bonus;
@@ -913,6 +916,7 @@ class challengersService {
                             data['is_running'] = key1.is_running;
                             data['multi_entry'] = key1.multi_entry;
                             data['matchkey'] = mongoose.Types.ObjectId(req.params.matchKey);
+                            data['contest_name']=key1.contest_name;
                             const insertData = new matchchallengersModel(data);
                             let saveInsert = await insertData.save();
 
@@ -986,18 +990,17 @@ class challengersService {
     }
     async addCustom_contestData(req) {
         try {
-            // console.log("req.body....addCustom_contest data....",req.body,"req.query",req.query,"req.params",req.params)
             let curTime = moment().format("YYYY-MM-DD HH:mm:ss");
             if (req.body.entryfee && req.body.win_amount && req.body.contest_type && req.body.contest_cat) {
-                if(Number(req.body.entryfee) == 0 || Number(req.body.win_amount) == 0 || Number(req.body.maximum_user) == 0){
+                if (Number(req.body.entryfee) == 0 || Number(req.body.win_amount) == 0 ) {
                     return {
                         status: false,
-                        message: 'entryfee or win_amount or maximum_user can not equal to Zero'
+                        message: 'entryfee or win_amount can not equal to Zero'
                     }
                 }
                 const findAllListmatches = await listMatchesModel.find({ fantasy_type: req.body.fantasy_type, launch_status: 'launched', start_date: curTime }, { name: 1, real_matchkey: 1 });
                 let obj = {}
-                // const checkListMatch
+                    // const checkListMatch
                 if (req.body.maximum_user) {
                     if (req.body.maximum_user < 2 || !req.body.maximum_user) {
                         return {
@@ -1026,7 +1029,7 @@ class challengersService {
                 if (!req.body.maximum_user) {
                     req.body.maximum_user = 0;
                 }
-                if (!req.winning_percentage) {
+                if (!req.body.winning_percentage) {
                     req.body.winning_percentage = 0;
                 }
                 if (req.body.contest_type == 'Percentage') {
@@ -1040,17 +1043,17 @@ class challengersService {
                     if (req.body.multientry_limit == 0) {
                         return {
                             status: true,
-                            message: 'Value of multientry limit not equal to 0...'
+                            message: 'Value of Team limit not equal to 0...'
                         }
                     } else {
                         obj.multi_entry = 1;
                     }
                 }
                 if (req.body.team_limit) {
-                    if (req.body.team_limit == 0) {
+                    if (Number(req.body.team_limit) == 0|| Number(req.body.team_limit) > Number(process.env.TEAM_LIMIT)) {
                         return {
                             status: false,
-                            message: 'Value of multientry limit not equal to 0...'
+                            message: `Value of Team limit not equal to 0..or more then ${config.TEAM_LIMIT}.`
                         }
                     } else {
                         obj.multi_entry = 1;
@@ -1093,14 +1096,16 @@ class challengersService {
                 obj.contest_type = req.body.contest_type;
                 obj.pricecard_type = req.body.pricecard_type;
                 obj.contest_cat = req.body.contest_cat;
+                obj.contest_name=req.body.contest_name;
                 obj.entryfee = req.body.entryfee;
                 obj.win_amount = req.body.win_amount;
                 obj.matchkey = req.body.matchkey;
                 obj.status = 'opened';
                 obj.fantasy_type = req.body.fantasy_type;
+                obj.c_type = req.body.c_type;
                 const insertMatch = new matchchallengersModel(obj);
                 let saveMatch = await insertMatch.save();
-                console.log("saveMatch..........", saveMatch)
+                // console.log("saveMatch..........", saveMatch)
                 if (saveMatch) {
                     return {
                         // matchChallengerId:saveMatch._id,
@@ -1116,6 +1121,8 @@ class challengersService {
                     }
                 }
             }
+
+
 
 
         } catch (error) {
@@ -1304,6 +1311,7 @@ class challengersService {
                     data.contest_cat = req.body.contest_cat;
                     data.entryfee = req.body.entryfee;
                     data.win_amount = req.body.win_amount;
+                    data.contest_name=req.body.contest_name;
                     console.log("data....matchchallengersModel.........edit.......", data)
                     let rowCollection = await matchchallengersModel.updateOne({ _id: challengers._id }, {
                         $set: data

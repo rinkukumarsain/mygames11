@@ -13,6 +13,8 @@ class matchController {
         return {
             view_AllUpcomingMatches: this.view_AllUpcomingMatches.bind(this),
             view_AllUpcomingMatches_table: this.view_AllUpcomingMatches_table.bind(this),
+            addMatchPage:this.addMatchPage.bind(this),
+            addMatchData:this.addMatchData.bind(this),
             edit_Match: this.edit_Match.bind(this),
             edit_match_data: this.edit_match_data.bind(this),
             view_AllMatches: this.view_AllMatches.bind(this),
@@ -140,6 +142,43 @@ class matchController {
             });
         } catch (error) {
             next(error);
+        }
+    }
+
+    async addMatchPage(req,res,next){
+        try{
+            res.locals.message = req.flash();
+            const data = await matchServices.addMatchPage(req);
+            if (data) {
+                res.render("matches/addMatch", {
+                    sessiondata: req.session.data,
+                    msg: undefined,
+                    allSeries:data.seriesData,
+                    allTeam:data.teamData
+                });
+            }
+              
+        }catch(error){
+            console.log(error);
+            req.flash('error', 'something is wrong please try again later');
+            res.redirect("/view_AllUpcomingMatches");
+        }
+    }
+    async addMatchData(req,res,next){
+        try{
+            const data = await matchServices.addMatchData(req);
+            if(data.status){
+                req.flash('success',data.message);
+                res.redirect("/view_AllUpcomingMatches");
+            }else{
+                req.flash('error',data.message);
+                res.redirect("/add-match_page");
+            }
+
+        }catch(error){
+            console.log(error);
+            req.flash('error', 'something is wrong please try again later');
+            res.redirect("/view_AllUpcomingMatches");
         }
     }
 
