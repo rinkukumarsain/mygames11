@@ -97,7 +97,7 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label class="label-control text-bold">Contest Name*</label>
-                                 <input type="text" name="contest_name" placeholder="Enter Contest Name" id="contest_name"  value="<%=data.contest_name ? data.contest_name : '' %>"  class="form-control form-control-solid" required>
+                                 <input type="text" name="contest_name" placeholder="Enter Contest Name" id="contest_name"  value="<%=data?.contest_name ? data?.contest_name : '' %>"  class="form-control form-control-solid" required />
                             </div>
                         </div>
                         <div class="col-6">
@@ -149,7 +149,7 @@
                                 <% if(data.team_limit) {%>
                                 <input disabled="" id="ch21" type="number" onkeypress="return isNumberKey(event)" class="form-control form-control-solid"  name="team_limit" value="<%=data.team_limit %>" placeholder="Enter Team Limit" required="">
                                 <% }else{%>
-                                <input disabled="" id="ch21" type="number" onkeypress="return isNumberKey(event)" class="form-control form-control-solid"  name="team_limit" value="11" placeholder="Enter Team Limit" required="">
+                                <input disabled="" id="ch21" type="number" onkeypress="return isNumberKey(event)" class="form-control form-control-solid"  name="team_limit"  placeholder="Enter Team Limit" required="">
                                 <% }%>
                             </div>
                         </div>

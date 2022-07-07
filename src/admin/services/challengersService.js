@@ -63,28 +63,36 @@ class challengersService {
     }
     async addGlobalchallengersData(req) {
         try {
-            if (req.body.entryfee  && req.body.contest_type && req.body.contest_cat && req.body.contest_name) {
-                const checkData = await challengersModel.findOne({contest_name:req.body.contest_name, entryfee: req.body.entryfee, win_amount: req.body.win_amount, contest_type: req.body.contest_type, contest_cat: req.body.contest_cat, is_deleted: false });
-                let data = {}
-                if(Number(req.body.entryfee) == 0 || Number(req.body.win_amount) == 0 || Number(req.body.maximum_user) == 0){
+            if (req.body.entryfee && req.body.win_amount && req.body.contest_type && req.body.contest_cat) {
+                const checkContestName=await challengersModel.findOne({contest_name:req.body.contest_name});
+                if(checkContestName){
                     return {
                         status: false,
-                        message: 'entryfee or win_amount or maximum_user can not equal to Zero'
+                        message: 'Contest Name already exist..'
+                    }
+                }
+                const checkData = await challengersModel.findOne({entryfee: req.body.entryfee, win_amount: req.body.win_amount, contest_type: req.body.contest_type, contest_cat: req.body.contest_cat, is_deleted: false });
+                let data = {}
+                if (Number(req.body.entryfee) == 0 || Number(req.body.win_amount) == 0) {
+                    return {
+                        status: false,
+                        message: 'entryfee or win_amount can not equal to Zero'
                     }
                 }
                 if (checkData) {
-                    console.log("check Data.. found");
+                    // console.log("check Data.. found");
                     return {
                         status: false,
-                        message: 'This contest is already exist with the same winning amount, entry fees and maximum number of users.'
+                        message: 'This contest is already exist with the same winning amount, entry fees and maximum number ,contest type ...'
                     }
                 } else {
                     if (req.body.team_limit) {
-                        if (req.body.team_limit == 0) {
-                            console.log("team_limit == 0. found");
+                        // console.log(`....................................${req.body.team_limit}.....................//////////////////////////${Number(req.body.team_limit) > Number(process.env.TEAM_LIMIT)}.............//////////////////////////////////////////${process.env.TEAM_LIMIT}/////////////`)
+                        if (Number(req.body.team_limit) == 0 || Number(req.body.team_limit) > Number(process.env.TEAM_LIMIT)) {
+                            // console.log("team_limit == 0. found");
                             return {
                                 status: false,
-                                message: 'Value of multientry limit not equal to 0...'
+                                message: `Value of Team limit not equal to 0..or more then ${config.TEAM_LIMIT}.`
                             }
                         } else {
                             data.multi_entry = 1;
@@ -92,7 +100,7 @@ class challengersService {
                     }
                     if (req.body.maximum_user) {
                         if (req.body.maximum_user < 2) {
-                            console.log("maximum_user < 2 found");
+                            // console.log("maximum_user < 2 found");
                             return {
                                 status: false,
                                 message: 'Value of maximum user not less than 2...'
@@ -101,7 +109,7 @@ class challengersService {
                     }
                     if (req.body.winning_percentage) {
                         if (req.body.winning_percentage == 0) {
-                            console.log("winning_percentage == 0. found");
+                            // console.log("winning_percentage == 0. found");
                             return {
                                 status: false,
                                 message: 'Value of winning percentage not equal to 0...'
@@ -110,7 +118,7 @@ class challengersService {
                     }
                     if (req.body.bonus_percentage) {
                         if (req.body.bonus_percentage == 0) {
-                            console.log("bonus_percentage == 0. found");
+                            // console.log("bonus_percentage == 0. found");
                             return {
                                 status: false,
                                 message: 'Value of bonus percentage not equal to 0...'
@@ -134,7 +142,7 @@ class challengersService {
 
                     if (req.body.winning_percentage) {
                         // console.log("..winning_percentage.. found");
-                        req.body.winning_percentage = req.body.winning_percentage;
+                        data.winning_percentage = req.body.winning_percentage;
                     }
 
                     if (req.body.confirmed_challenge) {
@@ -164,10 +172,10 @@ class challengersService {
                     data.contest_type = req.body.contest_type;
                     data.pricecard_type = req.body.pricecard_type;
                     data.contest_cat = req.body.contest_cat;
-                    data.entryfee = req.body.entryfee;
-                    data.win_amount = req.body.win_amount;
-                    data.fantasy_type = req.body.fantasy_type;
                     data.contest_name=req.body.contest_name;
+                    data.entryfee = req.body.entryfee;
+                    data.fantasy_type=req.body.fantasy_type;
+                    data.win_amount = req.body.win_amount;
 
                     if (req.body.contest_type == 'Amount') {
                         data.winning_percentage = '0';
@@ -423,33 +431,39 @@ class challengersService {
     }
     async editGlobalContestData(req) {
         try {
-            console.log(",,,,,,,,,,req.body+++", req.body);
-            if (req.body.entryfee  && req.body.contest_type && req.body.contest_cat) {
-                if (Number(req.body.entryfee) == 0 || Number(req.body.win_amount) == 0 ) {
+            if (req.body.entryfee && req.body.win_amount && req.body.contest_type && req.body.contest_cat) {
+                const checkContestName=await challengersModel.findOne({_id:{$ne: req.body.globelContestsId},contest_name:req.body.contest_name});
+                if(checkContestName){
                     return {
                         status: false,
-                        message: 'entryfee or win_amount can not equal to Zero'
+                        message: 'Contest Name already exist..'
+                    }
+                }
+                if (Number(req.body.entryfee) == 0 || Number(req.body.win_amount) == 0 || Number(req.body.maximum_user) == 0) {
+                    return {
+                        status: false,
+                        message: 'entryfee or win amount or maximum user can not equal to Zero'
                     }
                 }
                 let data = {}
-                console.log("req.body", req.body, "req.params", req.params, "req.query", req.query)
+                // console.log("req.body", req.body, "req.params", req.params, "req.query", req.query)
                 const challengerData = await challengersModel.findOne({ _id: req.body.globelContestsId });
-                console.log("challengerData......................", challengerData)
+                // console.log("challengerData......................", challengerData)
                 const checkData = await challengersModel.findOne({ _id: { $ne: req.body.globelContestsId }, entryfee: req.body.entryfee, win_amount: req.body.win_amount, contest_type: req.body.contest_type, contest_cat: req.body.contest_cat, is_deleted: false });
-                console.log("checkData.challengers gobel contest....", checkData)
+        
                 if (checkData) {
-                    console.log("check Data.. found");
+                    // console.log("check Data.. found");
                     return {
                         status: false,
-                        message: 'This contest is already exist with the same winning amount, entry fees and maximum number of users.'
+                        message: 'This contest is already exist with the same winning amount, entry fees and maximum number ,contest type ...'
                     }
                 } else {
                     if (req.body.team_limit) {
-                        if (req.body.team_limit == 0) {
-                            console.log("team_limit == 0. found");
+                        if (Number(req.body.team_limit) == 0 || Number(req.body.team_limit) > Number(process.env.TEAM_LIMIT)) {
+                            // console.log("team_limit == 0. found");
                             return {
                                 status: false,
-                                message: 'Value of multientry limit not equal to 0...'
+                                message: `Value of Team limit not equal to 0..or more then ${config.TEAM_LIMIT}.`
                             }
                         } else {
                             data.multi_entry = 1;
@@ -476,7 +490,7 @@ class challengersService {
 
                     if (req.body.maximum_user) {
                         if (req.body.maximum_user < 2) {
-                            console.log("maximum_user < 2 found");
+                            // console.log("maximum_user < 2 found");
                             return {
                                 status: false,
                                 message: 'Value of maximum user not less than 2...'
@@ -485,7 +499,7 @@ class challengersService {
                     }
                     if (req.body.winning_percentage) {
                         if (req.body.winning_percentage == 0) {
-                            console.log("winning_percentage == 0. found");
+                            // console.log("winning_percentage == 0. found");
                             return {
                                 status: false,
                                 message: 'Value of winning percentage not equal to 0...'
@@ -494,7 +508,7 @@ class challengersService {
                     }
                     if (req.body.bonus_percentage) {
                         if (req.body.bonus_percentage == 0) {
-                            console.log("bonus_percentage == 0. found");
+                            // console.log("bonus_percentage == 0. found");
                             return {
                                 status: false,
                                 message: 'Value of bonus percentage not equal to 0...'
@@ -502,7 +516,7 @@ class challengersService {
                         }
                     }
                     if (!req.body.bonus_percentage) {
-                        console.log("..!req.body.bonus_percentage found");
+                        // console.log("..!req.body.bonus_percentage found");
                         req.body.bonus_percentage = 0
                         req.body.is_bonus = 0;
                     }
@@ -513,12 +527,12 @@ class challengersService {
                         req.body.winning_percentage = 0;
                     }
                     if (Number(req.body.win_amount) != Number(challengerData.win_amount)) {
-                        console.log("delete Price Card By win_Amount")
+                        // console.log("delete Price Card By win_Amount")
                         const deletepriceCard = await priceCardModel.deleteMany({ challengersId: challengerData._id });
-                        console.log("deletepriceCard..", deletepriceCard)
+                        // console.log("deletepriceCard..", deletepriceCard)
                     }
                     if (req.body.contest_type == 'Percentage') {
-                        console.log("..contest_type == 'Percentage' found");
+                        // console.log("..contest_type == 'Percentage' found");
                         req.body.maximum_user = 0;
                         req.body.pricecard_type = 0;
                         const checkPriceCard = await priceCardModel.findOne({ challengersId: challengerData._id });
@@ -533,30 +547,30 @@ class challengersService {
                         req.body.winning_percentage = 0
                     }
                     if (req.body.maximum_user) {
-                        console.log("..maximum_user' found");
+                        // console.log("..maximum_user' found");
                         data.maximum_user = req.body.maximum_user;
                     }
 
                     if (req.body.winning_percentage) {
-                        console.log("..winning_percentage.. found");
+                        // console.log("..winning_percentage.. found");
                         data.winning_percentage = req.body.winning_percentage;
                     }
 
                     if (req.body.confirmed_challenge) {
-                        console.log("..confirmed_challenge.. found");
+                        // console.log("..confirmed_challenge.. found");
                         data.confirmed_challenge = 1;
                     } else {
                         data.confirmed_challenge = 0;
                     }
 
                     if (req.body.is_running) {
-                        console.log("...is_running'.. found");
+                        // console.log("...is_running'.. found");
                         data.is_running = 1;
                     } else {
                         data.is_running = 0;
                     }
                     if (req.body.is_bonus) {
-                        console.log("....is_bonus'.. found");
+                        // console.log("....is_bonus'.. found");
                         data.is_bonus = 1;
                         data.bonus_percentage = req.body.bonus_percentage;
                     } else {
@@ -585,17 +599,16 @@ class challengersService {
                     data.contest_type = req.body.contest_type;
                     data.pricecard_type = req.body.pricecard_type;
                     data.contest_cat = req.body.contest_cat;
+                    data.contest_name=req.body.contest_name;
                     data.entryfee = req.body.entryfee;
                     data.win_amount = req.body.win_amount;
                     data.fantasy_type = req.body.fantasy_type;
-                    data.contest_name=req.body.contest_name;
-
                     if (req.body.contest_type == 'Amount') {
                         data.winning_percentage = 0;
                     }
-                    console.log("data................", data)
+                    // console.log("data................", data)
                     const updateChallengers = await challengersModel.updateOne({ _id: mongoose.Types.ObjectId(req.body.globelContestsId) }, { $set: data });
-                    if (updateChallengers.modifiedCount == 1) {
+                    if (updateChallengers.modifiedCount > 0) {
                         return {
                             status: true,
                             message: 'globel centest successfully update'
@@ -893,11 +906,11 @@ class challengersService {
         try {
             const findmatch = await listMatchesModel.findOne({ _id: mongoose.Types.ObjectId(req.params.matchKey) });
             if (findmatch) {
-                const findleauges = await challengersModel.find({ fantasy_type: (findmatch.fantasy_type).toLowerCase() });
+                const findleauges = await challengersModel.find({ fantasy_type:{$regex: new RegExp(findmatch.fantasy_type.toLowerCase(), "i")} });
                 // console.log("findleauges....////////....",findleauges)
                 let anArray = [];
                 if (findleauges.length > 0) {
-                    for (let key1 of findleauges) {
+                    for await(let key1 of findleauges) {
                         const findchallengeexist = await matchchallengersModel.find({ matchkey: mongoose.Types.ObjectId(req.params.matchKey), challenge_id: mongoose.Types.ObjectId(key1._id) });
                         if (findchallengeexist.length == 0) {
                             let data = {};
@@ -915,15 +928,17 @@ class challengersService {
                             data['confirmed_challenge'] = key1.confirmed_challenge;
                             data['is_running'] = key1.is_running;
                             data['multi_entry'] = key1.multi_entry;
+                            data['team_limit']=key1.team_limit;
                             data['matchkey'] = mongoose.Types.ObjectId(req.params.matchKey);
                             data['contest_name']=key1.contest_name;
                             const insertData = new matchchallengersModel(data);
                             let saveInsert = await insertData.save();
 
                             let findpricecrads = await priceCardModel.find({ challengersId: key1._id });
-                            console.log("findpricecrads..................priceCard.........///////........", findpricecrads)
+                            // console.log("findpricecrads..................priceCard.........///////........", findpricecrads)
+                            
                             if (findpricecrads.length > 0) {
-                                for (let key2 of findpricecrads) {
+                                for await(let key2 of findpricecrads) {
                                     let pdata = {};
                                     pdata['challengeId'] = mongoose.Types.ObjectId(key2.challengersId);
                                     pdata['matchkey'] = mongoose.Types.ObjectId(req.params.matchKey);
@@ -938,30 +953,72 @@ class challengersService {
                                     pdata['type'] = key2.type;
 
                                     const updateInsert = await matchchallengersModel.updateOne({ _id: mongoose.Types.ObjectId(saveInsert._id) }, {
-                                        $push: {
-                                            matchpricecards: pdata
-                                        }
-                                    })
-                                    // console.log("updateInsert.................", updateInsert)
+                                            $push: {
+                                                matchpricecards: pdata
+                                            }
+                                        })
+                                        // console.log("updateInsert.................", updateInsert)
                                 }
                             }
+                        }else{
+                            let data = {};
+                            data['challenge_id'] = mongoose.Types.ObjectId(key1._id);
+                            data['contest_cat'] = mongoose.Types.ObjectId(key1.contest_cat);
+                            data['contest_type'] = key1.contest_type;
+                            data['winning_percentage'] = key1.winning_percentage;
+                            data['is_bonus'] = key1.is_bonus;
+                            data['bonus_percentage'] = key1.bonus_percentage;
+                            data['pricecard_type'] = key1.pricecard_type;
+                            data['entryfee'] = key1.entryfee;
+                            data['win_amount'] = key1.win_amount;
+                            data['maximum_user'] = key1.maximum_user;
+                            data['status'] = 'opened';
+                            data['confirmed_challenge'] = key1.confirmed_challenge;
+                            data['is_running'] = key1.is_running;
+                            data['multi_entry'] = key1.multi_entry;
+                            data['team_limit']=key1.team_limit;
+                            data['matchkey'] = mongoose.Types.ObjectId(req.params.matchKey);
+                            data['contest_name']=key1.contest_name;
+                            let arrayofPriceCard=[];
+                            let findpricecrads = await priceCardModel.find({ challengersId: key1._id });
+                            console.log("findpricecrads..................priceCard.........///////........", findpricecrads)
+                            if (findpricecrads.length > 0) {
+                                for await(let key2 of findpricecrads) {
+                                    let pdata = {};
+                                    pdata['challengeId'] = mongoose.Types.ObjectId(key2.challengersId);
+                                    pdata['matchkey'] = mongoose.Types.ObjectId(req.params.matchKey);
+                                    pdata['winners'] = key2.winners;
+                                    pdata['price'] = key2.price;
+                                    if (key2.price_percent) {
+                                        pdata['price_percent'] = key2.price_percent;
+                                    }
+                                    pdata['min_position'] = key2.min_position;
+                                    pdata['max_position'] = key2.max_position;
+                                    pdata['total'] = key2.total;
+                                    pdata['type'] = key2.type;
+                                    arrayofPriceCard.push(pdata);
+                                }
+                            }
+                            data['matchpricecards']= arrayofPriceCard;
+                            const updateExitingChallenge = await matchchallengersModel.updateOne({ matchkey: mongoose.Types.ObjectId(req.params.matchKey), challenge_id: mongoose.Types.ObjectId(key1._id) },{$set:data});
+
                         }
                     }
                     return {
                         status: true,
-                        message: 'Challenges imported successfully'
+                        message: 'Challenge imported successfully'
                     }
 
                 }
                 return {
                     status: false,
-                    message: 'Challenges not Found ..error..'
+                    message: 'Challenge not Found ..error..'
                 }
 
             }
             return {
                 status: false,
-                message: 'Challenges not imported ..error..'
+                message: 'Challenge not imported ..error..'
             }
         } catch (error) {
             throw error;
@@ -1194,7 +1251,7 @@ class challengersService {
                     } else {
                         req.body.is_running = 0;
                     }
-                    if (!req.body.maximum_user) {
+                    if (req.body.maximum_user) {
                         if (req.body.maximum_user < 2) {
                             return {
                                 status: false,
@@ -1312,11 +1369,9 @@ class challengersService {
                     data.entryfee = req.body.entryfee;
                     data.win_amount = req.body.win_amount;
                     data.contest_name=req.body.contest_name;
-                    console.log("data....matchchallengersModel.........edit.......", data)
                     let rowCollection = await matchchallengersModel.updateOne({ _id: challengers._id }, {
                         $set: data
                     });
-                    console.log("rowCollection..........", rowCollection);
                     if (rowCollection.modifiedCount == 1) {
                         return {
                             status: true,

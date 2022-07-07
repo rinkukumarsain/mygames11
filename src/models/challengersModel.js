@@ -48,7 +48,7 @@ let challengersSchema = new Schema({
     },
     team_limit: {
         type: Number,
-        default: 11
+        default: 0
     },
     confirmed_challenge: {
         type: Number,

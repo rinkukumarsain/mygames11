@@ -82,10 +82,6 @@ let matchchallengesSchema = new Schema({
         type: String,
         default: 0
     },
-    contest_name: {
-        type: String,
-
-    },
     created_by: {
         type: String,
         default: ''
@@ -100,6 +96,10 @@ let matchchallengesSchema = new Schema({
     contest_type: {
         type: String,
         default: ''
+    },
+    contest_name:{
+        type:String,
+        default:''
     },
     mega_status: {
         type: Number,

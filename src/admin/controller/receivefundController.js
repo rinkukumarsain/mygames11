@@ -29,13 +29,6 @@ class receivefundController {
         try{
             let limit1 = req.query.length;
             let start = req.query.start;
-            // let conditions = {};
-            
-            // if (req.query.paymentmethod) {
-            //     conditions.paymentmethod = req.query.paymentmethod
-            // }else{
-            //     conditions.paymentmethod = 'TEST'
-            // }
             let condition = [];
                 condition.push({
                     $match: {
