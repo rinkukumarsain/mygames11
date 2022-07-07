@@ -1,0 +1,182 @@
+<%- include("../../partials/head") %>
+
+    <%- include("../../partials/bodyStartWithNavBar/") %>
+        <%- include("../../partials/sideNav") %>
+            <div id="layoutSidenav_content">
+                <main>
+                    <%- include("../../partials/alertMsg") %>
+                    <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+                        <div class="container-fluid">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <div class="page-header-content">
+                                        <h1 class="page-header-title fs-md-35 fs-20">
+
+                                            <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                                            <span class=" text-capitalize">
+                                        Match Manager
+                                </span>
+                                        </h1>
+                                        <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                                            Add Match
+                                        </div>
+                                    </div>
+                                </div>
+                             
+                                <div class="col-auto mb-md-0 mb-3">
+                                    <a href="/view-AllMatches" class="btn btn-sm btn-light font-weight-bold text-uppercase text-primary float-right" data-toggle="tooltip" title="View All Upcoming Matches"><i class="fas fa-eye"></i>&nbsp; View</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid mt-n10">
+
+                        <div class="card">
+                            <div class="card-header">Add Match</div>
+                            <form class="card-body" action="/add-match-data" method="post">
+
+
+                                <div class="sbp-preview">
+                                    <div class="sbp-preview-content py-2">
+                                        <div class="row mx-0">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <input type="hidden" name="fantasy_type" value="Cricket">
+                                                    <label for="Match Name*" class="control-label text-bold">Match Name*</label>
+                                                 <input required="" placeholder="Enter match Name" class="form-control form-control-solid" name="name" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="Match Start Date*" class="control-label text-bold">Match Start Date*</label>
+                                                <input class="form-control form-control-solid datetimepickerget" name='start_date' type="text" id="start_date" required placeholder="Enter Match Start Date">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="Team1Id*" class="control-label text-bold">Team1*</label>
+                                                   <select name="team1Id" id="team1Id" class="form-control form-control-solid p-1" data-container="body" data-live-search="true" title="Select Team 1" data-hide-disabled="true" required>
+                                                    <% if(allTeam) {%>
+                                                        <% for(let team1key of allTeam){ %>
+                                                        <option value="<%=team1key._id %>"><%=team1key.teamName %></option>
+                                                        <% }%>
+                                                    <% }%>
+                                                   </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="Team2Id*" class="control-label text-bold">Team1*</label>
+                                                   <select name="team2Id" id="team2Id" class="form-control form-control-solid p-1" data-container="body" data-live-search="true" title="Select Team 1" data-hide-disabled="true" required>
+                                                    <% if(allTeam) {%>
+                                                        <% for(let team2key of allTeam){ %>
+                                                        <option value="<%=team2key._id %>"><%=team2key.teamName %></option>
+                                                        <% }%>
+                                                    <% }%>
+                                                   </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="Match Format*" class="control-label text-bold">Match Format*</label>
+                                                    <select class="form-control form-control-solid p-1" data-container="body" data-live-search="true" title="Select Match Format" data-hide-disabled="true" name="format" required="">
+                                                            <option value="" disabled selected > Select match format </option>
+                                                            <option value="t10" >T10 </option>
+                                                            <option value="t20" >T20 </option>
+                                                            <option value="test" >Test </option>
+                                                            <option value="one-day">One-day </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="Series*" class="control-label text-bold">Series*</label>
+                                                    <select class="form-control form-control-solid p-1" data-container="body" data-live-search="true" title="Select Series" data-hide-disabled="true" name="series" required="">
+                                                        <option value="" disabled selected >Select Series</option>
+                                                        <% if(allSeries) { %>
+                                                        <% for(let seriesKey of allSeries) {%>
+                                                        <option value="<%=seriesKey._id %>" ><%=seriesKey.name %></option>
+                                                        <% } %>
+                                                        <% } %>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12 text-right mt-md-4 mb-md-2">
+                                                <button class="btn btn-sm btn-success text-uppercase"><i class="far fa-check-circle"></i>&nbsp;Submit</button>
+                                                <a onclick="window.location.href=window.location.href" class="btn btn-sm btn-warning text-uppercase"><i class="fa fa-undo" ></i>&nbsp; Reset</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </main>
+                <%- include("../../partials/footer") %>
+
+                    <script>
+                        $(window).on('load', function() {
+
+                            $('#preloader_admin').hide();
+
+                        })
+                    </script>
+
+
+
+                    <script>
+                        $(document).ready(function() {
+
+                            if ($('#accordionSidenavPages a').hasClass('active')) {
+                                $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
+                                $('#accordionSidenavPages a.active').parent().parent().addClass('show');
+                                // console.log(id);
+                            } else {
+                                $('#takeonebar').addClass('slamdown');
+                            }
+                        });
+                    </script>
+            
+                    <script type="text/javascript">
+                        $.datetimepicker.setLocale('en');
+                        $('.datetimepickerget').datetimepicker({
+                            lang: 'en',
+                            formatDate: 'd.m.Y',
+                            step: 5,
+                            startDate: new Date()
+                        });
+                    </script>
+                    <script type="text/javascript">
+                        $('.datepicker').datepicker({
+                            lang: 'en',
+                            formatDate: 'd.m.Y',
+                            step: 5,
+                        });
+                    </script>
+
+
+
+                    <script>
+                        /*jslint browser:true*/
+                        /*global jQuery, document*/
+
+                        jQuery(document).ready(function() {
+                            'use strict';
+
+                            jQuery('#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date').datetimepicker();
+                        });
+                    </script>
+                        <script>
+                            $(document).ready(function () {
+    
+                                if ($('#accordionSidenavPages a').hasClass('active')) {
+                                    $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
+                                    $('#accordionSidenavPages a.active').parent().parent().addClass('show');
+                                    // console.log(id);
+                                } else {
+                                    $('#takeonebar').addClass('slamdown');
+                                }
+                            });
+    
+                        </script>

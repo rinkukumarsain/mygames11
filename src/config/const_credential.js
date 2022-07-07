@@ -1,8 +1,8 @@
 const credentials = {
     DB_URL: process.env.DB_URL || "mongodb://127.0.0.1:27017/",
     DB_NAME: process.env.DB_NAME || "mygame11",
-    PORT: process.env.PORT || 8080,
-    PORT_api: process.env.PORT_api || 4040,
+    PORT: process.env.PORT || 7070,
+    PORT_api: process.env.PORT_api || 3030,
     APP_NAME: process.env.APP_NAME || 'CROWN11',
     APP_SHORT_NAME: process.env.APP_SHORT_NAME || 'C11',
     BONUS: {

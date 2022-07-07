@@ -6,12 +6,16 @@ const config=require("../../config/const_credential");
 const listMatchModel = require('../../models/listMatchesModel');
 const matchPlayersModel = require('../../models/matchPlayersModel');
 const teamModel = require('../../models/teamModel');
+const seriesModel=require("../../models/addSeriesModel");
 const seriesServices = require('./seriesServices');
 const playerModel=require("../../models/playerModel");
+const { generateKey } = require('crypto');
 class matchServices {
     constructor() {
         return {
             updateStatusforSeries: this.updateStatusforSeries.bind(this),
+            addMatchPage:this.addMatchPage.bind(this),
+            addMatchData:this.addMatchData.bind(this),
             edit_Match: this.edit_Match.bind(this),
             edit_match_data: this.edit_match_data.bind(this),
             launch_Match: this.launch_Match.bind(this),
@@ -52,6 +56,75 @@ class matchServices {
         }
     }
 
+    async addMatchPage(req){
+        try{
+         const teamData=await teamModel.find();
+         const seriesData=await seriesModel.find();
+            console.log("teamData,,",teamData,"seriesData...",seriesData)
+         return {teamData,seriesData};
+
+        }catch(error){
+            console.log(error);
+            req.flash("error",'something wrong please try again letter');
+            res.redirect('/');
+        }
+    }
+
+    async addMatchData(req){
+        try{
+            if((req.body.team1Id).toString() == (req.body.team2Id).toString()){
+                return{
+                    status:false,
+                    message:'please select different teams'
+                }
+            }
+            async function generateKey(){
+                let rNum=Math.floor(10000 + Math.random() * 90000);
+                let checkMatchKey=await listMatchModel.findOne({real_matchkey:rNum});
+                if(checkMatchKey){
+                    generateKey();
+                }
+                return rNum;
+            }
+            
+            var data=req.body;
+            let nn=await generateKey();
+            data.real_matchkey=nn;
+            data.start_date = moment(new Date(req.body.start_date)).format('YYYY-MM-DD HH:mm:ss');
+            data.team1Id=req.body.team1Id;
+            data.team1Id=req.body.team2Id;
+            data.series=req.body.series;
+            data.short_name=req.body.name;
+            data.status='notstart'
+            data.launch_status='panding'
+            data.final_status='panding'
+            data.squadstatus='YES'
+            console.log("data....",data)
+            let whereObj = {
+                is_deleted: false,
+                name: req.body.name,
+            }
+            const checkName = await this.findMatch(whereObj);
+            if (checkName.length > 0) {
+                return {
+                    message: "series Name already exist...",
+                    status: false,
+                };
+            } else {
+                let datainsert =new listMatchModel(data);
+                let saveMatch=await datainsert.save();
+                if (saveMatch) {
+                    return {status:true,message:'match add successfully'};
+                }else{
+                    return {status:false,message:'match can not add..something wrong'};
+                }
+            }
+
+        }catch(error){
+            throw error;
+        }
+    }
+
     async edit_Match(req) {
         try {
             let whereObj = {
@@ -60,10 +133,10 @@ class matchServices {
             };
             let data = await this.findMatch(whereObj);
             let team1name = await teamModel.findOne({
-                _id: data[0].team1Id
+                _id: data[0]?.team1Id
             });
             let team2name = await teamModel.findOne({
-                _id: data[0].team2Id
+                _id: data[0]?.team2Id
             });
             // console.log('team1name.teamName', team1name)
             let whereObjSeries = {

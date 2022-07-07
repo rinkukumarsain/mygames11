@@ -38,6 +38,10 @@ let challengersSchema = new Schema({
         type: String,
         default: ''
     },
+    contest_name:{
+        type:String,
+        default:''
+    },
     multi_entry: {
         type: Number,
         default: 0

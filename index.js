@@ -39,6 +39,6 @@ app.use(errorRoute);
 
 const port = constant.PORT;
 
-app.listen(8080, () => {
+app.listen(port, () => {
     console.log(`server started on port ${port}`);
 });
