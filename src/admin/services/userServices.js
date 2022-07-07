@@ -58,7 +58,7 @@ class UserServices {
         try {
                 let dataObj = req.body;
                 if (req.file) {
-                    dataObj.image = `${process.env.BASE_URL}${req.body.typename}/${req.file.filename}`;
+                    dataObj.image = `${constant.BASE_URL}${req.body.typename}/${req.file.filename}`;
                     delete dataObj.typename;
                 }
                 let updatedUser = await userModel.updateOne({ _id: dataObj.Uid }, { $set: dataObj });

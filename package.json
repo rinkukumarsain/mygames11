@@ -1,14 +1,17 @@
 {
-    "name": "mygame11",
+    "name": "crown11",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
     "dependencies": {
+        "@cashfreepayments/cashfree-sdk": "^0.1.7",
         "@sendgrid/mail": "^7.6.2",
         "axios": "^0.26.0",
         "bcrypt": "^5.0.1",
+        "cashfree-sdk": "^0.1.1",
         "connect-flash": "^0.1.1",
         "cookie-parser": "^1.4.6",
+        "cors": "^2.8.5",
         "cron": "^1.8.2",
         "crypto-js": "^4.1.1",
         "dotenv": "^16.0.0",
@@ -29,9 +32,19 @@
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "nodemon index.js -e js,ejs",
-        "dev": "nodemon api.js -e js"
+        "start-staging": "NODE_ENV=staging nodemon index.js -e js,ejs",
+        "api-staging": "NODE_ENV=staging nodemon api.js -e js",
+        "cron-staging": "NODE_ENV=staging nodemon cron.js",
+        "start-prod": "NODE_ENV=prod nodemon index.js -e js,ejs",
+        "api-prod": "NODE_ENV=prod nodemon api.js -e js",
+        "cron-prod": "NODE_ENV=prod nodemon cron.js",
+        "start-local": "NODE_ENV=local nodemon index.js -e js,ejs",
+        "api-local": "NODE_ENV=local nodemon api.js -e js",
+        "cron-local": "NODE_ENV=local nodemon cron.js"
     },
-    "author": "devanshu",
-    "license": "ISC"
+    "author": "Img",
+    "license": "ISC",
+    "devDependencies": {
+        "nodemon": "^2.0.15"
+    }
 }
