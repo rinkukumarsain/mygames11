@@ -49,6 +49,7 @@ const verifyManagerController = require('../../controller/verifyPanController');
 const botcontroller = require('../../controller/botController')
 const resultController = require("../../controller/resultController");
 const notificationController=require("../../controller/notificationController");
+const receivefundController=require("../../controller/receivefundController");
 
 
 router.get("/", auth, getUrl, dashboardController.showdashboard);
@@ -252,6 +253,10 @@ router.get("/view_youtuber", auth, getUrl, youtuberController.view_youtuber);
 router.get("/edit_youtuber/:youtuberId", auth, getUrl, youtuberController.edit_youtuber);
 router.post("/edit_youtuber/:youtuberId", auth, youtuberController.edit_youtuber_data);
 router.get("/delete_youtuber/:youtuberId", auth, getUrl, youtuberController.delete_youtuber);
+
+// -------------------------Receive Fund----------
+router.get("/view_all_Receive_Fund",receivefundController.viewallReceiveFund);
+router.post("/view_all_Receive_Fund_datatable",receivefundController.viewAllReceiveFundDatatable);
 
 
 // ----------------------------- sub admin -------------------------
