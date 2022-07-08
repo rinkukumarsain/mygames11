@@ -34,6 +34,10 @@ let challengersSchema = new Schema({
         type: String,
         default: ''
     },
+    amount_type:{
+        type: String,
+        default: ''
+    },
     c_type: {
         type: String,
         default: ''

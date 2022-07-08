@@ -96,6 +96,14 @@ let adminSchema = new Schema(
     androidversion: andriodVersion,
     general_tabs: [general_tabs],
     sidebanner: [sidebanner],
+    popup_notify_image:{
+      type:String,
+      default:''
+    },
+    popup_notify_title:{
+      type:String,
+      default:''
+    },
     is_deleted: {
       type: Boolean,
       default: false,

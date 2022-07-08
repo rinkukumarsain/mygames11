@@ -526,6 +526,27 @@ class matchServices {
     }
     async launchMatchChangeTeamLogo(req) {
         try {
+            if(req.fileValidationError){
+                return{
+                    status:false,
+                    message:req.fileValidationError
+                }
+
+            }
+            if(req.fileValidationError){
+                return{
+                    status:false,
+                    message:req.fileValidationError
+                }
+
+            }
+            if(req.fileValidationError){
+                return{
+                    status:false,
+                    message:req.fileValidationError
+                }
+
+            }
             if (req.params) {
                 if (req.file) {
                     const checkLogoinTeam = await teamModel.findOne({

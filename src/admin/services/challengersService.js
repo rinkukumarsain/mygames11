@@ -71,7 +71,7 @@ class challengersService {
                         message: 'Contest Name already exist..'
                     }
                 }
-                const checkData = await challengersModel.findOne({entryfee: req.body.entryfee, win_amount: req.body.win_amount, contest_type: req.body.contest_type, contest_cat: req.body.contest_cat, is_deleted: false });
+                const checkData = await challengersModel.findOne({amount_type:req.body.amount_type,entryfee: req.body.entryfee, win_amount: req.body.win_amount, contest_type: req.body.contest_type, contest_cat: req.body.contest_cat, is_deleted: false });
                 let data = {}
                 if (Number(req.body.entryfee) == 0 || Number(req.body.win_amount) == 0) {
                     return {
@@ -176,6 +176,7 @@ class challengersService {
                     data.entryfee = req.body.entryfee;
                     data.fantasy_type=req.body.fantasy_type;
                     data.win_amount = req.body.win_amount;
+                    data.amount_type=req.body.amount_type;
 
                     if (req.body.contest_type == 'Amount') {
                         data.winning_percentage = '0';
@@ -310,7 +311,7 @@ class challengersService {
                             winners: Number(req.body.winners),
                             price: Number(req.body.price),
                             min_position: Number(req.body.min_position),
-                            max_position: (Math.abs((Number(req.body.min_position)) - (Number(req.body.winners)))).toFixed(2),
+                            max_position: (Math.abs((Number(req.body.min_position)) - (Number(req.body.winners)))),
                             total: ((Number(req.body.winners)) * (Number(req.body.price))).toFixed(2),
                             type: 'Amount'
                         })
@@ -355,7 +356,7 @@ class challengersService {
                             winners: Number(req.body.winners),
                             price: Number(req.body.price),
                             min_position: position,
-                            max_position: ((Number(req.body.min_position)) + (Number(req.body.winners))).toFixed(2),
+                            max_position: ((Number(req.body.min_position)) + (Number(req.body.winners))),
                             total: ((Number(req.body.winners)) * (Number(req.body.price))).toFixed(2),
                             type: 'Amount'
                         })
@@ -603,6 +604,7 @@ class challengersService {
                     data.entryfee = req.body.entryfee;
                     data.win_amount = req.body.win_amount;
                     data.fantasy_type = req.body.fantasy_type;
+                    data.amount_type=req.body.amount_type;
                     if (req.body.contest_type == 'Amount') {
                         data.winning_percentage = 0;
                     }
@@ -724,12 +726,12 @@ class challengersService {
 
                             const insertPriceData = new priceCardModel({
                                 challengersId: mongoose.Types.ObjectId(req.body.globelchallengersId),
-                                winners: (Number(winners)).toFixed(2),
-                                price: (Number(price)).toFixed(2),
-                                price_percent: (Number(price_percent)).toFixed(2),
-                                min_position: (Number(min_position)).toFixed(2),
-                                max_position: (Math.abs((Number(min_position)) - (Number(winners)))).toFixed(2),
-                                total: ((Number(winners)) * (Number(price))).toFixed(2),
+                                winners: (Number(winners)),
+                                price: (Number(price)),
+                                price_percent: (Number(price_percent)),
+                                min_position: (Number(min_position)),
+                                max_position: (Math.abs((Number(min_position)) - (Number(winners)))),
+                                total: ((Number(winners)) * (Number(price))),
                                 type: 'Amount'
                             })
                             let savePriceData = await insertPriceData.save();
@@ -771,12 +773,12 @@ class challengersService {
                             console.log("iinsertsssss psotgh..percentage.. price card in number")
                             const insertPriceData = new priceCardModel({
                                 challengersId: mongoose.Types.ObjectId(req.body.globelchallengersId),
-                                winners: (Number(winners)).toFixed(2),
-                                price: (Number(price)).toFixed(2),
-                                price_percent: (Number(price_percent)).toFixed(2),
-                                min_position: (position).toFixed(2),
-                                max_position: ((Number(min_position)) + (Number(winners))).toFixed(2),
-                                total: ((Number(winners)) * (Number(price))).toFixed(2),
+                                winners: (Number(winners)),
+                                price: (Number(price)),
+                                price_percent: (Number(price_percent)),
+                                min_position: (position),
+                                max_position: ((Number(min_position)) + (Number(winners))),
+                                total: ((Number(winners)) * (Number(price))),
                                 type: 'Amount'
                             })
                             console.log("insertPriceData..........", insertPriceData)
@@ -877,6 +879,7 @@ class challengersService {
                     obj.is_running = keyy.is_running;
                     obj.is_deleted = keyy.is_deleted;
                     obj.matchpricecards = keyy.matchpricecards;
+                    obj.amount_type=keyy.amount_type;
 
                     anArray.push(obj)
                 }
@@ -931,6 +934,7 @@ class challengersService {
                             data['team_limit']=key1.team_limit;
                             data['matchkey'] = mongoose.Types.ObjectId(req.params.matchKey);
                             data['contest_name']=key1.contest_name;
+                            data['amount_type']=key1.amount_type;
                             const insertData = new matchchallengersModel(data);
                             let saveInsert = await insertData.save();
 
@@ -979,6 +983,7 @@ class challengersService {
                             data['team_limit']=key1.team_limit;
                             data['matchkey'] = mongoose.Types.ObjectId(req.params.matchKey);
                             data['contest_name']=key1.contest_name;
+                            data['amount_type']=key1.amount_type;
                             let arrayofPriceCard=[];
                             let findpricecrads = await priceCardModel.find({ challengersId: key1._id });
                             console.log("findpricecrads..................priceCard.........///////........", findpricecrads)
@@ -1159,7 +1164,7 @@ class challengersService {
                 obj.matchkey = req.body.matchkey;
                 obj.status = 'opened';
                 obj.fantasy_type = req.body.fantasy_type;
-                obj.c_type = req.body.c_type;
+                obj.amount_type=req.body.amount_type;
                 const insertMatch = new matchchallengersModel(obj);
                 let saveMatch = await insertMatch.save();
                 // console.log("saveMatch..........", saveMatch)
@@ -1369,6 +1374,7 @@ class challengersService {
                     data.entryfee = req.body.entryfee;
                     data.win_amount = req.body.win_amount;
                     data.contest_name=req.body.contest_name;
+                    data.amount_type=req.body.amount_type;
                     let rowCollection = await matchchallengersModel.updateOne({ _id: challengers._id }, {
                         $set: data
                     });
@@ -1550,8 +1556,8 @@ class challengersService {
                             winners: Number(req.body.winners),
                             price: Number(req.body.price),
                             min_position: Number(req.body.min_position),
-                            max_position: (Math.abs((Number(req.body.min_position)) - (Number(req.body.winners)))).toFixed(2),
-                            total: ((Number(req.body.winners)) * (Number(req.body.price))).toFixed(2),
+                            max_position: (Math.abs((Number(req.body.min_position)) - (Number(req.body.winners)))),
+                            total: ((Number(req.body.winners)) * (Number(req.body.price))),
                             type: 'Amount'
                         }
                         const insertAddEditPriceData = await matchchallengersModel.updateOne({ _id: req.body.globelchallengersId }, {
@@ -1600,7 +1606,7 @@ class challengersService {
                             price: Number(req.body.price),
                             min_position: position,
                             max_position: (Number(req.body.min_position)) + (Number(req.body.winners)),
-                            total: ((Number(req.body.winners)) * (Number(req.body.price))).toFixed(2),
+                            total: ((Number(req.body.winners)) * (Number(req.body.price))),
                             type: 'Amount'
                         }
                         const insertAddEditPriceData = await matchchallengersModel.updateOne({ _id: req.body.globelchallengersId }, {

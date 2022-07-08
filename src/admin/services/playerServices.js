@@ -56,6 +56,13 @@ class playersServices {
     }
     async edit_player_data(req) {
         try {
+            if(req.fileValidationError){
+                return{
+                    status:false,
+                    message:req.fileValidationError
+                }
+
+            }
             console.log("req.body...........",req.body)
             let whereIs = {
                 is_deleted: false,

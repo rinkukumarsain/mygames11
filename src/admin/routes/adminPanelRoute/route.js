@@ -18,14 +18,20 @@ const storage = multer.diskStorage({
 
 const upload = multer({
     storage: storage,
-    // fileFilter: (req, file, cb) => {
-    // if (file.mimetype == "image/png") {
-    //   cb(null, true);
-    // } else {
-    //   cb(null, false);
-    //   return cb(new Error('Only .png format allowed!'));
-    // }
-    //   }
+    fileFilter: (req, file, cb) =>  {
+    if (
+        file.mimetype == "image/png" ||
+        file.mimetype == "image/jpg" ||
+        file.mimetype == "image/jpeg"
+      ) {
+        cb(null, true);
+      } else {
+        req.fileValidationError = "Only .png, .jpg and .jpeg format allowed!";
+        return cb(null, false, req.fileValidationError);
+        // cb(null,false);
+        // return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
+      }
+    },
 });
 
 const adminPanelController = require("../../controller/adminController");
@@ -46,10 +52,12 @@ const userManagerController = require("../../controller/userManagerController");
 const youtuberController = require("../../controller/youtuberController");
 const adminController = require("../../controller/adminController");
 const verifyManagerController = require('../../controller/verifyPanController');
-const botcontroller = require('../../controller/botController')
+const botcontroller = require('../../controller/botController');
 const resultController = require("../../controller/resultController");
 const notificationController=require("../../controller/notificationController");
 const receivefundController=require("../../controller/receivefundController");
+const leaderboardController=require("../../controller/leaderboardController");
+const popupNotificationController=require("../../controller/popupNotificationController");
 
 
 router.get("/", auth, getUrl, dashboardController.showdashboard);
@@ -63,6 +71,9 @@ router.post("/register-admin-data", adminPanelController.registerAdminData);
 
 router.get("/login-admin", adminPanelController.loginAdminPage);
 router.post("/login-admin-data", adminPanelController.loginAdminData);
+
+router.get("/admin_profile_page",auth, getUrl,adminPanelController.adminProfilePage);
+router.post("/admin_profile_data/:id",auth, getUrl,upload.single('image'),adminPanelController.updateProfileData);
 //  ----------------------------------              botcontroller         ---------------------------
 
 
@@ -307,13 +318,27 @@ router.post("/updateMatchFinalStatus/:id/:status", auth, resultController.update
 router.get("/user-teams", auth, getUrl, resultController.viewTeams);
 router.post("/user-teams-table", auth, resultController.viewTeamsData);
 
+// -----------------------popup notification-------------------
+
+router.get("/popup", auth, getUrl, popupNotificationController.popup);
+router.post("/popup-data", auth, popupNotificationController.popupData);
+router.get("/add-popup", auth, getUrl, popupNotificationController.addPopup);
+router.get("/delete-popup", auth, popupNotificationController.deletePopup);
+router.post("/add-popup-data", auth, upload.single("image"), popupNotificationController.addPopupData);
+
 
 // --------------------notification---------------
 
 router.get("/pushNotification",auth,notificationController.pushNotification);
 router.get("/emailNotification",auth,notificationController.emailNotification);
 
-
+// --------------------------leaderBoard------------------
+router.get("/view_leaderBoard_page",leaderboardController.viewLeaderBoarderPage);
+router.post("/view_leaderBoard_datatable",leaderboardController.viewLeaderBoardDatatable);
+router.get("/add_series_pricecard_page/:id",leaderboardController.addSeriesPriceCardPage);
+router.post("/add-series-price-card-Post",leaderboardController.addSeriesPriceCardData);
+router.get("/delete_series_pricecard/:id",leaderboardController.deleteSeriesPriceCard);
+router.post("/distribute_winning_amount_series_leaderboard/:id",leaderboardController.distributeWinningAmountSeriesLeaderboard);
 
 
 //-----cricket api controller (3rd party api)------------//

@@ -141,12 +141,12 @@
                           <label class="label-control text-bold">Users Selection</label>
                           <div class="form-group">
                               <div class="custom-control custom-checkbox custom-control-inline">
-                                 <input type="radio" class="custom-control-input sel_all" id="select_all2" name="user_selection" value="number" required="" onchange="$('#labelnumber').html('Number Of Winners*'),$('#winnum, #winnum2, #winnum3').html('0'),$('#percentuser').stop().slideUp(1000),$('#winnernumber, #winnerpercent').val('')">
+                                 <input type="radio" checked class="custom-control-input sel_all" id="select_all2" name="user_selection" value="number" required="" onchange="$('#labelnumber').html('Number Of Winners*'),$('#winnum, #winnum2, #winnum3').html('0'),$('#percentuser').stop().slideUp(1000),$('#winnernumber, #winnerpercent').val('')">
                                   <label class="custom-control-label fs-15" for="select_all2">Users By Numbers</label>
                               </div>
                           </div>
                       </div>
-                      <div class="col-lg-3 col-md-6 col-12">
+                      <!-- <div class="col-lg-3 col-md-6 col-12">
                         <label class="label-control text-bold"></label>
                         <div class="form-group my-1">
                             <div class="custom-control custom-checkbox custom-control-inline">
@@ -154,7 +154,7 @@
                                 <label class="custom-control-label fs-15" for="select_all3">Users By Percentage</label>
                             </div>
                         </div>
-                      </div>
+                      </div> -->
                       <% }%>
                       <!-- ------------------- -->
                       <% if(data.pricecard_type == 'Percentage') {%>
@@ -256,11 +256,11 @@
                                 <td><%=key.max_position %></td>
                                 <td><%=key.winners %></td>
                                 <% if(data.pricecard_type == 'Percentage') {%>
-                                  <td><%=(key.total)/(key.winners) %>(<%=(key.price_percent) %>%)</td>
+                                  <td><%=((key.total)/(key.winners)).toFixed(2) %>(<%=(key.price_percent).toFixed(2) %>%)</td>
                                 <%}else{ %>
-                                  <td><%=(key.total)/(key.winners) %></td>
+                                  <td><%=((key.total)/(key.winners)).toFixed(2) %></td>
                                 <% }%>
-                                <td><%=key.total %>(<%=((key.total*100)/(data.win_amount)).toFixed(2) %> %)</td>
+                                <td><%=(key.total).toFixed(2) %>(<%=((key.total*100)/(data.win_amount)).toFixed(2) %> %)</td>
                                 <% if(priceLength == count) {%>
                                 <td><a class="btn btn-sm btn-danger w-35px h-35px" onclick="delete_confirmation('/deletepricecard/<%=key._id %>?challengerId=<%=data._id %>')" data-toggle="tooltip" title="" data-original-title="Delete"> <i class="far fa-trash"></i></a></td>
                                 <%}else{ %>

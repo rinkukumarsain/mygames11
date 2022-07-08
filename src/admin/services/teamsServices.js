@@ -24,6 +24,13 @@ class teamsServices{
         }
     }
     async edit_Team_Data(req){
+        if(req.fileValidationError){
+            return{
+                status:false,
+                message:req.fileValidationError
+            }
+
+        }
         let whereObj ={
             _id:req.params.id
         }

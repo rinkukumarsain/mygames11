@@ -101,6 +101,10 @@ let matchchallengesSchema = new Schema({
         type:String,
         default:''
     },
+    amount_type:{
+        type:String,
+        default:''
+    },
     mega_status: {
         type: Number,
         default: 0

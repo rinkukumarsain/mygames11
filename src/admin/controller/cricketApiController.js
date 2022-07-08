@@ -354,17 +354,27 @@ class cricketApiController {
     }
     fetchPlayerByMatch_entity(req, res) {
         try {
-            // console.log(`http://rest.entitysport.com/v2/matches/${req.params.matchkey}/squads?token=1&token=d838e55bf823bc6e6ad46ba9c71106aa`);
-            axios.get(`http://rest.entitysport.com/v2/matches/${req.params.matchkey}/squads?token=1&token=d838e55bf823bc6e6ad46ba9c71106aa`).then(async(matchData) => {
-                let listmatch = await listMatchModel.findOne({ real_matchkey: req.params.matchkey });
-                console.log('listmatch', listmatch);
-                await this.child_fetchPlayerByMatch_entity(matchData.data.response, listmatch._id);
-                res.redirect(`/launch-match/${listmatch._id}`);
-            })
+          // console.log(`http://rest.entitysport.com/v2/matches/${req.params.matchkey}/squads?token=1&token=d838e55bf823bc6e6ad46ba9c71106aa`);
+          axios
+            .get(
+              `http://rest.entitysport.com/v2/matches/${req.params.matchkey}/squads?token=1&token=d838e55bf823bc6e6ad46ba9c71106aa`
+            )
+            .then(async (matchData) => {
+              let listmatch = await listMatchModel.findOne({
+                real_matchkey: req.params.matchkey,
+              });
+              console.log("listmatch", listmatch);
+              await this.child_fetchPlayerByMatch_entity(
+                matchData.data.response,
+                listmatch._id
+              );
+              res.redirect(`/launch-match/${listmatch._id}`);
+            });
         } catch (error) {
-            next(error);
+          next(error);
         }
-    }
+      }
+    
     async child_fetchPlayerByMatch_entity(response, matchkey) {
         let team1Id = response.teama.team_id;
         let team2Id = response.teamb.team_id;

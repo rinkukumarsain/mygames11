@@ -56,6 +56,13 @@ class UserServices {
 
     async edituserdetails(req) {
         try {
+            if(req.fileValidationError){
+                return{
+                    status:false,
+                    message:req.fileValidationError
+                }
+
+            }
                 let dataObj = req.body;
                 if (req.file) {
                     dataObj.image = `${constant.BASE_URL}${req.body.typename}/${req.file.filename}`;

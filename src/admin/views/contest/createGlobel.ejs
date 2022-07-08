@@ -93,6 +93,21 @@
                       </div>
                       <div class="col-md-6">
                         <div class="form-group my-3">
+                          <label class="label-control text-bold fs-13">Amount Type*</label><br>
+                          <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" name="amount_type" checked="" value="price" id="customRadio1_amount_type"
+                              class="custom-control-input">
+                            <label class="custom-control-label fs-15" for="customRadio1_amount_type">Price</label>
+                          </div>
+                          <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" name="amount_type" value="prize" id="customRadio2_amount_type"
+                              class="custom-control-input">
+                            <label class="custom-control-label fs-15" for="customRadio2_amount_type">Prize</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group my-3">
                           <label class="label-control text-bold">Entry Fee*</label>
                           <input type="number" onkeypress="return isNumberKey(event)" id="first-name" min="0" class="form-control form-control-solid"
                             placeholder="Enter Entry Fee" name="entryfee" value="" required="" autocomplete="off">
