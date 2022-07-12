@@ -136,15 +136,16 @@ router.get('/viewtransactions/:id', auth, getUrl, userManagerController.viewtran
 router.post('/viewTransactions-Data-Table/:id', auth, userManagerController.viewTransactionsDataTable);
 router.get('/editUserDetails-page/:id', auth, getUrl, userManagerController.editUserDetails_page);
 router.post('/edituserdetails', auth, upload.single('image'), userManagerController.edituserdetails);
-router.get('/userswallet', auth, getUrl, userManagerController.userswallet);
+router.get('/userswallet', auth,  getUrl, userManagerController.userswallet);
 router.post('/userswallet_table', auth, userManagerController.userswallet_table);
-router.get('/wallet-list', auth, getUrl, userManagerController.wallet_list);
-router.get('/adminwallet', auth, getUrl, userManagerController.adminwallet);
+router.get('/wallet-list', auth,  getUrl, userManagerController.wallet_list);
+router.get('/adminwallet', auth,  getUrl, userManagerController.adminwallet);
 router.get('/getUserDetails/:id', auth, getUrl, userManagerController.getUserDetails);
 router.post('/addMoneyInWallet', auth, userManagerController.addmoneyinwallet);
 router.post('/deductmoneyinWallet', auth, userManagerController.deductmoneyinwallet);
 router.post('/adminwallet-dataTable', auth, userManagerController.adminwallet_dataTable);
-router.get("/downloadalluserdetails/:id",auth,userManagerController.downloadalluserdetails);
+router.get("/downloadalluserdetails/:id", auth, userManagerController.downloadalluserdetails);
+router.get("/changeYotuberStatus/:userId",auth, userManagerController.changeYotuberStatus);
 
 //----------verifyManager--------//
 

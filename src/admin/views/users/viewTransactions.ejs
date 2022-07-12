@@ -1,282 +1,416 @@
-<%- include("../../partials/head") %>
+<%- include("../../partials/head") %> <%-
+include("../../partials/bodyStartWithNavBar/") %> <%-
+include("../../partials/sideNav") %>
 
-    <%- include("../../partials/bodyStartWithNavBar/") %>
-        <%- include("../../partials/sideNav") %>
-
-            <div id="layoutSidenav_content">
-                <main>
-
-                    <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
-                        <div class="container-fluid">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <div class="page-header-content">
-                                        <h1 class="page-header-title fs-md-35 fs-20">
-                                            <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
-                                            <span class=" text-capitalize">
-                                                User Manager
-                                            </span>
-                                        </h1>
-                                        <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
-                                            User Transactions
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-auto mb-md-0 mb-3">
-                                </div>
-                            </div>
+<div id="layoutSidenav_content">
+  <main>
+    <div class="page-header pb-10 page-header-dark bg-danger">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          <div class="col">
+            <div class="page-header-content">
+              <h1 class="page-header-title fs-md-35 fs-20">
+                <div class="page-header-icon">
+                  <i class="fad fa-at text-white"></i>
+                </div>
+                <span class="text-capitalize"> User Manager </span>
+              </h1>
+              <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                User Transactions
+              </div>
+            </div>
+          </div>
+          <div class="col-auto mb-md-0 mb-3"></div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid mt-n10">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card mb-3">
+            <div class="card-heading p-3">
+              <form
+                method="GET"
+                action="/viewtransactions/<%=findTransactionsId %>"
+              >
+                <div class="sbp-preview position-relative">
+                  <div class="form-group">
+                    <div class="row mx-0">
+                      <input
+                        type="hidden"
+                        value="<%=findTransactionsId %>"
+                        name="findID"
+                        id="findID"
+                      />
+                      <div class="col-md">
+                        <div class="form-group my-3">
+                          <label for="start_date" class="">Start Date</label>
+                          <% if(start_date) {%>
+                          <input
+                            value="<%=start_date %>"
+                            class="form-control form-control-solid datetimepickerget"
+                            autocomplete="off"
+                            name="start_date"
+                            type="text"
+                            id="start_date"
+                            placeholder="Enter Start Date"
+                          />
+                          <%}else{ %>
+                          <input
+                            class="form-control form-control-solid datetimepickerget"
+                            autocomplete="off"
+                            name="start_date"
+                            type="text"
+                            id="start_date"
+                            placeholder="Enter Start Date"
+                          />
+                          <% }%>
                         </div>
+                      </div>
+                      <div class="col-md">
+                        <div class="form-group my-3">
+                          <label for="end_date" class="">End Date</label>
+                          <% if(end_date) {%>
+                          <input
+                            value="<%=end_date %>"
+                            class="form-control form-control-solid datetimepickerget"
+                            autocomplete="off"
+                            name="end_date"
+                            type="text"
+                            id="end_date"
+                            placeholder="Enter Start Date"
+                          />
+                          <%}else{ %>
+                          <input
+                            class="form-control form-control-solid datetimepickerget"
+                            autocomplete="off"
+                            name="end_date"
+                            type="text"
+                            id="end_date"
+                            placeholder="Enter Start Date"
+                          />
+                          <% }%>
+                        </div>
+                      </div>
+                      <div class="col-md-auto mt-5">
+                        <button class="btn btn-sm btn-success text-uppercase">
+                          <i class="far fa-check-circle"></i>&nbsp;Submit
+                        </button>
+                        <a
+                          href="/viewtransactions/<%=findTransactionsId %>"
+                          class="btn btn-sm btn-warning text-uppercase"
+                          ><i class="far fa-undo"></i>&nbsp; Reset</a
+                        >
+                      </div>
                     </div>
-                    <div class="container-fluid mt-n10">
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="card mb-3">
-                                    <div class="card-heading p-3">
-                                        <form method="GET" action="/viewtransactions/<%=findTransactionsId %>">
-                                            <div class="sbp-preview position-relative">
-                                                <div class="form-group">
-                                                    <div class="row mx-0">
-                                                        <input type="hidden" value="<%=findTransactionsId %>"
-                                                            name="findID" id="findID">
-                                                        <div class="col-md">
-                                                            <div class="form-group my-3">
-                                                                <label for="start_date" class="">Start Date</label>
-                                                                <% if(start_date) {%>
-                                                                    <input value="<%=start_date %>"
-                                                                        class="form-control form-control-solid datetimepickerget"
-                                                                        autocomplete="off" name='start_date' type="text"
-                                                                        id="start_date" placeholder="Enter Start Date">
-                                                                    <%}else{ %>
-                                                                        <input
-                                                                            class="form-control form-control-solid datetimepickerget"
-                                                                            autocomplete="off" name='start_date'
-                                                                            type="text" id="start_date"
-                                                                            placeholder="Enter Start Date">
-                                                                        <% }%>
+      <div class="card mb-4">
+        <div class="card-header">View User Transactions</div>
+        <div class="card-body">
+          <div class="datatable table-responsive">
+            <div class="row w-100 align-items-center mx-0">
+              <div
+                class="col-md col-12 mb-md-0 mb-2 text-md-left text-center"
+              ></div>
+              <div class="col-md-auto col-12 px-md-3 px-0 text-center">
+                <form
+                  action="/downloadalluserdetails/<%=findTransactionsId %>"
+                  method="get"
+                >
+                  <input
+                    type="hidden"
+                    value="<%=findTransactionsId %>"
+                    name="findID"
+                    id="findID"
+                  />
 
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md">
-                                                            <div class="form-group my-3">
-                                                                <label for="end_date" class="">End Date</label>
-                                                                <% if(end_date) {%>
-                                                                    <input value="<%=end_date %>"
-                                                                        class="form-control form-control-solid datetimepickerget"
-                                                                        autocomplete="off" name='end_date' type="text"
-                                                                        id="end_date" placeholder="Enter Start Date">
-                                                                    <%}else{ %>
-                                                                        <input
-                                                                            class="form-control form-control-solid datetimepickerget"
-                                                                            autocomplete="off" name='end_date'
-                                                                            type="text" id="end_date"
-                                                                            placeholder="Enter Start Date">
-                                                                        <% }%>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-auto mt-5">
-                                                            <button class="btn btn-sm btn-success text-uppercase"><i
-                                                                    class="far fa-check-circle"></i>&nbsp;Submit</button>
-                                                            <a href="/viewtransactions/<%=findTransactionsId %>"
-                                                                class="btn btn-sm btn-warning text-uppercase"><i
-                                                                    class="far fa-undo"></i>&nbsp; Reset</a>
+                  <% if(start_date) {%>
+                  <input
+                    value="<%=start_date %>"
+                    class="form-control form-control-solid datetimepickerget"
+                    autocomplete="off"
+                    name="start_date"
+                    type="hidden"
+                    id="start_date"
+                    placeholder="Enter Start Date"
+                  />
+                  <%}else{ %>
+                  <input
+                    class="form-control form-control-solid datetimepickerget"
+                    autocomplete="off"
+                    name="start_date"
+                    type="hidden"
+                    id="start_date"
+                    placeholder="Enter Start Date"
+                  />
+                  <% }%> <% if(end_date) {%>
+                  <input
+                    value="<%=end_date %>"
+                    class="form-control form-control-solid datetimepickerget"
+                    autocomplete="off"
+                    name="end_date"
+                    type="hidden"
+                    id="end_date"
+                    placeholder="Enter Start Date"
+                  />
+                  <%}else{ %>
+                  <input
+                    class="form-control form-control-solid datetimepickerget"
+                    autocomplete="off"
+                    name="end_date"
+                    type="hidden"
+                    id="end_date"
+                    placeholder="Enter Start Date"
+                  />
+                  <% }%>
+                  <button
+                    type="submit"
+                    class="btn btn-secondary text-uppercase btn-sm rounded-pill"
+                    font-weight-600
+                    data-toggle="tooltip"
+                    title="Download All Users Details"
+                  >
+                    <i class="fas fa-download"></i>&nbsp; Download
+                  </button>
+                </form>
+              </div>
+            </div>
+            <div class="datatable table-responsive">
+              <table
+                class="table table-bordered table-hover text-nowrap"
+                id="viewtransactions_table"
+                width="100%"
+                cellspacing="0"
+              >
+                <input
+                  type="hidden"
+                  id="challengeid"
+                  name="challengeid"
+                  value="<%= challengeid %>"
+                />
+                <thead>
+                  <tr>
+                    <th rowspan="2" data-toggle="tooltip" title="Serial Number">
+                      S.No
+                    </th>
+                    <th rowspan="2">Date & Time</th>
+                    <th rowspan="2" data-toggle="tooltip" title="Amount">
+                      Amt
+                    </th>
+                    <th colspan="2" class="text-center text-dark">
+                      Transaction
+                    </th>
+                    <th colspan="3" class="text-center text-dark">Bonus</th>
+                    <th colspan="3" class="text-center text-dark">Winning</th>
+                    <th colspan="3" class="text-center text-dark">Balance</th>
+                    <th rowspan="2">Total</th>
+                  </tr>
+                  <tr>
+                    <th class="text-center">Type</th>
+                    <th class="text-center">Reason</th>
+                    <th
+                      class="text-center"
+                      data-toggle="tooltip"
+                      title="Available"
+                    >
+                      AVL
+                    </th>
+                    <th
+                      class="text-center"
+                      data-toggle="tooltip"
+                      title="Credit"
+                    >
+                      Cr
+                    </th>
+                    <th class="text-center" data-toggle="tooltip" title="Debit">
+                      Dr
+                    </th>
+                    <th
+                      class="text-center"
+                      data-toggle="tooltip"
+                      title="Available"
+                    >
+                      AVL
+                    </th>
+                    <th
+                      class="text-center"
+                      data-toggle="tooltip"
+                      title="Credit"
+                    >
+                      Cr
+                    </th>
+                    <th class="text-center" data-toggle="tooltip" title="Debit">
+                      Dr
+                    </th>
+                    <th
+                      class="text-center"
+                      data-toggle="tooltip"
+                      title="Available"
+                    >
+                      AVL
+                    </th>
+                    <th
+                      class="text-center"
+                      data-toggle="tooltip"
+                      title="Credit"
+                    >
+                      Cr
+                    </th>
+                    <th class="text-center" data-toggle="tooltip" title="Debit">
+                      Dr
+                    </th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                  <tr>
+                    <th rowspan="2" data-toggle="tooltip" title="Serial Number">
+                      S.No
+                    </th>
+                    <th rowspan="2">Date & Time</th>
+                    <th rowspan="2" data-toggle="tooltip" title="Amount">
+                      Amt
+                    </th>
+                    <th class="text-center">Type</th>
+                    <th class="text-center">Reason</th>
+                    <th
+                      class="text-center"
+                      data-toggle="tooltip"
+                      title="Available"
+                    >
+                      AVL
+                    </th>
+                    <th
+                      class="text-center"
+                      data-toggle="tooltip"
+                      title="Credit"
+                    >
+                      Cr
+                    </th>
+                    <th class="text-center" data-toggle="tooltip" title="Debit">
+                      Dr
+                    </th>
+                    <th
+                      class="text-center"
+                      data-toggle="tooltip"
+                      title="Available"
+                    >
+                      AVL
+                    </th>
+                    <th
+                      class="text-center"
+                      data-toggle="tooltip"
+                      title="Credit"
+                    >
+                      Cr
+                    </th>
+                    <th class="text-center" data-toggle="tooltip" title="Debit">
+                      Dr
+                    </th>
+                    <th
+                      class="text-center"
+                      data-toggle="tooltip"
+                      title="Available"
+                    >
+                      AVL
+                    </th>
+                    <th
+                      class="text-center"
+                      data-toggle="tooltip"
+                      title="Credit"
+                    >
+                      Cr
+                    </th>
+                    <th class="text-center" data-toggle="tooltip" title="Debit">
+                      Dr
+                    </th>
+                    <th rowspan="2">Total</th>
+                  </tr>
+                  <tr>
+                    <th colspan="2" class="text-center text-dark">
+                      Transaction
+                    </th>
+                    <th colspan="3" class="text-center text-dark">Bonus</th>
+                    <th colspan="3" class="text-center text-dark">Winning</th>
+                    <th colspan="3" class="text-center text-dark">Balance</th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card mb-4">
-                            <div class="card-header">View User Transactions</div>
-                            <div class="card-body">
-                                <div class="datatable table-responsive">
-                                    <div class="row w-100 align-items-center mx-0">
-                                        <div class="col-md col-12 mb-md-0 mb-2 text-md-left text-center"></div>
-                                        <div class="col-md-auto col-12 px-md-3 px-0 text-center">
-                                            <form action="/downloadalluserdetails/<%=findTransactionsId %>"
-                                                method="get">
-                                                <input type="hidden" value="<%=findTransactionsId %>" name="findID"
-                                                    id="findID">
-
-                                                <% if(start_date) {%>
-                                                    <input value="<%=start_date %>"
-                                                        class="form-control form-control-solid datetimepickerget"
-                                                        autocomplete="off" name='start_date' type="hidden"
-                                                        id="start_date" placeholder="Enter Start Date">
-                                                    <%}else{ %>
-                                                        <input class="form-control form-control-solid datetimepickerget"
-                                                            autocomplete="off" name='start_date' type="hidden"
-                                                            id="start_date" placeholder="Enter Start Date">
-                                                        <% }%>
-                                                            <% if(end_date) {%>
-                                                                <input value="<%=end_date %>"
-                                                                    class="form-control form-control-solid datetimepickerget"
-                                                                    autocomplete="off" name='end_date' type="hidden"
-                                                                    id="end_date" placeholder="Enter Start Date">
-                                                            <%}else{ %>
-                                                                    <input
-                                                                        class="form-control form-control-solid datetimepickerget"
-                                                                        autocomplete="off" name='end_date' type="hidden"
-                                                                        id="end_date" placeholder="Enter Start Date">
-                                                                    <% }%>
-                                                                        <button type="submit"
-                                                                            class="btn btn-secondary text-uppercase btn-sm rounded-pill"
-                                                                            font-weight-600 data-toggle="tooltip"
-                                                                            title="Download All Users Details"><i
-                                                                                class="fas fa-download"></i>&nbsp;
-                                                                            Download
-                                                                        </button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <div class="datatable table-responsive">
-                                        <table class="table table-bordered table-hover text-nowrap"
-                                            id="viewtransactions_table" width="100%" cellspacing="0">
-                                            <input type="hidden" id="challengeid" name="challengeid" value="<%= challengeid %>">
-                                            <thead>
-                                                <tr>
-
-                                                    <th rowspan="2" data-toggle="tooltip" title="Serial Number">S.No
-                                                    </th>
-                                                    <th rowspan="2">Date & Time</th>
-                                                    <th rowspan="2" data-toggle="tooltip" title="Amount">Amt</th>
-                                                    <th colspan="2" class="text-center text-dark">Transaction</th>
-                                                    <th colspan="3" class="text-center text-dark">Bonus</th>
-                                                    <th colspan="3" class="text-center text-dark">Winning</th>
-                                                    <th colspan="3" class="text-center text-dark">Balance</th>
-                                                    <th rowspan="2">Total</th>
-                                                </tr>
-                                                <tr>
-                                                    <th class="text-center">Type</th>
-                                                    <th class="text-center">Reason</th>
-                                                    <th class="text-center" data-toggle="tooltip" title="Available">AVL
-                                                    </th>
-                                                    <th class="text-center" data-toggle="tooltip" title="Credit">Cr</th>
-                                                    <th class="text-center" data-toggle="tooltip" title="Debit">Dr</th>
-                                                    <th class="text-center" data-toggle="tooltip" title="Available">AVL
-                                                    </th>
-                                                    <th class="text-center" data-toggle="tooltip" title="Credit">Cr</th>
-                                                    <th class="text-center" data-toggle="tooltip" title="Debit">Dr</th>
-                                                    <th class="text-center" data-toggle="tooltip" title="Available">AVL
-                                                    </th>
-                                                    <th class="text-center" data-toggle="tooltip" title="Credit">Cr</th>
-                                                    <th class="text-center" data-toggle="tooltip" title="Debit">Dr</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                            <tfoot>
-                                                <tr>
-                                                    <th rowspan="2" data-toggle="tooltip" title="Serial Number">S.No
-                                                    </th>
-                                                    <th rowspan="2">Date & Time</th>
-                                                    <th rowspan="2" data-toggle="tooltip" title="Amount">Amt</th>
-                                                    <th class="text-center">Type</th>
-                                                    <th class="text-center">Reason</th>
-                                                    <th class="text-center" data-toggle="tooltip" title="Available">AVL
-                                                    </th>
-                                                    <th class="text-center" data-toggle="tooltip" title="Credit">Cr</th>
-                                                    <th class="text-center" data-toggle="tooltip" title="Debit">Dr</th>
-                                                    <th class="text-center" data-toggle="tooltip" title="Available">AVL
-                                                    </th>
-                                                    <th class="text-center" data-toggle="tooltip" title="Credit">Cr</th>
-                                                    <th class="text-center" data-toggle="tooltip" title="Debit">Dr</th>
-                                                    <th class="text-center" data-toggle="tooltip" title="Available">AVL
-                                                    </th>
-                                                    <th class="text-center" data-toggle="tooltip" title="Credit">Cr</th>
-                                                    <th class="text-center" data-toggle="tooltip" title="Debit">Dr</th>
-                                                    <th rowspan="2">Total</th>
-                                                </tr>
-                                                <tr>
-                                                    <th colspan="2" class="text-center text-dark">Transaction</th>
-                                                    <th colspan="3" class="text-center text-dark">Bonus</th>
-                                                    <th colspan="3" class="text-center text-dark">Winning</th>
-                                                    <th colspan="3" class="text-center text-dark">Balance</th>
-                                                </tr>
-                                            </tfoot>
-                                        </table>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <script type="text/javascript">
-                            $(document).ready(function () {
-                                var ID = $('#findID').val();
-                                var start_date = $('#start_date').val();
-                                var end_date = $('#end_date').val();
-                                var challengeid = $('#challengeid').val();
-                                // var fantasy_type = $('#fantasy_type').val();
-                                $.fn.dataTable.ext.errMode = 'none';
-                                $('#viewtransactions_table').DataTable({
-                                    searching: false,
-                                    serverSide: true,
-                                    language: {
+      <script type="text/javascript">
+        $(document).ready(function () {
+          var ID = $("#findID").val();
+          var start_date = $("#start_date").val();
+          var end_date = $("#end_date").val();
+          var challengeid = $("#challengeid").val();
+          // var fantasy_type = $('#fantasy_type').val();
+          $.fn.dataTable.ext.errMode = "none";
+          $("#viewtransactions_table").DataTable({
+            searching: false,
+            language: {
               zeroRecords: "No records to display",
             },
-                                    ajax: {
-                                        url: `/viewTransactions-Data-Table/${ID}?start_date=${start_date}&end_date=${end_date}&challengeid=${challengeid}`,
-                                        type: 'post',
-                                    },
-                                    "lengthMenu": [
-                                        [10, 25, 50, 100, 1000, 10000],
-                                        [10, 25, 50, 100, 1000, 10000],
-                                    ],
-                                    columns: [
-                                        { data: "id" },
-                                        { data: "date" },
-                                        { data: "amt" },
-                                        { data: "ttype" },
-                                        { data: "treason" },
-                                        { data: "bonusA" },
-                                        { data: "bonusC" },
-                                        { data: "bonusD" },
-                                        { data: "winningA" },
-                                        { data: "winningC" },
-                                        { data: "winningD" },
-                                        { data: "balanceA" },
-                                        { data: "balanceC" },
-                                        { data: "balanceD" },
-                                        { data: "total" },
-                                    ]
-                                })
-
-
-                            });
-                        </script>
-
-                    </div>
-                </main>
-                <%- include("../../partials/footer") %>
-            </div>
-            <script>
-
-                $(window).on('load', function () {
-
-                    $('#preloader_admin').hide();
-
-                })
-
-            </script>
-            <script type="text/javascript">
-                $.datetimepicker.setLocale('en');
-                $('.datetimepickerget').datetimepicker({
-                    lang: 'en',
-                    formatDate: 'd.m.Y',
-                    step: 5,
-                    startDate: new Date()
-                });
-            </script>
-            <script type="text/javascript">
-                $('.datepicker').datepicker({
-                    lang: 'en',
-                    formatDate: 'd.m.Y',
-                    step: 5,
-                });
-            </script>
+            ajax: {
+              url: `/viewTransactions-Data-Table/${ID}?start_date=${start_date}&end_date=${end_date}&challengeid=${challengeid}`,
+              type: "post",
+            },
+            lengthMenu: [
+              [10, 25, 50, 100, 1000, 10000],
+              [10, 25, 50, 100, 1000, 10000],
+            ],
+            columns: [
+              { data: "id" },
+              { data: "date" },
+              { data: "amt" },
+              { data: "ttype" },
+              { data: "treason" },
+              { data: "bonusA" },
+              { data: "bonusC" },
+              { data: "bonusD" },
+              { data: "winningA" },
+              { data: "winningC" },
+              { data: "winningD" },
+              { data: "balanceA" },
+              { data: "balanceC" },
+              { data: "balanceD" },
+              { data: "total" },
+            ],
+          });
+        });
+      </script>
+    </div>
+  </main>
+  <%- include("../../partials/footer") %>
+</div>
+<script>
+  $(window).on("load", function () {
+    $("#preloader_admin").hide();
+  });
+</script>
+<script type="text/javascript">
+  $.datetimepicker.setLocale("en");
+  $(".datetimepickerget").datetimepicker({
+    lang: "en",
+    formatDate: "d.m.Y",
+    step: 5,
+    startDate: new Date(),
+  });
+</script>
+<script type="text/javascript">
+  $(".datepicker").datepicker({
+    lang: "en",
+    formatDate: "d.m.Y",
+    step: 5,
+  });
+</script>

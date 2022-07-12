@@ -1,290 +1,352 @@
-<%- include("../../partials/head") %>
-
-<%- include("../../partials/bodyStartWithNavBar/") %>
-<%- include("../../partials/sideNav") %>
-        <div id="layoutSidenav_content">
-            <main>
-
-                <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
-                    <div class="container-fluid">
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <div class="page-header-content">
-                                    <h1 class="page-header-title fs-md-35 fs-20">
-
-                                        <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
-                                        <span class=" text-capitalize">
-                                                User Manager
-                                        </span>
-                                    </h1>
-                                    <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
-                                            User Wallet
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-auto mb-md-0 mb-3">
-                                                            </div>
-                        </div>
-                    </div>
+<%- include("../../partials/head") %> <%-
+include("../../partials/bodyStartWithNavBar/") %> <%-
+include("../../partials/sideNav") %>
+<div id="layoutSidenav_content">
+  <main>
+    <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          <div class="col">
+            <div class="page-header-content">
+              <h1 class="page-header-title fs-md-35 fs-20">
+                <div class="page-header-icon">
+                  <i class="fad fa-at text-white"></i>
                 </div>
-                <div class="container-fluid mt-n10">
-                    <div class="row">
-    <div class="col-md-12">
-      <div class="card mb-3">
-        <div class="card-heading p-3">
-          <form method="get" action="/userswallet">
-                        <div class="sbp-preview position-relative">
-                    <div class="form-group">
-                        <div class="row mx-0 align-items-end">
-
-                            <!-- <div class="col-md-4">
-                            </div> -->
-                            <div class="col-md-2">
-                                <div class="form-group my-3">
-                                    <label for="Username" class="control-label text-bold">Username</label>
-                                    <% if(name) {%>              
-     <input value="<%=name %>" placeholder="Search By Name" id="name" class="form-control form-control-solid" name="name" type="text">                
-     <%}else{ %>
-      <input placeholder="Search By Name" id="name" class="form-control form-control-solid" name="name" type="text">
-      <% }%>
-    </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group my-3">
-                                    <label for="Email" class="control-label text-bold">Email</label>
-                                    <% if(email) {%>
-      <input value="<%=email %>" placeholder="Search By Email" id="email" class="form-control form-control-solid" name="email" type="text">
-      <%}else{ %>
-        <input placeholder="Search By Email" id="email" class="form-control form-control-solid" name="email" type="text">
-        <% }%>
-    </div>
-                            </div>
-                            <div class="col-md">
-                                <div class="form-group my-3">
-                                    <label for="Mobile" class="control-label text-bold">Mobile</label>
-                                    <% if(mobile) {%>
-    <input value="<%=mobile %>" placeholder="Search By Mobile" id="mobile" class="form-control form-control-solid"  maxlength="10"name="mobile" type="number">
-    <%}else{ %>
-      <input placeholder="Search By Mobile" id="mobile" class="form-control form-control-solid"  maxlength="10"name="mobile" type="number">
-      <% }%>
-
-                                </div>
-                            </div>
-                            <div class="col-md">
-                                <div class="form-group my-3">
-                                    <label for="Team name" class="control-label text-bold">Team name</label>
-                                    <% if(team) {%>             
-        <input value="<%=team %>" placeholder="Search By Team Name" id="team" class="form-control form-control-solid" name="team" type="text">
-        <%}else{ %>
-          <input placeholder="Search By Team Name" id="team" class="form-control form-control-solid" name="team" type="text">
-
-          <% }%>
-
-                                </div>
-                            </div>
-                            <div class="col-md-auto text-right mb-md-3">
-                              <button class="btn btn-sm btn-success text-uppercase"><i class="far fa-check-circle"></i>&nbsp;Submit</button>
-                                <a href="/userswallet" class="btn text-uppercase rounded-pill btn-sm btn-warning"><i class="far fa-undo" ></i>&nbsp; Reset</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
+                <span class="text-capitalize"> User Manager </span>
+              </h1>
+              <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                User Wallet
+              </div>
+            </div>
+          </div>
+          <div class="col-auto mb-md-0 mb-3"></div>
         </div>
       </div>
     </div>
-</div>
+    <div class="container-fluid mt-n10">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card mb-3">
+            <div class="card-heading p-3">
+              <form method="get" action="/userswallet">
+                <div class="sbp-preview position-relative">
+                  <div class="form-group">
+                    <div class="row mx-0 align-items-end">
+                      <!-- <div class="col-md-4">
+                                                        </div> -->
+                      <div class="col-md-2">
+                        <div class="form-group my-3">
+                          <label for="Username" class="control-label text-bold"
+                            >Username</label
+                          >
+                          <% if(name) {%>
+                          <input
+                            value="<%=name %>"
+                            placeholder="Search By Name"
+                            id="name"
+                            class="form-control form-control-solid"
+                            name="name"
+                            type="text"
+                          />
+                          <%}else{ %>
+                          <input
+                            placeholder="Search By Name"
+                            id="name"
+                            class="form-control form-control-solid"
+                            name="name"
+                            type="text"
+                          />
+                          <% }%>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group my-3">
+                          <label for="Email" class="control-label text-bold"
+                            >Email</label
+                          >
+                          <% if(email) {%>
+                          <input
+                            value="<%=email %>"
+                            placeholder="Search By Email"
+                            id="email"
+                            class="form-control form-control-solid"
+                            name="email"
+                            type="text"
+                          />
+                          <%}else{ %>
+                          <input
+                            placeholder="Search By Email"
+                            id="email"
+                            class="form-control form-control-solid"
+                            name="email"
+                            type="text"
+                          />
+                          <% }%>
+                        </div>
+                      </div>
+                      <div class="col-md">
+                        <div class="form-group my-3">
+                          <label for="Mobile" class="control-label text-bold"
+                            >Mobile</label
+                          >
+                          <% if(mobile) {%>
+                          <input
+                            value="<%=mobile %>"
+                            placeholder="Search By Mobile"
+                            id="mobile"
+                            class="form-control form-control-solid"
+                            maxlength="10"
+                            name="mobile"
+                            type="number"
+                          />
+                          <%}else{ %>
+                          <input
+                            placeholder="Search By Mobile"
+                            id="mobile"
+                            class="form-control form-control-solid"
+                            maxlength="10"
+                            name="mobile"
+                            type="number"
+                          />
+                          <% }%>
+                        </div>
+                      </div>
+                      <div class="col-md">
+                        <div class="form-group my-3">
+                          <label for="Team name" class="control-label text-bold"
+                            >Team name</label
+                          >
+                          <% if(team) {%>
+                          <input
+                            value="<%=team %>"
+                            placeholder="Search By Team Name"
+                            id="team"
+                            class="form-control form-control-solid"
+                            name="team"
+                            type="text"
+                          />
+                          <%}else{ %>
+                          <input
+                            placeholder="Search By Team Name"
+                            id="team"
+                            class="form-control form-control-solid"
+                            name="team"
+                            type="text"
+                          />
 
-<div class="card mb-4">
-    <div class="card-header">View Users Wallet</div>
-    <div class="card-body">
-
-                <script>
-$(window).on("load", function() {
-
-    var success = '';
-    var danger = '';
-    var error = '';
-    var warning = '';
-
-    if(success) {
-        $("#toastBasic4").toast('show');
-    }
-    
-    if(danger || error) {
-        $("#toastBasic3").toast('show');
-    }
-    
-    if(warning) {
-        $("#toastBasic2").toast('show');
-    }
-});
-</script>
-
-
-        <div class="datatable table-responsive">
-            <table class="table table-bordered table-hover text-nowrap" id="userswallet_table" width="100%" cellspacing="0">
-                <thead>
-            <tr>
-              <th data-toggle="tooltip" title="Serial Number">#</th>
-              <th data-toggle="tooltip" title="User ID">ID</th>
-              <th data-toggle="tooltip" title="User Name">U. Name</th>
-              <th>Team</th>
-              <th>Email</th>
-              <th>Mobile No.</th>
-              <th data-toggle="tooltip" title="Current Date">C. Date</th>
-              <th>Unutilized</th>
-              <th>Winning</th>
-              <th data-toggle="tooltip" title="Cash Bonus">C. Bonus</th>
-              <th data-toggle="tooltip" title="Total Bonus">T. Bonus</th>
-            </tr>
-            </thead>
-             <tbody>
-          </tbody>
-          <tfoot>
-              <tr>
-            <th data-toggle="tooltip" title="Serial Number">#</th>
-              <th data-toggle="tooltip" title="User ID">ID</th>
-              <th data-toggle="tooltip" title="User Name">U. Name</th>
-              <th>Team</th>
-              <th>Email</th>
-              <th>Mobile No.</th>
-              <th data-toggle="tooltip" title="Current Date">C. Date</th>
-              <th>Unutilized</th>
-              <th>Winning</th>
-              <th data-toggle="tooltip" title="Cash Bonus">C. Bonus</th>
-              <th data-toggle="tooltip" title="Total Bonus">T. Bonus</th>
-              </tr>
-              <tr>
-                  <th class="font-weight-900 text-dark">Total</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th class="font-weight-900 text-dark">Rs.<%= totalBalance %></th>
-                    <th class="font-weight-900 text-dark">Rs.<%= totalWinning %></th>
-                    <th class="font-weight-900 text-dark">Rs.<%= totalBonus %></th>
-                    <th class="font-weight-900 text-dark">Rs.<%= finalTotal %></th>
-              </tr>
-          </tfoot>
-            </table>
+                          <% }%>
+                        </div>
+                      </div>
+                      <div class="col-md-auto text-right mb-md-3">
+                        <button class="btn btn-sm btn-success text-uppercase">
+                          <i class="far fa-check-circle"></i>&nbsp;Submit
+                        </button>
+                        <a
+                          href="/userswallet"
+                          class="btn text-uppercase rounded-pill btn-sm btn-warning"
+                          ><i class="far fa-undo"></i>&nbsp; Reset</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
-    </div>
-</div>
+      </div>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-    var name = $('#name').val();
-    var email = $('#email').val();
-    var mobile = $('#mobile').val();
-    var team = $('#team').val();
-    $.fn.dataTable.ext.errMode = 'none';
-        $('#userswallet_table').DataTable({
-          searching:false,
-          processing: false,
-          language: {
+      <div class="card mb-4">
+        <div class="card-header">View Users Wallet</div>
+        <div class="card-body">
+          <div class="datatable table-responsive">
+            <table
+              class="table table-bordered table-striped table-hover text-nowrap display"
+              id="userswallet_table"
+              width="100%"
+              cellspacing="0"
+            >
+              <thead>
+                <tr>
+                  <th data-toggle="tooltip" title="Serial Number">#</th>
+                  <th data-toggle="tooltip" title="User ID">ID</th>
+                  <th data-toggle="tooltip" title="User Name">U. Name</th>
+                  <th>Team</th>
+                  <th>Email</th>
+                  <th>Mobile No.</th>
+                  <th data-toggle="tooltip" title="Current Date">C. Date</th>
+                  <th>Unutilized</th>
+                  <th>Winning</th>
+                  <th data-toggle="tooltip" title="Cash Bonus">C. Bonus</th>
+                  <th data-toggle="tooltip" title="Total Bonus">T. Bonus</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+              <tfoot>
+                <tr>
+                  <th data-toggle="tooltip" title="Serial Number">#</th>
+                  <th data-toggle="tooltip" title="User ID">ID</th>
+                  <th data-toggle="tooltip" title="User Name">U. Name</th>
+                  <th>Team</th>
+                  <th>Email</th>
+                  <th>Mobile No.</th>
+                  <th data-toggle="tooltip" title="Current Date">C. Date</th>
+                  <th>Unutilized</th>
+                  <th>Winning</th>
+                  <th data-toggle="tooltip" title="Cash Bonus">C. Bonus</th>
+                  <th data-toggle="tooltip" title="Total Bonus">T. Bonus</th>
+                </tr>
+                <tr>
+                  <th class="font-weight-900 text-dark">Total</th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th class="font-weight-900 text-dark">
+                    Rs.<%= totalBalance %>
+                  </th>
+                  <th class="font-weight-900 text-dark">
+                    Rs.<%= totalWinning %>
+                  </th>
+                  <th class="font-weight-900 text-dark">
+                    Rs.<%= totalBonus %>
+                  </th>
+                  <th class="font-weight-900 text-dark">
+                    Rs.<%= finalTotal %>
+                  </th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      
+
+      <script type="text/javascript">
+        $(document).ready(function () {
+          var name = $("#name").val();
+          var email = $("#email").val();
+          var mobile = $("#mobile").val();
+          var team = $("#team").val();
+          $.fn.dataTable.ext.errMode = "none";
+          $("#userswallet_table").DataTable({
+            searching: false,
+            language: {
               zeroRecords: "No records to display",
             },
-          ajax:{
-                    url: '/userswallet_table?name='+name+'&email='+email+'&mobile='+mobile+'&team='+team,
-                    type: "POST",
-                   },
+            ajax: {
+              url:
+                "/userswallet_table?name=" +
+                name +
+                "&email=" +
+                email +
+                "&mobile=" +
+                mobile +
+                "&team=" +
+                team,
+              type: "POST",
+            },
             columns: [
-                { data: "id" },
-                { data: "userid" },
-                { data: "username" },
-                { data: "team" },
-                { data: "email" },
-                { data: "mobile" },
-                { data: "date" },
-                { data: "balance"},
-                { data: "winning"},
-                { data: "bonus"},
-                { data: "total"},
-            ]
+              { data: "id" },
+              { data: "userid" },
+              { data: "username" },
+              { data: "team" },
+              { data: "email" },
+              { data: "mobile" },
+              { data: "date" },
+              { data: "balance" },
+              { data: "winning" },
+              { data: "bonus" },
+              { data: "total" },
+            ],
+          });
         });
-});
-</script>
-                </div>
-            </main>
-<%- include("../../partials/footer") %>
-
-<script>
-
-    $(window).on('load', function(){
-
-       $('#preloader_admin').hide();
-
-      })
-  </script>
-
-
-
+      </script>
+    </div>
+  </main>
+  <%- include("../../partials/footer") %>
 
   <script>
-      $(document).ready(function (){
-          var table = $('#dataTabless').DataTable({
-              'responsive': true
-          });
-  
-          // Handle click on "Expand All" button
-          $('#btn-show-all-children').on('click', function(){
-              // Expand row details
-              table.rows(':not(.parent)').nodes().to$().find('td:first-child').trigger('click');
-          });
-  
-          // Handle click on "Collapse All" button
-          $('#btn-hide-all-children').on('click', function(){
-              // Collapse row details
-              table.rows('.parent').nodes().to$().find('td:first-child').trigger('click');
-          });
+    $(window).on("load", function () {
+      $("#preloader_admin").hide();
+    });
+  </script>
+
+  <script>
+    $(document).ready(function () {
+      var table = $("#dataTabless").DataTable({
+        responsive: true,
       });
+
+      // Handle click on "Expand All" button
+      $("#btn-show-all-children").on("click", function () {
+        // Expand row details
+        table
+          .rows(":not(.parent)")
+          .nodes()
+          .to$()
+          .find("td:first-child")
+          .trigger("click");
+      });
+
+      // Handle click on "Collapse All" button
+      $("#btn-hide-all-children").on("click", function () {
+        // Collapse row details
+        table
+          .rows(".parent")
+          .nodes()
+          .to$()
+          .find("td:first-child")
+          .trigger("click");
+      });
+    });
   </script>
 
-<script>
-$(document).ready(function(){
-  
-if ($('#accordionSidenavPages a').hasClass('active')){
-  $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
-  $('#accordionSidenavPages a.active').parent().parent().addClass('show');
-  // console.log(id);
-} else {
-  $('#takeonebar').addClass('slamdown');
-}
-});
-
-</script>
-<script>
-  $( "#sortable, #sortable2" ).sortable();
-</script>
   <script>
-  $(".alert").delay(3000).fadeOut();
+    $(document).ready(function () {
+      if ($("#accordionSidenavPages a").hasClass("active")) {
+        $("#accordionSidenavPages a.active")
+          .parent()
+          .parent()
+          .prev("a")
+          .removeClass("collapsed");
+        $("#accordionSidenavPages a.active").parent().parent().addClass("show");
+        // console.log(id);
+      } else {
+        $("#takeonebar").addClass("slamdown");
+      }
+    });
   </script>
-<script>
-/*jslint browser:true*/
-/*global jQuery, document*/
 
-jQuery(document).ready(function () {
-    'use strict';
+  <script>
+    /*jslint browser:true*/
+    /*global jQuery, document*/
 
-    jQuery('#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date').datetimepicker();
-});
-</script>
+    jQuery(document).ready(function () {
+      "use strict";
 
-<script>
-function copyToClipboard(element,element1) {
-    var $temp = $("<input>");
-    $("body").append($temp);
-    $temp.val($(element).text()).select();
-    document.execCommand("copy");
-    $temp.remove();
+      jQuery(
+        "#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date"
+      ).datetimepicker();
+    });
+  </script>
 
-    $(element1).addClass("copied_success animated bounceIn");
-    setTimeout(RemoveClass, 1000);
-function RemoveClass() {
-    $(element1).removeClass("copied_success animated bounceIn");
-}
-}
-</script>
+  <script>
+    function copyToClipboard(element, element1) {
+      var $temp = $("<input>");
+      $("body").append($temp);
+      $temp.val($(element).text()).select();
+      document.execCommand("copy");
+      $temp.remove();
+
+      $(element1).addClass("copied_success animated bounceIn");
+      setTimeout(RemoveClass, 1000);
+      function RemoveClass() {
+        $(element1).removeClass("copied_success animated bounceIn");
+      }
+    }
+  </script>
+</div>
