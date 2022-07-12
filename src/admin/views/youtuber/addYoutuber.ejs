@@ -4,7 +4,7 @@
 <%- include("../../partials/sideNav") %>
 <div id="layoutSidenav_content">
     <main>
-        <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+        <div class="page-header pb-10 page-header-dark bg-danger">
             <div class="container-fluid">
                 <div class="row align-items-center">
                     <div class="col">
@@ -69,10 +69,10 @@
                   <label for="mobile">Mobile*</label>
                   <% if(data) {%>
                   <% if(data.mobile){%>
-                  <input value="<%=data.mobile %>" name="mobile" class="form-control form-control-solid" type="text" placeholder="Please Enter Mobile" id="mobile" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="10" pattern="[1-9]{1}[0-9]{9}" required="">
+                  <input value="<%=data.mobile %>" name="mobile" class="form-control form-control-solid" type="text" placeholder="Please Enter Mobile" id="mobile"  onkeypress="return isNumberKey(event)" pattern="[789][0-9]{9}" minlength="10" maxlength="10" required="">
                   <% }%>
                   <% }else{%>
-                  <input name="mobile" class="form-control form-control-solid" type="text" placeholder="Please Enter Mobile" id="mobile" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="10" pattern="[1-9]{1}[0-9]{9}" required="">
+                  <input name="mobile" class="form-control form-control-solid" type="text" placeholder="Please Enter Mobile" id="mobile"  onkeypress="return isNumberKey(event)" pattern="[789][0-9]{9}" minlength="10" maxlength="10" required="">
                   <% }%>
                 </div>
             </div>
@@ -105,10 +105,10 @@
                   <label for="percentage">Percentage*</label>
                   <% if(data) {%>
                   <% if(data.percentage){%>
-                  <input name="percentage" value="<%=data.percentage %>" class="form-control form-control-solid" id="percentage" type="text" placeholder="Please Enter Percentage" required="" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="3" >
+                  <input name="percentage" value="<%=data.percentage %>" max="100" min="0" class="form-control form-control-solid" id="percentage" type="number" placeholder="Please Enter Percentage" required="" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="3" >
                   <% }%>
                   <% }else{ %>
-                  <input name="percentage" class="form-control form-control-solid" id="percentage" type="text" placeholder="Please Enter Percentage" required="" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="3" >
+                  <input name="percentage" max="100" min="0" class="form-control form-control-solid" id="percentage" type="number" placeholder="Please Enter Percentage" required="" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="3" >
                   <% }%>
                 </div>
             </div>
@@ -191,7 +191,25 @@ if ($('#accordionSidenavPages a').hasClass('active')){
   step:5,
   });
   </script>
-
+<script>
+  function isNumberKey(evt){
+      //var e = evt || window.event;
+  
+     var charCode = (evt.which) ? evt.which : evt.keyCode
+      if (charCode != 46 && charCode > 31
+     && (charCode < 48 || charCode > 57))
+  
+       false;
+    else {
+         var itemdecimal = evt.srcElement.value.split('.');
+         if (itemdecimal.length > 1 && charCode == 46)
+              false;
+  
+          true;
+    }
+  }
+  
+  </script>
   <script type="text/javascript">
    $(document).ready(function(){
 $('#select_all').on('click',function(){
