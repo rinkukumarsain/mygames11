@@ -11,7 +11,7 @@ tr.noBorder td {
             <div id="layoutSidenav_content">
                 <main>
 
-                    <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+                    <div class="page-header pb-10 page-header-dark bg-danger">
                         <div class="container-fluid">
                             <div class="row align-items-center">
                                 <div class="col">
@@ -101,9 +101,9 @@ tr.noBorder td {
                                                 <td>Image</td>
                                                 <td>
                                                     <i class="fa fa-file-pdf-o" style="color:red;font-size:30px;"></i>
-                                                    <img src="http://128.199.27.151:7070/<%=viewUser.pancard.image %>" style="max-width:100px;" onerror="this.src='<%=viewUser.pancard.image %>'">
+                                                    <img src="<%= baseUrl %><%=viewUser.pancard.image %>" style="max-width:150px; max-height:150px;" onerror="this.src='<%= baseUrl %><%=viewUser.pancard.image %>'">
                                                     </td>
-                                                    <td><a href="http://128.199.27.151:7070/<%=viewUser.pancard.image %>" target="_blank" class="btn btn-info"> View Image </a></td>
+                                                    <td><a href="<%= baseUrl %><%=viewUser.pancard.image %>" style="max-width:150px; max-height:150px;" target="_blank" class="btn btn-info"> View Image </a></td>
                                                     <td></td>
                                                   </tr>
                                                    <tr class="noBorder">

@@ -148,23 +148,26 @@ router.get("/downloadalluserdetails/:id", auth, userManagerController.downloadal
 router.get("/changeYotuberStatus/:userId",auth, userManagerController.changeYotuberStatus);
 
 //----------verifyManager--------//
-
-router.get("/verifypan", auth, getUrl, verifyManagerController.verifyPan);
+router.get("/verifypan", auth,  getUrl, verifyManagerController.verifyPan);
 router.post("/verifypan-datatable", auth, verifyManagerController.verifyPan_Datatable);
-router.get("/viewpandetails/:id", auth, getUrl, verifyManagerController.viewPan_Details);
+router.get("/viewpandetails/:id", auth,  getUrl, verifyManagerController.viewPan_Details);
 router.post("/modifyPanDetails", auth, verifyManagerController.update_Pan_Details);
 router.get("/editPandetails/:id", auth, getUrl, verifyManagerController.editPan_Details);
 router.post("/Update-Credentials-Pan", auth, verifyManagerController.Update_Credentials_Pan);
-router.get("/verifybankaccount", auth, getUrl, verifyManagerController.verifyBank);
+router.get("/verifybankaccount", auth,  getUrl, verifyManagerController.verifyBank);
 router.post("/verifyBank_datatable", auth, verifyManagerController.verifyBank_Datatable);
-router.get("/viewbankdetails/:id", auth, getUrl, verifyManagerController.viewBank_Details);
-router.get("/editbankdetails/:id", auth, getUrl, verifyManagerController.editBank_Details);
-router.get("/withdraw_amount", auth, getUrl, verifyManagerController.withdrawalAmount);
+router.get("/viewbankdetails/:id", auth,  getUrl, verifyManagerController.viewBank_Details);
+router.get("/editbankdetails/:id", auth,  getUrl, verifyManagerController.editBank_Details);
+router.get("/withdraw_amount", auth,  getUrl, verifyManagerController.withdrawalAmount);
 router.post("/withdraw-amount-datatable", auth, verifyManagerController.withdraw_amount_datatable2);
 router.post("/modifyBankDetails", auth, verifyManagerController.update_Bank_Details);
 router.post("/Update-Credentials-Bank", auth, verifyManagerController.Update_Credentials_Bank);
 router.get("/approve-withdraw-request/:id", auth, getUrl, verifyManagerController.approve_withdraw_request);
 router.get("/reject-withdraw-request/:id", auth, getUrl, verifyManagerController.reject_withdraw_request);
+//downloads
+router.get("/downloadPanVerify",auth, verifyManagerController.downloadPanVerify);
+router.get("/downloadallbankVerify",auth, verifyManagerController.downloadallbankVerify);
+router.get("/downloadallwithdrawalrequest",auth, verifyManagerController.downloadallwithdrawalrequest);
 
 // ---------General Manegar------//
 

@@ -1,308 +1,395 @@
-<%- include("../../partials/head") %>
-
-    <%- include("../../partials/bodyStartWithNavBar/") %>
-        <%- include("../../partials/sideNav") %>
-        <style>
-            
-          tr.noBorder td {
-            border: 0;
-          }
-        </style>
+<%- include("../../partials/head") %> <%-
+include("../../partials/bodyStartWithNavBar/") %> <%-
+include("../../partials/sideNav") %>
+<style>
+  tr.noBorder td {
+    border: 0;
+  }
+</style>
 <div id="layoutSidenav_content">
-    <main>
-
-        <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
-            <div class="container-fluid">
-                <div class="row align-items-center">
-                    <div class="col">
-                        <div class="page-header-content">
-                            <h1 class="page-header-title fs-md-35 fs-20">
-
-                                <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
-                                <span class=" text-capitalize">
-                                        Verification Manager
-                                </span>
-                            </h1>
-                            <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
-                                   Bank Verify
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-auto mb-md-0 mb-3">
-                 </div>
+  <main>
+    <div class="page-header pb-10 page-header-dark bg-danger">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          <div class="col">
+            <div class="page-header-content">
+              <h1 class="page-header-title fs-md-35 fs-20">
+                <div class="page-header-icon">
+                  <i class="fad fa-at text-white"></i>
+                </div>
+                <span class="text-capitalize"> Verification Manager </span>
+              </h1>
+              <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                Bank Verify
               </div>
             </div>
+          </div>
+          <div class="col-auto mb-md-0 mb-3"></div>
         </div>
-        <div class="container-fluid mt-n10">
-            
-<div class="card">
-    <div class="card-header">Bank Verify</div>
-      <form id="formId" class="card-body" action="/modifyBankDetails" method="post">
-        <input name="userid" type="hidden" value="<%=viewUser._id %>" id="userid">
-        <input name="bankstatus" type="hidden" id="bankstatus">
+      </div>
+    </div>
+    <div class="container-fluid mt-n10">
+      <div class="card">
+        <div class="card-header">Bank Verify</div>
+        <form
+          id="formId"
+          class="card-body"
+          action="/modifyBankDetails"
+          method="post"
+        >
+          <input
+            name="userid"
+            type="hidden"
+            value="<%=viewUser._id %>"
+            id="userid"
+          />
+          <input name="bankstatus" type="hidden" id="bankstatus" />
 
-        <div class="datatable table-responsive">
-            <table class="table table-bordered table-hover" id="datatable" width="100%" cellspacing="0">
-                <thead>
-                      <tr class="noBorder">
-                        <td colspan="4" style="font-weight: 900; color: black; letter-spacing: 2px;">Bank Approval Page</td>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr class="noBorder">
-                        <td>username</td>
-                        <td class="text-uppercase"><%=viewUser.bank.accountholder || ''  %></td>
-                        <td></td>
-                        <td></td>
-                        <td><a class="btn btn-info" href="/editbankdetails/<%=viewUser._id %>" style="cursor:pointer"><i class="fa fa-edit"></i> Edit Bank details</a></td>
-                      </tr>
-                      <tr class="noBorder">
-                        <td>Email</td>
-                        <td><%=viewUser.email  || ''  %></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr class="noBorder">
-                        <td>Account No.</td>
-                        <td><%=viewUser.bank.accno || 0  %></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr class="noBorder">
-                        <td>IFSC Code</td>
-                        <td ><%=viewUser.bank.ifsc %></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr class="noBorder">
-                        <td>Bank Name</td>
-                        <td class="text-uppercase"><%=viewUser.bank.bankname || ''  %></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr class="noBorder">
-                        <td>Bank Branch</td>
-                        <td class="text-uppercase;"><%=viewUser.bank.bankbranch || ''  %></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr class="noBorder">
-                        <td>State</td>
-                        <td class="text-uppercase"><%=viewUser.bank.state || ''  %></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr class="noBorder">
-                        <td>Image</td>
-                        <td>
-                              <i class="fa fa-file-pdf-o" style="color:red;font-size:30px;"></i>
-                            
-                              <img src="http://128.199.27.151:7070/<%=viewUser.bank.image %>" style="max-width:100px;" onerror="this.src='<%=viewUser.bank.image %>'">
-                             
+          <div class="datatable table-responsive">
+            <table
+              class="table table-bordered table-hover"
+              id="datatable"
+              width="100%"
+              cellspacing="0"
+            >
+              <thead>
+                <tr class="noBorder">
+                  <td
+                    colspan="4"
+                    style="font-weight: 900; color: black; letter-spacing: 2px"
+                  >
+                    Bank Approval Page
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="noBorder">
+                  <td>username</td>
+                  <td class="text-uppercase">
+                    <%=viewUser.bank.accountholder || '' %>
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <a
+                      class="btn btn-info"
+                      href="/editbankdetails/<%=viewUser._id %>"
+                      style="cursor: pointer"
+                      ><i class="fa fa-edit"></i> Edit Bank details</a
+                    >
+                  </td>
+                </tr>
+                <tr class="noBorder">
+                  <td>Email</td>
+                  <td><%=viewUser.email || '' %></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr class="noBorder">
+                  <td>Account No.</td>
+                  <td><%=viewUser.bank.accno || 0 %></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr class="noBorder">
+                  <td>IFSC Code</td>
+                  <td><%=viewUser.bank.ifsc %></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr class="noBorder">
+                  <td>Bank Name</td>
+                  <td class="text-uppercase">
+                    <%=viewUser.bank.bankname || '' %>
+                  </td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr class="noBorder">
+                  <td>Bank Branch</td>
+                  <td class="text-uppercase;">
+                    <%=viewUser.bank.bankbranch || '' %>
+                  </td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr class="noBorder">
+                  <td>State</td>
+                  <td class="text-uppercase">
+                    <%=viewUser.bank.state || '' %>
+                  </td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr class="noBorder">
+                  <td>Image</td>
+                  <td>
+                    <i
+                      class="fa fa-file-pdf-o"
+                      style="color: red; font-size: 30px"
+                    ></i>
 
-                        </td>
-                        <td><a href="http://128.199.27.151:7070/<%=viewUser.bank.image %>" target="_blank" class="btn btn-info"> View Image </a></td>
-                        <td></td>
-                      </tr>
-                       <tr class="noBorder">
-                            <td class="commentbox" colspan="3" rowspan="3">
-                              <textarea type="text" rows="3" class="form-control form-control-solid float-left mr-1" required="" name="comment" placeholder="Comment" id="commentpan" style="width:100%;"></textarea>
-                            </td>
-                            <td>
-                                <% if(viewUser.bank.status === 1) {%>
-                              <span class="text-success"> Request Approved</span>
-                              <a  onclick="clickpan('2');" class="btn btn-danger text-white"> Reject Request </a>
-                              <% }else if(viewUser.bank.status === 0) {%>   
-      <button type="button"  onclick="clickpan('1');" class="btn btn-info" style="cursor:pointer">Approve Request</button>
-              <a  onclick="clickpan('2');" class="btn btn-danger text-white"> Reject Request </a>
-                                  <% } else { %> 
-                                <a style="color:red;"> Request Rejected </a>
-      <button type="button"  onclick="clickpan('1');" class="btn btn-info" style="cursor:pointer">Approve Request</button>
-                                <% }%> 
-                            </td>
-                          </tr>
-
-                    </tbody>
+                    <img
+                      src="<%= baseUrl %><%=viewUser.bank.image %>"
+                      style="max-width: 100px"
+                      onerror="this.src='<%= baseUrl %><%=viewUser.bank.image %>'"
+                    />
+                  </td>
+                  <td>
+                    <a
+                      href="<%= baseUrl %><%=viewUser.bank.image %>"
+                      target="_blank"
+                      class="btn btn-info"
+                    >
+                      View Image
+                    </a>
+                  </td>
+                  <td></td>
+                </tr>
+                <tr class="noBorder">
+                  <td class="commentbox" colspan="3" rowspan="3">
+                    <textarea
+                      type="text"
+                      rows="3"
+                      class="form-control form-control-solid float-left mr-1"
+                      required=""
+                      name="comment"
+                      placeholder="Comment"
+                      id="commentpan"
+                      style="width: 100%"
+                    ></textarea>
+                  </td>
+                  <td>
+                    <% if(viewUser.bank.status === 1) {%>
+                    <span class="text-success"> Request Approved</span>
+                    <a
+                      onclick="clickpan('2');"
+                      class="btn btn-danger text-white"
+                    >
+                      Reject Request
+                    </a>
+                    <% }else if(viewUser.bank.status === 0) {%>
+                    <button
+                      type="button"
+                      onclick="clickpan('1');"
+                      class="btn btn-info"
+                      style="cursor: pointer"
+                    >
+                      Approve Request
+                    </button>
+                    <a
+                      onclick="clickpan('2');"
+                      class="btn btn-danger text-white"
+                    >
+                      Reject Request
+                    </a>
+                    <% } else { %>
+                    <a style="color: red"> Request Rejected </a>
+                    <button
+                      type="button"
+                      onclick="clickpan('1');"
+                      class="btn btn-info"
+                      style="cursor: pointer"
+                    >
+                      Approve Request
+                    </button>
+                    <% }%>
+                  </td>
+                </tr>
+              </tbody>
             </table>
-        </div>
-     </form>
-     <%- include("../../partials/alertMsg") %>
-</div>
+          </div>
+        </form>
+        <%- include("../../partials/alertMsg") %>
+      </div>
 
-            
-<script>
-$(window).on("load", function() {
+      <script>
+        $(window).on("load", function () {
+          var success = "";
+          var danger = "";
+          var error = "";
+          var warning = "";
 
-var success = '';
-var danger = '';
-var error = '';
-var warning = '';
+          if (success) {
+            $("#toastBasic4").toast("show");
+          }
 
-if(success) {
-$("#toastBasic4").toast('show');
-}
+          if (danger || error) {
+            $("#toastBasic3").toast("show");
+          }
 
-if(danger || error) {
-$("#toastBasic3").toast('show');
-}
+          if (warning) {
+            $("#toastBasic2").toast("show");
+          }
+        });
+      </script>
 
-if(warning) {
-$("#toastBasic2").toast('show');
-}
-});
-</script>
+      <script>
+        $(document).ready(function () {
+          $.ajaxSetup({
+            headers: {
+              "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+          });
+        });
+      </script>
 
-<script>
-$(document).ready(function() {
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
-});
-</script>
-
-
-<script>
-    function clickpan(value){
-    if(value==2){
-    var getcomment = $("#commentpan").val();
-    if(getcomment==""){
-    Swal.fire('Please Enter comment first.');
-    return false;
-    }
-    $('#userid').val()
-    $("#bankstatus").val(value);
-    $("#formId").submit();
-  }
-  if(value==3){
-    Swal.fire('Please verify bank request of this user first.');
-    return false;
-  }else if(value==1){
-    
-    $('#userid').val()
-    $("#bankstatus").val(value);
-    $("#formId").submit();
-    }
-    }
-</script>
-<script type="text/javascript">
-    function pandetailsupdate(){
-      var accno = $("#accno").val();
-      var ifsc = $("#ifsc").val();
-      var bankbranch = $("#bankbranch").val();
-      var bankname = $("#bankname").val();
-      var state = $("#state").val();
-      var getcomment = $("#commentpan").val();
-      var getstatus = $("#bankstatus").val();
-      if(accno!="" && ifsc!="" && bankbranch!="" && bankname!="" && state!="" && getcomment != '' && getstatus != ''){
-        if(getstatus!=""){
-          if(getstatus==2){
-            if(getcomment==""){
-              Swal.fire('Please Enter comment first.');
+      <script>
+        function clickpan(value) {
+          if (value == 2) {
+            var getcomment = $("#commentpan").val();
+            if (getcomment == "") {
+              Swal.fire("Please Enter comment first.");
               return false;
             }
+            $("#userid").val();
+            $("#bankstatus").val(value);
+            $("#formId").submit();
           }
-          document.getElementById("firstform").submit();
+          if (value == 3) {
+            Swal.fire("Please verify bank request of this user first.");
+            return false;
+          } else if (value == 1) {
+            $("#userid").val();
+            $("#bankstatus").val(value);
+            $("#formId").submit();
+          }
         }
-      }
-      else{
-        Swal.fire('Please fill out all the fields');
-      }
-    }
-</script>
-        </div>
-    </main>
-    <%- include("../../partials/footer") %>
+      </script>
+      <script type="text/javascript">
+        function pandetailsupdate() {
+          var accno = $("#accno").val();
+          var ifsc = $("#ifsc").val();
+          var bankbranch = $("#bankbranch").val();
+          var bankname = $("#bankname").val();
+          var state = $("#state").val();
+          var getcomment = $("#commentpan").val();
+          var getstatus = $("#bankstatus").val();
+          if (
+            accno != "" &&
+            ifsc != "" &&
+            bankbranch != "" &&
+            bankname != "" &&
+            state != "" &&
+            getcomment != "" &&
+            getstatus != ""
+          ) {
+            if (getstatus != "") {
+              if (getstatus == 2) {
+                if (getcomment == "") {
+                  Swal.fire("Please Enter comment first.");
+                  return false;
+                }
+              }
+              document.getElementById("firstform").submit();
+            }
+          } else {
+            Swal.fire("Please fill out all the fields");
+          }
+        }
+      </script>
+    </div>
+  </main>
+  <%- include("../../partials/footer") %>
 
-<script>
-
-        $(window).on('load', function(){
-  
-           $('#preloader_admin').hide();
-  
-          })
-</script>
- <script>
-          $(document).ready(function (){
-              var table = $('#dataTabless').DataTable({
-                  'responsive': true
-              });
-      
-              // Handle click on "Expand All" button
-              $('#btn-show-all-children').on('click', function(){
-                  // Expand row details
-                  table.rows(':not(.parent)').nodes().to$().find('td:first-child').trigger('click');
-              });
-      
-              // Handle click on "Collapse All" button
-              $('#btn-hide-all-children').on('click', function(){
-                  // Collapse row details
-                  table.rows('.parent').nodes().to$().find('td:first-child').trigger('click');
-              });
-          });
-</script>
-<script>
-    
-    $('#special').on('click', function () {
-      mySelect.find('option:selected').prop('disabled', true);
-      mySelect.selectpicker('refresh');
-    });
-    
-    $('#special2').on('click', function () {
-      mySelect.find('option:disabled').prop('disabled', false);
-      mySelect.selectpicker('refresh');
-    });
-    
-    $('#basic2').selectpicker({
-      liveSearch: true,
-      maxOptions: 1
+  <script>
+    $(window).on("load", function () {
+      $("#preloader_admin").hide();
     });
   </script>
   <script>
-  $(document).ready(function(){
-      
-    if ($('#accordionSidenavPages a').hasClass('active')){
-      $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
-      $('#accordionSidenavPages a.active').parent().parent().addClass('show');
-      // console.log(id);
-    } else {
-      $('#takeonebar').addClass('slamdown');
-    }
-  });
-  
+    $(document).ready(function () {
+      var table = $("#dataTabless").DataTable({
+        responsive: true,
+      });
+
+      // Handle click on "Expand All" button
+      $("#btn-show-all-children").on("click", function () {
+        // Expand row details
+        table
+          .rows(":not(.parent)")
+          .nodes()
+          .to$()
+          .find("td:first-child")
+          .trigger("click");
+      });
+
+      // Handle click on "Collapse All" button
+      $("#btn-hide-all-children").on("click", function () {
+        // Collapse row details
+        table
+          .rows(".parent")
+          .nodes()
+          .to$()
+          .find("td:first-child")
+          .trigger("click");
+      });
+    });
+  </script>
+  <script>
+    $("#special").on("click", function () {
+      mySelect.find("option:selected").prop("disabled", true);
+      mySelect.selectpicker("refresh");
+    });
+
+    $("#special2").on("click", function () {
+      mySelect.find("option:disabled").prop("disabled", false);
+      mySelect.selectpicker("refresh");
+    });
+
+    $("#basic2").selectpicker({
+      liveSearch: true,
+      maxOptions: 1,
+    });
+  </script>
+  <script>
+    $(document).ready(function () {
+      if ($("#accordionSidenavPages a").hasClass("active")) {
+        $("#accordionSidenavPages a.active")
+          .parent()
+          .parent()
+          .prev("a")
+          .removeClass("collapsed");
+        $("#accordionSidenavPages a.active").parent().parent().addClass("show");
+        // console.log(id);
+      } else {
+        $("#takeonebar").addClass("slamdown");
+      }
+    });
   </script>
   <script type="text/javascript">
-       $(document).ready(function(){
-   $('#select_all').on('click',function(){
-       if(this.checked){
-           $('.checkbox').each(function(){
-               this.checked = true;
-           });
-       }else{
-            $('.checkbox').each(function(){
-               this.checked = false;
-           });
-       }
-   });
-  
-   $('.checkbox').on('click',function(){
-       if($('.checkbox:checked').length == $('.checkbox').length){
-           $('#select_all').prop('checked',true);
-       }else{
-           $('#select_all').prop('checked',false);
-       }
-   });
-  });
+    $(document).ready(function () {
+      $("#select_all").on("click", function () {
+        if (this.checked) {
+          $(".checkbox").each(function () {
+            this.checked = true;
+          });
+        } else {
+          $(".checkbox").each(function () {
+            this.checked = false;
+          });
+        }
+      });
+
+      $(".checkbox").on("click", function () {
+        if ($(".checkbox:checked").length == $(".checkbox").length) {
+          $("#select_all").prop("checked", true);
+        } else {
+          $("#select_all").prop("checked", false);
+        }
+      });
+    });
   </script>
   <script>
     /*jslint browser:true*/
     /*global jQuery, document*/
-  
+
     jQuery(document).ready(function () {
-        'use strict';
-  
-        jQuery('#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date').datetimepicker();
+      "use strict";
+
+      jQuery(
+        "#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date"
+      ).datetimepicker();
     });
   </script>
-  
+</div>

@@ -54,11 +54,16 @@ let permissions = new Schema({
   import_leauge_in_contest: { type: Array },
   results: { type: Array },
   banner: { type: Array },
+  profit_loss_manager: { type: Array },
+  bot_user_manager: { type: Array },
   general_tab_manager: { type: Array },
   add_point_manager: { type: Array },
+  product_manager: { type: Array },
+  pass_manager: { type: Array },
   offers_manager: { type: Array },
   youtuber_manager: { type: Array },
   point_system_manager: { type: Array },
+  popup_notify_manager: { type: Array }
 });
 
 let adminSchema = new Schema(
