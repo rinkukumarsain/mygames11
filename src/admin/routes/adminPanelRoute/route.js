@@ -189,13 +189,13 @@ router.get("/delete-sideBanner", auth, getUrl, adminPanelController.deleteSideBa
 
 // -----------------------offer----------------------------
 
-router.get("/add-offer", auth, getUrl, offerController.addOffer);
-router.post("/add-offer-data", auth, offerController.addOfferData);
-router.get("/view-all-offer", auth, getUrl, offerController.viewAllOffer);
+router.get("/add-offer", auth,  getUrl, offerController.addOffer);
+router.post("/add-offer-data", auth,offerController.addOfferData);
+router.get("/view-all-offer", auth,  getUrl, offerController.viewAllOffer);
 router.post("/viewAllOffer-data-table", auth, offerController.viewAllOfferDataTable);
-router.get("/editoffers", auth, getUrl, offerController.editoffers_page);
-router.post("/edit-offer-data", auth, offerController.editOfferData);
-router.get("/deleteoffers", auth, getUrl, offerController.deleteoffers);
+router.get("/editoffers", auth,  getUrl, offerController.editoffers_page);
+router.post("/edit-offer-data", auth,offerController.editOfferData);
+router.get("/deleteoffers", auth,  offerController.deleteoffers);
 
 // -------------------------point System ------------------------------
 

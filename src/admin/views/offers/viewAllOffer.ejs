@@ -1,38 +1,36 @@
-<%- include("../../partials/head") %>
-
-<%- include("../../partials/bodyStartWithNavBar") %>
+<%- include("../../partials/head") %> 
+<%- include("../../partials/bodyStartWithNavBar") %> 
 <%- include("../../partials/sideNav") %>
 <div id="layoutSidenav_content">
-        <main>
-
-            <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
-                <div class="container-fluid">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <div class="page-header-content">
-                                <h1 class="page-header-title fs-md-35 fs-20">
-
-                                    <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
-                                    <span class=" text-capitalize">
-                                            Offer Manager
-                                    </span>
-                                </h1>
-                                <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
-                                        View All Offers
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-auto mb-md-0 mb-3">
-                            <a  href="/add-offer" class="btn btn-sm btn-light font-weight-bold text-uppercase text-primary float-right"><i class="fa fa-plus"></i>&nbsp; Add Offers</a>
-                        </div>
-                    </div>
+  <main>
+    <%- include("../../partials/alertMsg") %> 
+    <div class="page-header pb-10 page-header-dark bg-info">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          <div class="col">
+            <div class="page-header-content">
+              <h1 class="page-header-title fs-md-35 fs-20">
+                <div class="page-header-icon">
+                  <i class="fad fa-at text-white"></i>
                 </div>
+                <span class="text-capitalize"> Offer Manager </span>
+              </h1>
+              <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                View All Offers
+              </div>
             </div>
+          </div>
+          <div class="col-auto mb-md-0 mb-3">
+            <a
+              href="/add-offer"
+              class="btn btn-sm btn-light font-weight-bold text-uppercase text-primary float-right"
+              ><i class="fa fa-plus"></i>&nbsp; Add Offers</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
             <div class="container-fluid mt-n10">
-                
-
-
-
 <div class="card mb-4">
 <div class="card-header">View All Offers</div>
 <div class="card-body">
@@ -44,54 +42,60 @@
                 <tr>
                     <th>Sno.</th>
                     <th>Title</th>
-                    <th data-toggle="tooltip" title="Minimum Amount">Min. Amt</th>
+                    <!-- <th data-toggle="tooltip" title="Minimum Amount">Min. Amt</th> -->
                     <th data-toggle="tooltip" title="Maximum Amount">Max. Amt</th>
                     <th>Bonus</th>
+                    <!-- <th>Image</th> -->
                     <th>Offer Code</th>
                     <th>Type</th>
                     <th>Max Used</th>
-                    <th>Max limit</th>
-                    <th>Start Date</th>
-                    <th>Expire Date</th>
+                    <!-- <th>Max limit</th> -->
+                    <!-- <th>Start Date</th>
+                    <th>Expire Date</th> -->
                     <th>Action</th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
-                   <th>Sno.</th>
-                    <th>Title</th>
-                    <th data-toggle="tooltip" title="Minimum Amount">Min. Amt</th>
-                    <th data-toggle="tooltip" title="Maximum Amount">Max. Amt</th>
-                    <th>Bonus</th>
-                    <th>Offer Code</th>
-                    <th>type</th>
-                    <th>Max Used</th>
-                    <th>Max limit</th>
-                    <th>Start Date</th>
-                    <th>Expire Date</th>
-                    <th>Action</th>
+                  <th>Sno.</th>
+                  <th>Title</th>
+                  <!-- <th data-toggle="tooltip" title="Minimum Amount">Min. Amt</th> -->
+                  <th data-toggle="tooltip" title="Maximum Amount">Max. Amt</th>
+                  <th>Bonus</th>
+                  <!-- <th>Image</th> -->
+                  <th>Offer Code</th>
+                  <th>Type</th>
+                  <th>Max Used</th>
+                  <!-- <th>Max limit</th> -->
+                  <!-- <th>Start Date</th>
+                  <th>Expire Date</th> -->
+                  <th>Action</th>
                 </tr>
             </tfoot>
             <tbody>
       
             </tbody>
         </table>
-    </div>
-</div>
-</div>
 
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/r-2.2.1/datatables.min.js"></script>
-<script>
-$(document).ready(function() {
-  $.fn.dataTable.ext.errMode = 'none';
+          </div>
+        </div>
+      </div>
+
+      <script
+        type="text/javascript"
+        src="https://cdn.datatables.net/v/dt/dt-1.10.16/r-2.2.1/datatables.min.js"
+      ></script>
+      <script>
+        $(document).ready(function () {
+          $.fn.dataTable.ext.errMode = "none";
 
   $('#viewAllOffer').DataTable({
-      'responsive':false,
-      'bFilter':false,
-      "serverSide": true,
-      language: {
-              zeroRecords: "No records to display",
-            },
+    'responsive':false,
+    'bFilter':false,
+    // "serverSide": true,
+    "language": {
+    "zeroRecords": "No records to display"
+  },
       "ajax":{
                "url": '/viewAllOffer-data-table',
                "dataType": "json",
@@ -100,15 +104,16 @@ $(document).ready(function() {
       "columns": [
           { "data": "count" },
           { "data": "title" },
-          { "data": "min_amount" },
+          // { "data": "min_amount" },
           { "data": "max_amount" },
           { "data": "bonus" },
+          // {"data":"image"},
           { "data": "offer_code" },
           { "data": "type" },
           { "data": "user_time" },
-          { "data": "amt_limit" },
-          { "data": "start_date" },
-          { "data": "expire_date" },
+          // { "data": "amt_limit" },
+          // { "data": "start_date" },
+          // { "data": "expire_date" },
           { "data": "action" ,orderable: false}
       ]
   
@@ -120,125 +125,116 @@ $(document).ready(function() {
         </main>
 <%- include("../../partials/footer") %>
   <script>
-
-    $(window).on('load', function(){
-
-       $('#preloader_admin').hide();
-
-      })
+    $(window).on("load", function () {
+      $("#preloader_admin").hide();
+    });
   </script>
 
+  <script>
+    $("#b1").click(function () {
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: "btn btn-sm btn-success",
+          cancelButton: "btn btn-sm btn-danger",
+        },
+        buttonsStyling: false,
+      });
+
+      swalWithBootstrapButtons
+        .fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "success",
+          showCancelButton: true,
+          confirmButtonText: "Yes, delete it!",
+          cancelButtonText: "No, cancel!",
+          reverseButtons: true,
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            swalWithBootstrapButtons.fire(
+              "Deleted!",
+              "Your file has been deleted.",
+              "success"
+            );
+          } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+          ) {
+            swalWithBootstrapButtons.fire(
+              "Cancelled",
+              "Your imaginary file is safe :)",
+              "error"
+            );
+          }
+        });
+    });
+  </script>
 
   <script>
-$('#b1').click(function(){
-  const swalWithBootstrapButtons = Swal.mixin({
-    customClass: {
-      confirmButton: 'btn btn-sm btn-success',
-      cancelButton: 'btn btn-sm btn-danger'
-    },
-    buttonsStyling: false
-})
-
-  swalWithBootstrapButtons.fire({
-    title: 'Are you sure?',
-    text: "You won't be able to revert this!",
-    icon: 'success',
-    showCancelButton: true,
-    confirmButtonText: 'Yes, delete it!',
-    cancelButtonText: 'No, cancel!',
-    reverseButtons: true
-  }).then((result) => {
-    if (result.isConfirmed) {
-      swalWithBootstrapButtons.fire(
-        'Deleted!',
-        'Your file has been deleted.',
-        'success'
-      )
-    } else if (
-      /* Read more about handling dismissals below */
-      result.dismiss === Swal.DismissReason.cancel
-    ) {
-      swalWithBootstrapButtons.fire(
-        'Cancelled',
-        'Your imaginary file is safe :)',
-        'error'
-      )
-    }
-  })
-});
-</script>
-
-
-<script>
-  $(document).ready(function () {
-
-      if ($('#accordionSidenavPages a').hasClass('active')) {
-          $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
-          $('#accordionSidenavPages a.active').parent().parent().addClass('show');
-          // console.log(id);
+    $(document).ready(function () {
+      if ($("#accordionSidenavPages a").hasClass("active")) {
+        $("#accordionSidenavPages a.active")
+          .parent()
+          .parent()
+          .prev("a")
+          .removeClass("collapsed");
+        $("#accordionSidenavPages a.active").parent().parent().addClass("show");
+        // console.log(id);
       } else {
-          $('#takeonebar').addClass('slamdown');
+        $("#takeonebar").addClass("slamdown");
       }
-  });
+    });
+  </script>
 
-</script>
+  <script>
+    jQuery(document).ready(function () {
+      "use strict";
 
+      jQuery(
+        "#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date"
+      ).datetimepicker();
+    });
+  </script>
 
- 
+  <script>
+    function delete_sweet_alert(url, msg) {
+      // sweet alert
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: "btn btn-sm btn-success ml-2",
+          cancelButton: "btn btn-sm btn-danger",
+        },
+        buttonsStyling: false,
+      });
 
+      swalWithBootstrapButtons
+        .fire({
+          title: msg,
+          text: "You won't be able to revert this!",
+          icon: "success",
+          showCancelButton: true,
+          confirmButtonText: "Yes",
+          cancelButtonText: "No",
+          reverseButtons: true,
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            swalWithBootstrapButtons.fire("", "Successfully Done", "success");
 
-
-<script>
-jQuery(document).ready(function () {
-    'use strict';
-
-    jQuery('#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date').datetimepicker();
-});
-</script>
-
-
-<script>
-function delete_sweet_alert(url, msg) {
-// sweet alert
-  const swalWithBootstrapButtons = Swal.mixin({
-  customClass: {
-      confirmButton: 'btn btn-sm btn-success ml-2',
-      cancelButton: 'btn btn-sm btn-danger'
-  },
-  buttonsStyling: false
-  })
-
-  swalWithBootstrapButtons.fire({
-  title: msg,
-  text: "You won't be able to revert this!",
-  icon: 'success',
-  showCancelButton: true,
-  confirmButtonText: 'Yes',
-  cancelButtonText: 'No',
-  reverseButtons: true
-  }).then((result) => {
-  if (result.isConfirmed) {
-
-    swalWithBootstrapButtons.fire(
-              '',
-              'Successfully Done',
-              'success'
-              );
-
-    window.location.href = url;
-
-      
-  } else if (
-      /* Read more about handling dismissals below */
-      result.dismiss === Swal.DismissReason.cancel
-  ) {
-      swalWithBootstrapButtons.fire(
-      'Cancelled',
-      'Cancelled successfully :)',
-      'error'
-      );
-      return false;
-  }
-})
-}
-</script>
+            window.location.href = url;
+          } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+          ) {
+            swalWithBootstrapButtons.fire(
+              "Cancelled",
+              "Cancelled successfully :)",
+              "error"
+            );
+            return false;
+          }
+        });
+    }
+  </script>
+</div>

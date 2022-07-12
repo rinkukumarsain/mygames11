@@ -388,9 +388,9 @@ class userManagerController {
                 for (let values of allfind) {
                     // console.log('values--------',values);
                     let obj = {};
-                    obj.balance = values.userbalance.balance;
-                    obj.winning = values.userbalance.winning;
-                    obj.bonus = values.userbalance.bonus;
+                    obj.balance = values.userbalance?.balance;
+                    obj.winning = values.userbalance?.winning;
+                    obj.bonus = values.userbalance?.bonus;
                     obj.username = values.username;
                     arrayValues.push(obj)
                 }
@@ -467,10 +467,10 @@ class userManagerController {
                             email: index.email,
                             mobile: index.mobile,
                             date: `<span class="text-warning">${moment().format("DD-MM-YYYY")}</span>`,
-                            balance: `Rs.${index.userbalance.balance}`,
-                            winning: `Rs.${index.userbalance.winning}`,
-                            bonus: `Rs.${index.userbalance.bonus}`,
-                            total: `Rs.${index.userbalance.balance + index.userbalance.winning + index.userbalance.bonus}`,
+                            balance: `Rs.${index.userbalance?.balance}`,
+                            winning: `Rs.${index.userbalance?.winning}`,
+                            bonus: `Rs.${index.userbalance?.bonus}`,
+                            total: `Rs.${index.userbalance?.balance + index.userbalance?.winning + index.userbalance?.bonus}`,
                         });
                         count++;
                         if (count > rows1.length) {
@@ -606,9 +606,9 @@ class userManagerController {
                 let transactionsObj = {};
                 let adminObject = {};
                 const transactionOfUser = await userModel.findOne({ _id: uID });
-                let creditOfUser = transactionOfUser.userbalance.balance;
-                let winningOfUser = transactionOfUser.userbalance.winning;
-                let bonusOfUser = transactionOfUser.userbalance.bonus;
+                let creditOfUser = transactionOfUser.userbalance?.balance;
+                let winningOfUser = transactionOfUser.userbalance?.winning;
+                let bonusOfUser = transactionOfUser.userbalance?.bonus;
                 if (formData.bonustype == constant.ADMIN_WALLET_TYPE['ADD_FUND']) {
                     creditOfUser += getAmount;
                     transactionsObj.addfund_amt = getAmount;
@@ -680,9 +680,9 @@ class userManagerController {
         let transactionsObj = {};
         let adminObject = {};
         const transactionOfUser = await userModel.findOne({ _id: uID });
-        let creditOfUser = transactionOfUser.userbalance.balance;
-        let winningOfUser = transactionOfUser.userbalance.winning;
-        let bonusOfUser = transactionOfUser.userbalance.bonus;
+        let creditOfUser = transactionOfUser.userbalance?.balance;
+        let winningOfUser = transactionOfUser.userbalance?.winning;
+        let bonusOfUser = transactionOfUser.userbalance?.bonus;
         let finalamount = 0;
         if (
           formData.bonustype == constant.ADMIN_WALLET_TYPE["ADD_FUND"] &&

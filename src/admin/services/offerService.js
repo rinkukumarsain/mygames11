@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const randomstring = require("randomstring");
+let fs = require('fs');
 const moment=require("moment");
 const adminModel=require("../../models/adminModel");
 const offerModel=require("../../models/offerModel");
@@ -17,54 +18,45 @@ class offerServices {
     // --------------------
     async addOfferData(req){
         try{
-            // console.log("req.body addoferrr....",req.body); 
-            // console.log(moment(moment(req.body.start_date).format('DD-MM-YYYY'), 'DD-MM-YYYY').isBefore(moment(moment(req.body.expire_date).format('DD-MM-YYYY'), 'DD-MM-YYYY')));
-            if(Number(req.body.max_amount) < Number(req.body.min_amount)){
-                return {
-                    message: "please add maximum amount less then minimum amount",
-                    status: false
-                };
-            }else if (moment(moment(req.body.start_date).format('DD-MM-YYYY'), 'DD-MM-YYYY').isBefore(moment(moment(req.body.expire_date).format('DD-MM-YYYY'), 'DD-MM-YYYY')) === false) {
-                return {
-                    message: "please select a expire date after start date",
-                    status: false
-                };
-            } else {
+          
                 let whereOfferCode={
                     offer_code:req.body.offercode
                 }
                 const checkOfferCode=await offerModel.find(whereOfferCode);
-                console.log("checkOfferCode",checkOfferCode)
                 if(checkOfferCode.length > 0){
                     return {
-                        message: "offer Code Already excess",
+                        message: "offer Code Already exist",
                         status: false
                     };
                 }else{
-                    const insertOffer=new offerModel({
-                        min_amount:req.body.min_amount,
+                    let obj={
                         max_amount:req.body.max_amount,
                         bonus:req.body.bonus,
                         offer_code:req.body.offercode,
                         type:req.body.bonus_type,
                         bonus_type:req.body.bonus_type,
                         title:req.body.title,
-                        start_date:moment(req.body.start_date).format('YYYY-MM-DD HH:mm'),
-                        expire_date:moment(req.body.expire_date).format('YYYY-MM-DD HH:mm'),
                         user_time:req.body.user_time,
-                        amt_limit:req.body.amt_limit,
-                        description:req.body.description,
-                    })
+                    }
+                    const insertOffer=new offerModel(obj)
                     let saveOffer=insertOffer.save();
                     if(saveOffer){
-                        return true;
+                        return {
+                            status:true,
+                            message:'offer add successfully'
+                        };
                     }
                 }
 
-            }       
-
+                
+        
         }catch(error){
-            console.log(error)
+            let filePath = `public/${req.body.typename}/${req.file.filename}`;
+          if (fs.existsSync(filePath) == true) {
+                            fs.unlinkSync(filePath);
+                        }
+            
+            throw error
         }
     }
     async editoffers_page(req){
@@ -89,46 +81,51 @@ class offerServices {
     }
     async editOfferData(req){
         try{
-            console.log("i am edit oferrr.......................................");
-            const fineOffer=await offerModel.findOne({_id:req.body.offerId});
-            console.log("fineOffer.......................",fineOffer)
-            if(Number(req.body.max_amount) < Number(req.body.min_amount)){
-                return {
-                    message: "please add maximum amount less then minimum amount",
-                    status: false,
-                    data:fineOffer
-                };
-            }else if (moment(moment(req.body.start_date).format('DD-MM-YYYY'), 'DD-MM-YYYY').isBefore(moment(moment(req.body.expire_date).format('DD-MM-YYYY'), 'DD-MM-YYYY')) === false) {
-                return {
-                    message: "please select a expire date after start date",
-                    status: false,
-                    data:fineOffer
-                };
-            } else {
+            if(req.fileValidationError){
+                return{
+                    status:false,
+                    message:req.fileValidationError
+                }
+
+            }else{
+           
+                let obj={
+                    max_amount:req.body.max_amount,
+                    bonus:req.body.bonus,
+                    offer_code:req.body.offercode,
+                    type:req.body.bonus_type,
+                    bonus_type:req.body.bonus_type,
+                    title:req.body.title,
+                    user_time:req.body.user_time,
+                }
+
+                const find=await offerModel.find({_id:{$ne:req.body.offerId}, offer_code:req.body.offercode,});
+                if(find.length>0){
+                    return{
+                        status:false,
+                        message:'offer code already exist'
+                    }
+                }
+                  
                     const updateOffer=await offerModel.updateOne({_id:req.body.offerId},{
-                        $set:{
-                            min_amount:req.body.min_amount,
-                            max_amount:req.body.max_amount,
-                            bonus:req.body.bonus,
-                            offer_code:req.body.offercode,
-                            type:req.body.bonus_type,
-                            bonus_type:req.body.bonus_type,
-                            title:req.body.title,
-                            start_date:moment(req.body.start_date).format('YYYY-MM-DD HH:mm'),
-                            expire_date:moment(req.body.expire_date).format('YYYY-MM-DD HH:mm'),
-                            user_time:req.body.user_time,
-                            amt_limit:req.body.amt_limit,
-                            description:req.body.description,
-                        }
+                        $set:obj
                     })
-                    console.log("updateOffer........",updateOffer)
-                    if(updateOffer.modifiedCount==1){
-                        return true;
+                    if(updateOffer.modifiedCount > 0){
+                        return {
+                            status:true,
+                            message:'offer successfully update'
+                        };
+                    }else{
+                       
+                        return {
+                            status:false,
+                            message:'offer can not update -- error'
+                        };
                     }
                 
-            } 
+            
 
-
+        }
         }catch(error){
             throw error;
         }
@@ -136,8 +133,16 @@ class offerServices {
     async deleteoffers(req){
         try{
             const deleteOffer=await offerModel.deleteOne({_id:req.query.offerId});
-            if(deleteOffer){
-                return true;
+            if(deleteOffer.deletedCount > 0 ){
+                return {
+                    status:true,
+                    message:'offer deleted successfully'
+                };
+            }else{
+                return {
+                    status:false,
+                    message:'offer can not delete --error'
+                }
             }
 
         }catch(error){
