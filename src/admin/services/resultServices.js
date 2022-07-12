@@ -18,6 +18,7 @@ const TransactionModel = require('../../models/transactionModel');
 const userModel = require('../../models/userModel');
 const finalResultModel = require('../../models/finalResultModel');
 const tdsDetailModel = require('../../models/tdsDetailModel');
+// const profitLossModel=require("../../models/profitLoss");
 const fs = require('fs');
 class resultServices {
     constructor() {
@@ -25,18 +26,58 @@ class resultServices {
             showPlaying: this.showPlaying.bind(this),
             updateResultMatches: this.updateResultMatches.bind(this),
             findMatchPlayers: this.findMatchPlayers.bind(this),
+            findMatchPlayers1: this.findMatchPlayers1.bind(this),
             refundAmount: this.refundAmount.bind(this),
             allRefundAmount: this.allRefundAmount.bind(this),
-            distributeWinningAmount: this.distributeWinningAmount.bind(this)
+            distributeWinningAmount: this.distributeWinningAmount.bind(this),
+            // insertProfitLossData:this.insertProfitLossData.bind(this),
+            userpoints:this.userpoints.bind(this),
         }
     }
 
+    async findMatchPlayers1(matchid, players_key = null, play11 = null) {
+        let pipeline = [];
+
+        pipeline.push({
+            $match: { matchkey: mongoose.Types.ObjectId(matchid) ,
+             playerid: mongoose.Types.ObjectId('623e0ef74953dea5ce2bea18') }
+        })
+
+        pipeline.push({
+            $lookup: {
+                from: 'players',
+                localField: 'playerid',
+                foreignField: '_id',
+                as: 'playersData'
+            }
+        })
+        if (players_key && players_key != null) {
+            pipeline.push({
+                $match: {
+                    "playersData.players_key": players_key
+                }
+            })
+        }
+
+        if (play11 && play11 != null) {
+            pipeline.push({
+                $match: {
+                    "playingstatus": 1
+                }
+            })
+        }
+        pipeline.push({
+            $unwind: { path: "$playersData" }
+        })
+        let result = await matchPlayers.aggregate(pipeline);
+        return result;
+    }
 
     async findMatchPlayers(matchid, players_key = null, play11 = null) {
         let pipeline = [];
 
         pipeline.push({
-            $match: { matchkey: mongoose.Types.ObjectId(matchid) }
+            $match: { matchkey: mongoose.Types.ObjectId(matchid)}
         })
 
         pipeline.push({
@@ -155,9 +196,11 @@ class resultServices {
                     fantasy_type: "Cricket",
                     start_date: { $gte: currentDate },
                     launch_status: 'launched',
+                    // real_matchkey: '53382',
                     final_status: { $ne: 'winnerdeclared' },
                     status: { $ne: 'completed' }
                 })
+                console.log('listmatches',listmatches);
                 if (listmatches.length > 0) {
                     for (let index of listmatches) {
                         let matchType = index.format;
@@ -173,8 +216,9 @@ class resultServices {
                             this.getScoresUpdates(real_matchkey, matchkey);
                         }
                     }
-                    return listmatches
+                    
                 }
+                return listmatches;
 
             } catch (error) {
                 console.log('error', error);
@@ -213,7 +257,7 @@ class resultServices {
                             matchdata.teams2 = giveresresult.teamb.short_name;
                             matchdata.winning_status = (giveresresult.result) ? giveresresult.result : 0;
                             if (giveresresult.innings) {
-                                // console.log('giveresresult.innings', giveresresult.innings);
+                               
                                 if (giveresresult.innings.length > 2) {
                                     for (let [i, value] of giveresresult.innings) {
                                         if (value.batting_team_id == giveresresult.teama.team_id) {
@@ -225,11 +269,16 @@ class resultServices {
                                 } else {
                                     let key1 = giveresresult.innings.findIndex(element => element.batting_team_id == giveresresult.teama.team_id);
                                     let key2 = giveresresult.innings.findIndex(element => element.batting_team_id == giveresresult.teamb.team_id);
+                                    console.log('key1.innings', key1);
                                     if (key1 >= 0) {
                                         teamainnKey.push(giveresresult.innings[key1]);
+                                    }else{
+                                        teamainnKey.push([]);
                                     }
                                     if (key2 >= 0) {
                                         teambinnKey.push(giveresresult.innings[key2]);
+                                    }else{
+                                        teambinnKey.push([])
                                     }
                                 }
                                 let gettestscore1 = 0;
@@ -247,34 +296,34 @@ class resultServices {
                                     gettestover2 = (teambinnKey[1]) ? teambinnKey[1].equations.overs : 0;
                                 }
                                 if (!gettestwicket1) {
-                                    matchdata.wickets1 = (teamainnKey[0]) ? teamainnKey[0].equations.wickets : 0;
+                                    matchdata.wickets1 = (teamainnKey[0].length != 0 && teamainnKey[0]) ? teamainnKey[0].equations.wickets : 0;
                                 } else {
-                                    matchdata.wickets1 = ((teamainnKey[0]) ? teamainnKey[0].equations.wickets : 0) + ',' + gettestwicket1;
+                                    matchdata.wickets1 = ((teamainnKey[0].length != 0 && teamainnKey[0]) ? teamainnKey[0].equations.wickets : 0) + ',' + gettestwicket1;
                                 }
                                 if (!gettestwicket2) {
-                                    matchdata.wickets2 = (teambinnKey[0]) ? teambinnKey[0].equations.wickets : 0;
+                                    matchdata.wickets2 = (teambinnKey[0].length != 0 && teambinnKey[0]) ? teambinnKey[0].equations.wickets : 0;
                                 } else {
-                                    matchdata.wickets2 = ((teambinnKey[0]) ? teambinnKey[0].equations.wickets : 0) + ',' + gettestwicket2;
+                                    matchdata.wickets2 = ((teambinnKey[0].length != 0 && teambinnKey[0]) ? teambinnKey[0].equations.wickets : 0) + ',' + gettestwicket2;
                                 }
                                 if (!gettestover1) {
-                                    matchdata.overs1 = (teamainnKey[0]) ? teamainnKey[0].equations.overs : 0;
+                                    matchdata.overs1 = (teamainnKey[0].length != 0 && teamainnKey[0]) ? teamainnKey[0].equations.overs : 0;
                                 } else {
-                                    matchdata.overs1 = ((teamainnKey[0]) ? teamainnKey[0].equations.overs : 0) + ',' + gettestover1;
+                                    matchdata.overs1 = ((teamainnKey[0].length != 0 && teamainnKey[0]) ? teamainnKey[0].equations.overs : 0) + ',' + gettestover1;
                                 }
                                 if (!gettestover2) {
-                                    matchdata.overs2 = (teambinnKey[0]) ? teambinnKey[0].equations.overs : 0;
+                                    matchdata.overs2 = (teambinnKey[0].length != 0 && teambinnKey[0]) ? teambinnKey[0].equations.overs : 0;
                                 } else {
-                                    matchdata.overs2 = ((teambinnKey[0]) ? teambinnKey[0].equations.overs : 0) + ',' + gettestover2;
+                                    matchdata.overs2 = ((teambinnKey[0].length != 0 && teambinnKey[0]) ? teambinnKey[0].equations.overs : 0) + ',' + gettestover2;
                                 }
                                 if (!gettestscore1) {
-                                    matchdata.runs1 = (teamainnKey[0]) ? teamainnKey[0].equations.runs : 0;
+                                    matchdata.runs1 = (teamainnKey[0].length != 0 && teamainnKey[0]) ? teamainnKey[0].equations.runs : 0;
                                 } else {
-                                    matchdata.runs1 = ((teamainnKey[0]) ? teamainnKey[0].equations.runs : 0) + ',' + gettestscore1;
+                                    matchdata.runs1 = ((teamainnKey[0].length != 0 && teamainnKey[0]) ? teamainnKey[0].equations.runs : 0) + ',' + gettestscore1;
                                 }
                                 if (!gettestscore2) {
-                                    matchdata.runs2 = (teambinnKey[0]) ? teambinnKey[0].equations.runs : 0;
+                                    matchdata.runs2 = (teambinnKey[0].length != 0 && teambinnKey[0]) ? teambinnKey[0].equations.runs : 0;
                                 } else {
-                                    matchdata.runs2 = ((teambinnKey[0]) ? teambinnKey[0].equations.runs : 0) + ',' + gettestscore2;
+                                    matchdata.runs2 = ((teambinnKey[0].length != 0 && teambinnKey[0]) ? teambinnKey[0].equations.runs : 0) + ',' + gettestscore2;
                                 }
                             } else {
                                 matchdata.winning_status = 0;
@@ -308,9 +357,13 @@ class resultServices {
                                     let key2 = giveresresult.innings.findIndex(element => element.batting_team_id == giveresresult.teamb.team_id);
                                     if (key1 >= 0) {
                                         teamainnKey.push(giveresresult.innings[key1]);
+                                    }else{
+                                        teamainnKey.push([]);
                                     }
                                     if (key2 >= 0) {
                                         teambinnKey.push(giveresresult.innings[key2]);
+                                    }else{
+                                        teambinnKey.push([]);
                                     }
                                 }
                                 let gettestscore1 = 0;
@@ -328,34 +381,34 @@ class resultServices {
                                     gettestover2 = (teambinnKey[1]) ? teambinnKey[1].equations.overs : 0;
                                 }
                                 if (!gettestwicket1) {
-                                    matchdata.wickets1 = (teamainnKey[0]) ? teamainnKey[0].equations.wickets : 0;
+                                    matchdata.wickets1 = (teamainnKey[0].length != 0 && teamainnKey[0]) ? teamainnKey[0].equations.wickets : 0;
                                 } else {
-                                    matchdata.wickets1 = ((teamainnKey[0]) ? teamainnKey[0].equations.wickets : 0) + ',' + gettestwicket1;
+                                    matchdata.wickets1 = ((teamainnKey[0].length != 0 && teamainnKey[0]) ? teamainnKey[0].equations.wickets : 0) + ',' + gettestwicket1;
                                 }
                                 if (!gettestwicket2) {
-                                    matchdata.wickets2 = (teambinnKey[0]) ? teambinnKey[0].equations.wickets : 0;
+                                    matchdata.wickets2 = (teambinnKey[0].length != 0 && teambinnKey[0]) ? teambinnKey[0].equations.wickets : 0;
                                 } else {
-                                    matchdata.wickets2 = ((teambinnKey[0]) ? teambinnKey[0].equations.wickets : 0) + ',' + gettestwicket2;
+                                    matchdata.wickets2 = ((teambinnKey[0].length != 0 && teambinnKey[0]) ? teambinnKey[0].equations.wickets : 0) + ',' + gettestwicket2;
                                 }
                                 if (!gettestover1) {
-                                    matchdata.overs1 = (teamainnKey[0]) ? teamainnKey[0].equations.overs : 0;
+                                    matchdata.overs1 = (teamainnKey[0].length != 0 && teamainnKey[0]) ? teamainnKey[0].equations.overs : 0;
                                 } else {
-                                    matchdata.overs1 = ((teamainnKey[0]) ? teamainnKey[0].equations.overs : 0) + ',' + gettestover1;
+                                    matchdata.overs1 = ((teamainnKey[0].length != 0 && teamainnKey[0]) ? teamainnKey[0].equations.overs : 0) + ',' + gettestover1;
                                 }
                                 if (!gettestover2) {
-                                    matchdata.overs2 = (teambinnKey[0]) ? teambinnKey[0].equations.overs : 0;
+                                    matchdata.overs2 = (teambinnKey[0].length != 0 && teambinnKey[0]) ? teambinnKey[0].equations.overs : 0;
                                 } else {
-                                    matchdata.overs2 = ((teambinnKey[0]) ? teambinnKey[0].equations.overs : 0) + ',' + gettestover2;
+                                    matchdata.overs2 = ((teambinnKey[0].length != 0 && teambinnKey[0]) ? teambinnKey[0].equations.overs : 0) + ',' + gettestover2;
                                 }
                                 if (!gettestscore1) {
-                                    matchdata.runs1 = (teamainnKey[0]) ? teamainnKey[0].equations.runs : 0;
+                                    matchdata.runs1 = (teamainnKey[0].length != 0 && teamainnKey[0]) ? teamainnKey[0].equations.runs : 0;
                                 } else {
-                                    matchdata.runs1 = ((teamainnKey[0]) ? teamainnKey[0].equations.runs : 0) + ',' + gettestscore1;
+                                    matchdata.runs1 = ((teamainnKey[0].length != 0 && teamainnKey[0]) ? teamainnKey[0].equations.runs : 0) + ',' + gettestscore1;
                                 }
                                 if (!gettestscore2) {
-                                    matchdata.runs2 = (teambinnKey[0]) ? teambinnKey[0].equations.runs : 0;
+                                    matchdata.runs2 = (teambinnKey[0].length != 0 && teambinnKey[0]) ? teambinnKey[0].equations.runs : 0;
                                 } else {
-                                    matchdata.runs2 = ((teambinnKey[0]) ? teambinnKey[0].equations.runs : 0) + ',' + gettestscore2;
+                                    matchdata.runs2 = ((teambinnKey[0].length != 0 && teambinnKey[0]) ? teambinnKey[0].equations.runs : 0) + ',' + gettestscore2;
                                 }
                             } else {
                                 matchdata.winning_status = 0;
@@ -380,8 +433,10 @@ class resultServices {
                         let playing11 = await this.findMatchPlayers(checkmatch._id, null, 1);
                         // console.log('matchplayers-----',matchPlayers);
                         if (mainArrayGet.players.length > 0) {
+                            // let matchPlayersData = await this.findMatchPlayers1(checkmatch._id);
                             let matchPlayersData = await this.findMatchPlayers(checkmatch._id);
-                            if (matchPlayers.length > 0) {
+                           
+                            if (matchPlayersData.length > 0) {
                                 let innplayers = [],
                                     t = '',
                                     f = 1,
@@ -393,7 +448,9 @@ class resultServices {
                                     let i = 1;
                                     innplayers[value] = [];
                                     innplayers[value][i] = {};
+                                    
                                     for (let [ak, teama] of teamainnKey.entries()) {
+                                        // console.log('8888888888888888888888-----');
                                         let datasv = {},
                                             runs = 0,
                                             fours = 0,
@@ -413,40 +470,65 @@ class resultServices {
                                             bballs = 0,
                                             extra = 0,
                                             overs = 0;
+                                        
+                                            // console.log('xcc fielding teama',teama);
+                                        if(teama!=''){
+                                            let bat = (teama.batsmen) ? teama.batsmen.findIndex(element => element.batsman_id == value) : "";
+                                            if (bat != -1) {
+                                                innplayers[value][i]['batting'] = teama.batsmen[bat];
+                                            } else {
+                                                if (!innplayers[value][i]['batting']) {
+                                                    innplayers[value][i]['batting'] = '';
+                                                }
+                                                let bowl = (teama!='' && teama.bowlers) ? teama.bowlers.findIndex(element => element.bowler_id == value) : "";
+                                                let field = (teama!='' && teama.fielder) ? teama.fielder.findIndex(element => element.fielder_id == value) : "";
+                                                
+                                                innplayers[value][i]['bowling'] = (bowl != -1) ? teama.bowlers[bowl] : '';
 
-                                        let bat = (teama.batsmen) ? teama.batsmen.findIndex(element => element.batsman_id == value) : "";
-                                        if (bat != -1) {
-
-                                            innplayers[value][i]['batting'] = teama.batsmen[bat];
-                                        } else {
-                                            if (!innplayers[value][i]['batting']) {
-                                                innplayers[value][i]['batting'] = [];
+                                                innplayers[value][i]['fielding'] = (field != -1) ? teama.fielder[field] : '';
                                             }
-                                            let bowl = (teama.bowlers) ? teama.bowlers.findIndex(element => element.bowler_id == value) : "";
-                                            let field = (teama.fielder) ? teama.fielder.findIndex(element => element.fielder_id == value) : "";
-                                            innplayers[value][i]['bowling'] = (bowl != '') ? teama.bowlers[bowl] : [];
-                                            innplayers[value][i]['fielding'] = (field != '') ? teama.fielder[field] : [];
                                         }
+                                        
+                                        // console.log('dsfsdffffffffffffffffffff teambinnKey length',teambinnKey.length);
+                                        if(teambinnKey.length>0 && teambinnKey[0]!=''){
+                                            // console.log('dsfsdffffffffffffffffffff batsmen',teambinnKey[ak]['batsmen']);
+                                            let batb = (teambinnKey[ak]['batsmen']) ? teambinnKey[ak]['batsmen'].findIndex(element => element.batsman_id == value) : "";
+                                            // console.log('dsfsdffffffffffffffffffff batb',batb);
+                                            if (batb != -1) {
+                                                
+                                                innplayers[value][i]['batting'] = (teambinnKey[ak]['batsmen'][batb]) ? teambinnKey[ak]['batsmen'][batb] : '';
 
-                                        let batb = (teambinnKey[ak]['batsmen']) ? teambinnKey[ak]['batsmen'].findIndex(element => element.batsman_id == value) : "";
+                                            } else {
+                                                
+                                                if (!innplayers[value][i]['batting']) {
+                                                    innplayers[value][i]['batting'] = '';
+                                                }
+                                                if (!innplayers[value][i]['bowling']) {
+                                                    let bowlb = (teambinnKey[ak]['bowlers']) ? teambinnKey[ak]['bowlers'].findIndex(element => element.bowler_id == value) : "";
+                                                    if(bowlb!== -1){
+                                                        innplayers[value][i]['bowling'] = (teambinnKey[ak]['bowlers'][bowlb]) ? teambinnKey[ak]['bowlers'][bowlb] : '';
+                                                    }else{
+                                                        innplayers[value][i]['bowling'] ='';
+                                                    }
+                                                }
 
-                                        if (batb != -1) {
-                                            innplayers[value][i]['batting'] = teambinnKey[ak]['batsmen'][batb];
-
-                                        } else {
-                                            if (!innplayers[value][i]['batting']) {
-                                                innplayers[value][i]['batting'] = [];
-                                            }
-                                            if (!innplayers[value][i]['bowling']) {
-                                                let bowlb = (teambinnKey[ak]['bowlers']) ? teambinnKey[ak]['bowlers'].findIndex(element => element.bowler_id == value) : "";
-                                                innplayers[value][i]['bowling'] = teambinnKey[ak]['bowlers'][bowlb];
-                                            }
-                                            if (!innplayers[value][i]['fielding']) {
-                                                let fieldb = (teambinnKey[ak]['fielder']) ? teambinnKey[ak]['fielder'].findIndex(element => element.fielder_id == value) : "";
-                                                innplayers[value][i]['fielding'] = teambinnKey[ak]['fielder'][fieldb];
+                                                // console.log('dsfsdffffffffffffffffffff fielder',teambinnKey[ak]['fielder']);
+                                                if (!innplayers[value][i]['fielding']) {
+                                                    let fieldb = (teambinnKey[ak]['fielder']) ? teambinnKey[ak]['fielder'].findIndex(element => element.fielder_id == value) : "";
+                                                    // console.log('sfdsfddsfdsfdsfsdfsdfsv------- fielder',fieldb);
+                                                    if(fieldb!== -1){
+                                                        innplayers[value][i]['fielding'] = (teambinnKey[ak]['fielder'][fieldb]) ? teambinnKey[ak]['fielder'][fieldb] : '';
+                                                    }else{
+                                                        innplayers[value][i]['fielding'] = ''
+                                                    }
+                                                }
+                                                // console.log('fielding',innplayers[value][i]['fielding']);
                                             }
                                         }
                                         let play = innplayers[value][i];
+                                        // console.log('batting',play['batting'])
+                                        // console.log('bowling',play['bowling'])
+                                        // console.log('fielding',play['fielding'])
                                         if (play['batting'] || play['bowling'] || play['fielding']) {
                                             let checkPlaying11 = playing11.find(element => element.playersData.players_key == value);
                                             if (checkPlaying11) {
@@ -511,6 +593,8 @@ class resultServices {
                                                 }
                                                 datasv['wicket_type'] = (play['batting']['dismissal']) ? play['batting']['dismissal'] : '';
                                             }
+
+                                            // console.log('dsfsdffffffffffffffffffff',play['bowling']);
                                             //Bowling points
                                             if (play['bowling']) {
                                                 let bowling = play['bowling'];
@@ -527,9 +611,11 @@ class resultServices {
                                                 }
 
                                             }
-                                            // console.log('dsfsdffffffffffffffffffff',play['fielding']);
+
+                                            // console.log('dsfsdffffffffffffffffffff fielding',play['fielding']);
                                             // fielding points //
-                                            if (play['fielding']) {
+                                            if (play['fielding']!= '' && play['fielding']!= undefined) {
+                                                // console.log('dsfsdffffffffffffffffffff fielding' ,play['fielding']);
                                                 let fielding = play['fielding'];
                                                 datasv.catch = pCatch = pCatch + (fielding['catches']) ? fielding['catches'] : 0;
                                                 if (fielding['runout_direct_hit'] == 0) {
@@ -540,8 +626,11 @@ class resultServices {
                                                     datasv.hitter = 1;
                                                 }
                                                 datasv.stumbed = stumbed = stumbed + (fielding['stumping'] ? fielding['stumping'] : 0);
+                                            }else{
+                                                datasv.thrower = 0;
+                                                datasv.hitter = 0;
                                             }
-
+                                            // console.log('dsfsdffffffffffffffffffff datasv',datasv);
                                             datasv.matchkey = mongoose.Types.ObjectId(checkmatch._id);
                                             datasv.player_key = value;
                                             datasv.player_id = pid;
@@ -619,7 +708,7 @@ class resultServices {
                     wicketbonuspoint = 0;
                 let findplayerrole = await matchPlayers.findOne({ playerid: mongoose.Types.ObjectId(row.player_id), matchkey: mongoose.Types.ObjectId(matchid) });
                 let wicketbonuspointdata = await resultMatch.find({ matchkey: mongoose.Types.ObjectId(matchid), wplayerid: mongoose.Types.ObjectId(row.player_id) });
-                console.log('wicketbonuspointdata', wicketbonuspointdata);
+               
                 if (wicketbonuspointdata.length > 0) {
                     wicketbonuspoint = wicketbonuspointdata.length * 8;
                 }
@@ -941,8 +1030,20 @@ class resultServices {
         pipeline.push({
             $lookup: {
                 from: 'resultpoints',
-                localField: 'playerid',
-                foreignField: 'player_id',
+                let: { player_id: "$playerid",matchkey:"$matchkey" },
+                    pipeline: [
+                        {
+                        $match: {
+                            $expr: {
+                            $and: [
+                                { $eq: ["$player_id", "$$player_id"] },
+                                { $eq: ["$matchkey", "$$matchkey"] },
+
+                            ],
+                            },
+                        },
+                        },
+                    ],
                 as: 'resultPointData'
             }
         })
@@ -961,7 +1062,7 @@ class resultServices {
         let getMatchPlayers = await matchPlayers.aggregate(pipeline);
         if (getMatchPlayers.length > 0) {
             for (let players of getMatchPlayers) {
-                // console.log('players----', players);
+                console.log('players----', players);
                 await matchPlayers.updateOne({ _id: mongoose.Types.ObjectId(players._id) }, {
                     $set: {
                         points: players.total
@@ -981,11 +1082,13 @@ class resultServices {
                 let players = team.players
                 for (let player of allMatchPlayers) {
                     let pid = player.playerid
-                    let findPlayer = await players.find(element => element.toString() == pid.toString());
-                    if (findPlayer) {
-                        if (team.captain.toString() == pid.toString()) {
+                    let findPlayer = await players.find(element => element.toString() === pid.toString());
+                    
+                    if (findPlayer && findPlayer!=='') {
+                        // console.log('findPlayer', findPlayer);
+                        if (team.captain.toString() === pid.toString()) {
                             user_points = user_points + (player.points * 2);
-                        } else if (team.vicecaptain.toString() == pid.toString()) {
+                        } else if (team.vicecaptain.toString() === pid.toString()) {
                             user_points = user_points + (player.points * 1.5);
                         } else {
                             user_points = user_points + player.points;
@@ -997,6 +1100,7 @@ class resultServices {
                 if (team.points != user_points) {
                     result['lastpoints'] = team.points;
                 }
+                // console.log('user_points', user_points);
                 result['points'] = user_points;
                 await joinTeam.updateOne({ _id: mongoose.Types.ObjectId(team._id) }, {
                     $set: result
@@ -1153,7 +1257,7 @@ class resultServices {
                 pipeline: [{
                     $match: {
                         status: { $ne: "canceled" },
-                        // _id:mongoose.Types.ObjectId("62554fd77ac6f75384091f92"),
+                        // _id:mongoose.Types.ObjectId("628b08fd250227be46ae4374"),
                         $expr: {
                             $and: [
                                 { $eq: ["$matchkey", "$$matckey"] },
@@ -1195,33 +1299,47 @@ class resultServices {
                     }
                 });
                 let joinedusers = await joinLeague.aggregate(pipeline1);
-
+                
                 if (joinedusers.length > 0) {
                     let prc_arr = [];
                     if (challenge.contest_type == 'Amount') {
                         if (challenge.pricecard_type == 'Amount') {
-                            if (challenge.matchpricecards) {
+                            // console.log('challenge.matchpricecards',challenge.matchpricecards)
+                            if (challenge.matchpricecards.length> 0) {
                                 for (let prccrd of challenge.matchpricecards) {
                                     let min_position = prccrd.min_position;
                                     let max_position = prccrd.max_position;
                                     for (let i = min_position; i < max_position; i++) {
-                                        prc_arr[i + 1] = prccrd.price;
+                                        prc_arr[i + 1]= {};
+                                        if(prccrd.distribution_type=='crown'){
+                                            prc_arr[i + 1]['price'] = 0;
+                                            prc_arr[i + 1]['crown'] = prccrd.price;
+                                        }else{
+                                            prc_arr[i + 1]['crown'] = 0;
+                                            prc_arr[i + 1]['price'] = prccrd.price;
+                                        }
                                     }
                                 }
                             } else {
-                                prc_arr[1] = challenge.win_amount;
+                                prc_arr[1]={};
+                                prc_arr[1]['crown'] = 0;
+                                prc_arr[1]['price'] = challenge.win_amount;
                             }
                         } else {
-                            if (challenge.matchpricecards) {
+                            if (challenge.matchpricecards.length>0) {
                                 for (let prccrd of challenge.matchpricecards) {
                                     let min_position = prccrd.min_position;
                                     let max_position = prccrd.max_position;
                                     for (let i = min_position; i < max_position; i++) {
-                                        prc_arr[i + 1] = (prccrd.price_percent / 100) * (challenge.win_amount);
+                                        prc_arr[i + 1]= {};
+                                        prc_arr[i + 1]['price'] = (prccrd.price_percent / 100) * (challenge.win_amount);
+                                        prc_arr[i + 1]['crown'] = 0;
                                     }
                                 }
                             } else {
-                                prc_arr[1] = challenge.win_amount;
+                                prc_arr[1]={};
+                                prc_arr[1]['price'] = challenge.win_amount;
+                                prc_arr[1]['crown'] = 0;
                             }
                         }
                     } else if (challenge.contest_type == 'Percentage') {
@@ -1230,7 +1348,9 @@ class resultServices {
                         let toWin = Math.floor(gtjnusers * getwinningpercentage / 100);
                         prc_arr = [];
                         for (let i = 0; i < toWin; i++) {
-                            prc_arr[i + 1] = challenge.win_amount;
+                            prc_arr[i + 1]= {};
+                            prc_arr[i + 1]['price'] = challenge.win_amount;
+                            prc_arr[i + 1]['crown'] = 0;
                         }
                     }
                     let user_points = [];
@@ -1244,9 +1364,16 @@ class resultServices {
                             lp++;
                         }
                     }
-                    user_points.sort((a, b) => {
-                        return b.points - a.points;
-                    });
+                    
+                    if(challenge.c_type!='reverse'){
+                        user_points.sort((a, b) => {
+                            return b.points - a.points;
+                        });
+                    }else{
+                        user_points.sort((a, b) => {
+                            return a.points - b.points;
+                        });
+                    }
 
 
 
@@ -1292,9 +1419,17 @@ class resultServices {
                             }
                         }
                     }
-                    poin_user.sort((a, b) => {
-                        return b.points - a.points;
-                    });
+                    
+                    if(challenge.c_type!='reverse'){
+                        poin_user.sort((a, b) => {
+                            return b.points - a.points;
+                        });
+                    }else{
+                        poin_user.sort((a, b) => {
+                            return a.points - b.points;
+                        });
+                    }
+                    
 
                     let win_usr = [];
                     let win_cnt = 0;
@@ -1327,7 +1462,8 @@ class resultServices {
                                 let obj2 = {};
                                 obj2[ps['joinedid'][0]] = {};
                                 obj2[ps['joinedid'][0]]['points'] = ps['points'];
-                                obj2[ps['joinedid'][0]]['amount'] = prc_arr[ps['min']];
+                                obj2[ps['joinedid'][0]]['amount'] = prc_arr[ps['min']]['price'];
+                                obj2[ps['joinedid'][0]]['crown'] = prc_arr[ps['min']]['crown'] ?? 0;
                                 obj2[ps['joinedid'][0]]['rank'] = ps['min'];
                                 obj2[ps['joinedid'][0]]['userid'] = ps['id'][0];
                                 final_poin_user.push(obj2);
@@ -1335,19 +1471,30 @@ class resultServices {
                             } else {
                                 let ttl = 0;
                                 let avg_ttl = 0;
+                                //crown
+								let ttl_crown=0, avg_ttl_crown=0;
                                 for (let jj = ps['min']; jj <= ps['max']; jj++) {
                                     let sm = 0;
+                                    let sm_crown=0;
                                     if (prc_arr[jj]) {
-                                        sm = prc_arr[jj];
+                                        sm = prc_arr[jj]['price'];
+
+                                        sm_crown= prc_arr[jj]['crown'] ?? 0;
                                     }
                                     ttl = ttl + sm;
+                                    //crown
+									ttl_crown=ttl_crown+sm_crown;
                                 }
                                 avg_ttl = ttl / ps['count'];
+                                
+								//crown
+								avg_ttl_crown=ttl_crown/ps['count'];
                                 for (let [keyuser, fnl] of ps['joinedid'].entries()) {
                                     let obj3 = {};
                                     obj3[fnl] = {};
                                     obj3[fnl]['points'] = ps['min'];
                                     obj3[fnl]['amount'] = avg_ttl;
+                                    obj3[fnl]['crown'] = avg_ttl_crown;
                                     obj3[fnl]['rank'] = ps['min'];
                                     obj3[fnl]['userid'] = ps['id'][keyuser];
                                     final_poin_user.push(obj3);
@@ -1365,10 +1512,12 @@ class resultServices {
                             let checkWinning = await finalResultModel.findOne({ joinedid: mongoose.Types.ObjectId(fpuskjoinid) });
                             if (!checkWinning) {
                                 let transactionidsave = `${constant.APP_SHORT_NAME}-WIN-${Date.now()}-${fpuskjoinid}`;
+                                
                                 let finalResultArr = {
                                     userid: fpusk,
                                     points: fpusv['points'],
                                     amount: fpusv['amount'].toFixed(2),
+                                    crown: fpusv['crown'].toFixed(2),
                                     rank: fpusv['rank'],
                                     matchkey: matchkey,
                                     challengeid: challenge._id,
@@ -1430,18 +1579,22 @@ class resultServices {
                                             const balance = parseFloat(user.userbalance.balance.toFixed(2));
                                             const winning = parseFloat(user.userbalance.winning.toFixed(2));
                                             const totalwinning = parseFloat(user.totalwinning.toFixed(2));
+                                            const crown = parseFloat(user.userbalance.crown.toFixed(2));
                                             const totalBalance = bonus + balance + winning;
                                             let amount = fpusv['amount'];
+                                            let crowns = fpusv['crown'];
                                             const userObj = {
                                                 'userbalance.balance': balance,
                                                 'userbalance.bonus': bonus,
                                                 'userbalance.winning': winning + amount,
+                                                'userbalance.crown': crown + crowns,
                                                 'totalwinning': totalwinning + amount
 
                                             };
                                             const transactiondata = {
                                                 type: 'Challenge Winning Amount',
                                                 amount: amount,
+                                                crown: crowns,
                                                 total_available_amt: totalBalance + amount,
                                                 transaction_by: constant.APP_SHORT_NAME,
                                                 challengeid: challenge._id,
@@ -1451,6 +1604,7 @@ class resultServices {
                                                 bal_win_amt: winning + amount,
                                                 bal_fund_amt: balance,
                                                 win_amt: amount,
+                                                bal_crown_amt: crown + crowns,
                                                 transaction_id: transactionidsave
                                             };
                                             await Promise.all([
@@ -1501,6 +1655,303 @@ class resultServices {
             }
         }
     }
+
+    // async insertProfitLossData(){
+    //     try{
+    //         var date = new Date();
+    //         date.setDate(date.getDate() - 1);
+    //        let lastDate=moment(Date.now(date)).format('YYYY-MM-DD');
+    //         console.log("lastDate...............",lastDate);
+    //         console.log("start_date:{$gte:lastDate},final_status:constant.MATCH_FINAL_STATUS.WINNER_DECLARED....",lastDate,constant.MATCH_FINAL_STATUS.WINNER_DECLARED);
+    //         const getListMatch = await listMatches.find({start_date:{$gte:lastDate},final_status:constant.MATCH_FINAL_STATUS.WINNER_DECLARED});
+    //         // const getMatch=await listMatches.find({_id:'622f35b75d72aff32916752e'});
+    //         console.log("getListMatch..............",getListMatch)
+    //         if(getListMatch.length > 0){
+    //             for await(let key of getListMatch){
+                   
+    //                 let data = {};
+    //                 data['matchkey'] = key._id;
+    //                 data['matchName'] = key.name;
+    //                 data['start_date'] = key.start_date;
+    
+    //                 let challenges=await matchChallenge.find({matchkey:mongoose.Types.ObjectId(key._id),status:constant.MATCH_CHALLENGE_STATUS.CANCELED},{entryfee:1,is_bonus:1,bonus_percentage:1});
+    //                 console.log("challenges...................",challenges)
+    
+    //                 let admin_amount_received = 0;
+    //                 let bonus = 0;
+    //                 if(challenges.length > 0){
+    //                     for await(let ckey of challenges){
+    //                         let sumOfBonus = 0;
+    //                         let sumOfbalance = 0;
+    //                         let sumofwinning = 0;
+    
+    //                         let real_money = await joinLeague.find({challengeid:mongoose.Types.ObjectId(ckey._id)},{leaugestransaction:1});
+    //                         console.log("real_money........??????????....",real_money)
+                            
+    //                         if(real_money.length > 0){
+    //                             for await(let countMoney of real_money){
+    //                                 sumOfBonus += countMoney.leaugestransaction?.bonus
+    //                                 sumOfbalance += countMoney.leaugestransaction?.balance
+    //                                 sumofwinning += countMoney.leaugestransaction?.winning
+    //                             }
+    //                         }
+    //                         let actual_received = sumOfbalance + sumofwinning ;
+    
+    //                         admin_amount_received += actual_received
+    //                         bonus += sumOfBonus
+    //                     }
+    //                 }
+    //                 console.log("bonus..........///////////////.",bonus)
+    //                 data.invested_amount=admin_amount_received.toFixed(2);
+                    
+    //                 let winning_amt=await finalResultModel.find({matchkey:mongoose.Types.ObjectId(key._id)});
+    //                 let sumOfamount_wininngAmt=0;
+    //                 for await(let wAmtCount of winning_amt){
+    //                     sumOfamount_wininngAmt += wAmtCount.amount
+    //                 }
+    //                 let tds_amount = await tdsDetailModel.find({matchkey:mongoose.Types.ObjectId(key._id)});
+    //                 let sumofTDS_amt=0;
+    //                 for await(let tdsKey of tds_amount){
+    //                     sumofTDS_amt += tdsKey.amount
+    //                 }
+    //                 console.log("sumofTDS_amt......................................",sumofTDS_amt)
+    //                 data.win_amount = sumOfamount_wininngAmt.toFixed(2);
+    //                 data.TDS_amount= sumofTDS_amt.toFixed(2);
+    
+    //                 // let refund_amt=await refundMatch.aggregate[
+    //                 //     {$match:{matchkey:mongoose.Types.ObjectId(key._id)}},
+    //                 //     {$group:{
+    //                 //         _id: mongoose.Types.ObjectId(key._id),
+    //                 //         sumofamount: {
+    //                 //           $sum: '$amount'
+    //                 //         }
+    //                 //       }}
+    //                 // ];
+    //                 // data.refund_amount=(refund_amt[0].sumofamounts).toFixed(2)  || 0 ;
+    
+    //                 let refund_amt = await refundMatch.find({matchkey:mongoose.Types.ObjectId(key._id)});
+    //                 let sumof_refundAmt=0;
+    //                 for await(let refundKey of refund_amt){
+    //                     sumof_refundAmt += refundKey.amount ;
+    //                 }
+    //                 console.log("sumof_refundAmt............................................",sumof_refundAmt)
+    //                 data.refund_amount=(sumof_refundAmt).toFixed(2) ;
+    //                 let youtuber_bonus=0;
+    //                 data.youtuber_bonus = youtuber_bonus;
+    
+    //                 // let cashback_amt =0; // no cashback collection
+    //                 let distributed=sumOfamount_wininngAmt + youtuber_bonus ;
+    //                 let p_and_l = admin_amount_received - distributed ;
+    //                 let amount_profit_or_loss
+    //                 if( admin_amount_received > distributed ){ amount_profit_or_loss=admin_amount_received - distributed}else{ amount_profit_or_loss= distributed - admin_amount_received}
+    // console.log("p_and_l......................................",p_and_l);
+    // console.log("distributed.................................",distributed);
+    //                 if(p_and_l < 0){
+    //                     data.profit_or_loss = 'Loss' ;
+    //                 }else if(p_and_l == 0){
+    //                     data.profit_or_loss = 'None' ;
+    //                 }else{
+    //                     data.profit_or_loss = 'Profit' ;
+    //                 }
+    
+    //                 data.profit_or_loss_amount = amount_profit_or_loss.toFixed(2);
+                    
+    //                 const checkMatchKey=await profitLossModel.findOne({matchkey:mongoose.Types.ObjectId(key._id)});
+    //                 if(checkMatchKey){
+    //                     const updateData=await profitLossModel.updateOne({matchkey:mongoose.Types.ObjectId(key._id)},{
+    //                         $set:data
+    //                     });
+    //                     if(updateData.modifiedCount > 0){
+    //                         const updateReportStatus=await listMatches.updateOne({_id:mongoose.Types.ObjectId(key._id)},{
+    //                             $set:{
+    //                                 report_status:1
+    //                             }
+    //                         })
+    //                         // return{
+    //                         //     status:true,
+    //                         //     message:'profit/loss data successfully update'
+    //                         // }
+    //                     }
+    //                     // else{
+    //                     //     return{
+    //                     //         status:false,
+    //                     //         message:'profit/loss not insert ..error'
+    //                     //     }
+    //                     // }
+
+    //                 }else{
+
+    //                     let insertData=new profitLossModel(data);
+    //                     let saveData=await insertData.save();
+    //                     if(saveData){
+    //                         const updateReportStatus=await listMatches.updateOne({_id:mongoose.Types.ObjectId(key._id)},{
+    //                             $set:{
+    //                                 report_status:1
+    //                             }
+    //                         })
+    //                         // return{
+    //                         //     status:true,
+    //                         //     data:saveData,
+    //                         //     message:'profit/loss data successfully insert'
+    //                         // }
+    //                     }
+    //                     // else{
+    //                     //     return{
+    //                     //         status:false,
+    //                     //         message:'profit/loss not insert ..error'
+    //                     //     }
+    //                     // }
+    //                 }
+                
+    //         }
+    //         }else{
+    //             return {
+    //                         status:false,
+    //                         message:'listmatch not found'
+    //                     }
+    //         }
+    //         return {
+    //             status:true,
+    //             message:'update Successfully'
+    //         }
+
+
+    //     }catch(error){
+    //         throw error;
+    //     }
+    // }
+//     async insertProfitLossData(){ 
+//         try{
+//             var date = new Date();
+//             date.setDate(date.getDate() - 1);
+//            let lastDate=moment(date).format('YYYY-MM-DD');
+// // --------------------------------List Match Data-----------------
+//           const listMatchData = await listMatches.find({final_status:constant.MATCH_FINAL_STATUS.WINNER_DECLARED});
+//         //   const listMatchData = await listMatches.find({_id:mongoose.Types.ObjectId("62aff83fad92e1eae5319fc9")});
+//           if(listMatchData.length > 0){
+//             for await(let listMatch_Key of listMatchData){
+//                 let checkPL =await profitLossModel.findOne({matchkey:listMatch_Key._id});
+//                 if(!checkPL){
+//                     let data={};
+//                     data.matchkey=listMatch_Key._id;
+//                     data.matchName=listMatch_Key.name;
+//                     data.start_date=listMatch_Key.start_date;
+//                     // --------------------challenge-------
+//                     const challengeData=await matchChallenge.find({matchkey:listMatch_Key._id},{entryfee:1,is_bonus:1,bonus_percentage:1});
+//                     // console.log("challengeData...........////////////............",challengeData)
+//                     let admin_amt_received=0;
+//                     let bonus=0;
+//                     if(challengeData.length > 0){
+//                         for await(let challenge_Key of challengeData){
+//                             let joinLeague_user_count=await joinLeague.countDocuments({challengeid:challenge_Key._id});
+//                             // console.log("joinLeague_user_count......................///////..........",joinLeague_user_count)
+//                             // console.log("challenge_Key.is_bonus........///...........",challenge_Key.is_bonus)
+//                             if(challenge_Key.is_bonus == 1){
+//                                 let bonus_allowed=(challenge_Key.entryfee*challenge_Key.bonus_percentage)/100 ;
+//                                 let remaining_entryfee=challenge_Key.bonus_percentage - bonus_allowed ;
+//                                 admin_amt_received += remaining_entryfee * joinLeague_user_count;
+//                                 // console.log("admin_amt_received......1........",admin_amt_received)
+//                             }else{
+//                                 admin_amt_received += challenge_Key.entryfee * joinLeague_user_count ;
+//                                 // console.log("admin_amt_received......0........",admin_amt_received)
+//                             }
+//                             // ------------------joindleauge------
+//                             // console.log("challenge_Key._id........................///////....",challenge_Key._id)
+//                             let joinLeague_user=await joinLeague.find({challengeid:challenge_Key._id});
+//                             // console.log("joinLeague_user...........//////////.....",joinLeague_user)
+//                             if(joinLeague_user.length > 0){
+//                                 for await(let joindleauge_Key of joinLeague_user){
+//                                     let refund_leauge = await refundMatch.findOne({matchkey:listMatch_Key._id,joinid:joindleauge_Key._id},{amount:1});
+//                                     if(refund_leauge?.amount){
+//                                         let leaugestransactions = await TransactionModel.find({joinid:joindleauge_Key._id,$gt:{bonus_amt:0}},{bonus_amt:1});
+//                                        if(leaugestransactions.length >0){
+//                                         bonus += leaugestransactions[0].bonus_amt
+//                                        }
+//                                     }
+//                                 }
+//                             }
+//                         }
+//                     }
+//                     data.invested_amount= admin_amt_received.toFixed(2);
+//                     let winning_amt= await finalResultModel.aggregate([
+//                         {
+//                            $match: {
+//                                 matchkey:mongoose.Types.ObjectId(listMatch_Key._id),
+//                               }
+//                         },
+//                         {
+//                             $group:{
+//                                 _id:null ,
+//                                 amount:{$sum:"$amount"}
+//                               }
+//                         }
+//                     ])
+//                     // console.log("winning_amt.........////////////.........",winning_amt)
+//                     if(winning_amt[0]?.amount){
+//                         data.win_amount=(winning_amt[0].amount).toFixed(2);
+//                     }
+//                     let refund_amt=await refundMatch.aggregate([
+//                         {
+//                             $match: {
+//                                  matchkey:mongoose.Types.ObjectId(listMatch_Key._id),
+//                                }
+//                          },
+//                         {
+//                             $group:{
+//                                 _id: null,
+//                                 amount:{$sum:"$amount"}
+//                               }
+//                         }
+//                     ]);
+//                     // console.log("refund_amt.........////////////.........",refund_amt)
+//                     let newRefund_amt;
+//                     if(refund_amt[0]?.amount){
+//                         newRefund_amt = refund_amt[0].amount - bonus ;
+//                     }else{
+//                         newRefund_amt=0
+//                     }
+//                     data.refund_amount=newRefund_amt.toFixed(2);
+//                     let youtuberBonus=0;
+//                     data.youtuber_bonus=youtuberBonus;
+//                     let distributed= data?.win_amount + newRefund_amt + youtuberBonus;
+//                     let p_and_l= Number(admin_amt_received) - Number(distributed);
+//                     let amount_profit_or_loss=Number(admin_amt_received) > Number(distributed) ? Number(admin_amt_received) -Number(distributed) :Number(distributed) - Number(admin_amt_received);
+    
+//                     if(p_and_l < 0){
+//                         data.profit_or_loss = 'Loss'
+//                     }else if(p_and_l == 0){
+//                         data.profit_or_loss = 'none'
+//                     }else{
+//                         data.profit_or_loss = 'Profit'
+//                     }
+//                     if(amount_profit_or_loss){
+//                         data.profit_or_loss_amount = Number(amount_profit_or_loss).toFixed(2);
+//                     }else{
+//                         data.profit_or_loss_amount =0;
+//                     }
+//                     let insertData=await profitLossModel.create(data);
+//                 }
+              
+//                 // return data
+//             }
+//         }else{
+//             return {
+//                 status:false,
+//                 message:'match not found '
+//             }
+//         }
+//         return{
+//             status:true,
+//             message:'successfully update match'
+//         };
+
+
+
+
+//         }catch(error){
+//             console.log(error)
+//         }
+//     }
 
 }
 

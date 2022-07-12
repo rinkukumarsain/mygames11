@@ -58,6 +58,7 @@ const notificationController=require("../../controller/notificationController");
 const receivefundController=require("../../controller/receivefundController");
 const leaderboardController=require("../../controller/leaderboardController");
 const popupNotificationController=require("../../controller/popupNotificationController");
+const resultServices = require('../../services/resultServices');
 
 
 router.get("/", auth, getUrl, dashboardController.showdashboard);
@@ -294,17 +295,19 @@ router.post("/change-password-data", auth, adminController.changePassword);
 // ------------------------- result controller route ------------------------
 
 //Cron don't add auth and getUrl function
-router.get("/update_results_of_matches", resultController.update_results_of_matches)
-router.get("/refund_amount", resultController.refund_amount)
+router.get("/update_results_of_matches", resultController.update_results_of_matches);
+router.get("/userpoints/:matchid", resultServices.userpoints);
+router.get("/refund_amount", resultController.refund_amount);
+// router.get("/insertProfitLossData", resultController.insertProfitLossData);
 
 
 router.get("/match-result", auth, getUrl, resultController.matchResult);
 router.post("/match-result-table", auth, resultController.matchResultData);
 router.get("/match-details/:id", auth, getUrl, resultController.matchDetails);
 router.post("/match-details-table/:id", auth, resultController.matchDetailsData);
-router.get("/allcontests/:id", auth, getUrl, resultController.matchAllcontests);
+router.get("/allcontests/:id", auth,  getUrl, resultController.matchAllcontests);
 router.post("/allcontests-table/:id", auth, resultController.matchAllcontestsData);
-router.get("/match-score/:id", auth, getUrl, resultController.matchScore);
+router.get("/match-score/:id", auth,  getUrl, resultController.matchScore);
 router.get("/match-points/:id", auth, getUrl, resultController.matchPoints);
 router.get("/batting-points/:id", auth, getUrl, resultController.battingPoints);
 router.get("/bowling-points/:id", auth, getUrl, resultController.bowlingPoints);
@@ -319,6 +322,7 @@ router.post("/team-points-table/:id", auth, resultController.teamPointsData);
 router.get('/contest-user-details/:matchkey', auth, getUrl, resultController.contestUserDetails);
 router.post('/contest-user-details-table/:matchkey', auth, resultController.contestUserDetailsData);
 router.post("/updateMatchFinalStatus/:id/:status", auth, resultController.updateMatchFinalStatus);
+router.get("/autoupdateMatchFinalStatus", auth, resultController.autoUpdateMatchFinalStatus);
 router.get("/user-teams", auth, getUrl, resultController.viewTeams);
 router.post("/user-teams-table", auth, resultController.viewTeamsData);
 
