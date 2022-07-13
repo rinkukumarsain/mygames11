@@ -59,6 +59,8 @@ const receivefundController=require("../../controller/receivefundController");
 const leaderboardController=require("../../controller/leaderboardController");
 const popupNotificationController=require("../../controller/popupNotificationController");
 const resultServices = require('../../services/resultServices');
+const botUserController = require("../../controller/botUserController");
+const activateDeactivateBotController = require("../../controller/activateDeactivateController");
 
 
 router.get("/", auth, getUrl, dashboardController.showdashboard);
@@ -196,6 +198,16 @@ router.post("/viewAllOffer-data-table", auth, offerController.viewAllOfferDataTa
 router.get("/editoffers", auth,  getUrl, offerController.editoffers_page);
 router.post("/edit-offer-data", auth,offerController.editOfferData);
 router.get("/deleteoffers", auth,  offerController.deleteoffers);
+
+// -------------------bot user--------------------
+router.get("/add-botuser", auth, getUrl, botUserController.botUserPage);
+router.post("/add-botuser-data", auth, botUserController.botUserData);
+router.get("/view-botuser", auth,  getUrl, botUserController.viewBotUserPage);
+router.post("/view-botuser-datatable", auth, botUserController.viewBotUserData);
+router.post("/join-botuser", auth, botUserController.joinBotUser);
+// activate and deactivate bot users
+router.post("/return-a-b", auth, activateDeactivateBotController.acivateBotUser);
+router.post("/return-i-b", auth, activateDeactivateBotController.deactivateBotUser);
 
 // -------------------------point System ------------------------------
 
