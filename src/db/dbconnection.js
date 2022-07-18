@@ -1,12 +1,11 @@
 const constant = require('../config/const_credential');
 const mongoose = require("mongoose");
-// console.log(`constant.DB_URL`, constant.DB_URL);
-mongoose.connect(`${constant.DB_URL}`, {
-    dbName: `${constant.DB_NAME}`,
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => {
-    console.log("mongoDB connection successfully")
-}).catch(() => {
-    console.log("DB no connection")
-});
+
+exports.connectDB = async () => {
+    try {
+        const conn = await mongoose.connect(`${constant.DB_URL}${constant.DB_NAME}?authSource=mygames11`);
+        console.log(`Database connected successfully on ${conn.connection.host}`)
+    } catch (error) {
+        console.log("Database not connected", error);
+    }
+}

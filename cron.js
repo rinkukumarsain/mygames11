@@ -1,25 +1,19 @@
 const express = require("express");
-const mongoose = require('mongoose');
 
 // coustimize the default console.log function 
 console.logCopy = console.log.bind(console);
-console.log = function(...data){
+console.log = function (...data) {
     const currentDate = '[' + new Date().toString() + ']';
-    this.logCopy(`----///  THIS IS CRON PORT   ////----${currentDate}--------`,...data);
+    this.logCopy(`----///  THIS IS CRON PORT   ////----${currentDate}--------`, ...data);
 }
 
 const app = express();
 
-require('dotenv').config();
-require("./src/db/dbconnection");
+const { connectDB } = require("./src/db/dbconnection");
 const constant = require('./src/config/const_credential');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-
-// mongoose.set('debug', true);
-
 
 const { updatePlayerSelected, updateResultOfMatches, botUserJoinTeamPercentage, botAutoClassicTeam, botAutoBattingTeam, botAutoBowlingTeam, botAutoReverseTeam, generateRandomPlayerClassic, generateRandomPlayerBatting, generateRandomPlayerBowling, generateRandomPlayerReverse, autoWinnerDeclared } = require('./src/config/cronjob');
 // updatePlayerSelected.start();
@@ -42,7 +36,7 @@ const errorRoute = require("./src/admin/routes/adminPanelRoute/errorRoute");
 app.use(errorRoute);
 
 const port = constant.CRON_PORT;
-
+connectDB();
 app.listen(port, () => {
     console.log(`server started on port ${port}`);
 });
