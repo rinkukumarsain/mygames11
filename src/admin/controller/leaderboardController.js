@@ -32,6 +32,7 @@ class leaderboardController {
         if(req.query.series_name){
             sObj.series_name=req.query.series_name
         }
+        console.log("data.............",data,"obj................",obj,"sObj................",sObj)
         res.render("leaderboard/viewLeaderboardSeries",{sessiondata: req.session.data,data,obj,sObj});
 
     }catch(error){

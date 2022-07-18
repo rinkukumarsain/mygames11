@@ -16,16 +16,16 @@ module.exports = class SMS {
         // return `${Math.floor(1000 + Math.random() * 9000)}`;
     }
     async sendSMS(mobile, otp) {
-        // if (process.env.NODE_ENV != 'production') return true;
-        // axios.default.get(`https://2factor.in/API/V1/${process.env.SMS_AUTH_KEY}/SMS/${mobile}/${otp}/Otp`)
-        //     .then(function(response) {
-        //         console.log('...............................the response is', response);
-        //         return response;
-        //     })
-        //     .catch(function(error) {
-        //         console.log('AXIOS SMS API ERROR ', error);
-        //         // reject(error);
-        //     });
+        if (process.env.NODE_ENV != 'production') return true;
+        axios.default.get(`https://2factor.in/API/V1/${process.env.SMS_AUTH_KEY}/SMS/${mobile}/${otp}/Otp`)
+            .then(function(response) {
+                console.log('...............................the response is', response);
+                return response;
+            })
+            .catch(function(error) {
+                console.log('AXIOS SMS API ERROR ', error);
+                // reject(error);
+            });
         return true;
         // return new Promise((resolve, reject) => {
         //     axios.default.get(`https://2factor.in/API/V1/${process.env.SMS_AUTH_KEY}/SMS/${mobile}/${otp}`)

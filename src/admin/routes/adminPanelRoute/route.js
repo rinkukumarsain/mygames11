@@ -257,7 +257,14 @@ router.get("/makeConfirmed/:MatchChallengerId", auth, getUrl, challengersControl
 router.get("/addEditmatchpricecard/:MatchChallengerId", auth, getUrl, challengersController.addEditmatchpricecard);
 router.post("/add-edit-price-card-Post", auth, challengersController.addEditPriceCard_Post);
 router.get("/deleteMatchPriceCard/:id", auth, getUrl, challengersController.deleteMatchPriceCard);
-router.post('/add-edit-price-card-Post-byPercentage', auth, challengersController.addEditPriceCardPostbyPercentage)
+router.post('/add-edit-price-card-Post-byPercentage', auth, challengersController.addEditPriceCardPostbyPercentage);
+
+// ------------------------------exports contests----------------------
+router.get("/view_all_experts_contest", auth, getUrl,challengersController.viewAllExportsContests);
+router.get("/add_expert_contest_page", auth, getUrl,challengersController.addExpertContestPage);
+router.post("/add-expert-contest-data",auth,upload.single("image"),challengersController.addExpertContestData);
+router.get("/edit_expert_contest/:id",auth,challengersController.editExpertContest);
+router.post("/edit-expert-contest-data/:id",auth,upload.single("image"),challengersController.editExpertContestData);
 
 // -----------------------------series Details-------------------
 
@@ -349,21 +356,27 @@ router.post("/add-popup-data", auth, upload.single("image"), popupNotificationCo
 
 // --------------------notification---------------
 
-router.get("/pushNotification",auth,notificationController.pushNotification);
-router.get("/emailNotification",auth,notificationController.emailNotification);
+router.post('/get-user', auth, notificationController.getUser);
+router.get("/push-notification", auth,getUrl, notificationController.sendPushNotification);
+router.post("/push-notification-data", auth, notificationController.sendPushNotificationData);
+router.get("/email-notification", auth, getUrl, notificationController.sendEmailNotification);
+router.post("/email-notification-data", auth, notificationController.sendEmailNotificationData);
+router.get("/sms-notification", auth, getUrl,notificationController.smsNotification);
+router.post("/sms-notification-data",auth,notificationController.smsNotificationData);
 
 // --------------------------leaderBoard------------------
-router.get("/view_leaderBoard_page",leaderboardController.viewLeaderBoarderPage);
-router.post("/view_leaderBoard_datatable",leaderboardController.viewLeaderBoardDatatable);
-router.get("/add_series_pricecard_page/:id",leaderboardController.addSeriesPriceCardPage);
-router.post("/add-series-price-card-Post",leaderboardController.addSeriesPriceCardData);
-router.get("/delete_series_pricecard/:id",leaderboardController.deleteSeriesPriceCard);
-router.post("/distribute_winning_amount_series_leaderboard/:id",leaderboardController.distributeWinningAmountSeriesLeaderboard);
+router.get("/view_leaderBoard_page", auth,getUrl,leaderboardController.viewLeaderBoarderPage);
+router.post("/view_leaderBoard_datatable",auth,leaderboardController.viewLeaderBoardDatatable);
+router.get("/add_series_pricecard_page/:id", auth,getUrl,leaderboardController.addSeriesPriceCardPage);
+router.post("/add-series-price-card-Post",auth,leaderboardController.addSeriesPriceCardData);
+router.get("/delete_series_pricecard/:id", auth,getUrl,leaderboardController.deleteSeriesPriceCard);
+router.post("/distribute_winning_amount_series_leaderboard/:id",auth,leaderboardController.distributeWinningAmountSeriesLeaderboard);
 
 
 //-----cricket api controller (3rd party api)------------//
 // router.get("/listMatches", cricketApiController.listOfMatches);
 router.get("/listMatches", auth, cricketApiController.listOfMatches_entity);
 router.get("/importPlayers/:matchkey", cricketApiController.fetchPlayerByMatch_entity);
+
 
 module.exports = router;

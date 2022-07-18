@@ -95,7 +95,7 @@ class matchServices {
             data.team1Id=req.body.team2Id;
             data.series=req.body.series;
             data.short_name=req.body.name;
-            data.status='notstart'
+            data.status='notstarted'
             data.launch_status='panding'
             data.final_status='panding'
             data.squadstatus='YES'

@@ -44,7 +44,11 @@
                             <select name="series_name"  class="form-control form-control-solid input-sm p-1 selectpicker show-tick" data-container="body" data-live-search="true" title="Select Series" data-hide-disabled="true" id="series_name" onchange="this.form.submit()">
                               <% if(data) {%>
                               <% for(let seriesKey of data) {%>
-                                <option value="<%=seriesKey._id %>" <%=sObj.series_name == seriesKey._id ? 'selected' : '' %>><%=seriesKey.name %></option>
+                                <% if(sObj?.series_name == seriesKey._id) { %>
+                                <option value="<%=seriesKey._id %>"  selected ><%=seriesKey.name %></option>
+                                <% }else{ %>
+                                  <option value="<%=seriesKey._id %>" ><%=seriesKey.name %></option>
+                              <% }%>
                               <% }%>
                               <% }%>
                             </select>
@@ -123,8 +127,11 @@
 <script type="text/javascript">
 $(document).ready(function() {
   $.fn.dataTable.ext.errMode = 'none';
-var series_name = document.getElementById('series_name').value;
-var seriesStatus = document.getElementById('seriesStatus').value;
+var series_name = $('#series_name :selected').val();
+var seriesStatus = $('#seriesStatus :selected').val();
+
+console.log("series_name..................",series_name)
+console.log("seriesStatus.................",seriesStatus)
 $('#dataTabless').DataTable({
   serverSide: true,
    searching: false,

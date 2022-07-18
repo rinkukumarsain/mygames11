@@ -74,6 +74,14 @@ let matchchallengesSchema = new Schema({
         type: Number,
         default: ''
     },
+    multiple_entryfee:{
+        type:Number,
+        default:0
+    },
+    expert_teamid:{
+        type:mongoose.Types.ObjectId,
+        ref:'jointeam'
+    },
     maximum_user: {
         type: Number,
         default: 0
@@ -96,6 +104,10 @@ let matchchallengesSchema = new Schema({
     contest_type: {
         type: String,
         default: ''
+    },
+    expert_name:{
+        type:String,
+        default:""
     },
     contest_name:{
         type:String,
@@ -141,6 +153,10 @@ let matchchallengesSchema = new Schema({
         type: Number,
         default: 11
     },
+    image:{
+        type:String,
+        default:''
+    },
     c_type: {
         type: String,
         default: ''
@@ -152,6 +168,10 @@ let matchchallengesSchema = new Schema({
     is_running: {
         type: Number,
         default: 0
+    },
+    is_expert:{
+        type:Number,
+        default:0
     },
     bonus_percentage: {
         type: Number,
@@ -165,7 +185,15 @@ let matchchallengesSchema = new Schema({
     is_deleted: {
         type: Boolean,
         default: false
-    }
+    },
+    team1players:{
+        type:Array,
+        default:[]
+    },
+    team2players:{
+        type:Array,
+        default:[]
+    },
 }, {
     timestamps: true,
     versionKey: false
