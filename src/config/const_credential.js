@@ -7,6 +7,7 @@ const ENVIRONMENT = process.env.NODE_ENV || "prod";
 let appName='';
 switch (ENVIRONMENT) {
     case "staging": {
+        console.log('environment : ', ENVIRONMENT);
         if (fs.existsSync(path.join(process.cwd(), "/.env.staging"))) {
             dotenv.config({ path: ".env.staging" });
         } else {
@@ -15,6 +16,7 @@ switch (ENVIRONMENT) {
         break;
     }
     case "local": {
+        console.log('environment : ', ENVIRONMENT);
         if (fs.existsSync(path.join(process.cwd(), "/.env.local"))) {
             dotenv.config({ path: ".env.local" });
         } else {
@@ -23,6 +25,7 @@ switch (ENVIRONMENT) {
         break;
     }
     default: {
+        console.log('environment : ', ENVIRONMENT);
         if (fs.existsSync(path.join(process.cwd(), "/.env"))) {
             dotenv.config({ path: ".env" });
             appName= ''
