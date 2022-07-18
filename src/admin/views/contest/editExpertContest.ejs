@@ -174,17 +174,17 @@
                                             <input type="checkbox" name="team1players[]" <%=realData.team1players.includes(index._id) ? "checked" : "" %> value="<%=index._id %>" data-role="<%=index.role %>" data-credit="<%=index.credit %>" data-team="<%=matckeyData[0].team1Name.teamName %>">
                                         </td>
                                         <td>
-                                            <% if(captain==index._id){ %>
-                                                <input type="radio" data-role="<%=captain %>" name="captain" checked required="" value="<%=index._id %>">
+                                            <% if((captain).toString()==(index._id).toString()){ %>
+                                                <input type="radio" data-role="<%=captain %>" name="captain"  required="" value="<%=index._id %>" checked />
                                                 <% }else{ %>
-                                                    <input type="radio" data-role="<%=captain %>" name="captain"  required="" value="<%=index._id %>">
+                                                    <input type="radio" data-role="<%=captain %>" name="captain"  required="" value="<%=index._id %>" />
                                                 <% }%>
                                         </td>
                                         <td> 
-                                            <% if(vicecaptain==index._id){ %>
-                                                <input type="radio" data-role="<%=vicecaptain %>" name="vicecaptain" checked required="" value="<%=index._id %>">
+                                            <% if((vicecaptain).toString()==(index._id).toString()){ %>
+                                                <input type="radio" data-role="<%=vicecaptain %>" name="vicecaptain"  required="" value="<%=index._id %>" checked />
                                                 <% }else{ %>
-                                                    <input type="radio" data-role="<%=vicecaptain %>"  name="vicecaptain"  required="" value="<%=index._id %>">
+                                                    <input type="radio" data-role="<%=vicecaptain %>"  name="vicecaptain"  required="" value="<%=index._id %>" />
                                                 <% }%>
                                         </td>
                                         <td><p class="us_name" ><%=index.player_name %> </p></td>
@@ -228,15 +228,15 @@
                                             <% }%>  
                                         </td>
                                         <td>
-                                            <% if(captain==index._id){ %>
-                                            <input type="radio" name="captain" checked required="" value="<%=index._id %>">
+                                            <% if((captain).toString()==(index._id).toString()){ %>
+                                            <input type="radio" name="captain"  required="" value="<%=index._id %>" checked />
                                             <% }else{ %>
                                                 <input type="radio"  name="captain"  required="" value="<%=index._id %>">
                                             <% }%>
                                         </td>
                                         <td> 
-                                            <% if(vicecaptain==index._id){ %>
-                                                <input type="radio" name="vicecaptain" checked required="" value="<%=index._id %>">
+                                            <% if((vicecaptain).toString()==(index._id).toString()){ %>
+                                                <input type="radio" name="vicecaptain"  required="" value="<%=index._id %>" checked />
                                                 <% }else{ %>
                                                     <input type="radio" name="vicecaptain"  required="" value="<%=index._id %>">
                                                 <% }%>

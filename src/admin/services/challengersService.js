@@ -873,7 +873,6 @@ class challengersService {
                     obj.status = keyy.status;
                     obj.contest_type = keyy.contest_type;
                     obj.winning_percentage = keyy.winning_percentage;
-                    obj.winning_percentage = keyy.winning_percentage;
                     obj.is_bonus = keyy.is_bonus;
                     obj.bonus_percentage = keyy.bonus_percentage;
                     obj.amount_type=keyy.amount_type;
@@ -882,6 +881,9 @@ class challengersService {
                     obj.is_running = keyy.is_running;
                     obj.confirmed_challenge = keyy.confirmed_challenge;
                     obj.multi_entry = keyy.multi_entry;
+                    obj._id = keyy._id;
+                    obj.joinedusers = keyy.joinedusers;
+                    obj.team_limit = keyy.team_limit;
 
                     }else{
                     obj.newDate = newDate;
@@ -923,7 +925,7 @@ class challengersService {
             } else {
                 getlistofMatches = []
             }
-            // console.log("anArray.................//////////.anArray.................", anArray)
+            // console.log("anArray.................//////////.anArray.............................................", anArray)
             if (getLunchedMatch) {
                 return {
                     matchData: anArray,
@@ -2341,7 +2343,15 @@ class challengersService {
                     message:'You cannot edit this challenge now!'
                 }
             }
-            let is_already_exists=await matchchallengersModel.find({_id:{$ne:mongoose.Types.ObjectId(req.params.id),matchkey:req.body.matchkey,expert_name:expert_name,entryfee:req.body.entryfee,multiple_entryfee:req.body.multiple_entryfee,win_amount:req.body.win_amount}})
+            let is_already_exists=await matchchallengersModel.find({
+                _id:{$ne:mongoose.Types.ObjectId(req.params.id)},
+                    matchkey:req.body.matchkey,
+                expert_name:req.body.expert_name,
+                entryfee:req.body.entryfee,
+                multiple_entryfee:req.body.multiple_entryfee,
+                win_amount:req.body.win_amount
+            })
+            console.log("is_already_exists.......................................",is_already_exists)
             if(is_already_exists.length > 0){
                 return{
                     status:false,

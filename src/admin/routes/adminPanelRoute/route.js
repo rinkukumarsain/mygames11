@@ -370,7 +370,12 @@ router.post("/view_leaderBoard_datatable",auth,leaderboardController.viewLeaderB
 router.get("/add_series_pricecard_page/:id", auth,getUrl,leaderboardController.addSeriesPriceCardPage);
 router.post("/add-series-price-card-Post",auth,leaderboardController.addSeriesPriceCardData);
 router.get("/delete_series_pricecard/:id", auth,getUrl,leaderboardController.deleteSeriesPriceCard);
+
+// ----------------work panding---------18/07/2022-------------
 router.post("/distribute_winning_amount_series_leaderboard/:id",auth,leaderboardController.distributeWinningAmountSeriesLeaderboard);
+router.get("/leaderboard_rank/:id",auth,leaderboardController.leaderboardRank);//need to testing api when data available
+router.post("/leaderBoard_rank_datatable",leaderboardController.leaderBoardRankDatatable);//need to testing api when data available
+
 
 
 //-----cricket api controller (3rd party api)------------//
