@@ -1,5 +1,6 @@
 node_modules
 public
-#ignore env
+*-lock.json
 .env
-package-lock.json
+.env.local
+.env.staging
