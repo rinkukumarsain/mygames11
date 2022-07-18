@@ -1,8 +1,11 @@
 const challengersModel = require("../../models/challengersModel");
 const challengersService = require("../services/challengersService");
 const contestCategoryModel = require("../../models/contestcategoryModel");
-const mongoose = require("mongoose");
-
+const mongoose=require("mongoose");
+const listMatchModel = require("../../models/listMatchesModel");
+const teamModel = require("../../models/teamModel");
+const playersModel = require("../../models/playerModel");
+const listMatchesModel = require("../../models/listMatchesModel");
 
 class challengersController {
     constructor() {
@@ -19,6 +22,8 @@ class challengersController {
             addpriceCard_Post:this.addpriceCard_Post.bind(this),
             addpricecardPostbyPercentage:this.addpricecardPostbyPercentage.bind(this),
             deletepricecard_data:this.deletepricecard_data.bind(this),
+
+            // ----------custome contest---------------
             createCustomContest:this.createCustomContest.bind(this),
             importchallengersData:this.importchallengersData.bind(this),
             create_custom_page:this.create_custom_page.bind(this),
@@ -31,6 +36,16 @@ class challengersController {
             addEditPriceCard_Post:this.addEditPriceCard_Post.bind(this),
             deleteMatchPriceCard:this.deleteMatchPriceCard.bind(this),
             addEditPriceCardPostbyPercentage:this.addEditPriceCardPostbyPercentage.bind(this),
+
+            // --------------exports contests---------
+            viewAllExportsContests:this.viewAllExportsContests.bind(this),
+            addExpertContestPage:this.addExpertContestPage.bind(this),
+            viewTeam1ExportsDatatble:this.viewTeam1ExportsDatatble.bind(this),
+            viewTeam2ExportsDatatble:this.viewTeam2ExportsDatatble.bind(this),
+            addExpertContestData:this.addExpertContestData.bind(this),
+            editExpertContest:this.editExpertContest.bind(this),
+            editExpertContestData:this.editExpertContestData.bind(this),
+            
         }
     }
     async viewGlobleContests_page(req, res, next) {
@@ -535,6 +550,207 @@ class challengersController {
             req.flash('error','Something went wrong please try again');
             // console.log(error)
             res.redirect("/create-custom-contest");
+        }
+    }
+    async viewTeam1ExportsDatatble(req,res,next){
+        try{
+            const seriesData=await listMatchModel.findOne({_id:mongoose.Types.ObjectId(req.query.matchkey)});
+            let limit1 = req.query.length;
+            let start = req.query.start;
+            let conditions = {};
+            const teamName=await teamModel.findOne({_id:mongoose.Types.ObjectId(seriesData.team1Id)})
+            conditions.team=seriesData.team1Id
+            // console.log("conditions......seriesData.team1Id.............",conditions)
+            playersModel.countDocuments(conditions).exec((err, rows) => {
+                let totalFiltered = rows;
+                let data = [];
+                let count = 1;
+                playersModel.find(conditions).exec((err, rows1) => {
+                    if (err) console.log(err);
+                    // console.log("rows1...........",rows1)
+                    rows1.forEach((index) => {
+                       
+                        data.push({
+                            count:`<input type="checkbox" name="team1players[]" value="${index._id}" data-role="${index.role}" data-credit="${index.credit}" data-team="${teamName.teamName}">`,
+                            captain:`<input type="radio" name="captain" required="" value="${index._id}">`,
+                            voice_captain:` <input type="radio" name="vicecaptain" required="" value="${index._id}">`,
+                            player_name:`<p class="us_name" >${index.player_name} </p>`,
+                            player_role:`<a data-toggle="modal" data-target="#player1modal2" class="text-decoration-none text-primary pointer">${index.role}</a>`,
+                            credit:`<a data-toggle="modal" data-target="#player1modal2" class="text-decoration-none text-warning pointer">${index.credit}</a>`,
+                        });
+                        count++;
+    
+                        if (count > rows1.length) {
+                            let json_data = JSON.stringify({
+                                "recordsTotal": rows,
+                                "recordsFiltered": totalFiltered,
+                                "data": data
+                            });
+                            res.send(json_data);
+                        }
+                    });
+                });
+            });
+
+        }catch(error){
+            console.log(error)
+        }
+    }
+    async viewTeam2ExportsDatatble(req,res,next){
+        try{
+            const seriesData=await listMatchModel.findOne({_id:mongoose.Types.ObjectId(req.query.matchkey)});
+            let limit1 = req.query.length;
+            let start = req.query.start;
+            let conditions = {};
+            const teamName=await teamModel.findOne({_id:mongoose.Types.ObjectId(seriesData.team2Id)})
+            conditions.team=seriesData.team2Id
+            // console.log("conditions......seriesData.team2Id.............",conditions)
+            playersModel.countDocuments(conditions).exec((err, rows) => {
+                let totalFiltered = rows;
+                let data = [];
+                let count = 1;
+                playersModel.find(conditions).exec((err, rows1) => {
+                    if (err) console.log(err);
+                    // console.log("rows1...........",rows1)
+                    rows1.forEach((index) => {
+                       
+                        data.push({
+                            count:`<input type="checkbox" name="team2players[]" value="${index._id}" data-role="${index.role}" data-credit="${index.credit}" data-team="${teamName.teamName}">`,
+                            captain:`<input type="radio" name="captain" required="" value="${index._id}">`,
+                            voice_captain:` <input type="radio" name="vicecaptain" required="" value="${index._id}">`,
+                            player_name:`<p class="us_name" >${index.player_name} </p>`,
+                            player_role:`<a data-toggle="modal" data-target="#player1modal2" class="text-decoration-none text-primary pointer">${index.role}</a>`,
+                            credit:`<a data-toggle="modal" data-target="#player1modal2" class="text-decoration-none text-warning pointer">${index.credit}</a>`,
+                        });
+                        count++;
+    
+                        if (count > rows1.length) {
+                            let json_data = JSON.stringify({
+                                "recordsTotal": rows,
+                                "recordsFiltered": totalFiltered,
+                                "data": data
+                            });
+                            res.send(json_data);
+                        }
+                    });
+                });
+            });
+
+        }catch(error){
+            console.log(error)
+        }
+    }
+
+    async viewAllExportsContests(req,res,next){
+        try{
+              res.locals.message = req.flash();
+            const getlunchedMatches=await challengersService.viewAllExportsContests(req);
+            
+            if(getlunchedMatches.status == true){
+                let mkey=req.query.matchkey
+                // console.log("jnhbbbbbbbbbhh.....",getlunchedMatches.data,"nnnnn",mkey);
+                res.render("contest/viewAllExportsContest",{ sessiondata: req.session.data, listmatches:getlunchedMatches.data,matchkey:mkey,matchData:getlunchedMatches.matchData,dates:getlunchedMatches.dates});
+
+            }else if(getlunchedMatches.status == false){
+
+                req.flash('error',getlunchedMatches.message);
+                res.redirect('/');
+            }
+
+
+        }catch(error){
+            console.log(error);
+            req.flash('error','something wrong please try again letter')
+        }
+    }
+    async addExpertContestPage(req,res,next){
+        try{
+            res.locals.message = req.flash();
+            let data=await challengersService.addExpertContestPage(req);
+            console.log("data...",data)
+            if(req.query.matchkey){
+                res.render("contest/addExpertContest",{
+                    sessiondata: req.session.data,
+                    matchData:data.Matchdata,
+                    contest_catData:data.contest_CatData,
+                    matckeyData:data.matckeyData,
+                    matchkey:req.query.matchkey
+                })
+            }else{
+                res.render("contest/addExpertContest",{
+                    sessiondata: req.session.data,
+                    matchData:data.Matchdata,
+                    contest_catData:data.contest_CatData,
+                    matckeyData:undefined,
+                    matchkey:undefined
+                })
+            }
+
+        }catch(error){
+            console.log(error)
+        }
+    }
+   
+    async addExpertContestData(req,res,next){
+        try{
+            
+            const data=await challengersService.addExpertContestData(req);
+            if(data.status){
+                req.flash("success",data.message);
+                res.redirect(`/view_all_experts_contest?matchkey=${req.body.matchkey}`);
+            }else{
+                req.flash("error",data.message);
+                res.redirect(`/view_all_experts_contest`);
+            }
+
+        }catch(error){
+            console.log(error)
+        }
+    }
+    async editExpertContest(req,res,next){
+        try{
+            res.locals.message = req.flash();
+            const data=await challengersService.editExpertContest(req);
+            console.log("data..........................",data.vicecaptain);
+            console.log("data..........................",data.captain);
+            // console.log("data.matckeyData///////////////",data.matckeyData)
+            if(data){
+                res.render("contest/editExpertContest",{
+                    sessiondata: req.session.data,
+                    realData:data.realData,
+                    matckeyData:data.matckeyData,
+                    contest_catData:data.contest_CatData,
+                    batsman1:data.batsman1,
+                    batsman2:data.batsman2,
+                    bowlers1:data.bowlers1,
+                    bowlers2:data.bowlers2,
+                    allrounder1:data.allrounder1,
+                    allrounder2:data.allrounder2,
+                    wk2:data.wk2,
+                    wk1:data.wk1,
+                    criteria:data.criteria,
+                    vicecaptain:data.vicecaptain,
+                    captain:data.captain
+                });
+            }
+
+        }catch(error){
+            console.log(error)
+        }
+    }
+    async editExpertContestData(req,res,next){
+        try{
+            const data=await challengersService.editExpertContestData(req);
+            if(data.status){
+                req.flash("success",data.message);
+                res.redirect(`/view_all_experts_contest?matchkey=${req.body.matchkey}`);
+            }else{
+                req.flash("error",data.message);
+                res.redirect(`/edit_expert_contest/${req.params.id}?matchkey=${req.body.matchkey}`);
+            }
+
+        }catch(error){
+            console.log(error)
         }
     }
 }

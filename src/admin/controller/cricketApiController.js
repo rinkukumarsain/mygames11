@@ -1,4 +1,5 @@
 const { default: axios } = require("axios")
+const mongoose=require("mongoose");
 const listMatchModel = require("../../models/listMatchesModel");
 const teamModel = require("../../models/teamModel");
 const seriesModel = require("../../models/addSeriesModel");
@@ -46,7 +47,8 @@ class cricketApiController {
             listOfMatches: this.listOfMatches.bind(this),
             listOfMatches_entity: this.listOfMatches_entity.bind(this),
             fetchPlayerByMatch_entity: this.fetchPlayerByMatch_entity.bind(this),
-            getmatchscore: this.getmatchscore.bind(this)
+            getmatchscore: this.getmatchscore.bind(this),
+            
         }
     }
     listOfMatches(req, res) {
@@ -166,7 +168,7 @@ class cricketApiController {
     listOfMatches_entity(req, res) {
         try {
             let pageno = 1;
-            axios.get(`https://rest.entitysport.com/v2/matches/?status=1&token=d838e55bf823bc6e6ad46ba9c71106aa&per_page=50&&paged=${pageno}`).then(async(matchData) => {
+            axios.get(`https://rest.entitysport.com/v2/matches/?status=1&token=ec471071441bb2ac538a0ff901abd249&per_page=50&&paged=${pageno}`).then(async(matchData) => {
                 // console.log('matchData', matchData.data);
                 await this.child_listOfMatches_entity(matchData.data.response.items);
                 res.redirect('/view_AllUpcomingMatches');
@@ -354,17 +356,27 @@ class cricketApiController {
     }
     fetchPlayerByMatch_entity(req, res) {
         try {
-            // console.log(`http://rest.entitysport.com/v2/matches/${req.params.matchkey}/squads?token=1&token=d838e55bf823bc6e6ad46ba9c71106aa`);
-            axios.get(`http://rest.entitysport.com/v2/matches/${req.params.matchkey}/squads?token=1&token=d838e55bf823bc6e6ad46ba9c71106aa`).then(async(matchData) => {
-                let listmatch = await listMatchModel.findOne({ real_matchkey: req.params.matchkey });
-                console.log('listmatch', listmatch);
-                await this.child_fetchPlayerByMatch_entity(matchData.data.response, listmatch._id);
-                res.redirect(`/launch-match/${listmatch._id}`);
-            })
+          // console.log(`http://rest.entitysport.com/v2/matches/${req.params.matchkey}/squads?token=1&token=d838e55bf823bc6e6ad46ba9c71106aa`);
+          axios
+            .get(
+              `http://rest.entitysport.com/v2/matches/${req.params.matchkey}/squads?token=1&token=d838e55bf823bc6e6ad46ba9c71106aa`
+            )
+            .then(async (matchData) => {
+              let listmatch = await listMatchModel.findOne({
+                real_matchkey: req.params.matchkey,
+              });
+              console.log("listmatch", listmatch);
+              await this.child_fetchPlayerByMatch_entity(
+                matchData.data.response,
+                listmatch._id
+              );
+              res.redirect(`/launch-match/${listmatch._id}`);
+            });
         } catch (error) {
-            next(error);
+          next(error);
         }
-    }
+      }
+    
     async child_fetchPlayerByMatch_entity(response, matchkey) {
         let team1Id = response.teama.team_id;
         let team2Id = response.teamb.team_id;
@@ -428,5 +440,6 @@ class cricketApiController {
             next(error);
         }
     }
+   
 }
 module.exports = new cricketApiController();

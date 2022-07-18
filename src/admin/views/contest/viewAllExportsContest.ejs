@@ -1,0 +1,334 @@
+<%- include("../../partials/head") %>
+
+  <%- include("../../partials/bodyStartWithNavBar/") %>
+    <%- include("../../partials/sideNav") %>
+      <div id="layoutSidenav_content">
+        <main>
+          <%- include("../../partials/alertMsg") %>
+          <div class="page-header pb-10 page-header-dark bg-info">
+            <div class="container-fluid">
+              <div class="row align-items-center">
+                <div class="col">
+                  <div class="page-header-content">
+                    <h1 class="page-header-title fs-md-35 fs-20">
+
+                      <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                      <span class=" text-capitalize">
+                        Contest Manager
+                      </span>
+                    </h1>
+                    <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                      View all custom contests
+                    </div>
+                  </div>
+                </div>
+                <div class="col-auto mb-md-0 mb-3">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container-fluid mt-n10">
+            <div class="row">
+              <div class="col-lg-12">
+
+                <div class="card">
+                  <div class="card-header">Choose Match</div>
+                  <div class="card-body">
+
+
+                    <form method="GET" action="/view_all_experts_contest" accept-charset="UTF-8">
+
+                      <div class="sbp-preview">
+                        <div class="sbp-preview-content p-2">
+                          <div class="row mx-0 align-items-end">
+                            <div class="col-md">
+                              <div class="form-group">
+                                <label for="Select Match*" style="color:black;">Select Match*</label>
+                                <select class="form-control form-control-solid " title="Select Match" id="matchkey" data-container="body"
+                                  name="matchkey" onchange="this.form.submit()">
+                                  <option value="" disabled selected> Select Match </option>
+                                  <% if(listmatches){ %>
+                                    <% for(let key of listmatches){ %>
+                                      <option value=<%=key._id %>
+                                        <%= matchkey==key._id ? 'selected' : '' %>> <%=key.name %>
+                                      </option>
+                                      <% }%>
+                                        <% }%>
+                                </select>
+                              </div>
+                            </div>
+                            
+                            <div class="col-md-auto mb-md-3">
+                              <a href="/add_expert_contest_page"
+                                class="btn btn-sm btn-primary font-weight-bold text-uppercase h-35px"
+                                data-toggle='tooltip' title='Add New Custom Contests'><i class="fas fa-plus"></i>
+                                &nbsp;Add Expert Contest</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-3">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">Contest Manager - Contest List</div>
+                  <div class="card-body">
+
+                    <div class="row" row>
+                      <% if(matchData) {%>
+                        <% for(let key of matchData) {%>
+                          <div
+                            class="row shadow border-0 mx-0 p2 h-100 rounded-10 border border-primary bg-primary pt-1 m-2">
+                            <div class="datatable table-responsive bg-white rounded-10">
+                              <table class="table mb-0 table-hover text-nowrap w-100 fs-12" id="global_index_datatable"
+                                cellspacing="0">
+                                <tbody>
+                                  <tr>
+                                    <td class="font-weight-bold text-primary fs-15">Contest Winning Type</td>
+                                    <td class="font-weight-bold text-success fs-17 text-right"><%=key.amount_type %></td>
+                                  </tr>
+                                  <tr>
+                                    <td class="font-weight-bold text-primary fs-15">Winning Amount</td>
+                                    <td class="font-weight-bold text-success fs-17 text-right"><%=key.win_amount %></td>
+                                  </tr>
+                                  <tr>
+                                    <td class="font-weight-bold text-black">Entry Fee</td>
+                                    <td class="font-weight-bold text-gray text-right"><%=key.entryfee %></td>
+                                  </tr>
+                                  <tr>
+                                    <td class="font-weight-bold text-black">Multiple Entryfee</td>
+                                    <td class="font-weight-bold text-gray text-right"><%=key.multiple_entryfee %></td>
+                                  </tr>
+                                  <tr>
+                          
+                                    <td class="font-weight-bold text-black">League Type</td>
+                                    <% if(key.confirmed_challenge == 0) { %>
+                                      <td class="font-weight-bold text-gray text-right">Not Confirmed</td>
+                                    <% }else if(key.confirmed_challenge == 1){ %>
+                                      <td class="font-weight-bold text-gray text-right">Confirmed</td>
+                                    <% } %>
+                                  </tr>
+                                  
+                                  <tr>
+                                    <td class="font-weight-bold text-black">Auto Repeat</td>
+                                    <td class="font-weight-bold text-gray text-right">
+                                      <% if(key.is_running == 0) {%>
+                                        <span class="font-weight-bold text-danger">No</span>
+                                        <%}else if(key.is_running == 1){ %>
+                                          <span class="font-weight-bold text-success"> Yes</span>
+                                      <%} %>
+                                    </td>
+                                  </tr>
+                                  
+                                  
+                                  <tr class="">
+                                    <td class="font-weight-bold text-black d-flex align-items-center">Created Date</td>
+                                    <td class="font-weight-bold text-gray text-right">
+                                      
+                                      <span class="font-weight-bold text-success"><%=key.day %></span><br>
+                                      <span class="font-weight-bold text-primary"><%=key.newDate %></span><br>
+                                      <span class="font-weight-bold text-danger"><%=key.time %></span>
+
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="font-weight-bold text-black">Created By</td>
+                                    <td class="font-weight-bold text-gray text-right">Admin</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="font-weight-bold text-black">Action</td>
+                                    <td class="font-weight-bold text-gray text-right position-relative">
+                                      <div class="btn-group dropdown position-absolute bottom-6px right-8px">
+                                        <button
+                                          class="btn btn-sm btn-primary dropdown-toggle dropdown-toggle-icon border-0 shadow-none overflow-hidden"
+                                          data-toggle="dropdown" type="button" aria-expanded="true">
+                                          Action <i class="dropdown-caret"></i>
+                                        </button>
+                                        <ul class="dropdown-menu" style="opacity: 1;">
+
+                                          <li><a class="nav-link"
+                                              href='/edit_expert_contest/<%=key._id %>?matchkey=<%=key.matchkey %>'>Edit
+                                              Contest</a></li>
+                                          <li><a class="nav-link cursor-pointer"
+                                              onclick="delete_confirmation('/delete_export_contest/<%=key._id %>?matchkey=<%=key.matchkey %>', 'Are you sure you want to delete this contest?')"
+                                              style="cursor: pointer">Delete Contest</a></li>
+                                          <li><a class="nav-link cursor-pointer"
+                                              onclick="delete_confirmation('/contestcancel/<%=key._id %>?matchkey=<%=key.matchkey %>', 'Are you sure you want to Cancel this contest?')"
+                                              style="cursor: pointer">Cancel Contest</a></li>
+                                            
+                                        </ul>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                          <% }%>
+                            <% }%>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- <script>
+              $('matchkey').change(function(){
+                let inputOfMatchkey=$(input[name=inputMatchkey]).val();
+                
+                  alert(inputOfMatchkey)
+                  $.ajax({
+                    type: 'POST',
+                    url: '/getTheValuematchChallengers',
+                    data:{mKey:inputOfMatchkey},
+                    success: function (data) {
+  
+                    }
+                  });
+              })
+              
+              
+            </script> -->
+            <!-------------- End of panel body -------------->
+            <script>
+              function delete_confirmation(url, msg) {
+                // sweet alert
+                const swalWithBootstrapButtons = Swal.mixin({
+                  customClass: {
+                    confirmButton: 'btn btn-sm btn-success ml-2',
+                    cancelButton: 'btn btn-sm btn-danger'
+                  },
+                  buttonsStyling: false
+                })
+
+                swalWithBootstrapButtons.fire({
+                  title: msg,
+                  text: "You won't be able to revert this!",
+                  icon: 'success',
+                  showCancelButton: true,
+                  confirmButtonText: 'Yes',
+                  cancelButtonText: 'No',
+                  reverseButtons: true
+                }).then((result) => {
+                  if (result.isConfirmed) {
+
+                    swalWithBootstrapButtons.fire(
+                      '',
+                      'Successfully Done',
+                      'success'
+                    );
+
+                    window.location.href = url;
+
+
+                  } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                  ) {
+                    swalWithBootstrapButtons.fire(
+                      'Cancelled',
+                      'Cancelled successfully :)',
+                      'error'
+                    );
+                    return false;
+                  }
+                })
+              }
+            </script>
+
+          </div>
+        </main>
+        <%- include("../../partials/footer") %>
+
+          <script>
+
+            $(window).on('load', function () {
+
+              $('#preloader_admin').hide();
+
+            })
+          </script>
+
+
+          <script>
+            console.log("matchkey....................",matchkey)
+            $('#b1').click(function () {
+              const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                  confirmButton: 'btn btn-sm btn-success',
+                  cancelButton: 'btn btn-sm btn-danger'
+                },
+                buttonsStyling: false
+              })
+
+              swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  swalWithBootstrapButtons.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                  )
+                } else if (
+                  /* Read more about handling dismissals below */
+                  result.dismiss === Swal.DismissReason.cancel
+                ) {
+                  swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Your imaginary file is safe :)',
+                    'error'
+                  )
+                }
+              })
+            });
+          </script>
+
+          <script>
+            $(document).ready(function () {
+
+              if ($('#accordionSidenavPages a').hasClass('active')) {
+                $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
+                $('#accordionSidenavPages a.active').parent().parent().addClass('show');
+                // console.log(id);
+              } else {
+                $('#takeonebar').addClass('slamdown');
+              }
+            });
+
+          </script>
+   
+          <script>
+            function isNumberKey(evt) {
+              //var e = evt || window.event;
+
+              var charCode = (evt.which) ? evt.which : evt.keyCode
+              if (charCode != 46 && charCode > 31
+                && (charCode < 48 || charCode > 57))
+
+                return false;
+              else {
+                var itemdecimal = evt.srcElement.value.split('.');
+                if (itemdecimal.length > 1 && charCode == 46)
+                  return false;
+
+                return true;
+              }
+            }
+
+          </script>
+  
+
+        

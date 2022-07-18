@@ -1,0 +1,306 @@
+<%- include("../../partials/head") %>
+
+    <%- include("../../partials/bodyStartWithNavBar/") %>
+        <%- include("../../partials/sideNav") %>
+<div id="layoutSidenav_content">
+    <main>
+
+        <div class="page-header pb-10 page-header-dark bg-info">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <div class="page-header-content">
+                            <h1 class="page-header-title fs-md-35 fs-20">
+
+                                <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                                <span class=" text-capitalize">
+                                  LeaderBoard Manager
+                                </span>
+                            </h1>
+                            <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                             LeaderBoard Series
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto mb-md-0 mb-3">
+                 </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid mt-n10">
+            
+<div class="row">
+<div class="col-md-12">
+<div class="card mb-3">
+<div class="card-heading p-3">
+  <form method="get" id="formdata" action="/view_leaderBoard_page">
+                          <div class="sbp-preview position-relative">
+            <div class="form-group">
+                <div class="row mx-0 align-items-end">
+
+                    <div class="col-md-4">
+                        <div class="form-group my-3">
+                            <label for="series_name" class="control-label text-bold ">Select Series</label>
+                            <select name="series_name"  class="form-control form-control-solid input-sm p-1 selectpicker show-tick" data-container="body" data-live-search="true" title="Select Series" data-hide-disabled="true" id="series_name" onchange="this.form.submit()">
+                              <% if(data) {%>
+                              <% for(let seriesKey of data) {%>
+                                <% if(sObj?.series_name == seriesKey._id) { %>
+                                <option value="<%=seriesKey._id %>"  selected ><%=seriesKey.name %></option>
+                                <% }else{ %>
+                                  <option value="<%=seriesKey._id %>" ><%=seriesKey.name %></option>
+                              <% }%>
+                              <% }%>
+                              <% }%>
+                            </select>
+                          </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group my-3">
+                            <label for="live-end" class="">Live/End</label>
+                           <select name="seriesStatus"  class="form-control form-control-solid input-sm p-1 selectpicker show-tick" data-container="body" data-live-search="true" title="Select" data-hide-disabled="true" id="seriesStatus" onchange="this.form.submit()">
+                             <option value="live_end"  <%=obj.seriesStatus == 'live_end' ? 'selected'  : '' %>>Live/End</option>
+                             <option value="live" <%=obj.seriesStatus == 'live' ? 'selected'  : '' %>>Live</option>
+                             <option value="end" <%=obj.seriesStatus == 'end' ? 'selected'  : '' %>>End</option>
+                             
+                           </select>
+                    </div>
+                    </div>
+                   
+                    <div class="col-md-auto text-right mb-md-3">
+
+                        <button class="btn btn-sm btn-success text-uppercase"><i class="far fa-check-circle"></i>&nbsp;Submit</button>
+                        <a href="/withdraw_amount" class="btn btn-sm btn-warning text-uppercase"><i class="far fa-undo" ></i>&nbsp; Reset</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card mb-4">
+<div class="card-header">
+<div class="row w-100 align-items-center mx-0">
+    <div class="col-md col-12 mb-md-0 mb-2 text-md-left text-center">Withdrawal Requests List</div>
+    <div class="col-md-auto col-12 px-md-3 px-0 text-center">
+          <!-- <form action="/downloadalluserdetails" method="get">
+           <input type="hidden" name="status" value="">
+            <input type="hidden" name="name" value="">
+            <input type="hidden" name="email" value="">
+            <input type="hidden" name="mobile" value="">
+            <button type="submit" class="btn btn-secondary text-uppercase btn-sm rounded-pill" font-weight-600 data-toggle="tooltip" title="Download All Users Details"><i class="fas fa-download"></i>&nbsp; Download
+            </button>
+        </form> -->
+    </div>
+</div>
+</div>
+<div class="card-body">
+
+
+<div class="datatable table-responsive">
+    <table class="table table-bordered table-hover text-nowrap" id="dataTabless" width="100%" cellspacing="0">
+        <thead>
+    <tr>
+      <th>S.No.</th>
+      <th>Series Name</th>
+      <th>Action</th>
+  </tr>
+</thead>
+<tbody>
+</tbody>
+  <tfoot>
+      <tr>
+        <th>S.No.</th>
+        <th>Series Name</th>
+        <th>Action</th>
+      </tr>
+  </tfoot>
+</table>
+</div>
+<%- include("../../partials/alertMsg") %>
+</div>
+
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $.fn.dataTable.ext.errMode = 'none';
+var series_name = $('#series_name :selected').val();
+var seriesStatus = $('#seriesStatus :selected').val();
+
+console.log("series_name..................",series_name)
+console.log("seriesStatus.................",seriesStatus)
+$('#dataTabless').DataTable({
+  serverSide: true,
+   searching: false,
+  "processing": false,
+  'responsive': true,
+  language: {
+              zeroRecords: "No records to display",
+            },
+    ajax: {
+        url: `/view_leaderBoard_datatable?series_name=${series_name}&seriesStatus=${seriesStatus}`,
+        type: "POST",
+    },
+ columns: [
+    { data: "count" },
+    { data: "series_name"},
+    { data: "action" },
+]
+
+});
+
+});
+</script>
+<script>
+  function confirmation(url, msg) {
+      // sweet alert
+      const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+              confirmButton: 'btn btn-sm btn-success ml-2',
+              cancelButton: 'btn btn-sm btn-danger'
+          },
+          buttonsStyling: false
+      })
+
+      swalWithBootstrapButtons.fire({
+          title: msg,
+          text: "You won't be able to revert this!",
+          icon: 'success',
+          showCancelButton: true,
+          confirmButtonText: 'Yes',
+          cancelButtonText: 'No',
+          reverseButtons: true
+      }).then((result) => {
+          if (result.isConfirmed) {
+
+              swalWithBootstrapButtons.fire(
+                  '',
+                  'Successfully Done',
+                  'success'
+              );
+
+              window.location.href = url;
+
+
+          } else if (
+              /* Read more about handling dismissals below */
+              result.dismiss === Swal.DismissReason.cancel
+          ) {
+              swalWithBootstrapButtons.fire(
+                  'Cancelled',
+                  'Cancelled successfully :)',
+                  'error'
+              );
+              return false;
+          }
+      })
+  }
+</script>
+<script>
+$(document).ready(function() {
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+});
+</script>
+<!--update withdraw script-->
+
+        </div>
+    </main>
+    <%- include("../../partials/footer") %>
+
+    <script>
+
+        $(window).on('load', function(){
+  
+           $('#preloader_admin').hide();
+  
+          })
+      </script>
+  
+  <script>
+    $(document).ready(function(){
+        
+      if ($('#accordionSidenavPages a').hasClass('active')){
+        $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
+        $('#accordionSidenavPages a.active').parent().parent().addClass('show');
+        // console.log(id);
+      } else {
+        $('#takeonebar').addClass('slamdown');
+      }
+    });
+    
+    </script>
+<script>
+    $('#b1').click(function(){
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-sm btn-success',
+          cancelButton: 'btn btn-sm btn-danger'
+        },
+        buttonsStyling: false
+      })
+  
+      swalWithBootstrapButtons.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'success',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+          swalWithBootstrapButtons.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+          )
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'Cancelled',
+            'Your imaginary file is safe :)',
+            'error'
+          )
+        }
+      })
+    });
+  </script>
+  
+<script type="text/javascript">
+  $.datetimepicker.setLocale('en');
+  $('.datetimepickerget').datetimepicker({
+  lang:'en',
+  formatDate:'d.m.Y',
+  startDate:  new Date()
+   });
+  </script>
+  <script type="text/javascript">
+  $('.datepicker').datepicker({
+  lang:'en',
+  formatDate:'d.m.Y',
+  });
+</script>
+<script>
+  $('#formdata').submit(function() {
+    var id1 = $(req_date).val();
+    var id2 = $(apd_date).val();
+    if (id1 != '' && id2 !='') {
+        alert('please select only one date at a time');
+        return false;
+    }
+    else
+    {
+    return true;
+    }
+  
+  });
+</script>

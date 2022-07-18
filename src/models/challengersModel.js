@@ -34,6 +34,10 @@ let challengersSchema = new Schema({
         type: String,
         default: ''
     },
+    amount_type:{
+        type: String,
+        default: ''
+    },
     c_type: {
         type: String,
         default: ''
@@ -48,7 +52,7 @@ let challengersSchema = new Schema({
     },
     team_limit: {
         type: Number,
-        default: 11
+        default: 0
     },
     confirmed_challenge: {
         type: Number,

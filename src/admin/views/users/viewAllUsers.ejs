@@ -5,7 +5,7 @@
 <div id="layoutSidenav_content">
     <main>
 
-        <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+        <div class="page-header pb-10 page-header-dark bg-info">
             <div class="container-fluid">
                 <div class="row align-items-center">
                     <div class="col">
@@ -162,11 +162,9 @@ var mobile = document.getElementById('mobile').value;
 var status = document.getElementById('status').value;
 $('#view_users_datatable').DataTable({
     searching:false,
-    processing: false,
-    serverSide: true,
     language: {
-              zeroRecords: "No records to display",
-            },
+    zeroRecords: "No records to display"
+  },
     ajax: {
         url: `/view_users_datatable?&name=${name}&email=${email}&mobile=${mobile}&status=${status}`,
         type: "POST",

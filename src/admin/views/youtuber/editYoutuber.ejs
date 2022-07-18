@@ -1,140 +1,251 @@
-
-<%- include("../../partials/head") %>
-<%- include("../../partials/bodyStartWithNavBar") %>
-<%- include("../../partials/sideNav") %>
+<%- include("../../partials/head") %> <%-
+include("../../partials/bodyStartWithNavBar") %> <%-
+include("../../partials/sideNav") %>
 <div id="layoutSidenav_content">
-    <main>
-        <%- include("../../partials/alertMsg") %>
-        <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
-            <div class="container-fluid">
-                <div class="row align-items-center">
-                    <div class="col">
-                        <div class="page-header-content">
-                            <h1 class="page-header-title fs-md-35 fs-20">
-
-                                <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
-                                <span class=" text-capitalize">
-                                        Youtuber Manager
-                                </span>
-                            </h1>
-                            <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
-                                    Edit Youtuber
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-auto mb-md-0 mb-3">
-                        <a  href="/view_youtuber" class="btn btn-sm btn-light font-weight-bold text-uppercase text-primary float-right" data-toggle="tooltip" title="View All Youtuber"><i class="fad fa-eye"></i>&nbsp; View</a>
-                    </div>
+  <main>
+    <%- include("../../partials/alertMsg") %>
+    <div class="page-header pb-10 page-header-dark bg-info">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          <div class="col">
+            <div class="page-header-content">
+              <h1 class="page-header-title fs-md-35 fs-20">
+                <div class="page-header-icon">
+                  <i class="fad fa-at text-white"></i>
                 </div>
+                <span class="text-capitalize"> Youtuber Manager </span>
+              </h1>
+              <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                Edit Youtuber
+              </div>
             </div>
-        </div>
-        <div class="container-fluid mt-n10">
-            
-
-<div class="card">
-<div class="card-header">Edit Youtuber</div>
-  <form class="card-body" action="/edit_youtuber/<%=data._id %>" method="post">
-<div class="sbp-preview">
-    <div class="sbp-preview-content">
-        <div class="row mx-0">
-            <div class="col-12">
-                <div class="form-group my-3">
-                    <label for="username">Name*</label>
-                   
-                        <% if(data.username){%>
-                        <input name="username" value="<%=data.username %>" class="form-control form-control-solid" type="text"  required="" id='first-name'>
-                       
-                        <% }else{%>
-                        <input name="username" class="form-control form-control-solid" type="text" placeholder="Please Enter name" required="" id='first-name'>
-                        <% }%>
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="form-group my-3">
-                    <label for="email">Email*</label>
-                   
-                        <% if(data.email){%>
-                        <input name="email" value="<%=data.email %>" class="form-control form-control-solid" type="email" placeholder="Please Enter Email" required="" id='email'>
-                        
-                        <% }else{%>
-                        <input name="email" class="form-control form-control-solid" type="email" placeholder="Please Enter Email" required="" id='email'>
-                    <% }%>
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="form-group my-3">
-                    <label for="mobile">Mobile*</label>
-                   
-                        <% if(data.mobile){%>
-                        <input value="<%=data.mobile %>" name="mobile" class="form-control form-control-solid" type="text" placeholder="Please Enter Mobile" id="mobile" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="10" pattern="[1-9]{1}[0-9]{9}" required="">
-                        
-                        <% }else{%>
-                        <input name="mobile" class="form-control form-control-solid" type="text" placeholder="Please Enter Mobile" id="mobile" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="10" pattern="[1-9]{1}[0-9]{9}" required="">
-                    <% }%>
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="form-group my-3">
-                    <label for="refer_code">Refer Code*</label>
-                   
-                        <% if(data.refer_code){%>
-                        <input name="refer_code" value="<%=data.refer_code %>" class="form-control form-control-solid" type="text" placeholder="Please Enter Refer Code" id="refer_code" required="">
-                        
-                        <% }else{%>
-                        <input name="refer_code" class="form-control form-control-solid" type="text" placeholder="Please Enter Refer Code" id="refer_code" required="">
-                    <% }%>
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="form-group my-3">
-                    <label for="Percentage">Percentage*</label>
-                   
-                        <% if(data.percentage){%>
-                        <input name="percentage" value="<%=data.percentage %>" class="form-control form-control-solid" id="percentage" type="text" placeholder="Please Enter Percentage" required="" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="3" >
-                        
-                        <% }else{ %>
-                        <input name="percentage" class="form-control form-control-solid" id="percentage" type="text" placeholder="Please Enter Percentage" required="" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="3" >
-                    <% }%>
-                </div>
-            </div>
-
-            <div class="col-12 text-right mt-4 mb-2">
-              <button class="btn btn-sm btn-success text-uppercase" type="submit"><i class="far fa-check-circle"></i>&nbsp;Submit</button>
+          </div>
+          <div class="col-auto mb-md-0 mb-3">
+            <a
+              href="/view_youtuber"
+              class="btn btn-sm btn-light font-weight-bold text-uppercase text-primary float-right"
+              data-toggle="tooltip"
+              title="View All Youtuber"
+              ><i class="fad fa-eye"></i>&nbsp; View</a
+            >
           </div>
         </div>
+      </div>
     </div>
-</div>
-</form>
-</div>
+    <div class="container-fluid mt-n10">
+      <div class="card">
+        <div class="card-header">Edit Youtuber</div>
+        <form
+          class="card-body"
+          action="/edit_youtuber/<%=data._id %>"
+          method="post"
+        >
+          <div class="sbp-preview">
+            <div class="sbp-preview-content">
+              <div class="row mx-0">
+                <div class="col-12">
+                  <div class="form-group my-3">
+                    <label for="username">Name*</label>
 
-        </div>
-    </main>
-<%- include("../../partials/footer") %>
+                    <% if(data.username){%>
+                    <input
+                      name="username"
+                      value="<%=data.username %>"
+                      class="form-control form-control-solid"
+                      type="text"
+                      required=""
+                      id="first-name"
+                    />
 
-<script>
+                    <% }else{%>
+                    <input
+                      name="username"
+                      class="form-control form-control-solid"
+                      type="text"
+                      placeholder="Please Enter name"
+                      required=""
+                      id="first-name"
+                    />
+                    <% }%>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-group my-3">
+                    <label for="email">Email*</label>
 
-    $(window).on('load', function(){
+                    <% if(data.email){%>
+                    <input
+                      name="email"
+                      value="<%=data.email %>"
+                      class="form-control form-control-solid"
+                      type="email"
+                      placeholder="Please Enter Email"
+                      required=""
+                      id="email"
+                    />
 
-       $('#preloader_admin').hide();
+                    <% }else{%>
+                    <input
+                      name="email"
+                      class="form-control form-control-solid"
+                      type="email"
+                      placeholder="Please Enter Email"
+                      required=""
+                      id="email"
+                    />
+                    <% }%>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-group my-3">
+                    <label for="mobile">Mobile*</label>
 
-      })
+                    <% if(data.mobile){%>
+                    <input
+                      value="<%=data.mobile %>"
+                      name="mobile"
+                      class="form-control form-control-solid"
+                      type="text"
+                      placeholder="Please Enter Mobile"
+                      id="mobile"
+                      onkeypress="return isNumberKey(event)"
+                      pattern="[789][0-9]{9}"
+                      minlength="10"
+                      maxlength="10"
+                      required=""
+                    />
+
+                    <% }else{%>
+                    <input
+                      name="mobile"
+                      class="form-control form-control-solid"
+                      type="text"
+                      placeholder="Please Enter Mobile"
+                      id="mobile"
+                      onkeypress="return isNumberKey(event)"
+                      pattern="[789][0-9]{9}"
+                      minlength="10"
+                      maxlength="10"
+                      required=""
+                    />
+                    <% }%>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-group my-3">
+                    <label for="refer_code">Refer Code*</label>
+
+                    <% if(data.refer_code){%>
+                    <input
+                      name="refer_code"
+                      value="<%=data.refer_code %>"
+                      class="form-control form-control-solid"
+                      type="text"
+                      placeholder="Please Enter Refer Code"
+                      id="refer_code"
+                      required=""
+                    />
+
+                    <% }else{%>
+                    <input
+                      name="refer_code"
+                      class="form-control form-control-solid"
+                      type="text"
+                      placeholder="Please Enter Refer Code"
+                      id="refer_code"
+                      required=""
+                    />
+                    <% }%>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-group my-3">
+                    <label for="Percentage">Percentage*</label>
+
+                    <% if(data.percentage){%>
+                    <input
+                      name="percentage"
+                      value="<%=data.percentage %>"
+                      class="form-control form-control-solid"
+                      id="percentage"
+                      type="number"
+                      max="100"
+                      min="0"
+                      placeholder="Please Enter Percentage"
+                      required=""
+                      oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                      maxlength="3"
+                    />
+
+                    <% }else{ %>
+                    <input
+                      name="percentage"
+                      class="form-control form-control-solid"
+                      id="percentage"
+                      type="number"
+                      max="100"
+                      min="0"
+                      placeholder="Please Enter Percentage"
+                      required=""
+                      oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                      maxlength="3"
+                    />
+                    <% }%>
+                  </div>
+                </div>
+
+                <div class="col-12 text-right mt-4 mb-2">
+                  <button
+                    class="btn btn-sm btn-success text-uppercase"
+                    type="submit"
+                  >
+                    <i class="far fa-check-circle"></i>&nbsp;Submit
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+  <%- include("../../partials/footer") %>
+
+  <script>
+    $(window).on("load", function () {
+      $("#preloader_admin").hide();
+    });
   </script>
 
-<script>
-$(document).ready(function(){
-  
-if ($('#accordionSidenavPages a').hasClass('active')){
-  $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
-  $('#accordionSidenavPages a.active').parent().parent().addClass('show');
-  // console.log(id);
-} else {
-  $('#takeonebar').addClass('slamdown');
-}
-});
+  <script>
+    $(document).ready(function () {
+      if ($("#accordionSidenavPages a").hasClass("active")) {
+        $("#accordionSidenavPages a.active")
+          .parent()
+          .parent()
+          .prev("a")
+          .removeClass("collapsed");
+        $("#accordionSidenavPages a.active").parent().parent().addClass("show");
+        // console.log(id);
+      } else {
+        $("#takeonebar").addClass("slamdown");
+      }
+    });
+  </script>
 
-</script>
+  <script>
+    function isNumberKey(evt) {
+      //var e = evt || window.event;
 
+      var charCode = evt.which ? evt.which : evt.keyCode;
+      if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
+        false;
+      else {
+        var itemdecimal = evt.srcElement.value.split(".");
+        if (itemdecimal.length > 1 && charCode == 46) false;
 
-
-
-
+        true;
+      }
+    }
+  </script>
+</div>

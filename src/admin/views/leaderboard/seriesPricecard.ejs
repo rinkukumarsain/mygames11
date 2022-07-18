@@ -1,0 +1,477 @@
+<%- include("../../partials/head") %>
+
+    <%- include("../../partials/bodyStartWithNavBar/") %>
+        <%- include("../../partials/sideNav") %>
+            <div id="layoutSidenav_content">
+                <main>
+                    <%- include("../../partials/alertMsg") %>
+                        <div class="page-header pb-10 page-header-dark bg-info">
+                            <div class="container-fluid">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <div class="page-header-content">
+                                            <h1 class="page-header-title fs-md-35 fs-20">
+
+                                                <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                                                <span class=" text-capitalize">
+                        LeaderBoard Manager
+                      </span>
+                                            </h1>
+                                            <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                                                Series Price Card
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto mb-md-0 mb-3">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container-fluid mt-n10">
+
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="sbp-preview">
+                                        <div class="sbp-preview-content">
+                                            <div class="row">
+                                                <div class="col-md mr-md-5">
+                                                    <div class="row py-2 border-bottom">
+                                                        <div class="col-md font-weight-bold fs-md-15 fs-14">series Name :-</div>
+                                                        <div class="col-md-auto font-weight-bold fs-md-15 fs-14">
+                                                            <%=data.name %>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row py-2 border-bottom">
+                                                        <div class="col-md font-weight-bold fs-md-15 fs-14">start Date :-</div>
+                                                        <div class="col-md-auto font-weight-bold fs-md-15 fs-14">
+                                                          <%=data.start_date %>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row py-2 border-bottom">
+                                                        <div class="col-md font-weight-bold fs-md-15 fs-14">End Date :-</div>
+                                                        <div class="col-md-auto font-weight-bold fs-md-15 fs-14">
+                                                        <%=data.end_date %>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row py-2 border-bottom">
+                                                        <div class="col-md font-weight-bold fs-md-15 fs-14">status :-</div>
+                                                        <div class="col-md-auto font-weight-bold fs-md-15 fs-14">
+                                                         <%=data.status %>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="card my-3">
+                                <div class="card-header">
+                                    Add Price Cards
+                                </div>
+                                <div class="card-body">
+                                            <div class="sbp-preview">
+                                                <div class="sbp-preview-content">
+                                                                <form method="post" action="/add-series-price-card-Post">
+                                                                        <input name="seriesId" type="hidden" value="<%=data._id %>">
+
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <div class="form-group">
+                                                                                    <label for="Start Position*" class="label-control">Start Position*</label>
+                                                                                    <input value="<%=positionss %>" required="" placeholder="Enter starting position" readonly="" min="0" class="form-control form-control-solid" name="min_position" type="text">
+                                                                                </div>
+                                                                            </div>
+                                                                            <!-- ------------------ -->
+                                                                              
+                                                                                            <div class="col-md-4">
+                                                                                                <div class="form-group">
+                                                                                                    <label for="Number Of Winners*" class="label-control text-bold">Number Of Winners*</label>
+                                                                                                    <input required="" placeholder="Enter number of winner" min="1" class="form-control form-control-solid" autocomplete="off" onkeypress="return isNumberKey(event)" name="winners" type="text">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                             <div class="col-md-4">
+                                                                                                            <div class="form-group">
+                                                                                                                <label for="Price Amount In Rupees*" class="label-control text-bold">Price Amount In
+                                Rupees*</label>
+                                                                                                                <input required="" placeholder="Price Amount In Rupees" min="1" autocomplete="off" class="form-control form-control-solid" onkeypress="return isNumberKey(event)" name="price" type="text">
+                                                                                                            </div>
+                                                                                                        </div>
+
+                                                                        </div>
+
+                                                                        <div class="row justify-content-end">
+                                                                            <div class="col-md-auto">
+                                                                                <button type="submit" class=" btn btn-sm btn-success ml-1"><i
+                                    class="far fa-check-circle"></i>&nbsp;
+                                Submit</button>
+                                                                                <button type="reset" class="btn btn-sm btn-warning" onclick="window.location.href=window.location.href"><i
+                                    class="fa fa-undo"></i>&nbsp;Reset</button>
+                                                                            </div>
+                                                                        </div>
+
+                                                                </form>
+                                                </div>
+                                            </div>
+
+                                </div>
+                            </div>
+
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    Contest Price Cards
+                                </div>
+                                <div class="card-body">
+                                    <div class="datatable table-responsive">
+                                        <table class="table table-bordered table-striped table-hover dataTable text-nowrap" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>S No.</th>
+                                                    <th>Price Card Type</th>
+                                                    <th>Min Position</th>
+                                                    <th>Max Position</th>
+                                                    <th>Winning Users</th>
+                                                    <th>Each Winner Amount </th>
+                                                    <th>Total Amount</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% if(priceCardData) {%>
+                                                    <% let priceLength=priceCardData.length %>
+                                                        <% let count=0 %>
+                                                            <% for(let key of priceCardData) {%>
+                                                                <% count=count+1 %>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <%=count %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%=key.type %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%=key.min_position %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%=key.max_position %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%=key.winners %>
+                                                                        </td>
+                                                                         <td>
+                                                                            <%=(key.total)/(key.winners) %>
+                                                                         </td>
+                                                                         <td>
+                                                                                        <%=key.total %>
+                                                                                        <!-- (<%=((key.total*100)/(data.win_amount)).toFixed(2) %> %) -->
+                                                                                       
+                                                                                    </td>
+                                                                                    
+                                                                                    <% if(priceLength == count) {%>
+                                                                                    <td>
+                                                                                            <a class="btn btn-sm btn-danger w-35px h-35px" onclick="delete_confirmation('/delete_series_pricecard/<%=key._id %>?seriesId=<%=data._id %>')" data-toggle="tooltip" title="" data-original-title="Delete"> <i class="far fa-trash"></i></a>
+                                                                                    </td>
+                                                                                    <%}else{ %>
+                                                                                    <td></td>
+                                                                                     <% }%>
+                                                                    </tr>
+
+                                                                    <% }%>
+                                                                        <% }%>
+
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>
+                                                        <%=positionss %>
+                                                         <!-- (<%=((positionss*100)/data.maximum_user ).toFixed(2) %> %) -->
+                                                    </td>
+                                                    <td></td>
+                                                    <td>
+                                                        <%=tAmount %> 
+                                                        <!-- (<%=((tAmount*100)/data.win_amount).toFixed(2) %> %) -->
+                                                    </td>
+                                                    <td>
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>S No.</th>
+                                                    <th>Price Card Type</th>
+                                                    <th>Min Position</th>
+                                                    <th>Max Position</th>
+                                                    <th>Winning Users</th>
+                                                    <th>Each Winner Amount </th>
+                                                    <th>Total Amount</th>
+                                                    <th>Action</th>
+                                                </tr>
+
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <script>
+                                function delete_confirmation(url) {
+                                    // sweet alert
+                                    const swalWithBootstrapButtons = Swal.mixin({
+                                        customClass: {
+                                            confirmButton: 'btn btn-sm btn-success ml-2',
+                                            cancelButton: 'btn btn-sm btn-danger'
+                                        },
+                                        buttonsStyling: false
+                                    })
+
+                                    swalWithBootstrapButtons.fire({
+                                        title: 'Are you sure?',
+                                        text: "You won't be able to revert this!",
+                                        icon: 'success',
+                                        showCancelButton: true,
+                                        confirmButtonText: 'Yes, delete it!',
+                                        cancelButtonText: 'No, cancel!',
+                                        reverseButtons: true
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+
+                                            swalWithBootstrapButtons.fire(
+                                                'Deleted!',
+                                                'Price card deleted successfully.',
+                                                'success'
+                                            );
+
+                                            window.location.href = url;
+
+
+                                        } else if (
+                                            /* Read more about handling dismissals below */
+                                            result.dismiss === Swal.DismissReason.cancel
+                                        ) {
+                                            swalWithBootstrapButtons.fire(
+                                                'Cancelled',
+                                                'Cancelled successfully :)',
+                                                'error'
+                                            );
+                                            return false;
+                                        }
+                                    })
+                                }
+                            </script>
+                            <script>
+                                var winning_amount = '<%=data.win_amount %>';
+                                $('#winnernumber').keyup(function(event) {
+                                    let users = '<%=data.maximum_user %>';
+                                    let winamt = '<%=data.win_amount %>';
+                                    let typedusers = $(this).val();
+                                    let totalusers = Math.round((users * typedusers) / 100);
+                                    // console.log(typedusers);
+                                    $('#winnum').html(totalusers);
+                                    // if($('input[name=user_selection]:checked').val()=='number'){
+                                    let winper = $('#winnerpercent').val();
+                                    if (winper != '' && typedusers != '') {
+                                        let totaluse = ((winamt * winper) / 100);
+                                        $('#winnum2').html(totaluse.toFixed(2));
+                                        if ($('input[name=user_selection]:checked').val() == 'number') {
+                                            let amt = $('#winnernumber').val() * totaluse;
+
+                                            $('#winnum3').html(amt.toFixed(2));
+                                        } else {
+                                            let tusers = $('#winnum').text();
+                                            let amt = tusers * totaluse;
+                                            // $('#winnum2').html(totaluse.toFixed(2));
+                                            $('#winnum3').html(amt.toFixed(2));
+                                        }
+                                    } else {
+                                        $('#winnum2').html('0');
+                                        $('#winnum3').html('0');
+                                    }
+                                    // }
+                                });
+
+                                $('#winnerpercent').keyup(function(event) {
+                                    let winamt = '<%=data.win_amount %>';
+                                    let typedusers = $('#winnum').text();
+                                    let winper = $(this).val();
+                                    if (winper != '') {
+                                        let totalusers = ((winamt * winper) / 100);
+                                        $('#winnum2').html(totalusers.toFixed(2));
+                                        if ($('input[name=user_selection]:checked').val() == 'number') {
+                                            let amt = $('#winnernumber').val() * totalusers;
+                                            $('#winnum3').html(amt.toFixed(2));
+                                        } else {
+                                            let amt = typedusers * totalusers;
+                                            $('#winnum3').html(amt.toFixed(2));
+                                        }
+                                    } else {
+                                        $('#winnum2').html('0');
+                                        $('#winnum3').html('0');
+                                    }
+
+                                });
+                            </script>
+                        </div>
+                </main>
+                <%- include("../../partials/footer") %>
+
+                    <script>
+                        $(window).on('load', function() {
+
+                            $('#preloader_admin').hide();
+
+                        })
+                    </script>
+
+
+                    <script>
+                        $('#b1').click(function() {
+                            const swalWithBootstrapButtons = Swal.mixin({
+                                customClass: {
+                                    confirmButton: 'btn btn-sm btn-success',
+                                    cancelButton: 'btn btn-sm btn-danger'
+                                },
+                                buttonsStyling: false
+                            })
+
+                            swalWithBootstrapButtons.fire({
+                                title: 'Are you sure?',
+                                text: "You won't be able to revert this!",
+                                icon: 'success',
+                                showCancelButton: true,
+                                confirmButtonText: 'Yes, delete it!',
+                                cancelButtonText: 'No, cancel!',
+                                reverseButtons: true
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    swalWithBootstrapButtons.fire(
+                                        'Deleted!',
+                                        'Your file has been deleted.',
+                                        'success'
+                                    )
+                                } else if (
+                                    /* Read more about handling dismissals below */
+                                    result.dismiss === Swal.DismissReason.cancel
+                                ) {
+                                    swalWithBootstrapButtons.fire(
+                                        'Cancelled',
+                                        'Your imaginary file is safe :)',
+                                        'error'
+                                    )
+                                }
+                            })
+                        });
+                    </script>
+
+                    <script>
+                        $(document).ready(function() {
+
+                            if ($('#accordionSidenavPages a').hasClass('active')) {
+                                $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
+                                $('#accordionSidenavPages a.active').parent().parent().addClass('show');
+                                // console.log(id);
+                            } else {
+                                $('#takeonebar').addClass('slamdown');
+                            }
+                        });
+                    </script>
+
+
+                    <script type="text/javascript">
+                        $.datetimepicker.setLocale('en');
+                        $('.datetimepickerget').datetimepicker({
+                            lang: 'en',
+                            formatDate: 'd.m.Y',
+                            step: 5,
+                            startDate: new Date()
+                        });
+                    </script>
+                    <script type="text/javascript">
+                        $('.datepicker').datepicker({
+                            lang: 'en',
+                            formatDate: 'd.m.Y',
+                            step: 5,
+                        });
+                    </script>
+
+                    <script>
+                        function isNumberKey(evt) {
+                            //var e = evt || window.event;
+
+                            var charCode = (evt.which) ? evt.which : evt.keyCode
+                            if (charCode != 46 && charCode > 31 &&
+                                (charCode < 48 || charCode > 57))
+
+                                return false;
+                            else {
+                                var itemdecimal = evt.srcElement.value.split('.');
+                                if (itemdecimal.length > 1 && charCode == 46)
+                                    return false;
+
+                                return true;
+                            }
+                        }
+                    </script>
+
+
+                    <script>
+                        /*jslint browser:true*/
+                        /*global jQuery, document*/
+
+                        jQuery(document).ready(function() {
+                            'use strict';
+
+                            jQuery('#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date').datetimepicker();
+                        });
+                    </script>
+
+
+                    <script>
+                        function delete_sweet_alert(url, msg) {
+                            // sweet alert
+                            const swalWithBootstrapButtons = Swal.mixin({
+                                customClass: {
+                                    confirmButton: 'btn btn-sm btn-success ml-2',
+                                    cancelButton: 'btn btn-sm btn-danger'
+                                },
+                                buttonsStyling: false
+                            })
+
+                            swalWithBootstrapButtons.fire({
+                                title: msg,
+                                text: "You won't be able to revert this!",
+                                icon: 'success',
+                                showCancelButton: true,
+                                confirmButtonText: 'Yes',
+                                cancelButtonText: 'No',
+                                reverseButtons: true
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+
+                                    swalWithBootstrapButtons.fire(
+                                        '',
+                                        'Successfully Done',
+                                        'success'
+                                    );
+
+                                    window.location.href = url;
+
+
+                                } else if (
+                                    /* Read more about handling dismissals below */
+                                    result.dismiss === Swal.DismissReason.cancel
+                                ) {
+                                    swalWithBootstrapButtons.fire(
+                                        'Cancelled',
+                                        'Cancelled successfully :)',
+                                        'error'
+                                    );
+                                    return false;
+                                }
+                            })
+                        }
+                    </script>

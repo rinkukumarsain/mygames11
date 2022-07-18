@@ -1,441 +1,701 @@
+<%- include("../../partials/head") %> <%-
+include("../../partials/bodyStartWithNavBar/") %> <%-
+include("../../partials/sideNav") %>
+<div id="layoutSidenav_content">
+  <main>
+    <div class="page-header pb-10 page-header-dark bg-info">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          <div class="col">
+            <div class="page-header-content">
+              <h1 class="page-header-title fs-md-35 fs-20">
+                <div class="page-header-icon">
+                  <i class="fad fa-at text-white"></i>
+                </div>
+                <span class="text-capitalize"> User Manager </span>
+              </h1>
+              <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                User Details
+              </div>
+            </div>
+          </div>
+          <div class="col-auto mb-md-0 mb-3">
+            <% if(user == 'botuser') { %>
+            <a
+              href="/view-botuser"
+              class="btn btn-sm btn-light font-weight-bold text-uppercase text-primary text-uppercase"
+              data-toggle="tooltip"
+              title=""
+              data-original-title="view all users"
+              >&nbsp; view</a
+            >
+            <% } else { %>
+            <a
+              href="/view_all_users"
+              class="btn btn-sm btn-light font-weight-bold text-uppercase text-primary text-uppercase"
+              data-toggle="tooltip"
+              title=""
+              data-original-title="view all users"
+              >&nbsp; view</a
+            >
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid mt-n10">
+      <div class="card">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-header">User Details</div>
+              <div class="card-body">
+                <div class="sbp-preview position-relative">
+                  <div class="row mx-0">
+                    <div class="col-md col-12 shadow m-3 p-3 rounded-15">
+                      <div class="row align-items-center border-bottom py-1">
+                        <div
+                          class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900"
+                        >
+                          User Name -
+                        </div>
+                        <div class="col-auto fs-md-14 fs-13">
+                          <%= getUserData.username || '' %>
+                        </div>
+                      </div>
+                      <div class="row align-items-center border-bottom py-1">
+                        <div
+                          class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900"
+                        >
+                          Email -
+                        </div>
+                        <div class="col-auto fs-md-14 fs-13">
+                          <%= getUserData.email || '' %>
+                        </div>
+                      </div>
 
-<!DOCTYPE html>
-<html lang="en">
+                      <div class="row align-items-center border-bottom py-1">
+                        <div
+                          class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900"
+                        >
+                          Mobile -
+                        </div>
+                        <div class="col-auto fs-md-14 fs-13">
+                          <%= getUserData.mobile || '' %>
+                        </div>
+                      </div>
+                      <div class="row align-items-center border-bottom py-1">
+                        <div
+                          class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900"
+                        >
+                          DOB -
+                        </div>
+                        <div class="col-auto fs-md-14 fs-13">
+                          <%= getUserData.dob || '' %>
+                        </div>
+                      </div>
+                      <div class="row align-items-center border-bottom py-1">
+                        <div
+                          class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900"
+                        >
+                          Gender -
+                        </div>
+                        <div class="col-auto fs-md-14 fs-13">
+                          <%= getUserData.gender || '' %>
+                        </div>
+                      </div>
+                      <div class="row align-items-center border-bottom py-1">
+                        <div
+                          class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900"
+                        >
+                          Address -
+                        </div>
+                        <div class="col-auto fs-md-14 fs-13">
+                          <%= getUserData.address || '' %>
+                        </div>
+                      </div>
+                      <div class="row align-items-center border-bottom py-1">
+                        <div
+                          class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900"
+                        >
+                          City -
+                        </div>
+                        <div class="col-auto fs-md-14 fs-13">
+                          <%= getUserData.city || '' %>
+                        </div>
+                      </div>
+                      <div class="row align-items-center py-1">
+                        <div
+                          class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900"
+                        >
+                          State -
+                        </div>
+                        <div class="col-auto fs-md-14 fs-13">
+                          <%= getUserData.state || '' %>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md col-12 shadow m-3 p-3 rounded-15">
+                      <div class="row align-items-center border-bottom py-1">
+                        <div
+                          class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900"
+                        >
+                          Pincode -
+                        </div>
+                        <div class="col-auto fs-md-14 fs-13">
+                          <%= getUserData.pincode || '' %>
+                        </div>
+                      </div>
+                      <div class="row align-items-center border-bottom py-1">
+                        <div
+                          class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900"
+                        >
+                          Team -
+                        </div>
+                        <div class="col-auto fs-md-14 fs-13">
+                          <%= getUserData.team || '' %>
+                        </div>
+                      </div>
+                      <div class="row align-items-center border-bottom py-1">
+                        <div
+                          class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900"
+                        >
+                          Status -
+                        </div>
+                        <div
+                          class="col-auto fs-md-14 fs-13 font-weight-900 text-uppercase"
+                        >
+                          <% if(getUserData.status == 'activated') {%>
+                          <span class="text-success"
+                            ><i class="far fa-check-circle"></i><%=
+                            getUserData.status%></span
+                          >
+                          <%}else{ %>
+                          <span class="text-danger"
+                            ><i class="far fa-times-circle"></i><%=
+                            getUserData.status%></span
+                          >
+                          <% }%>
+                        </div>
+                      </div>
+                      <div class="row align-items-center pb-1 pt-4">
+                        <div
+                          class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900"
+                        >
+                          Image -
+                        </div>
+                        <div class="col-auto fs-md-14 fs-13">
+                          <% if(getUserData.image) {%>
+                          <a
+                            href="<%=  getUserData.image%>"
+                            target="_blank"
+                            class="w-100px h-100px d-block shadow rounded-15"
+                            style="
+                              background: url('<%=  getUserData.image%>');
+                              background-size: cover;
+                            "
+                            id="a_tag"
+                          ></a>
+                          <%}else{ %>
+                          <a
+                            href="<%= baseUrl %>avtar1.png"
+                            target="_blank"
+                            class="w-100px h-100px d-block shadow rounded-15"
+                            style="
+                              background: url('<%= baseUrl %>avtar1.png');
+                              background-size: cover;
+                            "
+                          ></a>
+                          <% }%>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-    <%- include("../../partials/head") %>
-    <%- include("../../partials/bodyStartWithNavBar/") %>
-    <%- include("../../partials/sideNav") %>
-    <body class="nav-fixed">
+        <div class="row my-3">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-header">Pan Card Details</div>
+              <div class="card-body">
+                <div class="sbp-preview position-relative">
+                  <div class="row mx-0">
+                    <% if(getUserData.pancard) {%>
+                    <div class="col-md col-12 shadow m-3 p-3 rounded-15">
+                      <div class="row align-items-center border-bottom py-1">
+                        <div
+                          class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900"
+                        >
+                          Pan Name -
+                        </div>
+                        <div class="col-auto fs-md-14 fs-13">
+                          <%= getUserData.pancard.pan_name || ''%>
+                        </div>
+                      </div>
+                      <div class="row align-items-center border-bottom py-1">
+                        <div
+                          class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900"
+                        >
+                          Pan No. -
+                        </div>
+                        <div class="col-auto fs-md-14 fs-13">
+                          <%= getUserData.pancard.pan_number|| 0 %>
+                        </div>
+                      </div>
+                      <div class="row align-items-center border-bottom py-1">
+                        <div
+                          class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900"
+                        >
+                          Pan D.O.B. -
+                        </div>
+                        <div class="col-auto fs-md-14 fs-13">
+                          <%= getUserData.pancard.pan_dob || '' %>
+                        </div>
+                      </div>
+                      <div class="row align-items-center py-1">
+                        <div
+                          class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900"
+                        >
+                          Pan Status -
+                        </div>
+                        <% if(getUserData.pancard.status == 0) {%>
+                        <div
+                          class="col-auto fs-md-14 fs-13 font-weight-900 text-uppercase"
+                        >
+                          <span class="text-warning"
+                            ><i class="far fa-exclamation-circle"></i>
+                            Pending</span
+                          >
+                        </div>
+                        <% } else if(getUserData.pancard.status == 1) {%>
+                        <div
+                          class="col-auto fs-md-14 fs-13 font-weight-900 text-uppercase"
+                        >
+                          <span class="text-success"
+                            ><i class="far fa-check-circle"></i> Approved</span
+                          >
+                        </div>
+                        <% } else {%>
+                        <div
+                          class="col-auto fs-md-14 fs-13 font-weight-900 text-uppercase"
+                        >
+                          <span class="text-danger"
+                            ><i class="far fa-times-triangle"></i>
+                            Cancelled</span
+                          >
+                        </div>
+                        <% }%>
+                      </div>
+                    </div>
+                    <div class="col-md col-12 shadow m-3 p-3 rounded-15">
+                      <div class="row align-items-center pb-1 pt-4">
+                        <div
+                          class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900"
+                        >
+                          Image -
+                        </div>
+                        <div class="col-auto fs-md-14 fs-13">
+                          <a
+                            href="<%= baseUrl %><%=  getUserData.pancard.image %>"
+                            target="_blank"
+                            class="w-100px h-100px d-block shadow rounded-15"
+                            style="
+                              background: url('<%= baseUrl %><%=  getUserData.pancard.image %>');
+                              background-size: cover;
+                            "
+                            id="a_tag"
+                          ></a>
+                        </div>
+                      </div>
+                    </div>
+                    <%}else{ %>
+                    <div class="row align-items-center py-1">
+                      <div class="col-12 fs-md-14 fs-13">No Data Available</div>
+                    </div>
+                    <% }%>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row my-3">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-header">Bank Details</div>
+              <div class="card-body">
+                <div class="sbp-preview position-relative">
+                  <div class="row mx-0">
+                    <% if(getUserData.bank) {%>
+                    <div class="col-md col-12 shadow m-3 p-3 rounded-15">
+                      <div class="row align-items-center border-bottom py-1">
+                        <div
+                          class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900"
+                        >
+                          Account no.
+                        </div>
+                        <div class="col-auto fs-md-14 fs-13">
+                          <%= getUserData.bank.accno ||0 %>
+                        </div>
+                      </div>
+                      <div class="row align-items-center border-bottom py-1">
+                        <div
+                          class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900"
+                        >
+                          Account Holder name
+                        </div>
+                        <div class="col-auto fs-md-14 fs-13">
+                          <%= getUserData.bank.accountholder || '' %>
+                        </div>
+                      </div>
+                      <div class="row align-items-center border-bottom py-1">
+                        <div
+                          class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900"
+                        >
+                          IFSC
+                        </div>
+                        <div class="col-auto fs-md-14 fs-13">
+                          <%= getUserData.bank.ifsc || '' %>
+                        </div>
+                      </div>
+                      <div class="row align-items-center border-bottom py-1">
+                        <div
+                          class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900"
+                        >
+                          Bank Name
+                        </div>
+                        <div class="col-auto fs-md-14 fs-13">
+                          <%= getUserData.bank.bankname || '' %>
+                        </div>
+                      </div>
+                      <div class="row align-items-center border-bottom py-1">
+                        <div
+                          class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900"
+                        >
+                          Bank Branch
+                        </div>
+                        <div class="col-auto fs-md-14 fs-13">
+                          <%= getUserData.bank.bankbranch || '' %>
+                        </div>
+                      </div>
+                      <div class="row align-items-center py-1">
+                        <div
+                          class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900"
+                        >
+                          State
+                        </div>
+                        <div class="col-auto fs-md-14 fs-13">
+                          <%= getUserData.bank.state || '' %>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md col-12 shadow m-3 p-3 rounded-15">
+                      <div class="row align-items-center border-bottom py-1">
+                        <div
+                          class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900"
+                        >
+                          Bank Status
+                        </div>
+                        <% if(getUserData.bank.status == 0) {%>
+                        <div
+                          class="col-auto fs-md-14 fs-13 font-weight-900 text-uppercase"
+                        >
+                          <span class="text-warning"
+                            ><i class="far fa-exclamation-circle"></i>
+                            Pending</span
+                          >
+                        </div>
+                        <% } else if(getUserData.bank.status == 1) {%>
+                        <div
+                          class="col-auto fs-md-14 fs-13 font-weight-900 text-uppercase"
+                        >
+                          <span class="text-success"
+                            ><i class="far fa-check-circle"></i> Approved</span
+                          >
+                        </div>
+                        <% } else { %>
+                        <div
+                          class="col-auto fs-md-14 fs-13 font-weight-900 text-uppercase"
+                        >
+                          <span class="text-danger"
+                            ><i class="far fa-times-circle"></i> Cancelled</span
+                          >
+                        </div>
+                        <% }%>
+                      </div>
+                      <div class="row align-items-center pb-1 pt-4">
+                        <div
+                          class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900"
+                        >
+                          Bank Image
+                        </div>
+                        <div class="col-auto fs-md-14 fs-13">
+                          <a
+                            href="<%= baseUrl %><%=  getUserData.bank.image %>"
+                            target="_blank"
+                            class="w-100px h-100px d-block shadow rounded-15"
+                            style="
+                              background: url('<%= baseUrl %><%=  getUserData.bank.image%>');
+                              background-size: cover;
+                            "
+                            id="a_tag"
+                          ></a>
+                        </div>
+                      </div>
+                    </div>
+                    <%}else{ %>
+                    <div class="row align-items-center py-1">
+                      <div
+                        class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900"
+                      >
+                        No Data Available
+                      </div>
+                    </div>
+                    <% }%>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row my-3">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-header">User Transactions</div>
+              <div class="card-body">
+                <div class="sbp-preview position-relative">
+                  <div class="row mx-0">
+                    <% if(getUserData.userbalance) {%>
+                    <div
+                      class="col-md col-12 shadow m-3 p-3 rounded-15 justify-content-between"
+                    >
+                      <div class="row align-items-center py-1">
+                        <div
+                          class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900"
+                        >
+                          Deposited
+                        </div>
+                        <div class="col-auto fs-md-14 fs-13">
+                          <%= getUserData.userbalance.balance %>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="col-md col-12 shadow m-3 p-3 rounded-15 justify-content-between"
+                    >
+                      <div class="row align-items-center py-1">
+                        <div
+                          class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900"
+                        >
+                          Winning Amount
+                        </div>
+                        <div class="col-auto fs-md-14 fs-13">
+                          <%= getUserData.userbalance.winning %>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="col-md col-12 shadow m-3 p-3 rounded-15 justify-content-between"
+                    >
+                      <div class="row align-items-center py-1">
+                        <div
+                          class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900"
+                        >
+                          Bonus Amount
+                        </div>
+                        <div class="col-auto fs-md-14 fs-13">
+                          <%= getUserData.userbalance.bonus %>
+                        </div>
+                      </div>
+                    </div>
+                    <%}else{ %>
+                    <div class="row align-items-center py-1">
+                      <div
+                        class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900"
+                      >
+                        No Data Available
+                      </div>
+                    </div>
+                    <% }%>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <%- include("../../partials/footer") %>
 </div>
-<div id="layoutSidenav">
-
-        <div id="layoutSidenav_content">
-            <main>
-
-                <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
-                    <div class="container-fluid">
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <div class="page-header-content">
-                                    <h1 class="page-header-title fs-md-35 fs-20">
-
-                                        <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
-                                        <span class=" text-capitalize">
-                                                User Manager
-                                        </span>
-                                    </h1>
-                                    <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
-                                        User Details
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-auto mb-md-0 mb-3">
-                                <a href="/view_all_users" class="btn btn-sm btn-light font-weight-bold text-uppercase text-primary text-uppercase" data-toggle="tooltip" title="" data-original-title="view all users">&nbsp; view</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="container-fluid mt-n10">
-                    
-
-
-<div class="card">
-           <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header">User Details</div>
-                    <div class="card-body">
-                        <div class="sbp-preview position-relative">
-        
-                            <div class="row mx-0">
-                                    <div class="col-md col-12 shadow m-3 p-3 rounded-15">
-                                        <div class="row align-items-center border-bottom py-1">
-                                            <div class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900">User Name -</div>
-                                            <div class="col-auto fs-md-14 fs-13"><%= getUserData.username || '' %></div>
-                                        </div>
-                                        <div class="row align-items-center border-bottom py-1">
-                                            <div class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900">Email -</div>
-                                            <div class="col-auto fs-md-14 fs-13"><%= getUserData.email || '' %></div>
-                                        </div>
-        
-                                        <div class="row align-items-center border-bottom py-1">
-                                            <div class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900">Mobile -</div>
-                                            <div class="col-auto fs-md-14 fs-13"><%= getUserData.mobile || '' %></div>
-                                        </div>
-                                        <div class="row align-items-center border-bottom py-1">
-                                            <div class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900">DOB -</div>
-                                            <div class="col-auto fs-md-14 fs-13"><%= getUserData.dob || '' %></div>
-                                        </div>
-                                        <div class="row align-items-center border-bottom py-1">
-                                            <div class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900">Gender -</div>
-                                            <div class="col-auto fs-md-14 fs-13"><%= getUserData.gender || '' %> </div>
-                                        </div>
-                                        <div class="row align-items-center border-bottom py-1">
-                                            <div class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900">Address -</div>
-                                            <div class="col-auto fs-md-14 fs-13"><%= getUserData.address  || '' %></div>
-                                        </div>
-                                        <div class="row align-items-center border-bottom py-1">
-                                            <div class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900">City -</div>
-                                            <div class="col-auto fs-md-14 fs-13"><%= getUserData.city  || '' %></div>
-                                        </div>
-                                        <div class="row align-items-center py-1">
-                                            <div class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900">State -</div>
-                                            <div class="col-auto fs-md-14 fs-13"><%= getUserData.state || '' %></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md col-12 shadow m-3 p-3 rounded-15">
-                                        <div class="row align-items-center border-bottom py-1">
-                                            <div class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900">Pincode -</div>
-                                            <div class="col-auto fs-md-14 fs-13"><%= getUserData.pincode || '' %></div>
-                                        </div>
-                                        <div class="row align-items-center border-bottom py-1">
-                                            <div class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900">Team -</div>
-                                            <div class="col-auto fs-md-14 fs-13"><%= getUserData.team || '' %></div>
-                                        </div>
-                                        <div class="row align-items-center border-bottom py-1">
-                                            <div class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900">Status -</div>
-                                            <div class="col-auto fs-md-14 fs-13 font-weight-900 text-uppercase">
-                                                <% if(getUserData.status == 'activated') {%>
-        <span class="text-success"><i class="far fa-check-circle"></i><%= getUserData.status%></span>
-                                                    <%}else{ %>
-        <span class="text-danger"><i class="far fa-times-circle"></i><%= getUserData.status%></span>
-                                                    <% }%> 
-                                            </div>
-                                        </div>
-                                        <div class="row align-items-center pb-1 pt-4">
-                                            <div class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900">Image -</div>
-                                            <div class="col-auto fs-md-14 fs-13">
-                                                <% if(getUserData.image) {%>                 
-            <a href="<%=  getUserData.image%>" target="_blank" class="w-100px h-100px d-block shadow rounded-15" style="background: url('<%=  getUserData.image%>');background-size: cover;" id="a_tag"></a>
-                                                <%}else{ %>
-            <a href="http://128.199.27.151:7070/avtar1.png" target="_blank" class="w-100px h-100px d-block shadow rounded-15" style="background: url('http://128.199.27.151:7070/avtar1.png');background-size: cover;"></a>
-                                                 <% }%> 
-                                            </div>
-                                        </div>
-                                    </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="row my-3">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header">Pan Card Details</div>
-                    <div class="card-body">
-                        <div class="sbp-preview position-relative">
-        
-                            <div class="row mx-0">
-                                <% if(getUserData.pancard) {%> 
-                                    <div class="col-md col-12 shadow m-3 p-3 rounded-15">
-                                        <div class="row align-items-center border-bottom py-1">
-                                            <div class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900">Pan Name -</div>
-            <div class="col-auto fs-md-14 fs-13"><%=  getUserData.pancard.pan_name || ''%></div>
-                                        </div>
-                                        <div class="row align-items-center border-bottom py-1">
-                                            <div class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900">Pan No. -</div>
-             <div class="col-auto fs-md-14 fs-13"><%=  getUserData.pancard.pan_number|| 0 %></div>
-                                        </div>
-                                        <div class="row align-items-center border-bottom py-1">
-                                            <div class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900">Pan D.O.B. -</div>
-                                            <div class="col-auto fs-md-14 fs-13"><%=  getUserData.pancard.pan_dob || '' %></div>
-                                        </div>
-                                        <div class="row align-items-center py-1">
-                                            <div class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900">Pan Status -</div>
-                                 <% if(getUserData.pancard.status == 0) {%>  
-                            <div class="col-auto fs-md-14 fs-13 font-weight-900 text-uppercase"><span  class="text-warning"><i class="far fa-exclamation-circle"></i> Pending</span></div>
-                                <% } else if(getUserData.pancard.status == 1) {%>
-                            <div class="col-auto fs-md-14 fs-13 font-weight-900 text-uppercase"><span class="text-success"><i class="far fa-check-circle"></i> Approved</span></div>
-                                <% } else {%>
-                            <div class="col-auto fs-md-14 fs-13 font-weight-900 text-uppercase"><span class="text-danger"><i class="far fa-times-triangle"></i> Cancelled</span></div>  
-                              <% }%> 
-                                        </div>
-                                    </div>
-                                    <div class="col-md col-12 shadow m-3 p-3 rounded-15">
-                                        <div class="row align-items-center pb-1 pt-4">
-                                            <div class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900">Image -</div>
-                                        <div class="col-auto fs-md-14 fs-13">
-                                                  
-                                        <a href="http://128.199.27.151:7070/<%=  getUserData.pancard.image %>" target="_blank" class="w-100px h-100px d-block shadow rounded-15" style="background: url('http://128.199.27.151:7070/<%=  getUserData.pancard.image %>');background-size: cover;" id="a_tag"></a>
-                                                   
-                                        </div>
-                                        </div>
-                                        </div>
-                                    <%}else{ %>
-                                        <div class="row align-items-center py-1">
-                                            <div class="col-12 fs-md-14 fs-13">No Data Available</div>
-                                        </div>
-                                        <% }%> 
-                                </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="row my-3">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header">Bank Details</div>
-                    <div class="card-body">
-                        <div class="sbp-preview position-relative">
-        
-                            <div class="row mx-0">
-                                     <% if(getUserData.bank) {%>
-                                <div class="col-md col-12 shadow m-3 p-3 rounded-15">
-                                        <div class="row align-items-center border-bottom py-1">
-                                            <div class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900">Account no.</div>
-                        <div class="col-auto fs-md-14 fs-13"> <%=  getUserData.bank.accno ||0 %></div>
-                                        </div>
-                                        <div class="row align-items-center border-bottom py-1">
-                                            <div class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900">Account Holder name</div>
-                        <div class="col-auto fs-md-14 fs-13"> <%=  getUserData.bank.accountholder || '' %></div>
-                                        </div>
-                                        <div class="row align-items-center border-bottom py-1">
-                                            <div class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900">IFSC</div>
-                        <div class="col-auto fs-md-14 fs-13"><%=  getUserData.bank.ifsc || '' %></div>
-                                        </div>
-                                        <div class="row align-items-center border-bottom py-1">
-                                            <div class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900">Bank Name</div>
-                        <div class="col-auto fs-md-14 fs-13"> <%=  getUserData.bank.bankname  || '' %></div>
-                                        </div>
-                                        <div class="row align-items-center border-bottom py-1">
-                                            <div class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900">Bank Branch</div>
-                        <div class="col-auto fs-md-14 fs-13"><%=  getUserData.bank.bankbranch || '' %> </div>
-                                        </div>
-                                        <div class="row align-items-center py-1">
-                                            <div class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900">State</div>
-                        <div class="col-auto fs-md-14 fs-13"><%=  getUserData.bank.state || '' %> </div>
-                                        </div>
-                                </div>
-                                <div class="col-md col-12 shadow m-3 p-3 rounded-15">
-                                        <div class="row align-items-center border-bottom py-1">
-                                            <div class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900">Bank Status</div>
-                                            <% if(getUserData.bank.status == 0) {%>
-        <div class="col-auto fs-md-14 fs-13 font-weight-900 text-uppercase">  <span class="text-warning"><i class="far fa-exclamation-circle"></i> Pending</span></div>
-                                                <% } else if(getUserData.bank.status == 1) {%>
-        <div class="col-auto fs-md-14 fs-13 font-weight-900 text-uppercase">  <span class="text-success"><i class="far fa-check-circle"></i> Approved</span></div>
-                                                <% } else { %> 
-        <div class="col-auto fs-md-14 fs-13 font-weight-900 text-uppercase"><span class="text-danger"><i class="far fa-times-circle"></i> Cancelled</span></div>
-                                            <% }%> 
-                                            </div>
-                                        <div class="row align-items-center pb-1 pt-4">
-                                            <div class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900">Bank Image</div>
-                                            <div class="col-auto fs-md-14 fs-13">                
-        <a href="http://128.199.27.151:7070/<%=  getUserData.bank.image %>" target="_blank" class="w-100px h-100px d-block shadow rounded-15" style="background: url('http://128.199.27.151:7070/<%=  getUserData.bank.image%>');background-size: cover;" id="a_tag"></a>
-                                         </div>
-                                        </div>
-                                    </div>
-                                    <%}else{ %>
-                                        <div class="row align-items-center py-1">
-                                            <div class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900">No Data Available</div>
-                                        </div>
-                                        <% }%> 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        
-        <div class="row my-3">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header">User Transactions</div>
-                    <div class="card-body">
-                        <div class="sbp-preview position-relative">
-        
-                            <div class="row mx-0">
-                                <% if(getUserData.userbalance) {%> 
-                                    <div class="col-md col-12 shadow m-3 p-3 rounded-15 justify-content-between">
-                                        <div class="row align-items-center py-1">
-                                            <div class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900">Deposited</div>
-                                 <div class="col-auto fs-md-14 fs-13"><%=  getUserData.userbalance.balance  %></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md col-12 shadow m-3 p-3 rounded-15 justify-content-between">
-                                        <div class="row align-items-center py-1">
-                                            <div class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900">Winning Amount</div>
-                                            <div class="col-auto fs-md-14 fs-13"><%=  getUserData.userbalance.winning %></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md col-12 shadow m-3 p-3 rounded-15 justify-content-between">
-                                        <div class="row align-items-center py-1">
-                                            <div class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900">Bonus Amount</div>
-                                            <div class="col-auto fs-md-14 fs-13"><%=  getUserData.userbalance.bonus %></div>
-                                        </div>
-                                    </div>
-                                    <%}else{ %>
-                                        <div class="row align-items-center py-1">
-                                            <div class="col fs-md-13 fs-12 text-dark text-uppercase font-weight-900">No Data Available</div>
-                                        </div>
-                                        <% }%> 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-     </div>
-   </div>
-</main>
-            <%- include("../../partials/footer") %>
-</div>
-    <script>
-      $(window).on('load', function(){
-         $('#preloader_admin').hide();
-        })
-    </script>
-    <script>
-        $(document).ready(function (){
-            var table = $('#dataTabless').DataTable({
-                'responsive': true
-            });
-    
-            // Handle click on "Expand All" button
-            $('#btn-show-all-children').on('click', function(){
-                // Expand row details
-                table.rows(':not(.parent)').nodes().to$().find('td:first-child').trigger('click');
-            });
-    
-            // Handle click on "Collapse All" button
-            $('#btn-hide-all-children').on('click', function(){
-                // Collapse row details
-                table.rows('.parent').nodes().to$().find('td:first-child').trigger('click');
-            });
-        });
-    </script>
 <script>
-  
-  $('#special').on('click', function () {
-    mySelect.find('option:selected').prop('disabled', true);
-    mySelect.selectpicker('refresh');
-  });
-  
-  $('#special2').on('click', function () {
-    mySelect.find('option:disabled').prop('disabled', false);
-    mySelect.selectpicker('refresh');
-  });
-  
-  $('#basic2').selectpicker({
-    liveSearch: true,
-    maxOptions: 1
+  $(window).on("load", function () {
+    $("#preloader_admin").hide();
   });
 </script>
 <script>
-$(document).ready(function(){
-    
-  if ($('#accordionSidenavPages a').hasClass('active')){
-    $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
-    $('#accordionSidenavPages a.active').parent().parent().addClass('show');
-    // console.log(id);
-  } else {
-    $('#takeonebar').addClass('slamdown');
-  }
-});
+  $(document).ready(function () {
+    var table = $("#dataTabless").DataTable({
+      responsive: true,
+    });
 
+    // Handle click on "Expand All" button
+    $("#btn-show-all-children").on("click", function () {
+      // Expand row details
+      table
+        .rows(":not(.parent)")
+        .nodes()
+        .to$()
+        .find("td:first-child")
+        .trigger("click");
+    });
+
+    // Handle click on "Collapse All" button
+    $("#btn-hide-all-children").on("click", function () {
+      // Collapse row details
+      table
+        .rows(".parent")
+        .nodes()
+        .to$()
+        .find("td:first-child")
+        .trigger("click");
+    });
+  });
+</script>
+<script>
+  $("#special").on("click", function () {
+    mySelect.find("option:selected").prop("disabled", true);
+    mySelect.selectpicker("refresh");
+  });
+
+  $("#special2").on("click", function () {
+    mySelect.find("option:disabled").prop("disabled", false);
+    mySelect.selectpicker("refresh");
+  });
+
+  $("#basic2").selectpicker({
+    liveSearch: true,
+    maxOptions: 1,
+  });
+</script>
+<script>
+  $(document).ready(function () {
+    if ($("#accordionSidenavPages a").hasClass("active")) {
+      $("#accordionSidenavPages a.active")
+        .parent()
+        .parent()
+        .prev("a")
+        .removeClass("collapsed");
+      $("#accordionSidenavPages a.active").parent().parent().addClass("show");
+      // console.log(id);
+    } else {
+      $("#takeonebar").addClass("slamdown");
+    }
+  });
 </script>
 <script type="text/javascript">
-     $(document).ready(function(){
- $('#select_all').on('click',function(){
-     if(this.checked){
-         $('.checkbox').each(function(){
-             this.checked = true;
-         });
-     }else{
-          $('.checkbox').each(function(){
-             this.checked = false;
-         });
-     }
- });
+  $(document).ready(function () {
+    $("#select_all").on("click", function () {
+      if (this.checked) {
+        $(".checkbox").each(function () {
+          this.checked = true;
+        });
+      } else {
+        $(".checkbox").each(function () {
+          this.checked = false;
+        });
+      }
+    });
 
- $('.checkbox').on('click',function(){
-     if($('.checkbox:checked').length == $('.checkbox').length){
-         $('#select_all').prop('checked',true);
-     }else{
-         $('#select_all').prop('checked',false);
-     }
- });
-});
+    $(".checkbox").on("click", function () {
+      if ($(".checkbox:checked").length == $(".checkbox").length) {
+        $("#select_all").prop("checked", true);
+      } else {
+        $("#select_all").prop("checked", false);
+      }
+    });
+  });
 </script>
 <script>
-function isNumberKey(evt){
+  function isNumberKey(evt) {
     //var e = evt || window.event;
 
-   var charCode = (evt.which) ? evt.which : evt.keyCode
-    if (charCode != 46 && charCode > 31
-   && (charCode < 48 || charCode > 57))
+    var charCode = evt.which ? evt.which : evt.keyCode;
+    if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
+      false;
+    else {
+      var itemdecimal = evt.srcElement.value.split(".");
+      if (itemdecimal.length > 1 && charCode == 46) false;
 
-     false;
-  else {
-       var itemdecimal = evt.srcElement.value.split('.');
-       if (itemdecimal.length > 1 && charCode == 46)
-            false;
-
-        true;
+      true;
+    }
   }
-}
 </script>
 <script>
-    function divshowhide(value){
-      if(value=='specific'){
-        $("#specificdiv").removeClass('d-none');
-        $("#specificdiv1").show();
-        $("#specificdiv2").show();
-      }else{
-        $("#specificdiv").addClass('d-none');
-        $("#specificdiv1").hide();
-        $("#specificdiv2").hide();
-      }
+  function divshowhide(value) {
+    if (value == "specific") {
+      $("#specificdiv").removeClass("d-none");
+      $("#specificdiv1").show();
+      $("#specificdiv2").show();
+    } else {
+      $("#specificdiv").addClass("d-none");
+      $("#specificdiv1").hide();
+      $("#specificdiv2").hide();
     }
-     function deletediv1(e,item){
-        $('#dsafd'+item).remove();
-    }
-
+  }
+  function deletediv1(e, item) {
+    $("#dsafd" + item).remove();
+  }
 </script>
 <script>
-        function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                $('#' + input.id + '-imagePreview').css('background-image', 'url('+e.target.result +')');
-                $('#' + input.id + '-imagePreview').hide();
-                $('#' + input.id + '-imagePreview').fadeIn(650);
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $("#" + input.id + "-imagePreview").css(
+          "background-image",
+          "url(" + e.target.result + ")"
+        );
+        $("#" + input.id + "-imagePreview").hide();
+        $("#" + input.id + "-imagePreview").fadeIn(650);
+      };
+      reader.readAsDataURL(input.files[0]);
     }
-    $(".imageUpload").change(function() {
-        readURL(this);
-    });
+  }
+  $(".imageUpload").change(function () {
+    readURL(this);
+  });
 </script>
 <script>
   /*jslint browser:true*/
   /*global jQuery, document*/
 
   jQuery(document).ready(function () {
-      'use strict';
+    "use strict";
 
-      jQuery('#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date').datetimepicker();
+    jQuery(
+      "#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date"
+    ).datetimepicker();
   });
 </script>
 <script>
-  function copyToClipboard(element,element1) {
-      var $temp = $("<input>");
-      $("body").append($temp);
-      $temp.val($(element).text()).select();
-      document.execCommand("copy");
-      $temp.remove();
+  function copyToClipboard(element, element1) {
+    var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val($(element).text()).select();
+    document.execCommand("copy");
+    $temp.remove();
 
-      $(element1).addClass("copied_success animated bounceIn");
-      setTimeout(RemoveClass, 1000);
-  function RemoveClass() {
+    $(element1).addClass("copied_success animated bounceIn");
+    setTimeout(RemoveClass, 1000);
+    function RemoveClass() {
       $(element1).removeClass("copied_success animated bounceIn");
-  }
+    }
   }
 </script>
-</body>
-</html>

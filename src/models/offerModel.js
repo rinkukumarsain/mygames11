@@ -28,6 +28,9 @@ let Offers = new Schema({
     start_date: {
         type: String,
     },
+    image:{
+        type:String
+    },
     expire_date: {
         type: String,
     },

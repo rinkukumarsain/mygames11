@@ -17,6 +17,13 @@ class contestCategory {
     // --------------------
     async addContestCategoryData(req) {
         try {
+            if(req.fileValidationError){
+                return{
+                    status:false,
+                    message:req.fileValidationError
+                }
+
+            }
             console.log("....contest category.......", req.body, req.file)
             let insertObj = {
                 name: req.body.name,
@@ -37,6 +44,13 @@ class contestCategory {
     }
     async editContestCategoryData(req) {
         try {
+            if(req.fileValidationError){
+                return{
+                    status:false,
+                    message:req.fileValidationError
+                }
+
+            }
             const checkcontestCat=await contestCategoryModel.findOne({_id:req.params.contestId});
             if(checkcontestCat){
                 const checkName=await contestCategoryModel.findOne({_id:{$ne:req.params.contestId},name:req.body.name});

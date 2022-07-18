@@ -304,7 +304,7 @@ let userSchema = new Schema({
         type: String
     },
     user_status: {
-        type: String
+        type: Number
     },
     deviceid: {
         type: String

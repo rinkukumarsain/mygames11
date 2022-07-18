@@ -1,7 +1,10 @@
 const userModel=require("../../models/userModel");
 const validator = require('validator');
 const bcrypt = require('bcrypt');
+const fs=require('fs');
+const constant=require("../../config/const_credential");
 const { default: mongoose } = require("mongoose");
+
 class youtuberServices{
 
     constructor(){
@@ -10,12 +13,12 @@ class youtuberServices{
             edit_youtuber:this.edit_youtuber.bind(this),
             edit_youtuber_data:this.edit_youtuber_data.bind(this),
             delete_youtuber:this.delete_youtuber.bind(this),
+           
         }
     }
 
     async add_youtuber_data(req){
         try{
-            console.log("....youtuber..........",req.body);
             let doc=req.body
             if(req.body.email && req.body.mobile && req.body.refer_code){
                     // console.log("validator...................",!validator.isEmail(req.body.email))
@@ -55,6 +58,10 @@ class youtuberServices{
                                 let salt = bcrypt.genSaltSync(10);
                                 req.body.decrypted_password = req.body.password; 
                                 req.body.password = bcrypt.hashSync(req.body.password, salt);
+                                req.body.user_verify= { mobile_verify: 1, mobilebonus: 1 };
+                                req.body.userbalance= { bonus: 0 };
+                                req.body.type=constant.USER_TYPE.YOUTUBER;
+                                req.body.status=constant.USER_STATUS.ACTIVATED;
                                 let saveUser=await userModel.create(req.body);
                                 if(saveUser){
                                     return{
@@ -141,7 +148,7 @@ class youtuberServices{
                                 let saveUser=await userModel.updateOne({_id:mongoose.Types.ObjectId(req.params.youtuberId)},{
                                     $set:req.body
                                 });
-                                if(saveUser.modifiedCount == 1){
+                                if(saveUser.modifiedCount > 0){
                                     return{
                                         status:true,
                                         message:'user update successfully'
@@ -178,10 +185,17 @@ class youtuberServices{
     }
     async delete_youtuber(req){
         try{
-            const checkYoutuber=await userModel.findOne({_id:req.params.youtuberId});
+            let checkYoutuber=await userModel.findOne({_id:req.params.youtuberId});
+           
             if(checkYoutuber){
-                const checkYoutuber=await userModel.deleteOne({_id:req.params.youtuberId}); 
-                if(checkYoutuber.deletedCount == 1){
+                if(checkYoutuber.image){
+                   let filePath = `public${checkYoutuber.image}`;
+                    if(fs.existsSync(filePath) == true){
+                    fs.unlinkSync(filePath);
+                    }
+                }
+                const updateYoutuber=await userModel.deleteOne({_id:req.params.youtuberId}); 
+                if(updateYoutuber.deletedCount == 1){
                     return{
                         status:true,
                         message:'youtuber delete successfully'
@@ -203,5 +217,6 @@ class youtuberServices{
             throw error;
         }
     }
+    
 }
 module.exports = new youtuberServices()

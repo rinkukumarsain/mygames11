@@ -11,6 +11,8 @@ class adminPanelController {
             logout: this.logout.bind(this),
             changePasswordPage: this.changePasswordPage.bind(this),
             changePassword: this.changePassword.bind(this),
+            adminProfilePage:this.adminProfilePage.bind(this),
+            updateProfileData:this.updateProfileData.bind(this),
             // ---------------------
 
             viewGeneralTab: this.viewGeneralTab.bind(this),
@@ -106,6 +108,34 @@ class adminPanelController {
             next(error);
         }
     }
+    async adminProfilePage(req,res,next){
+        try{
+            const adminData = await adminModel.findOne({
+                role: req.session.data.role
+              });
+              req.session.data = adminData
+              res.locals.message = req.flash();
+              res.render("admin/adminProfile", {
+                sessiondata: req.session.data
+              });
+        }catch(error){
+            console.log(error)
+        }
+    }
+    async updateProfileData(req, res, next) {
+        try {
+          const updateData = await adminServices.updateProfileData(req);
+          if (updateData.status == true) {
+            req.flash("success", updateData.message);
+            res.redirect("/");
+          } else {
+            req.flash("error", updateData.message);
+            res.redirect("/admin-profile-page");
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
     // --------------------------------------------------
 
 
@@ -335,6 +365,7 @@ class adminPanelController {
     }
     async editBannerData(req, res, next) {
         try {
+            
             res.locals.message = req.flash();
             const editBanner = await adminServices.editBannerData(req);
             if (editBanner) {

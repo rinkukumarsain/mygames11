@@ -1,0 +1,784 @@
+<%- include("../../partials/head") %>
+
+  <%- include("../../partials/bodyStartWithNavBar/") %>
+    <%- include("../../partials/sideNav") %>
+      <div id="layoutSidenav_content">
+        <main>
+
+          <div class="page-header pb-10 page-header-dark bg-info">
+            <div class="container-fluid">
+              <div class="row align-items-center">
+                <div class="col">
+                  <div class="page-header-content">
+                    <h1 class="page-header-title fs-md-35 fs-20">
+
+                      <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                      <span class=" text-capitalize">
+                        Contest Manager
+                      </span>
+                    </h1>
+                    <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                      Add expert contest
+                    </div>
+                  </div>
+                </div>
+                <div class="col-auto mb-md-0 mb-3">
+                  <a href="/view_all_experts_contest"
+                    class="btn btn-sm btn-light font-weight-bold text-uppercase text-primary text-uppercase"><i
+                      class="fad fa-eye"></i>&nbsp; View All Expert Contests</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <%- include("../../partials/alertMsg") %>
+          <div class="container-fluid mt-n10">
+            <div class="card">
+              <div class="card-header">Expert Contest</div>
+              <form method="POST" action="/add-expert-contest-data" class="card-body" enctype="multipart/form-data">
+                <!-- <input name="_token" type="hidden" value="bTSsGdX3Z7uY7ptNccCMCJoz3YhMPTf56lRtKWSE"> -->
+                <input type="hidden" name="fantasy_type" value="Cricket">
+                <input type="hidden" name="typename" value="expert_contests">
+
+                <div class="sbp-preview">
+                  <div class="sbp-preview-content py-2">
+                    <div class="row mx-0">
+                        <div class="col-md-12">
+                            <div class="form-group my-3">
+                              <label class="label-control text-bold">Match Name <label>
+                              <select name="matchkey" class="form-control form-control-solid p-1 selectpicker show-tick"
+                                required="" id="matchkey" onchange="change_match(this)">
+                                <option value="" >select Match</option>   
+                                <% if(matchData) {%>
+                                    <% for(let key of matchData) {%>  
+                                        <% if(matchkey) {%>
+                                            <option value="<%=key._id %>" <%=matchkey==key._id ? 'selected' : "" %> ><%=key.name %></option> 
+                                        <% }else{ %>
+                                            <option value="<%=key._id %>" ><%=key.name %></option>                
+                                        <% }%> 
+                                    <% }%>
+                                <% }%>
+                              </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group my-3">
+                              <label class="label-control text-bold">Contest Category*</label>
+                              <select name="contest_cat" class="form-control form-control-solid p-1 selectpicker show-tick"
+                                required="" id="contest_cat">
+                                <option value="" >select category</option>   
+                                <% if(contest_catData) {%>
+                                    <% for(let key of contest_catData) {%>   
+                                        <option value="<%=key._id %>" ><%=key.name %></option>                
+                                    <% }%>
+                                <% }%>
+                              </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group my-3">
+                              <label class="label-control text-bold">Expert Name*</label>
+                              <input type="test" id="expert_name" class="form-control form-control-solid"
+                                placeholder="Enter Expert Name" name="expert_name" value="" required="" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group my-3">
+                              <label class="label-control text-bold">Entry Fee*</label>
+                              <input type="number" onkeypress="return isNumberKey(event)" id="entryfee" min="0" class="form-control form-control-solid"
+                                placeholder="Enter Entry Fee" name="entryfee" value="" required="" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group my-3">
+                              <label class="label-control text-bold">Multipul Entry Fee*</label>
+                              <input type="number" onkeypress="return isNumberKey(event)" id="multiple_of_entryfee" min="0" class="form-control form-control-solid"
+                                placeholder="multiple Entry Fee" name="multiple_entryfee" value="" required="" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group my-3">
+                              <label class="label-control text-bold">Winning Amount*</label>
+                              <input type="number" id="win_amount" min="0" class="form-control form-control-solid"
+                                placeholder="" name="win_amount" required="" readonly>
+                            </div>
+                        </div>
+   
+                          <div class="col-12">
+                            <div class="form-group">
+                                <div class="row justify-content-center py-0">
+                                    <h1 class="fs-14 font-weight-bold text-center mt-3 col-12">
+                                        Image</h1>
+                                    <div class="avatar-upload col-auto position-relative">
+                                        <div
+                                            class="avatar-edit position-absolute right-0px z-index-1 top-2px">
+                                            <input type='file' name="image" id="image"
+                                                accept=".png" class="imageUpload d-none"  />
+                                            <label
+                                                class="d-grid w-40px h-40px mb-0 rounded-pill bg-white text-success fs-20 shadow pointer font-weight-normal align-items-center justify-content-center"
+                                                for="image"><i
+                                                    class="fad fa-pencil"></i></label>
+                                        </div>
+                                        <div
+                                            class="avatar-preview w-100px h-100px position-relative rounded-pill shadow">
+
+                                            <div class="w-100 h-100 rounded-pill"
+                                                id="image-imagePreview"
+                                                style="background-image: url(/uploadImage/defaultImage.jpg);">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                       
+                          <!-- -------------------- -->
+                    </div>
+                    <% if(matckeyData) {%>
+                    <div class="row mx-0">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                            <label class="label-control text-bold">Expert Team*</label>
+                            </div>
+                        </div>                            
+                    
+                        <div class="col-12 px-2">
+                            <% if(matckeyData[0]?.team1Name.teamName){ %>
+                            <div class="h4">Team1: <span id="team1Name"><%=matckeyData[0].team1Name.teamName %></span></div>
+                            <% }else{ %>
+                                <div class="h4">Team1: <span id="team1Name"></span></div>
+                            <% }%>
+                            <div class="h6">Total Selected Players <span id="team1_count">0</span></div>
+                            <table class="table table-striped table-bordered dataTable no-footer text-nowrap text-12px" role="grid" aria-describedby="datatable_info" id="dataTable1">
+                                <thead>
+                                    <tr role="row">
+                                        <th data-toggle="tooltip" title="Serial Number">#</th>
+                                        <th data-toggle="tooltip" title="Captain">C</th>
+                                        <th data-toggle="tooltip" title="Vice Captain">VC</th>
+                                        <th data-toggle="tooltip" title="Player Name">Player Name</th>
+                                        <th data-toggle="tooltip" title="Player Role">Role</th>
+                                        <th data-toggle="tooltip" title="Credit">Cr</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if(matckeyData) {%>
+                                        <% for(let index of matckeyData[0].team1player) {%>
+                                            <tr>
+                                        <td><input type="checkbox" name="team1players[]" value="<%=index._id %>" data-role="<%=index.role %>" data-credit="<%=index.credit %>" data-team="<%=matckeyData[0].team1Name.teamName %>"></td>
+                                        <td><input type="radio" name="captain" required="" value="<%=index._id %>"></td>
+                                        <td> <input type="radio" name="vicecaptain" required="" value="<%=index._id %>"></td>
+                                        <td><p class="us_name" ><%=index.player_name %> </p></td>
+                                        <td><a data-toggle="modal" data-target="#player1modal2" class="text-decoration-none text-primary pointer"><%=index.role %></a></td>
+                                        <td><a data-toggle="modal" data-target="#player1modal2" class="text-decoration-none text-warning pointer"><%=index.credit %></a></td>
+                                        </tr>
+                                        <% }%>
+                                    <% }%>
+                                   
+                                 </tbody>
+                            </table>
+                        </div>
+
+                        <div class="col-12 px-2">
+                            <% if(matckeyData[0]?.team2Name.teamName){ %>
+                                <div class="h4">Team2: <span id="team2Name"><%=matckeyData[0].team2Name.teamName %></span></div>
+                                <% }else{ %>
+                                    <div class="h4">Team2: <span id="team2Name"></span></div>
+                                <% }%>
+                            <div class="h6">Total Selected Players <span id="team2_count">0</span></div>
+                            <table class="table table-striped table-bordered dataTable no-footer text-nowrap text-12px" id="dataTable2">
+                                <thead>
+                                    <tr role="row">
+                                    <th data-toggle="tooltip" title="Serial Number">#</th>
+                                    <th data-toggle="tooltip" title="Captain">C</th>
+                                    <th data-toggle="tooltip" title="Vice Captain">VC</th>
+                                    <th data-toggle="tooltip" title="Player Name">Player Name</th>
+                                    <th data-toggle="tooltip" title="Role">Role</th>
+                                    <th data-toggle="tooltip" title="Credit">Cr</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if(matckeyData) {%>
+                                        <% for(let index of matckeyData[0].team2player) {%>
+                                        <tr>
+                                        <td><input type="checkbox" name="team2players[]" value="<%=index._id %>" data-role="<%=index.role %>" data-credit="<%=index.credit %>" data-team="<%=matckeyData[0].team2Name.teamName %>"></td>
+                                        <td><input type="radio" name="captain" required="" value="<%=index._id %>"></td>
+                                        <td> <input type="radio" name="vicecaptain" required="" value="<%=index._id %>"></td>
+                                        <td><p class="us_name" ><%=index.player_name %> </p></td>
+                                        <td><a data-toggle="modal" data-target="#player1modal2" class="text-decoration-none text-primary pointer"><%=index.role %></a></td>
+                                        <td><a data-toggle="modal" data-target="#player1modal2" class="text-decoration-none text-warning pointer"><%=index.credit %></a></td>
+                                        </tr>
+                                        <% }%>
+                                    <% }%>
+                                </tbody>
+                            </table>                                                              
+                        </div>
+                    </div>
+                    <div class="row mx-0 mt-3">
+                        <table class="table table-bordered text-12px">
+                            <thead class="thead-dark">
+                                <tr>
+                                <th scope="col">Player Type</th>
+                                <th scope="col">Min</th>
+                                <th scope="col">Max</th>
+                                <th scope="col">Your Selection</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                <th scope="row">Wicket Keeper - WK</th>
+                                <td>1</td>
+                                <td>5</td>
+                                <td id="keeper_selected">0</td>
+                                </tr>
+                                <tr>
+                                <th scope="row">Batsman - BAT</th>
+                                <td>1</td>
+                                <td>8</td>
+                                <td id="batsman_selected">0</td>
+                                </tr>
+                                <tr>
+                                <th scope="row">All Rounder - AR</th>
+                                <td>1</td>
+                                <td>8</td>
+                                <td id="allrounder_selected">0</td>
+                                </tr>
+                                <tr>
+                                <th scope="row">Bowler - BWL</th>
+                                <td>1</td>
+                                <td>8</td>
+                                <td id="bowler_selected">0</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <% }%>
+                    <div class="row">
+                        <div class="col-12 text-right mt-md-4 mb-md-2">
+                            <button type="reset" class="btn btn-sm text-uppercase btn-warning"
+                              onclick="window.location.href=window.location.href"><i class="far fa-undo"></i>&nbsp;
+                              Reset</a>
+                              <button type="submit" class=" btn btn-sm text-uppercase btn-success float-right ml-1"><i
+                                  class="far fa-check-circle"></i>&nbsp; Submit</button>
+                          </div>
+                    </div>
+                  </div>
+                </div>
+                
+            </div>
+           
+          </div>
+        </main>
+       
+        <%- include("../../partials/footer") %>
+          <script>
+
+            $(window).on('load', function () {
+
+              $('#preloader_admin').hide();
+
+            })
+          </script>
+          <!-- <script>
+            $('#matchkey').change(function() {
+                  let matchkey= $(this).val();
+                  $('#dataTable1').DataTable({
+                    "bDestroy": true,
+                                    searching: false,
+                                    language: {
+              zeroRecords: "No records to display",
+            },
+                                    ajax: {
+                                        url: `/view_team1_exports_datatble?matchkey=${matchkey}`,
+                                        type: 'post',
+                                        dataSrc: 'data',
+                                        error: function () {
+                                            console.log(error)
+                                        }
+                                    },
+                                    "lengthMenu": [
+                                        [10, 25, 50, 100, 1000, 10000],
+                                        [10, 25, 50, 100, 1000, 10000]
+                                    ],
+                                    columns: [{
+                                        data: "count"
+                                    }, {
+                                        data: "captain"
+                                    }, {
+                                        data: "voice_captain"
+                                    }, {
+                                        data: "player_name"
+                                    },  {
+                                        data: "player_role"
+                                    },{
+                                        data: "credit"
+                                    },]
+                                })
+            });
+           
+          </script>
+          <script>
+            $('#matchkey').change(function() {
+                let matchkey= $(this).val();
+                $('#dataTable2').DataTable({
+                                  searching: false,
+                                  "bDestroy": true,
+                                  language: {
+            zeroRecords: "No records to display",
+          },
+                                  ajax: {
+                                      url: `/view_team2_exports_datatble?matchkey=${matchkey}`,
+                                      type: 'post',
+                                      dataSrc: 'data',
+                                      error: function () {
+                                          console.log(error)
+                                      }
+                                  },
+                                  "lengthMenu": [
+                                      [10, 25, 50, 100, 1000, 10000],
+                                      [10, 25, 50, 100, 1000, 10000]
+                                  ],
+                                  columns: [{
+                                      data: "count"
+                                  }, {
+                                      data: "captain"
+                                  }, {
+                                      data: "voice_captain"
+                                  }, {
+                                      data: "player_name"
+                                  },  {
+                                      data: "player_role"
+                                  },{
+                                      data: "credit"
+                                  },]
+                                  
+                              })
+          });
+         
+        </script>
+          <script>
+            $('#matchkey').change(function() {
+                let matchkey= $(this).val();
+                  $.ajax({
+                          url: `/getTeamName_contest_exports?matchkey=${matchkey}`,
+                          type: 'get',
+                          success: function(response) {
+                            $("#team1Name").html(response.team1);
+                            $("#team2Name").html(response.team2);
+                            console.log("response...",response)
+                        }
+                        })     
+          });
+        </script> -->
+ <script>
+    function change_match(element) {
+        console.log("element.....",element.value)
+        window.location.href='/add_expert_contest_page?matchkey='+element.value;
+    }
+</script>
+          <script>
+            $(document).ready(function () {
+
+              if ($('#accordionSidenavPages a').hasClass('active')) {
+                $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
+                $('#accordionSidenavPages a.active').parent().parent().addClass('show');
+                // console.log(id);
+              } else {
+                $('#takeonebar').addClass('slamdown');
+              }
+            });
+
+          </script>
+       
+
+          <script>
+            function isNumberKey(evt) {
+              //var e = evt || window.event;
+
+              var charCode = (evt.which) ? evt.which : evt.keyCode
+              if (charCode != 46 && charCode > 31
+                && (charCode < 48 || charCode > 57))
+
+                return false;
+              else {
+                var itemdecimal = evt.srcElement.value.split('.');
+                if (itemdecimal.length > 1 && charCode == 46)
+                  return false;
+
+                return true;
+              }
+            }
+
+          </script>
+
+<script>
+        
+    $(document).on('input change', '#entryfee, #multiple_of_entryfee', function () {
+        var entryfee = $('#entryfee').val();
+        var multiple_of_entryfee = $('#multiple_of_entryfee').val();
+        var win_amount = $('#win_amount');
+
+        if(entryfee && multiple_of_entryfee) {
+            win_amount.val(entryfee * multiple_of_entryfee);
+        } else if(entryfee) {
+            win_amount.val(entryfee);
+        } else {
+            win_amount.val('');
+        }
+    });
+
+</script>
+
+<script>
+    function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#' + input.id + '-imagePreview').css('background-image', 'url('+e.target.result +')');
+            $('#' + input.id + '-imagePreview').hide();
+            $('#' + input.id + '-imagePreview').fadeIn(650);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+  }
+  $(".imageUpload").change(function() {
+    readURL(this);
+  });
+  </script>
+
+  <!-- --------------- -->
+  <script>
+   
+    var team1 = $('#team1Name').text();
+    var team2 = $('#team2Name').text();
+    console.log("///////////////...........",team1,team2)
+    var team1_count = 0;
+    var team2_count = 0;
+    var team1_team2_total = 0;
+    var total_credit_used = 0;
+
+    $(document).on('click', 'input[type="checkbox"]', function() {
+        var role = $(this).data('role');
+        var credit = Number($(this).data('credit'));
+        var team = $(this).data('team');
+
+        var old_selected = $('#'+role+'_selected').text();
+        old_selected = Number(old_selected);
+
+        var is_selected = $(this).is(':checked');
+        var error = 0;
+
+        if(is_selected) {
+
+            // if role == keeper
+            if(role == 'keeper') {
+                if( (old_selected == 5) ) {
+                    swal.fire('Keeper cannot be more than 5');
+                    error = 1;
+                    return false;
+                } 
+                // else {
+                //     $('#'+role+'_selected').text(
+                //         old_selected + 1
+                //     );
+                // }
+            }
+
+            // if role == batsman
+            if(role == 'batsman') {
+                if( (old_selected == 8) ) {
+                    swal.fire('Batsman cannot be more than 8');
+                    error = 1;
+                    return false;
+                } 
+                // else {
+                //     $('#'+role+'_selected').text(
+                //         old_selected + 1
+                //     );
+                // }
+            }
+
+            // if role == allrounder
+            if(role == 'allrounder') {
+                if( (old_selected == 8) ) {
+                    swal.fire('Allrounder cannot be more than 8');
+                    error = 1;
+                    return false;
+                } 
+                // else {
+                //     $('#'+role+'_selected').text(
+                //         old_selected + 1
+                //     );
+                // }
+            }
+            
+            // if role == bowler
+            if(role == 'bowler') {
+                if( (old_selected == 8) ) {
+                    swal.fire('Bowler cannot be more than 8');
+                    error = 1;
+                    return false;
+                } 
+                // else {
+                //     $('#'+role+'_selected').text(
+                //         old_selected + 1
+                //     );
+                // }
+            }            
+            
+            console.log(total_credit_used);
+            console.log(credit);
+            // alert(total_credit_used);
+            // increase the credit used
+            if( error == 0) {                
+
+                // increase team player count
+                if(team == team1) {
+
+                    // check 7 players limit
+                    if(team1_count == 7) {
+                        swal.fire('You cannot choose more than 7 players from a team'); 
+                        return false;
+                    } else {
+
+                        // total selected players
+                        if(team1_team2_total == 11) {
+                            swal.fire('You can only choose 11 players');
+                            return false;
+                        } else {
+                            team1_count += 1;
+                            team1_team2_total += 1;
+                            // aj = total_credit_used + credit;
+                            console.log(typeof total_credit_used, total_credit_used+'-----total');
+                            console.log(typeof credit, credit+'-----credit');
+                            // alert(total_credit_used+credit);
+                            if( (total_credit_used + credit) <= 100) {
+                                total_credit_used += credit;
+                                
+                                $('#'+role+'_selected').text(
+                                    old_selected + 1
+                                );
+                            } else {
+                                // credit exceed
+                                swal.fire('Credit Exceed');
+
+                                return false;
+                            }
+                        }
+                    }
+
+                    $('#team1_count').text(team1_count);
+                } else if(team == team2) {
+                    
+                    // check 7 players limit
+                    if(team2_count == 7) {
+                        swal.fire('You cannot choose more than 7 players from a team'); 
+                        return false;
+                    } else {
+
+                        // total selected players
+                        if(team1_team2_total == 11) {
+                            swal.fire('You can only choose 11 players');
+                            return false;
+                        } else {
+                            team2_count += 1;
+                            team1_team2_total += 1;
+
+                            if( (total_credit_used + credit) <= 100) {
+                                total_credit_used += credit;
+                                
+                                $('#'+role+'_selected').text(
+                                    old_selected + 1
+                                );
+                            } else {
+                                // credit exceed
+                                swal.fire('Credit Exceed');
+
+                                return false;
+                            }
+                        }
+                    }
+
+                    $('#team2_count').text(team2_count);
+                }
+            }
+        } else {
+
+            console.log(role);
+
+            // decrease team player count
+            if(team == team1) {
+
+                // check 7 players limit
+                if(team1_count == 0) {
+                    return false;
+                } else {
+                    
+                    // total selected players
+                    if(team1_team2_total == 0) {
+                        return false;
+                    } else {
+                        team1_count -= 1;
+                        team1_team2_total -= 1;
+                                    
+                        // decrease the credit used
+                        if( (total_credit_used - credit) >= 0) {
+                            total_credit_used -= credit;
+
+                            $('#'+role+'_selected').text(
+                                old_selected - 1
+                            );
+                        } else {
+                            return false;
+                        }
+                    }
+                }
+
+                $('#team1_count').text(team1_count);
+            } else if(team == team2) {
+                
+                // check 7 players limit
+                if(team2_count == 0) {
+                    return false;
+                } else {
+                    
+                    // total selected players
+                    if(team1_team2_total == 0) {
+                        return false;
+                    } else {
+                        team2_count -= 1;
+                        team1_team2_total -= 1;
+                        
+                        // decrease the credit used
+                        if( (total_credit_used - credit) >= 0) {
+                            total_credit_used -= credit;
+
+                            $('#'+role+'_selected').text(
+                                old_selected - 1
+                            );
+                        } else {
+                            return false;
+                        }
+                    }
+                }
+
+                $('#team2_count').text(team2_count);
+            }
+        }
+    });
+
+    $(document).on('click, change', 'input[type=radio]', function () {
+    //    console.log($(this).parent().parent().find('input[type=radio]').not(this));
+        
+        // same player cannot to be captain and vice captain
+       $(this).parent().parent().find('input[type=radio]').not(this).prop('checked', false); 
+
+       // captain and vice captain only be if that player is selected
+       var is_this_player_selected = $(this).parent().parent().find('input[type=checkbox]').is(':checked');
+
+       if(is_this_player_selected) {
+           $(this).prop('checked', true);
+       } else {
+           $(this).prop('checked', false);
+           swal.fire('Select this player first');
+       }
+    });
+
+    $(document).on('click, change', 'input[type=checkbox]', function () {
+
+       // captain and vice captain only be if that player is selected
+       var is_this_player_selected = $(this).is(':checked');
+
+       if(is_this_player_selected) {
+       } else {
+           $(this).parent().parent().find('input[type=radio]').prop('checked', false);
+       }
+    });
+    
+    </script>
+
+
+<script>
+
+    $('form').submit(
+        function() {
+            var has_image = $('#image').val();
+
+            if(! has_image) {
+                swal.fire({
+                    title: 'Alert!', 
+                    'text': 'Expert image is required'
+                });
+
+                return false;
+            }
+
+            var players = $('input[type="checkbox"]:checked').length;
+
+            if(players != 11) {
+                swal.fire({
+                    title: 'Alert!', 
+                    'text': 'Please select 11 players'
+                });
+
+                return false;
+            }
+
+            var selection_criteria = 1;
+            var message = '';
+
+            // minimum players condition
+            // 1: keeper
+            var keeper = $('#keeper_selected').text();
+            keeper = Number(keeper);
+
+            if(keeper == 0) {
+                selection_criteria = 0;
+                message = 'Keeper should be minimum of 1';
+            }
+
+            // 2: batsman
+            var batsman = $('#batsman_selected').text();
+            batsman = Number(batsman);
+
+            if(batsman == 0) {
+                selection_criteria = 0;
+                message = 'Batsman should be minimum of 1';
+            }
+            
+            // 3: allrounder
+            var allrounder = $('#allrounder_selected').text();
+            allrounder = Number(allrounder);
+
+            if(allrounder == 0) {
+                selection_criteria = 0;
+                message = 'Allrounder should be minimum of 1';
+            }
+
+            // 4: bowler
+            var bowler = $('#bowler_selected').text();
+            bowler = Number(bowler);
+
+            if(bowler == 0) {
+                selection_criteria = 0;
+                message = 'Bowler should be minimum of 1';
+            }
+
+            if(selection_criteria == 1) {
+                return true;
+            } else {
+                swal.fire(message);
+
+                return false;
+            }
+
+
+        }
+    );
+
+</script>
+
+<!-- -------------------------- -->
+
+
+    

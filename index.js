@@ -17,7 +17,8 @@ app.use(session({
 
 require('dotenv').config();
 require("./src/db/dbconnection");
-const constant = require('./src/config/const_credential');
+
+mongoose.set('debug', true);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

@@ -7,7 +7,7 @@
 <div id="layoutSidenav_content">
     <main>
         <%- include("../../partials/alertMsg") %>
-        <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+        <div class="page-header pb-10 page-header-dark bg-info">
             <div class="container-fluid">
                 <div class="row align-items-center">
                     <div class="col">
@@ -224,9 +224,10 @@
                 let playerName = $('#player_name').val();
                 $('#bowling_points_table').DataTable({
                     searching: false,
+                    responsive: true,
                     language: {
-              zeroRecords: "No records to display",
-            },
+                            zeroRecords: "No records to display"
+                        },
                     ajax: {
                         url: `/bowling-points-table/${matchID}?player_name=${playerName}`,
                         type: 'POST'

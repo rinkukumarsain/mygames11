@@ -18,14 +18,20 @@ const storage = multer.diskStorage({
 
 const upload = multer({
     storage: storage,
-    // fileFilter: (req, file, cb) => {
-    // if (file.mimetype == "image/png") {
-    //   cb(null, true);
-    // } else {
-    //   cb(null, false);
-    //   return cb(new Error('Only .png format allowed!'));
-    // }
-    //   }
+    fileFilter: (req, file, cb) =>  {
+    if (
+        file.mimetype == "image/png" ||
+        file.mimetype == "image/jpg" ||
+        file.mimetype == "image/jpeg"
+      ) {
+        cb(null, true);
+      } else {
+        req.fileValidationError = "Only .png, .jpg and .jpeg format allowed!";
+        return cb(null, false, req.fileValidationError);
+        // cb(null,false);
+        // return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
+      }
+    },
 });
 
 const adminPanelController = require("../../controller/adminController");
@@ -46,9 +52,15 @@ const userManagerController = require("../../controller/userManagerController");
 const youtuberController = require("../../controller/youtuberController");
 const adminController = require("../../controller/adminController");
 const verifyManagerController = require('../../controller/verifyPanController');
-const botcontroller = require('../../controller/botController')
+const botcontroller = require('../../controller/botController');
 const resultController = require("../../controller/resultController");
 const notificationController=require("../../controller/notificationController");
+const receivefundController=require("../../controller/receivefundController");
+const leaderboardController=require("../../controller/leaderboardController");
+const popupNotificationController=require("../../controller/popupNotificationController");
+const resultServices = require('../../services/resultServices');
+const botUserController = require("../../controller/botUserController");
+const activateDeactivateBotController = require("../../controller/activateDeactivateController");
 
 
 router.get("/", auth, getUrl, dashboardController.showdashboard);
@@ -62,6 +74,9 @@ router.post("/register-admin-data", adminPanelController.registerAdminData);
 
 router.get("/login-admin", adminPanelController.loginAdminPage);
 router.post("/login-admin-data", adminPanelController.loginAdminData);
+
+router.get("/admin_profile_page",auth, getUrl,adminPanelController.adminProfilePage);
+router.post("/admin_profile_data/:id",auth, getUrl,upload.single('image'),adminPanelController.updateProfileData);
 //  ----------------------------------              botcontroller         ---------------------------
 
 
@@ -124,34 +139,38 @@ router.get('/viewtransactions/:id', auth, getUrl, userManagerController.viewtran
 router.post('/viewTransactions-Data-Table/:id', auth, userManagerController.viewTransactionsDataTable);
 router.get('/editUserDetails-page/:id', auth, getUrl, userManagerController.editUserDetails_page);
 router.post('/edituserdetails', auth, upload.single('image'), userManagerController.edituserdetails);
-router.get('/userswallet', auth, getUrl, userManagerController.userswallet);
+router.get('/userswallet', auth,  getUrl, userManagerController.userswallet);
 router.post('/userswallet_table', auth, userManagerController.userswallet_table);
-router.get('/wallet-list', auth, getUrl, userManagerController.wallet_list);
-router.get('/adminwallet', auth, getUrl, userManagerController.adminwallet);
+router.get('/wallet-list', auth,  getUrl, userManagerController.wallet_list);
+router.get('/adminwallet', auth,  getUrl, userManagerController.adminwallet);
 router.get('/getUserDetails/:id', auth, getUrl, userManagerController.getUserDetails);
 router.post('/addMoneyInWallet', auth, userManagerController.addmoneyinwallet);
 router.post('/deductmoneyinWallet', auth, userManagerController.deductmoneyinwallet);
 router.post('/adminwallet-dataTable', auth, userManagerController.adminwallet_dataTable);
-router.get("/downloadalluserdetails/:id",auth,userManagerController.downloadalluserdetails);
+router.get("/downloadalluserdetails/:id", auth, userManagerController.downloadalluserdetails);
+router.get("/changeYotuberStatus/:userId",auth, userManagerController.changeYotuberStatus);
 
 //----------verifyManager--------//
-
-router.get("/verifypan", auth, getUrl, verifyManagerController.verifyPan);
+router.get("/verifypan", auth,  getUrl, verifyManagerController.verifyPan);
 router.post("/verifypan-datatable", auth, verifyManagerController.verifyPan_Datatable);
-router.get("/viewpandetails/:id", auth, getUrl, verifyManagerController.viewPan_Details);
+router.get("/viewpandetails/:id", auth,  getUrl, verifyManagerController.viewPan_Details);
 router.post("/modifyPanDetails", auth, verifyManagerController.update_Pan_Details);
 router.get("/editPandetails/:id", auth, getUrl, verifyManagerController.editPan_Details);
 router.post("/Update-Credentials-Pan", auth, verifyManagerController.Update_Credentials_Pan);
-router.get("/verifybankaccount", auth, getUrl, verifyManagerController.verifyBank);
+router.get("/verifybankaccount", auth,  getUrl, verifyManagerController.verifyBank);
 router.post("/verifyBank_datatable", auth, verifyManagerController.verifyBank_Datatable);
-router.get("/viewbankdetails/:id", auth, getUrl, verifyManagerController.viewBank_Details);
-router.get("/editbankdetails/:id", auth, getUrl, verifyManagerController.editBank_Details);
-router.get("/withdraw_amount", auth, getUrl, verifyManagerController.withdrawalAmount);
+router.get("/viewbankdetails/:id", auth,  getUrl, verifyManagerController.viewBank_Details);
+router.get("/editbankdetails/:id", auth,  getUrl, verifyManagerController.editBank_Details);
+router.get("/withdraw_amount", auth,  getUrl, verifyManagerController.withdrawalAmount);
 router.post("/withdraw-amount-datatable", auth, verifyManagerController.withdraw_amount_datatable2);
 router.post("/modifyBankDetails", auth, verifyManagerController.update_Bank_Details);
 router.post("/Update-Credentials-Bank", auth, verifyManagerController.Update_Credentials_Bank);
 router.get("/approve-withdraw-request/:id", auth, getUrl, verifyManagerController.approve_withdraw_request);
 router.get("/reject-withdraw-request/:id", auth, getUrl, verifyManagerController.reject_withdraw_request);
+//downloads
+router.get("/downloadPanVerify",auth, verifyManagerController.downloadPanVerify);
+router.get("/downloadallbankVerify",auth, verifyManagerController.downloadallbankVerify);
+router.get("/downloadallwithdrawalrequest",auth, verifyManagerController.downloadallwithdrawalrequest);
 
 // ---------General Manegar------//
 
@@ -172,13 +191,23 @@ router.get("/delete-sideBanner", auth, getUrl, adminPanelController.deleteSideBa
 
 // -----------------------offer----------------------------
 
-router.get("/add-offer", auth, getUrl, offerController.addOffer);
-router.post("/add-offer-data", auth, offerController.addOfferData);
-router.get("/view-all-offer", auth, getUrl, offerController.viewAllOffer);
+router.get("/add-offer", auth,  getUrl, offerController.addOffer);
+router.post("/add-offer-data", auth,offerController.addOfferData);
+router.get("/view-all-offer", auth,  getUrl, offerController.viewAllOffer);
 router.post("/viewAllOffer-data-table", auth, offerController.viewAllOfferDataTable);
-router.get("/editoffers", auth, getUrl, offerController.editoffers_page);
-router.post("/edit-offer-data", auth, offerController.editOfferData);
-router.get("/deleteoffers", auth, getUrl, offerController.deleteoffers);
+router.get("/editoffers", auth,  getUrl, offerController.editoffers_page);
+router.post("/edit-offer-data", auth,offerController.editOfferData);
+router.get("/deleteoffers", auth,  offerController.deleteoffers);
+
+// -------------------bot user--------------------
+router.get("/add-botuser", auth, getUrl, botUserController.botUserPage);
+router.post("/add-botuser-data", auth, botUserController.botUserData);
+router.get("/view-botuser", auth,  getUrl, botUserController.viewBotUserPage);
+router.post("/view-botuser-datatable", auth, botUserController.viewBotUserData);
+router.post("/join-botuser", auth, botUserController.joinBotUser);
+// activate and deactivate bot users
+router.post("/return-a-b", auth, activateDeactivateBotController.acivateBotUser);
+router.post("/return-i-b", auth, activateDeactivateBotController.deactivateBotUser);
 
 // -------------------------point System ------------------------------
 
@@ -228,7 +257,14 @@ router.get("/makeConfirmed/:MatchChallengerId", auth, getUrl, challengersControl
 router.get("/addEditmatchpricecard/:MatchChallengerId", auth, getUrl, challengersController.addEditmatchpricecard);
 router.post("/add-edit-price-card-Post", auth, challengersController.addEditPriceCard_Post);
 router.get("/deleteMatchPriceCard/:id", auth, getUrl, challengersController.deleteMatchPriceCard);
-router.post('/add-edit-price-card-Post-byPercentage', auth, challengersController.addEditPriceCardPostbyPercentage)
+router.post('/add-edit-price-card-Post-byPercentage', auth, challengersController.addEditPriceCardPostbyPercentage);
+
+// ------------------------------exports contests----------------------
+router.get("/view_all_experts_contest", auth, getUrl,challengersController.viewAllExportsContests);
+router.get("/add_expert_contest_page", auth, getUrl,challengersController.addExpertContestPage);
+router.post("/add-expert-contest-data",auth,upload.single("image"),challengersController.addExpertContestData);
+router.get("/edit_expert_contest/:id",auth,challengersController.editExpertContest);
+router.post("/edit-expert-contest-data/:id",auth,upload.single("image"),challengersController.editExpertContestData);
 
 // -----------------------------series Details-------------------
 
@@ -253,6 +289,10 @@ router.get("/edit_youtuber/:youtuberId", auth, getUrl, youtuberController.edit_y
 router.post("/edit_youtuber/:youtuberId", auth, youtuberController.edit_youtuber_data);
 router.get("/delete_youtuber/:youtuberId", auth, getUrl, youtuberController.delete_youtuber);
 
+// -------------------------Receive Fund----------
+router.get("/view_all_Receive_Fund",receivefundController.viewallReceiveFund);
+router.post("/view_all_Receive_Fund_datatable",receivefundController.viewAllReceiveFundDatatable);
+
 
 // ----------------------------- sub admin -------------------------
 router.get("/add-sub-admin", auth, getUrl, subAdminController.addSubAdminPage);
@@ -274,17 +314,19 @@ router.post("/change-password-data", auth, adminController.changePassword);
 // ------------------------- result controller route ------------------------
 
 //Cron don't add auth and getUrl function
-router.get("/update_results_of_matches", resultController.update_results_of_matches)
-router.get("/refund_amount", resultController.refund_amount)
+router.get("/update_results_of_matches", resultController.update_results_of_matches);
+router.get("/userpoints/:matchid", resultServices.userpoints);
+router.get("/refund_amount", resultController.refund_amount);
+// router.get("/insertProfitLossData", resultController.insertProfitLossData);
 
 
 router.get("/match-result", auth, getUrl, resultController.matchResult);
 router.post("/match-result-table", auth, resultController.matchResultData);
 router.get("/match-details/:id", auth, getUrl, resultController.matchDetails);
 router.post("/match-details-table/:id", auth, resultController.matchDetailsData);
-router.get("/allcontests/:id", auth, getUrl, resultController.matchAllcontests);
+router.get("/allcontests/:id", auth,  getUrl, resultController.matchAllcontests);
 router.post("/allcontests-table/:id", auth, resultController.matchAllcontestsData);
-router.get("/match-score/:id", auth, getUrl, resultController.matchScore);
+router.get("/match-score/:id", auth,  getUrl, resultController.matchScore);
 router.get("/match-points/:id", auth, getUrl, resultController.matchPoints);
 router.get("/batting-points/:id", auth, getUrl, resultController.battingPoints);
 router.get("/bowling-points/:id", auth, getUrl, resultController.bowlingPoints);
@@ -299,21 +341,42 @@ router.post("/team-points-table/:id", auth, resultController.teamPointsData);
 router.get('/contest-user-details/:matchkey', auth, getUrl, resultController.contestUserDetails);
 router.post('/contest-user-details-table/:matchkey', auth, resultController.contestUserDetailsData);
 router.post("/updateMatchFinalStatus/:id/:status", auth, resultController.updateMatchFinalStatus);
+router.get("/autoupdateMatchFinalStatus", auth, resultController.autoUpdateMatchFinalStatus);
 router.get("/user-teams", auth, getUrl, resultController.viewTeams);
 router.post("/user-teams-table", auth, resultController.viewTeamsData);
+
+// -----------------------popup notification-------------------
+
+router.get("/popup", auth, getUrl, popupNotificationController.popup);
+router.post("/popup-data", auth, popupNotificationController.popupData);
+router.get("/add-popup", auth, getUrl, popupNotificationController.addPopup);
+router.get("/delete-popup", auth, popupNotificationController.deletePopup);
+router.post("/add-popup-data", auth, upload.single("image"), popupNotificationController.addPopupData);
 
 
 // --------------------notification---------------
 
-router.get("/pushNotification",auth,notificationController.pushNotification);
-router.get("/emailNotification",auth,notificationController.emailNotification);
+router.post('/get-user', auth, notificationController.getUser);
+router.get("/push-notification", auth,getUrl, notificationController.sendPushNotification);
+router.post("/push-notification-data", auth, notificationController.sendPushNotificationData);
+router.get("/email-notification", auth, getUrl, notificationController.sendEmailNotification);
+router.post("/email-notification-data", auth, notificationController.sendEmailNotificationData);
+router.get("/sms-notification", auth, getUrl,notificationController.smsNotification);
+router.post("/sms-notification-data",auth,notificationController.smsNotificationData);
 
-
+// --------------------------leaderBoard------------------
+router.get("/view_leaderBoard_page", auth,getUrl,leaderboardController.viewLeaderBoarderPage);
+router.post("/view_leaderBoard_datatable",auth,leaderboardController.viewLeaderBoardDatatable);
+router.get("/add_series_pricecard_page/:id", auth,getUrl,leaderboardController.addSeriesPriceCardPage);
+router.post("/add-series-price-card-Post",auth,leaderboardController.addSeriesPriceCardData);
+router.get("/delete_series_pricecard/:id", auth,getUrl,leaderboardController.deleteSeriesPriceCard);
+router.post("/distribute_winning_amount_series_leaderboard/:id",auth,leaderboardController.distributeWinningAmountSeriesLeaderboard);
 
 
 //-----cricket api controller (3rd party api)------------//
 // router.get("/listMatches", cricketApiController.listOfMatches);
 router.get("/listMatches", auth, cricketApiController.listOfMatches_entity);
 router.get("/importPlayers/:matchkey", cricketApiController.fetchPlayerByMatch_entity);
+
 
 module.exports = router;

@@ -10,6 +10,7 @@ class adminServices {
             // adminLogin: this.adminLogin.bind(this),
             loginAdminData: this.loginAdminData.bind(this),
             changePasswordData: this.changePasswordData.bind(this),
+            updateProfileData:this.updateProfileData.bind(this),
             // ------------------------------------
             addGenralTab: this.addGenralTab.bind(this),
             generalTabs: this.generalTabs.bind(this),
@@ -168,6 +169,13 @@ class adminServices {
     }
     async addBanner(req) {
         try {
+            if(req.fileValidationError){
+                return{
+                    status:false,
+                    message:req.fileValidationError
+                }
+
+            }
             // console.log("addBanner.....serveice", req.body.adminId);
             let adminId = '0'
             let doc = req.body;
@@ -210,7 +218,13 @@ class adminServices {
     async editBannerData(req) {
         try {
             // console.log("req.body",req.body,req.file,req.query)
+            if(req.fileValidationError){
+                return{
+                    status:false,
+                    message:req.fileValidationError
+                }
 
+            }
             let image = `/${req.body.typename}/${req.file?.filename}` || "";
             console.log("image....", image);
 
@@ -330,6 +344,75 @@ class adminServices {
             }
         } catch (error) {
             throw error;
+        }
+    }
+    async updateProfileData(req){
+        try{
+            console.log("filename.........",req.file)
+            if(req.fileValidationError){
+                return{
+                    status:false,
+                    message:req.fileValidationError
+                }
+
+            }else{
+            if(req.body.name && req.body.email  &&  req.body.mobile && req.body.masterpassword){
+                let obj=req.body
+                const adminDatas=await adminModel.find({_id:req.params.id});
+                if(adminDatas.length > 0){
+                    if(req.file){
+                        if(adminDatas[0].image){
+                            let filePath = `public${adminDatas[0].image}`;
+                            if(fs.existsSync(filePath) == true){
+                                fs.unlinkSync(filePath);
+                            } 
+                        }
+                        obj.image=`/${req.body.typename}/${req.file.filename}`
+                    }
+                 const updateAdminData=await adminModel.updateOne({_id:req.params.id},{
+                     $set:obj
+                 })
+                 if(updateAdminData.modifiedCount > 0){
+                     return{
+                         status:true,
+                         message:'admin data successfully update ,please login again--'
+                     }
+                 }else{
+                    let filePath = `public/${req.body.typename}/${req.file.filename}`;
+                    if(fs.existsSync(filePath) == true){
+                        fs.unlinkSync(filePath);
+                    } 
+                    return{
+                        status:false,
+                        message:'admin data not update..error'
+                    }
+                 }
+
+
+                }else{
+                    let filePath = `public/${req.body.typename}/${req.file.filename}`;
+                    if(fs.existsSync(filePath) == true){
+                        fs.unlinkSync(filePath);
+                    } 
+                    return{
+                        status:false,
+                        message:'admin data not found ..error'
+                    }
+                }
+            
+            }else{
+                let filePath = `public/${req.body.typename}/${req.file.filename}`;
+                if(fs.existsSync(filePath) == true){
+                    fs.unlinkSync(filePath);
+                } 
+                return{
+                    status:false,
+                    message:'please proper details..'
+                }
+            }
+        }
+        }catch(error){
+            console.log(error);
         }
     }
 

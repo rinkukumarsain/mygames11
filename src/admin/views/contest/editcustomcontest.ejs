@@ -6,7 +6,7 @@
   <div id="layoutSidenav_content">
             <main>
 
-                <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+                <div class="page-header pb-10 page-header-dark bg-info">
                     <div class="container-fluid">
                         <div class="row align-items-center">
                             <div class="col">
@@ -97,9 +97,24 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label class="label-control text-bold">Contest Name*</label>
-                                 <input type="text" name="contest_name" placeholder="Enter Contest Name" id="contest_name"  value="<%=data.contest_name ? data.contest_name : '' %>"  class="form-control form-control-solid" required>
+                                 <input type="text" name="contest_name" placeholder="Enter Contest Name" id="contest_name"  value="<%=data?.contest_name ? data?.contest_name : '' %>"  class="form-control form-control-solid" required />
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group my-3">
+                              <label class="label-control text-bold fs-13">Amount Type*</label><br>
+                              <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" name="amount_type"  <%=data.amount_type == 'price'? 'checked' : '' %>  value="price" id="customRadio1_amount_type"
+                                  class="custom-control-input">
+                                <label class="custom-control-label fs-15" for="customRadio1_amount_type">Price</label>
+                              </div>
+                              <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" name="amount_type" <%=data.amount_type == 'prize'? 'checked' : '' %> value="prize" id="customRadio2_amount_type"
+                                  class="custom-control-input">
+                                <label class="custom-control-label fs-15" for="customRadio2_amount_type">Prize</label>
+                              </div>
+                            </div>
+                          </div>
                         <div class="col-6">
                             <div class="form-group">
                             <label class="label-control text-bold">Entry Fee*</label>
@@ -149,7 +164,7 @@
                                 <% if(data.team_limit) {%>
                                 <input disabled="" id="ch21" type="number" onkeypress="return isNumberKey(event)" class="form-control form-control-solid"  name="team_limit" value="<%=data.team_limit %>" placeholder="Enter Team Limit" required="">
                                 <% }else{%>
-                                <input disabled="" id="ch21" type="number" onkeypress="return isNumberKey(event)" class="form-control form-control-solid"  name="team_limit" value="11" placeholder="Enter Team Limit" required="">
+                                <input disabled="" id="ch21" type="number" onkeypress="return isNumberKey(event)" class="form-control form-control-solid"  name="team_limit"  placeholder="Enter Team Limit" required="">
                                 <% }%>
                             </div>
                         </div>

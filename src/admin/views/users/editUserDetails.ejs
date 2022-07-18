@@ -4,7 +4,7 @@
 <%- include("../../partials/sideNav") %>
 <!DOCTYPE html>
 <html lang="en">
-
+    <%- include("../../partials/alertMsg") %>
   
 <body class="nav-fixed">
 
@@ -14,7 +14,7 @@
         <div id="layoutSidenav_content">
             <main>
 
-                <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+                <div class="page-header pb-10 page-header-dark bg-info">
                     <div class="container-fluid">
                         <div class="row align-items-center">
                             <div class="col">
@@ -80,7 +80,7 @@
                     <div class="col-6">
                         <div class="form-group my-3">
                             <label for="Mobile*" class="control-label text-bold">Mobile*</label>
-                            <input value="<%= editUserData.mobile || ''  %>" placeholder="Enter Mobile" class="form-control form-control-solid" onkeypress=" isNumberKey(event)" pattern="[789][0-9]{9}" minlength="10" maxlength="10" name="mobile" type="text" required>
+                            <input value="<%= editUserData.mobile || ''  %>" placeholder="Enter Mobile" class="form-control form-control-solid" onkeypress="return isNumberKey(event)" pattern="[789][0-9]{9}" minlength="10" maxlength="10" name="mobile" type="text" required>
                         </div>
                     </div>
                     <div class="col-6">
@@ -93,7 +93,7 @@
                     <div class="col-6">
                         <div class="form-group my-3">
                             <label for="D.O.B.*" class="control-label text-bold">D.O.B.*</label>
-                            <input value="<%= editUserData.dob || ''  %>"  placeholder="Enter D.O.B." class="form-control form-control-solid datetimepickerget" data-date-format="yyyy-mm-dd" name="dob" type="text" required>
+                            <input value="<%= editUserData.dob || ''  %>"  placeholder="Enter D.O.B." class="form-control form-control-solid datetimepickerget" data-date-format="yyyy-mm-dd" name="dob" type="text" required autocomplete="off">
                         </div>
                     </div>
 
@@ -113,7 +113,7 @@
                     <div class="col-6">
                         <div class="form-group my-3">
                             <label for="Pincode*" class="control-label text-bold">Pincode*</label>
-                            <input value="<%= editUserData.pincode || ''  %>"  placeholder="Enter Pincode" class="form-control form-control-solid" onkeypress=" isNumberKey(event)" pattern="[0-9]{6}" name="pincode" type="text" required>
+                            <input value="<%= editUserData.pincode || ''  %>"  placeholder="Enter Pincode" class="form-control form-control-solid" onkeypress="return isNumberKey(event)" pattern="[0-9]{6}" name="pincode" type="text" required>
                         </div>
                     </div>
 
@@ -149,7 +149,7 @@
                       <label class="d-grid w-40px h-40px mb-0 rounded-pill bg-white text-success fs-20 shadow pointer font-weight-normal align-items-center justify-content-center" for="image"><i class="fad fa-pencil"></i></label>
                              </div>
                     <div class="avatar-preview w-100px h-100px position-relative rounded-pill shadow">
-                    <div class="w-100 h-100 rounded-pill" id="image-imagePreview" style="background-image: url('http://128.199.27.151:7070/avtar1.png');">
+                    <div class="w-100 h-100 rounded-pill" id="image-imagePreview" style="background-image: url('http://128.199.27.151:8080/avtar1.png');">
                              </div>
                            </div>
                         </div>
@@ -186,7 +186,7 @@
     lang:'en',
     formatDate:'d.m.Y',
     step:5,
-    startDate:  new Date()
+    maxDate:  new Date()
      });
     </script>
     <script type="text/javascript">

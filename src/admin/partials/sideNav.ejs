@@ -42,6 +42,21 @@
                     </nav>
                 </div>
 
+                <!-- -----------------------------leaderboard------------------------- -->
+                <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse" data-target="#collapse-leaderboard-manager" aria-expanded="false" aria-controls="collapse-leaderboard-manager">
+                    <div class="nav-link-icon"><i class="fad fa-layer-plus"></i></div>
+                    leaderboard Manager
+                    <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapse-leaderboard-manager" data-parent="#accordionSidenav">
+                    <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
+                        <a class="nav-link" href="/view_leaderBoard_page">View Leader Board</a>
+                    </nav>
+                </div>
+
+
+                <!-- -----------------------Team--------------------------------------- -->
+
                 <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse" data-target="#collapse-team-manager" aria-expanded="false" aria-controls="collapse-team-manager">
                     <div class="nav-link-icon"><i class="fad fa-users"></i></div>
                     Team Manager
@@ -74,6 +89,7 @@
                         <a class="nav-link" href="/view_AllUpcomingMatches">All Upcoming Matches</a>
                         <a class="nav-link" href="/view-AllMatches">View All Matches</a>
                         <a class="nav-link" href="/update-playing11">Update Playing XI</a>
+                        <a class="nav-link" href="/add-botuser">add bot User</a>
                     </nav>
                 </div>
 
@@ -87,6 +103,7 @@
                         <a class="nav-link" href="/view-contest-Category">View All Contest Category</a>
                         <a class="nav-link" href="/view-all-global-contests-challengers">View All Global Contests</a>
                         <a class="nav-link" href="/create-custom-contest">View All Custom Contests</a>
+                        <a class="nav-link" href="/view_all_experts_contest">View All Experts Contest</a>
                     </nav>
                 </div>
 
@@ -113,6 +130,35 @@
                         <a class="nav-link" href="/verifypan">View All Pan card Requests</a>
                         <a class="nav-link" href="/verifybankaccount">View all Bank Account Requests</a>
                         <a class="nav-link" href="/withdraw_amount">View all Withdrawal Account Requests</a>
+                    </nav>
+                </div>
+
+
+                <!-- ---------------------------notification---------------------- -->
+                <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse" data-target="#collapse-notification-manager" aria-expanded="false" aria-controls="collapse-notification-manager">
+                    <div class="nav-link-icon"><i class="fad fa-bell"></i></div>
+                    Notifications
+                    <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+           
+            <div class="collapse" id="collapse-notification-manager" data-parent="#accordionSidenav">
+                <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
+                    <a class="nav-link" href="/push-notification">Send Android App Notifications</a>
+                    <a class="nav-link" href="/email-notification">Send Email Notifications</a>
+                    <!-- <a class="nav-link" href="">Send SMS Notifications</a> -->
+                </nav>
+            </div>
+
+            
+            <!-- ------------------------receive fund---------------- -->
+                <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse" data-target="#collapse-Receivefund-manager" aria-expanded="false" aria-controls="collapse-Receivefund-manager">
+                    <div class="nav-link-icon"><i class="fad fa-copy"></i></div>
+                    Receive Fund Manager
+                    <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapse-Receivefund-manager" data-parent="#accordionSidenav">
+                    <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
+                        <a class="nav-link" href="/view_all_Receive_Fund">View All Receive Fund</a>
                     </nav>
                 </div>
 
@@ -165,7 +211,7 @@
                     </nav>
                 </div>
 
-                <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse" data-target="#collapse-general-manager" aria-expanded="false" aria-controls="collapse-general-manager">
+                <!-- <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse" data-target="#collapse-general-manager" aria-expanded="false" aria-controls="collapse-general-manager">
                     <div class="nav-link-icon"><i class="fad fa-th"></i></div>
                     General Tabs
                     <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -174,7 +220,7 @@
                     <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
                         <a class="nav-link" href="/view-general-tab">View All General Tabs</a>
                     </nav>
-                </div>
+                </div> -->
 
                 <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse" data-target="#collapse-point-manager" aria-expanded="false" aria-controls="collapse-point-manager">
                     <div class="nav-link-icon"><i class="fad fa-circle-notch"></i></div>
@@ -210,8 +256,20 @@
                         <a class="nav-link" href="/view_youtuber">View Youtubers</a>
                     </nav>
                 </div>
+                <!-- -----------------------------------popup notification----------- -->
+                <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse" data-target="#collapse-popup-manager" aria-expanded="false" aria-controls="collapse-popup-manager">
+                    <div class="nav-link-icon"><i class="fad fa-comments-alt"></i></div>
+                    Popup Notification
+                    <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapse-popup-manager" data-parent="#accordionSidenav">
+                    <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
+                        <a class="nav-link" href="/popup">View Popup Notification</a>
+                    </nav>
+                </div>
+<!-- ----------------- -->
 
-                <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse" data-target="#collapse-pointsystem-manager" aria-expanded="false" aria-controls="collapse-pointsystem-manager">
+                <!-- <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse" data-target="#collapse-pointsystem-manager" aria-expanded="false" aria-controls="collapse-pointsystem-manager">
                     <div class="nav-link-icon"><i class="fad fa-play"></i></div>
                     Point System Manager
                     <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -222,9 +280,9 @@
                         <a class="nav-link" href="/pointSystem">Update Point System</a>
 
                     </nav>
-                </div>
+                </div> -->
 
-                <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse" data-target="#collapse-SubAdmin-manager" aria-expanded="false" aria-controls="collapse-SubAdmin-manager">
+                <!-- <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse" data-target="#collapse-SubAdmin-manager" aria-expanded="false" aria-controls="collapse-SubAdmin-manager">
                     <div class="nav-link-icon"><i class="fad fa-user"></i></div>
                     Sub Admin Manager
                     <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -236,18 +294,9 @@
 
                         <a class="nav-link" href="/view-sub-admin">View Sub Admin</a>
                     </nav>
-                </div>
+                </div> -->
 
-                <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse" data-target="#collapse-popup-manager" aria-expanded="false" aria-controls="collapse-popup-manager">
-                    <div class="nav-link-icon"><i class="fab fa-popup"></i></div>
-                    Popup Notification
-                    <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
-                <div class="collapse" id="collapse-popup-manager" data-parent="#accordionSidenav">
-                    <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
-                        <a class="nav-link" href="/popup">View Popup Notification</a>
-                    </nav>
-                </div>
+            
 
 
             </div>

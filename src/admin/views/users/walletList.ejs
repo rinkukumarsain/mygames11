@@ -1,136 +1,140 @@
-<%- include("../../partials/head") %>
-
-<%- include("../../partials/bodyStartWithNavBar/") %>
-<%- include("../../partials/sideNav") %>
-        <div id="layoutSidenav_content">
-            <main>
-
-                <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
-                    <div class="container-fluid">
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <div class="page-header-content">
-                                    <h1 class="page-header-title fs-md-35 fs-20">
-                                        <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
-                                        <span class=" text-capitalize">
-                                                User Manager
-                                        </span>
-                                    </h1>
-                                    <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
-                                            Admin Wallet Details
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-auto mb-md-0 mb-3">
-                                <a  href="/adminwallet" class="btn btn-sm btn-light font-weight-bold text-uppercase text-primary text-uppercase"><i class="fa fa-plus"></i>&nbsp; Add New</a>
-                            </div>
-                        </div>
-                    </div>
+<%- include("../../partials/head") %> <%-
+include("../../partials/bodyStartWithNavBar/") %> <%-
+include("../../partials/sideNav") %>
+<div id="layoutSidenav_content">
+  <main>
+    <div class="page-header pb-10 page-header-dark bg-info">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          <div class="col">
+            <div class="page-header-content">
+              <h1 class="page-header-title fs-md-35 fs-20">
+                <div class="page-header-icon">
+                  <i class="fad fa-at text-white"></i>
                 </div>
-                <div class="container-fluid mt-n10">
-                    
-<div class="card mb-4">
-    <div class="card-header">Adminwallet Details</div>
-    <div class="card-body">
-
-        
-        <div class="datatable table-responsive">
-            <table class="table table-bordered table-hover text-nowrap" id="adminwallet" width="100%" cellspacing="0">
-                <thead>
-            <tr>
-              <th>Sno.</th>
-                <th>User Name</th>
-                <th>Mobile No.</th>
-                <th>Email</th>
-                <th>Amount</th>
-                <th>Bonus Type</th>
-                <th>Date</th>
-                <th>Description</th>
-            </tr>
-            </thead>
-             <tbody>
-          </tbody>
-          <tfoot>
-              <tr>
-            <th>Sno.</th>
-            <th>User Name</th>
-            <th>Mobile No.</th>
-            <th>Email</th>
-            <th>Amount</th>
-            <th>Bonus Type</th>
-            <th>Date</th>
-            <th>Description</th>
-              </tr>
-          </tfoot>
+                <span class="text-capitalize"> User Manager </span>
+              </h1>
+              <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                Admin Wallet Details
+              </div>
+            </div>
+          </div>
+          <div class="col-auto mb-md-0 mb-3">
+            <a
+              href="/adminwallet"
+              class="btn btn-sm btn-light font-weight-bold text-uppercase text-primary text-uppercase"
+              ><i class="fa fa-plus"></i>&nbsp; Add New</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid mt-n10">
+      <div class="card mb-4">
+        <div class="card-header">Adminwallet Details</div>
+        <div class="card-body">
+          <div class="datatable table-responsive">
+            <table
+              class="table table-bordered table-hover text-nowrap"
+              id="adminwallet"
+              width="100%"
+              cellspacing="0"
+            >
+              <thead>
+                <tr>
+                  <th>Sno.</th>
+                  <th>User Name</th>
+                  <th>Mobile No.</th>
+                  <th>Email</th>
+                  <th>Amount</th>
+                  <th>Bonus Type</th>
+                  <th>Date</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+              <tfoot>
+                <tr>
+                  <th>Sno.</th>
+                  <th>User Name</th>
+                  <th>Mobile No.</th>
+                  <th>Email</th>
+                  <th>Amount</th>
+                  <th>Bonus Type</th>
+                  <th>Date</th>
+                  <th>Description</th>
+                </tr>
+              </tfoot>
             </table>
           </div>
         </div>
         <%- include("../../partials/alertMsg") %>
-</div>
+      </div>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-    var name = $('#name1').val();
-    var start_date = $('#start_date').val();
-    var end_date = $('#end_date').val();
-    $.fn.dataTable.ext.errMode = 'none';
-        $('#adminwallet').DataTable({
-          searching:false,
-          language: {
+      <script type="text/javascript">
+        $(document).ready(function () {
+          var name = $("#name1").val();
+          var start_date = $("#start_date").val();
+          var end_date = $("#end_date").val();
+          $.fn.dataTable.ext.errMode = "none";
+          $("#adminwallet").DataTable({
+            searching: false,
+            language: {
               zeroRecords: "No records to display",
             },
-                ajax:{
-                     url: '/adminwallet-dataTable',
-                     type: "POST",
-                   },
+            ajax: {
+              url: "/adminwallet-dataTable",
+              type: "POST",
+            },
             columns: [
-                { data: "Sno"},
-                { data: "username" },
-                { data: "mobile" },
-                { data: "email" },
-                { data: "amount" },
-                { data: "bonus_type" },
-                { data: "created_at" },
-                { data: "description" },
-            ]
+              { data: "Sno" },
+              { data: "username" },
+              { data: "mobile" },
+              { data: "email" },
+              { data: "amount" },
+              { data: "bonus_type" },
+              { data: "created_at" },
+              { data: "description" },
+            ],
+          });
         });
-});
-</script>
-                </div>
-            </main>
-<%- include("../../partials/footer") %>
+      </script>
+    </div>
+  </main>
+  <%- include("../../partials/footer") %>
 
-<script>
-
-    $(window).on('load', function(){
-
-       $('#preloader_admin').hide();
-
-      })
+  <script>
+    $(window).on("load", function () {
+      $("#preloader_admin").hide();
+    });
   </script>
 
+  <script>
+    $(document).ready(function () {
+      if ($("#accordionSidenavPages a").hasClass("active")) {
+        $("#accordionSidenavPages a.active")
+          .parent()
+          .parent()
+          .prev("a")
+          .removeClass("collapsed");
+        $("#accordionSidenavPages a.active").parent().parent().addClass("show");
+        // console.log(id);
+      } else {
+        $("#takeonebar").addClass("slamdown");
+      }
+    });
+  </script>
 
+  <script>
+    /*jslint browser:true*/
+    /*global jQuery, document*/
 
-<script>
-$(document).ready(function(){
-  
-if ($('#accordionSidenavPages a').hasClass('active')){
-  $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
-  $('#accordionSidenavPages a.active').parent().parent().addClass('show');
-  // console.log(id);
-} else {
-  $('#takeonebar').addClass('slamdown');
-}
-});
-</script>
+    jQuery(document).ready(function () {
+      "use strict";
 
-<script>
-/*jslint browser:true*/
-/*global jQuery, document*/
-
-jQuery(document).ready(function () {
-    'use strict';
-
-    jQuery('#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date').datetimepicker();
-});
-</script>
+      jQuery(
+        "#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date"
+      ).datetimepicker();
+    });
+  </script>
+</div>

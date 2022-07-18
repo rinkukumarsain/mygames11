@@ -1,326 +1,314 @@
-<%- include("../../partials/head") %>
-
-  <%- include("../../partials/bodyStartWithNavBar/") %>
-    <%- include("../../partials/sideNav") %>
-      <div id="layoutSidenav_content">
-        <main>
-
-          <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
-            <div class="container-fluid">
-              <div class="row align-items-center">
-                <div class="col">
-                  <div class="page-header-content">
-                    <h1 class="page-header-title fs-md-35 fs-20">
-                      <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
-                      <span class=" text-capitalize">
-                        Offer Manager
-                      </span>
-                    </h1>
-                    <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
-                      Edit Offer
-                    </div>
-                  </div>
+<%- include("../../partials/head") %> <%-
+include("../../partials/bodyStartWithNavBar/") %> <%-
+include("../../partials/sideNav") %>
+<div id="layoutSidenav_content">
+  <main>
+    <%- include("../../partials/alertMsg") %>
+    <div class="page-header pb-10 page-header-dark bg-info">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          <div class="col">
+            <div class="page-header-content">
+              <h1 class="page-header-title fs-md-35 fs-20">
+                <div class="page-header-icon">
+                  <i class="fad fa-at text-white"></i>
                 </div>
-                <div class="col-auto mb-md-0 mb-3">
-                  <a href="/view-all-offer" class="btn btn-sm btn-light font-weight-bold text-uppercase text-primary float-right"><i
-                      class="fad fa-eye"></i>&nbsp; View All Offers</a>
-                </div>
+                <span class="text-capitalize"> Offer Manager </span>
+              </h1>
+              <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                Edit Offer
               </div>
             </div>
           </div>
-          <div class="container-fluid mt-n10">
-
-
-            <div class="card">
-              <div class="card-header">Edit Offer</div>
-              <!-- id="demo-form2" -->
-              <form  action="/edit-offer-data" method="post" class="card-body" autocomplete="">
-                  <input type="hidden" name="offerId" value="<%=data._id %>" >
-                <% if(msg) {%>
-                    <span style="color: red; font-size: small;"><%=msg %></span>
-                <%}%>
-                <script>
-                  $(window).on("load", function () {
-
-                    var success = '';
-                    var danger = '';
-                    var error = '';
-                    var warning = '';
-
-                    if (success) {
-                      $("#toastBasic4").toast('show');
-                    }
-
-                    if (danger || error) {
-                      $("#toastBasic3").toast('show');
-                    }
-
-                    if (warning) {
-                      $("#toastBasic2").toast('show');
-                    }
-                  });
-                </script>
-
-                <div class="sbp-preview">
-                  <div class="sbp-preview-content">
-                    <div class="row mx-0">
-                      <div class="col-md-6">
-                        <div class="form-group my-3">
-                          <label for="title">Title*</label>
-                        <% if(data.title) {%>
-                          <input class="form-control form-control-solid" value="<%=data.title %>" id="first-name" type="text"
-                            id='title' name="title" required>
-                        <%}else{ %>
-                            <input class="form-control form-control-solid" id="first-name" type="text" placeholder="Title"
-                            id='title' name="title" required>
-                        <% }%>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group my-3">
-                          <label for="description">Description*</label>
-                          <% if(data.description) { %>
-                          <input class="form-control form-control-solid" id="description" type="text"
-                          value="<%=data.description %>" name="description" required>
-                          <% }else{ %>
-                          <input class="form-control form-control-solid" id="description" type="text"
-                            placeholder="Description" name="description" required>
-                          <% } %>
-                        </div>
-                      </div>
-                      <div class="col-md-12">
-                        <div class="form-group my-3">
-                          <label for="offercode">Offer Code*</label>
-                          <% if(data.offer_code) {%>
-                          <input type="text" value="<%=data.offer_code %>"
-                            class="form-control form-control-solid" id="offercode" name="offercode" required>
-                            <% }else{ %>
-                          <input type="text" placeholder="Enter Offer Code"
-                            class="form-control form-control-solid" id="offercode" name="offercode" required >
-                           <% } %>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group my-3">
-                          <label for="min_amount">Minimum Amount*</label>
-                          <% if(data.min_amount) {%>
-                          <input class="form-control form-control-solid" id="min_amount"  onkeypress='validate(event)'
-                            type="text" value="<%=data.min_amount %>" name="min_amount" required>
-                            <% }else{ %>
-                          <input class="form-control form-control-solid" id="min_amount"  onkeypress='validate(event)'
-                            type="text" placeholder="Enter Minimum Amount" name="min_amount" required>
-                            <% }%>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group my-3">
-                          <label for="max_amount">Maximum Amount*</label>
-                          <% if(data.max_amount) { %>
-                          <input class="form-control form-control-solid" id="max_amount"  onkeypress='validate(event)'
-                            type="text" value="<%=data.max_amount %>" name="max_amount" required>
-                            <% }else{ %>
-                            <input class="form-control form-control-solid" id="max_amount"  onkeypress='validate(event)'
-                            type="text" placeholder="Enter Maximum Amount" name="max_amount" required>
-                            <% } %>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group my-4">
-                          <label for="bonus">bonus*</label>
-                          <% if(data.bonus) {%>
-                          <input class="form-control form-control-solid" id="bonus"  onkeypress='validate(event)'
-                            type="text" value="<%=data.bonus %>" name="bonus" required>
-                            <% }else{ %>
-                            <input class="form-control form-control-solid" id="bonus"  onkeypress='validate(event)'
-                            type="text" placeholder="Enter bonus" name="bonus" required>
-                            <% } %>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group my-4">
-                          <label for="bonus_type" class="mb-3">Bonus Type*</label><br>
-                          <% if(data.type) {%>
-                          <div class="custom-control custom-radio custom-control-inline">
-                            <input  required="" type="radio" id="bonus_type" name="bonus_type"
-                              class="custom-control-input" value="rs" required <%=data.type == 'rs' ? 'checked' : '' %>>
-                            <label class="custom-control-label fs-15" for="bonus_type">Rupees</label>
-                          </div>
-                          <div class="custom-control custom-radio custom-control-inline">
-                            <input  type="radio" id="bonus_type2" name="bonus_type" class="custom-control-input"
-                              value="per" required <%=data.type == 'per' ? 'checked' : '' %>>
-                            <label required="" class="custom-control-label fs-15" for="bonus_type2">Percentage</label>
-                          </div>
-                          <% }else{ %>
-                            <div class="custom-control custom-radio custom-control-inline">
-                              <input checked required="" type="radio" id="bonus_type" name="bonus_type"
-                                class="custom-control-input" value="rs" required>
-                              <label class="custom-control-label fs-15" for="bonus_type">Rupees</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                              <input type="radio" id="bonus_type2" name="bonus_type" class="custom-control-input"
-                                value="per" required>
-                              <label required="" class="custom-control-label fs-15" for="bonus_type2">Percentage</label>
-                            </div>
-                            <% } %>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group my-4">
-                          <label for="start_date">Start Date*</label>
-                          <% if(data.start_date){ %>
-                          <input class="form-control form-control-solid noAutoComplete" id="start_date" type="text"
-                           value="<%=data.start_date %>" name="start_date" required>
-                            <% }else{ %>
-                            <input class="form-control form-control-solid noAutoComplete" id="start_date" type="text"
-                            placeholder="Enter Start Date" name="start_date" required>
-                            <% } %>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group my-4">
-                          <label for="expire_date">Expire Date*</label>
-                            <% if(data.expire_date) { %>
-                          <input class="form-control form-control-solid noAutoComplete" id="expire_date" type="text"
-                            value="<%=data.expire_date %>" name="expire_date" required>
-                            <% }else{%>
-                            <input class="form-control form-control-solid noAutoComplete" id="expire_date" type="text"
-                            placeholder="Enter expire date" name="expire_date" required>
-                            <% } %>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group my-4">
-                          <label for="user_time">Max Used*</label>
-                          <% if(data.user_time) { %>
-                          <input class="form-control form-control-solid" id="user_time" type="text"
-                             onkeypress='validate(event)' value="<%=data.user_time %>" name="user_time" required>
-                          <% }else{%>
-                             <input class="form-control form-control-solid" id="user_time" type="text"
-                             onkeypress='validate(event)' placeholder="Enter Max used time" name="user_time" required>
-                          <% } %>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group my-4">
-                          <label for="amt_limit">Max Amount Limit*</label>
-                          <% if(data.amt_limit) {%>
-                          <input class="form-control form-control-solid " id="amt_limit" type="text"
-                             onkeypress='validate(event)' value="<%=data.amt_limit %>" name="amt_limit"
-                            required>
-                            <% }else{ %>
-                            <input class="form-control form-control-solid " id="amt_limit" type="text"
-                            onkeypress='validate(event)' placeholder="Enter max amount limit" name="amt_limit"
-                           required>
-                            <% } %>
-                        </div>
-                      </div>
-                      <div class="col-md-12 text-right mt-4 mb-2">
-                        <button class="btn btn-sm btn-success text-uppercase" type="submit"><i
-                            class="far fa-check-circle"></i>&nbsp;Submit</button>
-                      </div>
-                    </div>
+          <div class="col-auto mb-md-0 mb-3">
+            <a
+              href="/view-all-offer"
+              class="btn btn-sm btn-light font-weight-bold text-uppercase text-primary float-right"
+              ><i class="fad fa-eye"></i>&nbsp; View All Offers</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid mt-n10">
+      <div class="card">
+        <div class="card-header">Edit Offer</div>
+        <!-- id="demo-form2" -->
+        <form
+        action="/edit-offer-data" method="post" class="card-body" autocomplete=""
+        >
+          <input type="hidden" name="offerId" value="<%=data._id %>" />
+          <% if(msg) {%>
+          <span style="color: red; font-size: small"><%=msg %></span>
+          <%}%>
+        <input type="hidden" name="typename" value="offer">
+          <div class="sbp-preview">
+            <div class="sbp-preview-content">
+              <div class="row mx-0">
+                <div class="col-md-6">
+                  <div class="form-group my-3">
+                    <label for="title">Title*</label>
+                    <% if(data.title) {%>
+                    <input
+                      class="form-control form-control-solid"
+                      value="<%=data.title %>"
+                      id="first-name"
+                      type="text"
+                      id="title"
+                      name="title"
+                      required
+                    />
+                    <%}else{ %>
+                    <input
+                      class="form-control form-control-solid"
+                      id="first-name"
+                      type="text"
+                      placeholder="Title"
+                      id="title"
+                      name="title"
+                      required
+                    />
+                    <% }%>
                   </div>
                 </div>
-              </form>
+               
+                <div class="col-md-12">
+                  <div class="form-group my-3">
+                    <label for="offercode">Offer Code*</label>
+                    <% if(data.offer_code) {%>
+                    <input
+                      type="text"
+                      value="<%=data.offer_code %>"
+                      class="form-control form-control-solid"
+                      id="offercode"
+                      name="offercode"
+                      required
+                    />
+                    <% }else{ %>
+                    <input
+                      type="text"
+                      placeholder="Enter Offer Code"
+                      class="form-control form-control-solid"
+                      id="offercode"
+                      name="offercode"
+                      required
+                    />
+                    <% } %>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <div class="form-group my-3">
+                    <label for="max_amount">Maximum Amount*</label>
+                    <% if(data.max_amount) { %>
+                    <input
+                      class="form-control form-control-solid"
+                      id="max_amount"
+                      onkeypress="validate(event)"
+                      type="text"
+                      value="<%=data.max_amount %>"
+                      name="max_amount"
+                      required
+                    />
+                    <% }else{ %>
+                    <input
+                      class="form-control form-control-solid"
+                      id="max_amount"
+                      onkeypress="validate(event)"
+                      type="text"
+                      placeholder="Enter Maximum Amount"
+                      name="max_amount"
+                      required
+                    />
+                    <% } %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group my-4">
+                    <label for="bonus">bonus*</label>
+                    <% if(data.bonus) {%>
+                    <input
+                      class="form-control form-control-solid"
+                      id="bonus"
+                      onkeypress="validate(event)"
+                      type="text"
+                      value="<%=data.bonus %>"
+                      name="bonus"
+                      required
+                    />
+                    <% }else{ %>
+                    <input
+                      class="form-control form-control-solid"
+                      id="bonus"
+                      onkeypress="validate(event)"
+                      type="text"
+                      placeholder="Enter bonus"
+                      name="bonus"
+                      required
+                    />
+                    <% } %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group my-4">
+                    <label for="bonus_type" class="mb-3">Bonus Type*</label><br>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input checked="" required="" type="radio" id="bonus_type" name="bonus_type" class="custom-control-input" value="rs" checked>
+                      <label class="custom-control-label fs-15" for="bonus_type">Rupees</label>
+                    </div>
+                   
+                  </div>
+                </div>
+            
+              
+               
+                <div class="col-md-6">
+                  <div class="form-group my-4">
+                    <label for="user_time">Max Used*</label>
+                    <% if(data.user_time) { %>
+                    <input
+                      class="form-control form-control-solid"
+                      id="user_time"
+                      type="text"
+                      onkeypress="validate(event)"
+                      value="<%=data.user_time %>"
+                      name="user_time"
+                      required
+                    />
+                    <% }else{%>
+                    <input
+                      class="form-control form-control-solid"
+                      id="user_time"
+                      type="text"
+                      onkeypress="validate(event)"
+                      placeholder="Enter Max used time"
+                      name="user_time"
+                      required
+                    />
+                    <% } %>
+                  </div>
+                </div>
+                <div class="col-md-12 text-right mt-4 mb-2">
+                  <button
+                    class="btn btn-sm btn-success text-uppercase"
+                    type="submit">
+                    <i class="far fa-check-circle"></i>&nbsp;Submit
+                  </button>
+                </div>
+               
             </div>
-
           </div>
-        </main>
-        <%- include("../../partials/footer") %>
+        </form>
+      </div>
+    </div>
+  </main>
+  <%- include("../../partials/footer") %>
 
-          <script>
+  <script>
+    $(window).on("load", function () {
+      $("#preloader_admin").hide();
+    });
+  </script>
 
-            $(window).on('load', function () {
+  <script>
+    $(document).ready(function () {
+      if ($("#accordionSidenavPages a").hasClass("active")) {
+        $("#accordionSidenavPages a.active")
+          .parent()
+          .parent()
+          .prev("a")
+          .removeClass("collapsed");
+        $("#accordionSidenavPages a.active").parent().parent().addClass("show");
+        // console.log(id);
+      } else {
+        $("#takeonebar").addClass("slamdown");
+      }
+    });
+  </script>
+  <script>
+    $("#sortable, #sortable2").sortable();
+  </script>
+  <script>
+    $(".alert").delay(3000).fadeOut();
+  </script>
+ <script>
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $("#" + input.id + "-imagePreview").css(
+          "background-image",
+          "url(" + e.target.result + ")"
+        );
+        $("#" + input.id + "-imagePreview").hide();
+        $("#" + input.id + "-imagePreview").fadeIn(650);
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+  $(".imageUpload").change(function () {
+    readURL(this);
+  });
+</script>
 
-              $('#preloader_admin').hide();
+  <script type="text/javascript">
+    $.datetimepicker.setLocale("en");
+    $(".datetimepickerget").datetimepicker({
+      lang: "en",
+      formatDate: "d.m.Y",
+      step: 5,
+      startDate: new Date(),
+    });
+  </script>
+  <script type="text/javascript">
+    $(".datepicker").datepicker({
+      lang: "en",
+      formatDate: "d.m.Y",
+      step: 5,
+    });
+  </script>
 
-            })
-          </script>
+  <script>
+    function validate(evt) {
+      var theEvent = evt || window.event;
 
+      // Handle paste
+      if (theEvent.type === "paste") {
+        key = event.clipboardData.getData("text/plain");
+      } else {
+        // Handle key press
+        var key = theEvent.keyCode || theEvent.which;
+        key = String.fromCharCode(key);
+      }
+      var regex = /[0-9]|\./;
+      if (!regex.test(key)) {
+        theEvent.returnValue = false;
+        if (theEvent.preventDefault) theEvent.preventDefault();
+      }
+    }
+  </script>
+  <script>
+    function isNumberKey(evt) {
+      onkeypress = "validate(event)"; //var e = evt || window.event;
+      var charCode = evt.which ? evt.which : evt.keyCode;
+      if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+      else {
+        var itemdecimal = evt.srcElement.value.split(".");
+        if (itemdecimal.length > 1 && charCode == 46) return false;
 
+        return true;
+      }
+    }
+  </script>
 
+  <script>
+    jQuery(document).ready(function () {
+      "use strict";
 
-
-          <script>
-            $(document).ready(function () {
-
-              if ($('#accordionSidenavPages a').hasClass('active')) {
-                $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
-                $('#accordionSidenavPages a.active').parent().parent().addClass('show');
-                // console.log(id);
-              } else {
-                $('#takeonebar').addClass('slamdown');
-              }
-            });
-
-          </script>
-          <script>
-            $("#sortable, #sortable2").sortable();
-          </script>
-          <script>
-            $(".alert").delay(3000).fadeOut();
-          </script>
-
-
-          <script type="text/javascript">
-            $.datetimepicker.setLocale('en');
-            $('.datetimepickerget').datetimepicker({
-              lang: 'en',
-              formatDate: 'd.m.Y',
-              step: 5,
-              startDate: new Date()
-            });
-          </script>
-          <script type="text/javascript">
-            $('.datepicker').datepicker({
-              lang: 'en',
-              formatDate: 'd.m.Y',
-              step: 5,
-            });
-          </script>
-         
-         <script>
-            function validate(evt) {
-              var theEvent = evt || window.event;
-
-              // Handle paste
-              if (theEvent.type === 'paste') {
-                key = event.clipboardData.getData('text/plain');
-              } else {
-                // Handle key press
-                var key = theEvent.keyCode || theEvent.which;
-                key = String.fromCharCode(key);
-              }
-              var regex = /[0-9]|\./;
-              if (!regex.test(key)) {
-                theEvent.returnValue = false;
-                if (theEvent.preventDefault) theEvent.preventDefault();
-              }
-            }
-          </script>
-          <script>
-
-            function isNumberKey(evt) {
- onkeypress='validate(event)'              //var e = evt || window.event;
-              var charCode = (evt.which) ? evt.which : evt.keyCode
-              if (charCode != 46 && charCode > 31
-                && (charCode < 48 || charCode > 57))
-                return false;
-              else {
-                var itemdecimal = evt.srcElement.value.split('.');
-                if (itemdecimal.length > 1 && charCode == 46)
-                  return false;
-
-                return true;
-              }
-            }
-
-          </script>
-         
-          <script>
-            jQuery(document).ready(function () {
-              'use strict';
-
-              jQuery('#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date').datetimepicker();
-            });
-          </script>
+      jQuery(
+        "#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date"
+      ).datetimepicker();
+    });
+  </script>
+</div>

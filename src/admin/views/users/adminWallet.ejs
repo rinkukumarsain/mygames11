@@ -6,7 +6,7 @@
 <div id="layoutSidenav_content">
     <main>
 
-        <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+        <div class="page-header pb-10 page-header-dark bg-info">
             <div class="container-fluid">
                 <div class="row align-items-center">
                     <div class="col">
@@ -91,27 +91,6 @@ Adminwallet Details
 </div>
 <div class="card-body">
 
-<script>
-$(window).on("load", function() {
-
-var success = '';
-var danger = '';
-var error = '';
-var warning = '';
-
-if(success) {
-$("#toastBasic4").toast('show');
-}
-
-if(danger || error) {
-$("#toastBasic3").toast('show');
-}
-
-if(warning) {
-$("#toastBasic2").toast('show');
-}
-});
-</script>
 
 <div class="datatable table-responsive">
     <table class="table table-bordered table-hover text-nowrap" id="userswallet_table" width="100%" cellspacing="0">
@@ -147,7 +126,7 @@ $("#toastBasic2").toast('show');
             <input type="hidden"  value="<%= userFind._id %>" name="userid" id="userid2">
             <div class="col-md-12 col-sm-12 form-group ">
               <label style="color: black;">  Amount </label>
-              <input type="number" onkeypress="isNumberKey(event)" autocomplete="off" name="amount" class="form-control form-control-solid" placeholder="Enter amount here" id="add-input" required>
+              <input type="number" onkeypress="return isNumberKey(event)" autocomplete="off" name="amount" class="form-control form-control-solid" placeholder="Enter amount here" id="add-input" required>
               <input type="hidden" value="addmoney" name="moneytype" id="userid2">
             </div>
             <div class="col-md-12 col-sm-12 form-group ">
@@ -213,11 +192,11 @@ $("#toastBasic2").toast('show');
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           <div class="modal-body">
-          <form action="/deductmoneyinwallet" method="post">
+          <form action="/deductmoneyinWallet" method="post">
             <input type="hidden" value="<%= userFind._id %>" name="userid" id="userid2">
             <div class="col-md-12 col-sm-12 form-group ">
               <label>  Amount </label>
-              <input type="number" onkeypress="isNumberKey(event)" autocomplete="off" name="amount" class="form-control" placeholder="Enter amount here" id="deduct-input<%= userFind._id %>new" required>
+              <input type="number" onkeypress="return isNumberKey(event)" autocomplete="off" name="amount" class="form-control" placeholder="Enter amount here" id="deduct-input<%= userFind._id %>new" required>
               <input type="hidden" value="addmoney" name="moneytype" id="userid2" autocomplete="off">
             </div>
             <div class="col-md-12 col-sm-12 form-group ">
