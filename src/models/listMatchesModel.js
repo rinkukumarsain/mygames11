@@ -42,6 +42,10 @@ let listmatchSchema = new mongoose.Schema({
     launch_status: {
         type: String
     },
+    info_center:{
+        type: String,
+        default:''
+    },
     final_status: {
         type: String
     },
