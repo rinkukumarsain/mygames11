@@ -11,6 +11,7 @@ class playersServices {
             edit_player: this.edit_player.bind(this),
             edit_player_data: this.edit_player_data.bind(this),
             saveplayerroles:this.saveplayerroles.bind(this),
+            addPlayerData:this.addPlayerData.bind(this),
         }
     }
     // --------------------
@@ -142,6 +143,48 @@ class playersServices {
 
         }catch(error){
             throw error;
+        }
+    }
+    async addPlayerData(req){
+        try{
+            console.log("req.body..................................",req.body);
+
+            if(req.fileValidationError){
+                return{
+                    status:false,
+                    message:req.fileValidationError
+                }
+
+            }
+            async function getRandomCode(){
+                let num = Math.floor(Math.random() * 10000) + 90000;
+                let checkKey=await playerModel.find({players_key:num});
+                if(checkKey.length > 0){
+                    getRandomCode();
+                }
+                return num ;
+            };  
+            let generatKey=await getRandomCode();
+                let doc=req.body;
+                doc.players_key = generatKey;
+                if(req.file){
+                   doc.image=`/${req.body.typename}/${req.file.filename}`
+                }
+            const inertData=new playerModel(doc);
+            const saveData=await inertData.save();
+                if(saveData){
+                    return{
+                        status:true,
+                        message:'player data successfully add'
+                    }
+                }else{
+                    return{
+                        status:false,
+                        message:'player data con not add --something wrong--'
+                    }
+                }
+        }catch(error){
+            console.log(error);
         }
     }
 

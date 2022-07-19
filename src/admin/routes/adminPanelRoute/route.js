@@ -103,6 +103,8 @@ router.get("/view-teams", auth, getUrl, teamsController.viewTeams);
 router.post("/teams-Data-Table", auth, teamsController.teamsDataTable);
 router.get("/edit-Team/:id", auth, getUrl, teamsController.editTeam);
 router.post("/edit-Team-Data/:id", auth, upload.single("logo"), teamsController.edit_Team_Data);
+router.get("/add_team_page",auth,teamsController.addTeamPage);
+router.post("/add-Team-Data",auth,upload.single("logo"),teamsController.addTeamData);
 
 // ---MATCH MODULE----//
 
@@ -278,6 +280,8 @@ router.post('/view_player_datatable', auth, playersController.view_player_datata
 router.get("/edit_player/:playerId", auth, getUrl, playersController.edit_player);
 router.post("/edit_player_data/:playerId", auth, upload.single('image'), playersController.edit_player_data);
 router.post("/saveplayerroles", auth, playersController.saveplayerroles);
+router.get("/add_player_page",auth,playersController.addPlayerPage);
+router.post("/add_player_data",auth,playersController.addPlayerData);
 
 
 //--------------------------------Youtuber-----------------------

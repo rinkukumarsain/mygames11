@@ -5,7 +5,8 @@ class teamsServices{
     constructor(){
         return {
             editTeam:this.editTeam.bind(this),
-            edit_Team_Data:this.edit_Team_Data.bind(this)
+            edit_Team_Data:this.edit_Team_Data.bind(this),
+            addTeamData:this.addTeamData.bind(this),
         }
     }
 
@@ -53,6 +54,48 @@ class teamsServices{
         if(data.modifiedCount == 1){
             return true;
         } 
+    }
+    async addTeamData(req){
+        try{
+            if(req.fileValidationError){
+                return{
+                    status:false,
+                    message:req.fileValidationError
+                }
+    
+            }
+            async function getRandomCode(){
+                let num = Math.floor(Math.random() * 10000) + 90000;
+                let checkKey=await teamModel.find({team_key:num});
+                if(checkKey.length > 0){
+                    getRandomCode();
+                }
+                return num ;
+            };
+            let doc={};
+            let generatKey=await getRandomCode();
+            doc.team_key=generatKey;
+            doc.logo=`/${req.body.typename}/${req.file.filename}`;
+            doc.teamName=req.body.teamName;
+            doc.short_name=req.body.short_name;
+            doc.color=req.body.color;
+
+            let inertData=new teamModel(doc);
+            let saveData=await inertData.save();
+            if(saveData){
+                return{
+                    status:true,
+                    message:'add team successfully'
+                }
+            }else{
+                return{
+                    status:false,
+                    message:'team not add ..something wrong please try letter.'
+                }
+            }
+        }catch(error){
+            throw error;
+        }
     }
 
 }

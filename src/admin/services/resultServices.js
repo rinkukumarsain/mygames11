@@ -1238,6 +1238,8 @@ class resultServices {
         }
         return true;
     }
+    
+    //need to check becouse crown is remove
     async distributeWinningAmount(req) {
         let { id, status } = req.params;
         let matchkey = id;
@@ -1311,18 +1313,13 @@ class resultServices {
                                     let max_position = prccrd.max_position;
                                     for (let i = min_position; i < max_position; i++) {
                                         prc_arr[i + 1]= {};
-                                        if(prccrd.distribution_type=='crown'){
-                                            prc_arr[i + 1]['price'] = 0;
-                                            prc_arr[i + 1]['crown'] = prccrd.price;
-                                        }else{
-                                            prc_arr[i + 1]['crown'] = 0;
                                             prc_arr[i + 1]['price'] = prccrd.price;
-                                        }
+                                        
                                     }
                                 }
                             } else {
                                 prc_arr[1]={};
-                                prc_arr[1]['crown'] = 0;
+                                
                                 prc_arr[1]['price'] = challenge.win_amount;
                             }
                         } else {
@@ -1333,13 +1330,13 @@ class resultServices {
                                     for (let i = min_position; i < max_position; i++) {
                                         prc_arr[i + 1]= {};
                                         prc_arr[i + 1]['price'] = (prccrd.price_percent / 100) * (challenge.win_amount);
-                                        prc_arr[i + 1]['crown'] = 0;
+                                        
                                     }
                                 }
                             } else {
                                 prc_arr[1]={};
                                 prc_arr[1]['price'] = challenge.win_amount;
-                                prc_arr[1]['crown'] = 0;
+                                
                             }
                         }
                     } else if (challenge.contest_type == 'Percentage') {
@@ -1350,7 +1347,6 @@ class resultServices {
                         for (let i = 0; i < toWin; i++) {
                             prc_arr[i + 1]= {};
                             prc_arr[i + 1]['price'] = challenge.win_amount;
-                            prc_arr[i + 1]['crown'] = 0;
                         }
                     }
                     let user_points = [];
@@ -1463,7 +1459,6 @@ class resultServices {
                                 obj2[ps['joinedid'][0]] = {};
                                 obj2[ps['joinedid'][0]]['points'] = ps['points'];
                                 obj2[ps['joinedid'][0]]['amount'] = prc_arr[ps['min']]['price'];
-                                obj2[ps['joinedid'][0]]['crown'] = prc_arr[ps['min']]['crown'] ?? 0;
                                 obj2[ps['joinedid'][0]]['rank'] = ps['min'];
                                 obj2[ps['joinedid'][0]]['userid'] = ps['id'][0];
                                 final_poin_user.push(obj2);
@@ -1472,29 +1467,28 @@ class resultServices {
                                 let ttl = 0;
                                 let avg_ttl = 0;
                                 //crown
-								let ttl_crown=0, avg_ttl_crown=0;
+								
                                 for (let jj = ps['min']; jj <= ps['max']; jj++) {
                                     let sm = 0;
-                                    let sm_crown=0;
+                                   
                                     if (prc_arr[jj]) {
                                         sm = prc_arr[jj]['price'];
 
-                                        sm_crown= prc_arr[jj]['crown'] ?? 0;
+                                       
                                     }
                                     ttl = ttl + sm;
-                                    //crown
-									ttl_crown=ttl_crown+sm_crown;
+                                    
                                 }
                                 avg_ttl = ttl / ps['count'];
                                 
 								//crown
-								avg_ttl_crown=ttl_crown/ps['count'];
+								
                                 for (let [keyuser, fnl] of ps['joinedid'].entries()) {
                                     let obj3 = {};
                                     obj3[fnl] = {};
                                     obj3[fnl]['points'] = ps['min'];
                                     obj3[fnl]['amount'] = avg_ttl;
-                                    obj3[fnl]['crown'] = avg_ttl_crown;
+                                    
                                     obj3[fnl]['rank'] = ps['min'];
                                     obj3[fnl]['userid'] = ps['id'][keyuser];
                                     final_poin_user.push(obj3);
@@ -1517,7 +1511,7 @@ class resultServices {
                                     userid: fpusk,
                                     points: fpusv['points'],
                                     amount: fpusv['amount'].toFixed(2),
-                                    crown: fpusv['crown'].toFixed(2),
+                                   
                                     rank: fpusv['rank'],
                                     matchkey: matchkey,
                                     challengeid: challenge._id,
@@ -1579,22 +1573,22 @@ class resultServices {
                                             const balance = parseFloat(user.userbalance.balance.toFixed(2));
                                             const winning = parseFloat(user.userbalance.winning.toFixed(2));
                                             const totalwinning = parseFloat(user.totalwinning.toFixed(2));
-                                            const crown = parseFloat(user.userbalance.crown.toFixed(2));
+                                            
                                             const totalBalance = bonus + balance + winning;
                                             let amount = fpusv['amount'];
-                                            let crowns = fpusv['crown'];
+                                           
                                             const userObj = {
                                                 'userbalance.balance': balance,
                                                 'userbalance.bonus': bonus,
                                                 'userbalance.winning': winning + amount,
-                                                'userbalance.crown': crown + crowns,
+                                               
                                                 'totalwinning': totalwinning + amount
 
                                             };
                                             const transactiondata = {
                                                 type: 'Challenge Winning Amount',
                                                 amount: amount,
-                                                crown: crowns,
+                                                
                                                 total_available_amt: totalBalance + amount,
                                                 transaction_by: constant.APP_SHORT_NAME,
                                                 challengeid: challenge._id,
@@ -1604,7 +1598,7 @@ class resultServices {
                                                 bal_win_amt: winning + amount,
                                                 bal_fund_amt: balance,
                                                 win_amt: amount,
-                                                bal_crown_amt: crown + crowns,
+                                               
                                                 transaction_id: transactionidsave
                                             };
                                             await Promise.all([

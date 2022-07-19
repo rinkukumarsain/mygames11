@@ -13,6 +13,8 @@ class playersController {
             edit_player:this.edit_player.bind(this),
             edit_player_data:this.edit_player_data.bind(this),
             saveplayerroles:this.saveplayerroles.bind(this),
+            addPlayerPage:this.addPlayerPage.bind(this),
+            addPlayerData:this.addPlayerData.bind(this),
         }
     }
     async viewAllPlayer(req, res, next) {
@@ -152,6 +154,27 @@ class playersController {
             //  next(error);
             req.flash('error','Something went wrong please try again');
             res.redirect("/view-all-players");
+        }
+    }
+    async addPlayerPage(req,res,next){
+        try{
+            res.locals.message = req.flash();
+            res.render('players/addPlayer',{sessiondata:req.session.data});
+
+        }catch(error){
+            console.log(error);
+            req.flash("error",'something is wrong please try again letter..');
+            res.redirect("/view-all-players")
+        }
+    }
+    async addPlayerData(req,res,next){
+        try{
+            let data=await playersServices.addPlayerData(req);
+
+        }catch(error){
+            console.log(error);
+            req.flash("error",'something wrong please try letter');
+            res.redirect("/view-all-players")
         }
     }
 

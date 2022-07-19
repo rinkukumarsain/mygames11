@@ -170,7 +170,7 @@ const credentials = {
         ADD_FUND: "addfund",
         WINNING: "winning",
         BONUS: "bonus",
-        CROWN:'crown'
+        
     },
     PLAYER_TYPE: {
         CLASSIC: 'classic',

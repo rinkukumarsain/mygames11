@@ -1,0 +1,290 @@
+
+<%- include("../../partials/head") %>
+
+<%- include("../../partials/bodyStartWithNavBar/") %>
+<%- include("../../partials/sideNav") %>
+<div id="layoutSidenav_content">
+    <main>
+      <%- include("../../partials/alertMsg") %>   
+        <div class="page-header pb-10 page-header-dark bg-info">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <div class="page-header-content">
+                            <h1 class="page-header-title fs-md-35 fs-20">
+
+                                <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                                <span class=" text-capitalize">
+                                        Player Manager
+                                </span>
+                            </h1>
+                            <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                                    Add Player
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto mb-md-0 mb-3">
+                        <a  href="/view-all-players" class="btn btn-sm  btn-sm rounded-pill btn-light font-weight-bold text-primary float-right"><i class="fad fa-eye"></i>&nbsp; View All Players</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid mt-n10">
+            
+<div class="card">
+<div class="card-header">Add Player</div>
+<form class="card-body" action="/add_player_data" enctype='multipart/form-data' method="post" autocomplete="off">
+ 
+<div class="sbp-preview">
+    <div class="sbp-preview-content">
+        <div class="row mx-0">
+            <div class="col-md-6">
+              <input type="hidden" name="typename" value="players">
+                <div class="form-group my-3">
+                    <label for="Player key*" class="control-label text-bold" for="disabledTextInput">Player key*</label><br>
+                  
+                    <input value="" class="form-control form-control-solid" id="disabledTextInput" disabled="disabled" name="players_key" type="text">
+                   
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group my-3">
+                    <label for="Player Name*" class="control-label text-bold">Player Name*</label>
+                  
+                    <input  required="" placeholder="Enter player name here" class="form-control form-control-solid" name="player_name" type="text">
+                  
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group my-3">
+                    <label for="Batting Style" class="control-label form-label">Batting Style</label>
+                   
+                    <input placeholder="Enter player batting style here" class="form-control form-control-solid form-input1" name="battingstyle" type="text">
+                    
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group my-3">
+                    <label for="Bowling style" class="control-label form-label">Bowling style</label>
+                    
+                    <input placeholder="Enter player bowling style here" class="form-control form-control-solid form-input1" name="bowlingstyle" type="text">
+                    
+                </div>
+            </div> 
+            <div class="col-md-6">
+                <div class="form-group my-3">
+                    <label for="Date of Birth*" class="control-label text-bold">Date of Birth*</label>
+                  
+                                                <input id="dob-date"  autocomplete="off" placeholder="Enter date of birth" class="form-control form-control-solid" pattern="/([0-2][0-9]{3})\-([0-1][0-9])\-([0-3][0-9])T([0-5][0-9])\:([0-5][0-9])\:([0-5][0-9])(Z|([\-\+]([0-1][0-9])\:00))/" name="dob" type="text">
+                   
+                                            </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group my-3">
+                    <label for="Country*" class="control-label text-bold">Country*</label>
+                  
+                    <input  placeholder="Enter country" class="form-control form-control-solid" name="country" type="text">
+                    
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group my-3">
+                    <label for="Credit*" class="control-label text-bold">Credit*</label>
+                   
+                    <input value="" required="" placeholder="enter player credit here" onkeypress="return isNumberKey(event);" class="form-control form-control-solid" autocomplete="off" name="credit" type="number" min="0" max="15">
+                    
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                                            <div class="form-group my-3">
+                        <label for="Select Role*" class="control-label text-bold">Select Role*</label>
+                        <select class="form-control form-control-solid p-1 selectpicker show-tick" data-container="body" data-live-search="true" title="Select Theme" data-hide-disabled="true" name="role">
+                       
+                          <option disabled selected value="">Select Role</option>
+                          <option value="batsman" >Batsman</option>
+                          <option value="bowler" >Bowler</option>
+                          <option value="allrounder" >All rounder</option>
+                          <option value="keeper">Wicket Keeper</option>
+                       
+                            </select>
+                    </div>
+                                        </div>
+            
+            <div class="col-md-12">
+                <div class="row mx-0 justify-content-center ">
+                    <div class="col-md col-sm-4 col-6">
+                        <div class="form-group">
+                            <div class="row justify-content-center py-0">
+                                <h1 class="fs-14 font-weight-bold text-center mt-3 col-12">Player image</h1>
+                                <div class="avatar-upload col-auto position-relative">
+                                    <div class="avatar-edit position-absolute right-0px z-index-1 top-2px">
+                                        <input type='file' name="image" id="image" accept=".png"  class="imageUpload d-none"/>
+                                        <label class="d-grid w-40px h-40px mb-0 rounded-pill bg-white text-success fs-20 shadow pointer font-weight-normal align-items-center justify-content-center" for="image"><i class="fad fa-pencil"></i></label>
+                                    </div>
+                                    <div class="avatar-preview w-100px h-100px position-relative rounded-pill shadow">
+                                    
+                                        <div class="w-100 h-100 rounded-pill" id="image-imagePreview" style="background-image: url('/player_image.png');">
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                
+                </div>
+            </div>
+
+            <div class="col-12 text-right mt-4 mb-2">
+                <button class="btn btn-sm btn-success text-uppercase"><i class="far fa-check-circle"></i>&nbsp;Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+</div>
+
+<script>
+$(function(){
+var container = $('.container'), inputFile = $('#file'), img, btn, txt = 'Browse', txtAfter = 'Browse another pic';
+
+if(!container.find('#upload').length){
+container.find('.input').append('<input type="button" value="'+txt+'" id="upload">');
+btn = $('#upload');
+container.prepend('<img src="" class="hidden" alt="Uploaded file" id="uploadImg" width="100">');
+img = $('#uploadImg');
+}
+
+btn.on('click', function(){
+img.animate({opacity: 0}, 300);
+inputFile.click();
+});
+
+inputFile.on('change', function(e){
+container.find('label').html( inputFile.val() );
+
+var i = 0;
+for(i; i < e.originalEvent.srcElement.files.length; i++) {
+    var file = e.originalEvent.srcElement.files[i],
+        reader = new FileReader();
+
+    reader.onloadend = function(){
+        img.attr('src', reader.result).animate({opacity: 1}, 700);
+    }
+    reader.readAsDataURL(file);
+    img.removeClass('hidden');
+}
+
+btn.val( txtAfter );
+});
+});
+</script>
+
+<script>
+$(document).on('input', 'input[name="credit"]', function () {
+if( $(this).val() > 15 ) {
+Swal.fire('Player credit must be less than or equal to 15');
+
+$(this).val('');
+}
+});
+</script>
+
+        </div>
+    </main>
+<%- include("../../partials/footer") %>
+
+<script>
+
+    $(window).on('load', function(){
+
+       $('#preloader_admin').hide();
+
+      })
+  </script>
+
+<script>
+$(document).ready(function(){
+  
+if ($('#accordionSidenavPages a').hasClass('active')){
+  $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
+  $('#accordionSidenavPages a.active').parent().parent().addClass('show');
+  // console.log(id);
+} else {
+  $('#takeonebar').addClass('slamdown');
+}
+});
+
+</script>
+
+
+  <script type="text/javascript">
+  $.datetimepicker.setLocale('en');
+  $('.datetimepickerget').datetimepicker({
+  lang:'en',
+  formatDate:'d.m.Y',
+  step:5,
+  startDate:  new Date()
+   });
+  </script>
+  <script type="text/javascript">
+  $('.datepicker').datepicker({
+  lang:'en',
+  formatDate:'d.m.Y',
+  step:5,
+  });
+  </script>
+
+<script>
+function isNumberKey(evt){
+  //var e = evt || window.event;
+
+ var charCode = (evt.which) ? evt.which : evt.keyCode
+  if (charCode != 46 && charCode > 31
+ && (charCode < 48 || charCode > 57))
+
+  return false;
+else {
+     var itemdecimal = evt.srcElement.value.split('.');
+     if (itemdecimal.length > 1 && charCode == 46)
+         return false;
+
+     return true;
+}
+}
+
+</script>
+
+
+
+  <script>
+      function readURL(input) {
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function(e) {
+              $('#' + input.id + '-imagePreview').css('background-image', 'url('+e.target.result +')');
+              $('#' + input.id + '-imagePreview').hide();
+              $('#' + input.id + '-imagePreview').fadeIn(650);
+          }
+          reader.readAsDataURL(input.files[0]);
+      }
+  }
+  $(".imageUpload").change(function() {
+      readURL(this);
+  });
+  </script>
+
+<script>
+/*jslint browser:true*/
+/*global jQuery, document*/
+
+jQuery(document).ready(function () {
+    'use strict';
+
+    jQuery('#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date').datetimepicker();
+});
+</script>
+
+

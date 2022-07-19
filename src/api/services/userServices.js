@@ -19,8 +19,14 @@ class UserServices {
             addmoneyinwallet: this.addmoneyinwallet.bind(this),
             downloadalluserdetails: this.downloadalluserdetails.bind(this),
             changeYotuberStatus:this.changeYotuberStatus.bind(this),
+            userFullDetails:this.userFullDetails.bind(this),
         }
     }
+    async findUser(data) {
+        let result = await userModel.find(data);
+        console.log("result...............",result)
+        return result;
+      }
 
     async viewtransactions(req) {
         try {
@@ -351,6 +357,113 @@ class UserServices {
             throw error;
         }
     }
+    async userFullDetails(req) {
+        console.log(" req.user..................", req.user)
+        const userData = await this.findUser({ _id: mongoose.Types.ObjectId(req.user._id) });
+        console.log("userData..................",userData)
+        if (userData.length == 0) {
+          return {
+            message: "User Not Found.",
+            status: false,
+            data: {},
+          };
+        }
+        let verified = constant.PROFILE_VERIFY.FALSE;
+        if (
+          userData[0].user_verify.mobile_verify ==
+          constant.PROFILE_VERIFY_EMAIL_MOBILE.VERIFY &&
+          userData[0].user_verify.email_verify ==
+          constant.PROFILE_VERIFY_EMAIL_MOBILE.VERIFY &&
+          userData[0].user_verify.pan_verify ==
+          constant.PROFILE_VERIFY_PAN_BANK.APPROVE &&
+          userData[0].user_verify.bank_verify ==
+          constant.PROFILE_VERIFY_PAN_BANK.APPROVE
+        ) {
+          verified = constant.PROFILE_VERIFY.TRUE;
+        }
+        return {
+          message: "User Full Details..!",
+          status: true,
+          data: {
+            id: userData[0]._id,
+            username: userData[0].username,
+            mobile: userData[0].mobile,
+            email: userData[0].email,
+            pincode: userData[0].pincode || "",
+            address: userData[0].address || "",
+            dob: userData[0].dob
+              ? moment(userData[0].dob).format("DD-MMM-YYYY")
+              : "",
+            DayOfBirth: userData[0].dob
+              ? moment(userData[0].dob).format("DD")
+              : "12",
+            MonthOfBirth: userData[0].dob
+              ? moment(userData[0].dob).format("MM")
+              : "10",
+            YearOfBirth: userData[0].dob
+              ? moment(userData[0].dob).format("YYYY")
+              : "1970",
+            gender: userData[0].gender || "",
+            image:
+              userData[0].image && userData[0].image != ""
+                ? userData[0].image
+                : `${constant.BASE_URL}avtar_1.jpg`,
+            activation_status: userData[0].status || "",
+            state: userData[0].state || "",
+            city: userData[0].city || "",
+            team: userData[0].team || "",
+            teamfreeze:
+              userData[0].team != "" ? constant.FREEZE.TRUE : constant.FREEZE.FALSE,
+            refer_code: userData[0].refer_code || "",
+            totalbalance: Number(userData[0].userbalance.balance).toFixed(2),
+            totalwon: Number(userData[0].userbalance.winning).toFixed(2),
+            totalbonus: Number(userData[0].userbalance.bonus).toFixed(2),
+            totalticket: Number(userData[0].userbalance.ticket).toFixed(2),
+            totalcrown: Number(userData[0].userbalance.crown),
+            totalpasses: Number(userData[0].userbalance.passes).toFixed(2),
+            // addcashamount: Number(userData[0].userbalance.balance).toFixed(2),
+            // winningamount: Number(userData[0].userbalance.winning).toFixed(2),
+            // bonusamount: Number(userData[0].userbalance.bonus).toFixed(2),
+            walletamaount:
+              parseFloat(userData[0].userbalance.balance.toFixed(2)) +
+              parseFloat(userData[0].userbalance.winning.toFixed(2)) +
+              parseFloat(userData[0].userbalance.bonus.toFixed(2)),
+            verified: verified,
+            downloadapk: userData[0].download_apk || constant.DOWNLOAD_APK.FALSE,
+            emailfreeze:
+              userData[0].email != "" &&
+                userData[0].user_verify.email_verify ==
+                constant.PROFILE_VERIFY_EMAIL_MOBILE.VERIFY
+                ? constant.FREEZE.TRUE
+                : constant.FREEZE.FALSE,
+            mobilefreeze:
+              userData[0].mobile != "" &&
+                userData[0].user_verify.mobile_verify ==
+                constant.PROFILE_VERIFY_EMAIL_MOBILE.VERIFY
+                ? constant.FREEZE.TRUE
+                : constant.FREEZE.FALSE,
+            mobileVerified: userData[0].user_verify.mobile_verify,
+            emailVerified: userData[0].user_verify.email_verify,
+            PanVerified: userData[0].user_verify.pan_verify,
+            BankVerified: userData[0].user_verify.bank_verify,
+            statefreeze:
+              userData[0].user_verify.bank_verify ==
+                constant.PROFILE_VERIFY_PAN_BANK.APPROVE
+                ? constant.FREEZE.TRUE
+                : constant.FREEZE.FALSE,
+            dobfreeze:
+              userData[0].user_verify.pan_verify ==
+                constant.PROFILE_VERIFY_PAN_BANK.APPROVE
+                ? constant.FREEZE.TRUE
+                : constant.FREEZE.FALSE,
+            totalrefers: userData[0].totalrefercount, //#ReferUserCount of the join application throw referId
+            totalwinning: Number(userData[0].totalwinning).toFixed(2), //# FinalResult Table user Total Amount
+            totalchallenges: userData[0].totalchallenges, //# All over how many contest it was palyed not was total joining
+            totalmatches: userData[0].totalmatches, // # Total Matches it's played(match.matchchallenges.joinleauge or user.totalChallengs)
+            totalseries: userData[0].totalseries, //# Total Series it was played(match.matchchallenges.joinleauge in distinct or user.totalChallengs)
+          },
+        };
+      }
 
 
 }
