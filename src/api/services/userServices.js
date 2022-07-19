@@ -984,7 +984,7 @@ class UserServices {
             totalwon: Number(userData[0].userbalance.winning).toFixed(2),
             totalbonus: Number(userData[0].userbalance.bonus).toFixed(2),
             totalticket: Number(userData[0].userbalance.ticket).toFixed(2),
-            totalcrown: Number(userData[0].userbalance.crown),
+            // totalcrown: Number(userData[0].userbalance.crown),
             totalpasses: Number(userData[0].userbalance.passes).toFixed(2),
             // addcashamount: Number(userData[0].userbalance.balance).toFixed(2),
             // winningamount: Number(userData[0].userbalance.winning).toFixed(2),

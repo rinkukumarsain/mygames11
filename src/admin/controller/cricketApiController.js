@@ -168,7 +168,7 @@ class cricketApiController {
     listOfMatches_entity(req, res) {
         try {
             let pageno = 1;
-            axios.get(`https://rest.entitysport.com/v2/matches/?status=1&token=ec471071441bb2ac538a0ff901abd249&per_page=50&&paged=${pageno}`).then(async(matchData) => {
+            axios.get(`https://rest.entitysport.com/v2/matches/?status=1&token=1f56fecf67b5dee16cbdba41eb87bd2e&per_page=50&&paged=${pageno}`).then(async(matchData) => {
                 // console.log('matchData', matchData.data);
                 await this.child_listOfMatches_entity(matchData.data.response.items);
                 res.redirect('/view_AllUpcomingMatches');
@@ -347,7 +347,7 @@ class cricketApiController {
           // console.log(`http://rest.entitysport.com/v2/matches/${req.params.matchkey}/squads?token=1&token=d838e55bf823bc6e6ad46ba9c71106aa`);
           axios
             .get(
-              `http://rest.entitysport.com/v2/matches/${req.params.matchkey}/squads?token=1&token=d838e55bf823bc6e6ad46ba9c71106aa`
+              `http://rest.entitysport.com/v2/matches/${req.params.matchkey}/squads?token=1&token=1f56fecf67b5dee16cbdba41eb87bd2e`
             )
             .then(async (matchData) => {
               let listmatch = await listMatchModel.findOne({

@@ -1,6 +1,6 @@
 const FCM = require('fcm-node');
-
-const fcmServerKey = process.env.FCM_SERVER_KEY; // put your server key here
+const constant = require('../config/const_credential');
+const fcmServerKey = constant.FCM_SERVER_KEY; // put your server key here
 const fcm = new FCM(fcmServerKey);
 let fcm_fun = {
     sendPush: async(message) => {
