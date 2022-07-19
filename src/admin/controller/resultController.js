@@ -1407,7 +1407,7 @@ class resultController {
           req.body.masterpassword &&
           req.body.masterpassword == req.session.data.masterpassword
         ) {
-          const getResult = await resultServices.distributeWinningAmount(req);
+          const getResult = await resultServices.distributeWinningAmount(req);//need to check becouse crown is remove
           req.flash("success", `Match ${req.params.status} successfully`);
           await listMatchesModel.updateOne(
             { _id: mongoose.Types.ObjectId(req.params.id) },
@@ -1464,7 +1464,7 @@ class resultController {
         let count = 0;
         for (let match of matches) {
           count++;
-          await resultServices.distributeWinningAmount(req = { params: { id: match._id } });
+          await resultServices.distributeWinningAmount(req = { params: { id: match._id } });//need to check becouse crown is remove
           await listMatchesModel.updateOne(
             { _id: mongoose.Types.ObjectId(match._id) },
             {

@@ -18,10 +18,7 @@ let userbalance = new Schema({
         type: Number,
         default: 0
     },
-    crown: {
-        type: Number,
-        default: 0
-    },
+    
     passes: {
         type: Number,
         default: 0

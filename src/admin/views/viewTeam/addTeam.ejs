@@ -16,7 +16,7 @@
                       </span>
                     </h1>
                     <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
-                      Edit Team
+                      Add Team
                     </div>
                   </div>
                 </div>
@@ -31,11 +31,10 @@
           <div class="container-fluid mt-n10">
             <div class="card">
               <div class="card-header">Edit Team</div>
-              <form action="/edit-Team-Data/<%=data._id %>" enctype='multipart/form-data' method="post"
+              <form action="/add-Team-Data" enctype='multipart/form-data' method="post" class="card-body" autocomplete="off">
                 <% if(msg) {%>
-                  <span style="color: red; font-size: small;"><%=msg %></span>
-                  <% }%>
-                class="card-body">
+                    <span style="color: red; font-size: small;"><%=msg %></span>
+                <% }%>
                 <div class="sbp-preview">
                   <div class="sbp-preview-content">
                     <div class="row mx-0">
@@ -43,51 +42,29 @@
                       <div class="col-md-6">
                         <div class="form-group my-3">
                           <label for="Team Name*" class="control-label text-bold">Team Name*</label>
-                          <% if(data.teamName) {%>
-                            <input value="<%=data.teamName %>" required="" class="form-control form-control-solid"
-                              name="teamName" id="teamName" type="text" required>
-                          <%}else{ %>
+                      
                               <input required="" placeholder="Enter Team Name" class="form-control form-control-solid"
                                 name="teamName" id="teamName" type="text" required>
-                          <% }%>
+                        
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group my-3">
                           <label for="Team Short Name*" class="control-label text-bold">Team Short Name*</label>
-                          <% if(data.short_name) {%>
-                            <input value="<%=data.short_name %>" required="" class="form-control form-control-solid"
-                              name="short_name" id="short_name" type="text" required>
-                            <%}else{ %>
+                        
                               <input required="" placeholder="Enter Team Short Name"
                                 class="form-control form-control-solid" name="short_name" id="short_name" type="text" required>
-                              <% }%>
+                       
                         </div>
                       </div>
+                   
                       <div class="col-md-6">
                         <div class="form-group my-3">
-                          <label for="Team Key*" class="control-label text-bold">Team Key*</label><br>
-                          <% if(data.team_key) {%>
-                            <input type="text" name="team_key" id="team_key" value="<%=data.team_key %>"
-                              class="form-control form-control-solid" readonly disabled>
-                            <% }else{ %>
-                              <input type="text" name="team_key" id="team_key" class="form-control form-control-solid"
-                                readonly disabled>
-                              <% }%>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group my-3">
-                          <% if(data.color) {%>
-                            <label for="Team Color*" class="control-label text-bold">Team Color*</label>
-                            <%=data.color %><br>
-                              <input type="color" class="form-control form-control-solid" name="color" id="color"
-                                value="<%=data.color %>" required>
-                              <%}else{ %>
+                         
                                 <label for="Team Color*" class="control-label text-bold">Team Color*</label><br>
                                 <input type="color" class="form-control form-control-solid" placeholder="Team Color"
                                   name="color" id="color" required>
-                                <% }%>
+                                
                         </div>
                       </div>
                       <div class="col-md-12">
@@ -105,13 +82,10 @@
                                       for="logo"><i class="fad fa-pencil"></i></label>
                                   </div>
                                   <div class="avatar-preview w-100px h-100px position-relative rounded-pill shadow">
-                                    <% if(data.logo) {%>
-                                      <div class="w-100 h-100 rounded-pill" id="logo-imagePreview" name="logo"
-                                        style="background-image: url('<%=data.logo %>')"></div>
-                                    <%}else{ %>
+                                  
                                         <div class="w-100 h-100 rounded-pill" id="logo-imagePreview" name="logo"
                                           style="background-image: url('/uploadImage/defaultImage.jpg')"></div>
-                                    <% }%>
+                              
                                   </div>
                                 </div>
                               </div>

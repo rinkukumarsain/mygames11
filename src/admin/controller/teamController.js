@@ -10,6 +10,8 @@ class teamsController {
             teamsDataTable: this.teamsDataTable.bind(this),
             editTeam: this.editTeam.bind(this),
             edit_Team_Data: this.edit_Team_Data.bind(this),
+            addTeamPage:this.addTeamPage.bind(this),
+            addTeamData:this.addTeamData.bind(this),
 
         }
     }
@@ -46,8 +48,6 @@ class teamsController {
                     // console.log('--------rows1-------------', rows1);
                     if (err) console.log(err);
                     rows1.forEach((index) => {
-                        // console.log('index------------->', index)
-
                         let logo
                         if (index.logo) {
                             logo = `<img src="${index.logo}" class="w-40px view_team_table_images h-40px rounded-pill">`;
@@ -82,6 +82,7 @@ class teamsController {
 
     async editTeam(req, res, next) {
         try {
+            res.locals.message = req.flash();
             const data = await teamsServices.editTeam(req);
             // console.log('data---controller',data);
             if (data) {
@@ -110,6 +111,31 @@ class teamsController {
             // next(error);
             req.flash('error','something is wrong please try again later');
             res.redirect("/view-teams");
+        }
+    }
+    async addTeamPage(req,res,next){
+        try{
+            res.locals.message = req.flash();
+            res.render("viewTeam/addTeam", { sessiondata: req.session.data, msg: undefined });
+
+        }catch(error){
+            console.log(error)
+        }
+    }
+    async addTeamData(req,res,next){
+        try{
+            let data=await teamsServices.addTeamData(req);
+            if(data.status){
+                req.flash('success',data.message);
+                res.redirect("/add_team_page")
+            }else{
+                req.flash('error',data.message);
+                res.redirect("/add_team_page")
+            }
+
+        }catch(error){
+            console.log(error)
+            req.flash('error','soething wrong please try again letter')
         }
     }
 

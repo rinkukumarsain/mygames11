@@ -6,11 +6,7 @@ let product = new Schema({
         type: String,
         default: ''
     },
-    crown_amount: {
-        type: Number,
-        default: 0
-
-    },
+    
     description: {
         type: String,
         default: ''
