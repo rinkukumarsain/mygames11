@@ -152,9 +152,9 @@
                         <div class="form-group"  id="pert" style="display: none;">
                             <label class="label-control text-bold">Percentage of users who will win (In case of percentage)*</label>
                             <% if(data.winning_percentage) {%>
-                            <input type="number" onkeypress="return isNumberKey(event)" disabled="" id="ch1" class="form-control form-control-solid"  min="0" placeholder="Enter percentage of users winning this challenge"  name="winning_percentage" required="" value="<%=data.winning_percentage %>" >
+                            <input type="number" onkeypress="return isNumberKey(event)" disabled="" id="ch1" class="form-control form-control-solid"  min="0" max="100" placeholder="Enter percentage of users winning this challenge"  name="winning_percentage" required="" value="<%=data.winning_percentage %>" >
                             <% }else{%>
-                            <input type="number" onkeypress="return isNumberKey(event)" disabled="" id="ch1" class="form-control form-control-solid"  min="0" placeholder="Enter percentage of users winning this challenge"  name="winning_percentage" required="" value="" >
+                            <input type="number" onkeypress="return isNumberKey(event)" disabled="" id="ch1" class="form-control form-control-solid"  min="0" max="100" placeholder="Enter percentage of users winning this challenge"  name="winning_percentage" required="" value="" >
                             <% }%>
                         </div>
                         </div>
