@@ -45,7 +45,7 @@
                         <div class="form-group my-3">
                           <label class="label-control text-bold fs-13">Contest Amount Type*</label><br>
                           <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="customRadio1" name="contest_type" checked="" value="Amount" checked
+                            <input type="radio" id="customRadio1" name="contest_type" value="Amount" checked
                               class="custom-control-input">
                             <label class="custom-control-label" for="customRadio1">Amount Based</label>
                           </div>
@@ -60,8 +60,8 @@
                         <div class="form-group my-3 fs-13" id="pricecard_contest">
                           <label class="label-control text-bold">Contest Price Card Type*</label><br>
                           <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" name="pricecard_type" checked="" value="Amount" id="customRadio11"
-                              checked class="custom-control-input">
+                            <input type="radio" name="pricecard_type"  value="Amount" id="customRadio11"
+                               class="custom-control-input" checked />
                             <label class="custom-control-label" for="customRadio11">Amount Based</label>
                           </div>
                           <div class="custom-control custom-radio custom-control-inline">
@@ -132,7 +132,7 @@
                         <div class="form-group my-3" id="pert" style="display:none;">
                           <label class="label-control text-bold">Percentage of users who will win (In case of
                             percentage)*</label>
-                          <input type="number" onkeypress="return isNumberKey(event)" disabled="" id="ch1" class="form-control form-control-solid" min="0"
+                          <input type="number" onkeypress="return isNumberKey(event)" disabled="" min="0" max="100" id="ch1" class="form-control form-control-solid" min="0"
                             placeholder="Enter percentage of users winning this challenge" name="winning_percentage"
                             value="" required="" autocomplete="off">
                         </div>
@@ -185,7 +185,7 @@
                         <div class="form-group d-none" id="bonuspercentage">
                           <label class="label-control text-bold">Bonus Percentage (No need to enter % here. Just enter
                             number here)*</label>
-                          <input disabled="" id="ch2" type="text" class="form-control form-control-solid"
+                          <input disabled="" id="ch2" type="text" min="0" max="100" class="form-control form-control-solid"
                             name="bonus_percentage" value="" placeholder="Enter Bonus Percentage" required="">
                         </div>
                       </div>

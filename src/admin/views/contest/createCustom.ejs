@@ -77,8 +77,8 @@
                               <div class="form-group my-3" id="pricecard_contest">
                                 <label class="label-control text-bold fs-13">Contest Price Card Type*</label><br>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                  <input type="radio" name="pricecard_type" checked="" value="Amount" id="customRadio11"
-                                    checked class="custom-control-input">
+                                  <input type="radio" name="pricecard_type"  value="Amount" id="customRadio11"
+                                     class="custom-control-input" checked="" />
                                   <label class="custom-control-label fs-15" for="customRadio11">Amount Based</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
@@ -153,7 +153,7 @@
                                 <label class="label-control text-bold">Percentage of users who will win (In case of
                                   percentage)*</label>
                                 <input type="number" onkeypress="return isNumberKey(event)" disabled="" id="ch1" class="form-control form-control-solid"
-                                  min="0" placeholder="Enter percentage of users winning this challenge"
+                                min="0" max="100" placeholder="Enter percentage of users winning this challenge"
                                   name="winning_percentage" required="" value="" autocomplete="off">
                               </div>
                             </div>
@@ -208,7 +208,7 @@
                               <div class="form-group" id="bonuspercentage" style="display:none;">
                                 <label class="label-control text-bold">Bonus Percentage (No need to enter % here. Just
                                   enter number here)*</label>
-                                <input disabled="" id="ch2" type="text" class="form-control form-control-solid"
+                                <input disabled="" id="ch2" min="0" max="100" type="text" class="form-control form-control-solid"
                                   name="bonus_percentage" value="" placeholder="Enter Bonus Percentage" required="">
                               </div>
                             </div>

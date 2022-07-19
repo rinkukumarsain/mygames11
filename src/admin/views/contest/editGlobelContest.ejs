@@ -120,7 +120,7 @@
                         <div class="col-12">
                         <div class="form-group" id="pert" style="display: none;">
                             <label class="label-control text-bold">Percentage of users who will win (In case of percentage)*</label>
-                            <input type="number" onkeypress="return isNumberKey(event)" disabled="" id="ch1" class="form-control form-control-solid"  min="0" placeholder="Enter percentage of users winning this challenge"  name="winning_percentage" required="" value='<%=data.winning_percentage %>' autocomplete="off">
+                            <input type="number" onkeypress="return isNumberKey(event)" disabled="" id="ch1" class="form-control form-control-solid"  min="0" max="100" placeholder="Enter percentage of users winning this challenge"  name="winning_percentage" required="" value='<%=data.winning_percentage %>' autocomplete="off">
                         </div>
                         </div>
                         <div class="col-12 mt-3" id="team_limit" style="display:none">
@@ -168,7 +168,7 @@
                             <div class="col-12 ">
                             <div class="form-group" id="bonuspercentage" style="display: none;">
                                 <label class="label-control text-bold">Bonus Percentage (No need to enter % here. Just enter number here)*</label>
-                                <input  id="ch2" type="text" class="form-control form-control-solid"  name="bonus_percentage" value="<%=data.bonus_percentage %>" <%=data.bonus_percentage  ? ' ': 'disabled=""' %>  style="color:black;">
+                                <input  id="ch2" type="text" class="form-control form-control-solid" min="0" max="100" name="bonus_percentage" value="<%=data.bonus_percentage %>" <%=data.bonus_percentage  ? ' ': 'disabled=""' %>  style="color:black;">
                             </div>
                             </div>
                             <div class="col-12 text-right mt-4 mb-2">
