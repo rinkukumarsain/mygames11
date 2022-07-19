@@ -49,6 +49,8 @@ class UserServices {
             downloadalluserdetails: this.downloadalluserdetails.bind(this),
             changeYotuberStatus:this.changeYotuberStatus.bind(this),
             userFullDetails:this.userFullDetails.bind(this),
+            forgotPassword:this.forgotPassword.bind(this),
+            socialAuthentication:this.socialAuthentication.bind(this),
         }
     }
     async findUser(data) {
@@ -998,6 +1000,147 @@ class UserServices {
             totalseries: userData[0].totalseries, //# Total Series it was played(match.matchchallenges.joinleauge in distinct or user.totalChallengs)
           },
         };
+      }
+      async forgotPassword(req) {
+        let query = {};
+        if (req.body.mobile) {
+          query.mobile = req.body.mobile;
+        }
+        if (req.body.email) {
+          query.email = req.body.email;
+        }
+        const hasuser = await userModel.findOne(query);
+        if (!hasuser) {
+          return {
+            message: "You have entered invalid details to reset your password.",
+            status: false,
+            data: {},
+          };
+        }
+        if (hasuser.status === constant.USER_STATUS.BLOCKED) {
+          return {
+            message:
+              "Sorry you cannot reset your password now. Please contact to administrator.",
+            status: false,
+            data: {},
+          };
+        }
+        if (query.mobile) {
+          const sms = new SMS(req.body.mobile);
+          await userModel.updateOne({ _id: hasuser._id }, { code: sms.otp });
+          await sms.sendSMS(
+            sms.mobile,
+            sms.otp
+            // `${sms.otp} is the OTP for your ${constant.APP_NAME} account. NEVER SHARE YOUR OTP WITH ANYONE. ${constant.APP_NAME} will never call or message to ask for the OTP.`
+          );
+          return {
+            message: "OTP sent on your mobile number.",
+            status: true,
+            data: {},
+          };
+        }
+        if (query.email) {
+          const mail = new Mail(req.body.email);
+          // console.log(`mail.otp`, mail.otp);
+          await userModel.updateOne({ _id: hasuser._id }, { code: mail.otp });
+          await mail.sendMail(
+            mail.email,
+            `<h3>Reset Password - ${constant.APP_NAME}</h3><br><p> <b>${mail.otp}</b> is the OTP for your ${constant.APP_NAME} account. <br>NEVER SHARE YOUR OTP WITH ANYONE.<br><br><span style="color:red"> <b>${constant.APP_NAME}</b> will never call or message to ask for the OTP.</span></p>`,
+            `Reset Password Otp`
+          );
+          return {
+            message:
+              "We have sent you an OTP on your registered email address. Please check your email and reset your password.",
+            status: true,
+            data: {},
+          };
+        }
+      }
+      async socialAuthentication(req) {
+        try {
+          const userData = await this.findUser({ email: req.body.email });
+          if (userData.length != 0) {
+            if (userData[0].status != constant.USER_STATUS.ACTIVATED) {
+              return {
+                message:
+                  "You cannot login now in this account. Please contact to administartor.",
+                status: false,
+                data: { userid: "" },
+              };
+            }
+            const token = jwt.sign(
+              {
+                _id: userData[0]._id.toString(),
+                refer_code: userData[0].refer_code,
+              },
+              constant.SECRET_TOKEN
+            );
+            await userModel.updateOne(
+              { _id: userData[0]._id },
+              { app_key: req.body.appid || "", auth_key: token }
+            );
+            return {
+              message: "Login Successfully.",
+              status: true,
+              data: {
+                token,
+                mobile_status:
+                  userData[0].user_verify.mobile_verify == 1
+                    ? constant.PROFILE_VERIFY_EMAIL_MOBILE.VERIFY
+                    : constant.PROFILE_VERIFY_EMAIL_MOBILE.PENDING,
+                type: userData[0].type ? `${userData[0].type} user` : "normal user",
+                userid: userData[0]._id,
+              },
+            };
+          } else {
+            const refer_code = await this.genrateReferCode(req.body.email);
+            const save = {};
+            save["email"] = req.body.email;
+            save["refer_code"] = refer_code;
+            save["username"] = req.body.name;
+            save["status"] = "activated";
+            save["image"] = req.body.image;
+            save["user_verify"] = { email_verify: 0, emailbonus: 0 };
+            save["userbalance"] = { bonus: 0 };
+    
+            const user = await userModel.create(save);
+            const token = jwt.sign(
+              { _id: user._id.toString(), refer_code: user.refer_code },
+              constant.SECRET_TOKEN
+            );
+            const hasUser = await userModel.findOneAndUpdate(
+              { _id: user._id },
+              { app_key: req.body.appid },
+              { new: true }
+            );
+            const emailBonus = await new GetBouns().getBonus(
+              constant.BONUS_TYPES.EMAIL_BONUS,
+              constant.PROFILE_VERIFY_BONUS_TYPES_VALUES.FALSE
+              // hasUser.user_verify.emailbonus
+            );
+            await this.givebonusToUser(
+              emailBonus,
+              user._id,
+              constant.PROFILE_VERIFY_BONUS_TYPES.EMAIL_BONUS,
+              constant.USER_VERIFY_TYPES.EMAIL_VERIFY
+            );
+            return {
+              message: "Login Successfully.",
+              status: true,
+              data: {
+                token,
+                mobile_status:
+                  hasUser.user_verify.mobile_verify == 1
+                    ? constant.PROFILE_VERIFY_EMAIL_MOBILE.VERIFY
+                    : constant.PROFILE_VERIFY_EMAIL_MOBILE.PENDING,
+                type: user.type ? `${hasUser.type} user` : "normal user",
+                userid: user._id,
+              },
+            };
+          }
+        } catch (error) {
+          throw error;
+        }
       }
 
 
