@@ -171,6 +171,7 @@ class matchServices {
                     locktime: EndDate,
                     createteamnumber: '1',
                     status: 'true',
+                    info_center:1
                 },
             });
             const result = await listMatchesModel.aggregate(matchpipe);
