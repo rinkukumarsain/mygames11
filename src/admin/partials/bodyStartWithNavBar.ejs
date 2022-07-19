@@ -29,10 +29,11 @@
           </button>
         <ul class="navbar-nav align-items-center ml-auto">
             <li class="nav-item dropdown no-caret mr-3 dropdown-user">
-                <a class="btn btn-sm btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownUserImage" href="javascript:void(0);" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="img-fluid" src="/avtar1.profile-1606805561.png" onerror="this.src='/logo.png'" /></a>
+                <a class="btn btn-sm btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownUserImage" href="javascript:void(0);" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img class="img-fluid" src="<%=sessiondata.image %>" onerror="this.src='/logo.png'" /></a>
                 <div class="dropdown-menu dropdown-menu-right border-0 shadow animated--fade-in-up" aria-labelledby="navbarDropdownUserImage">
                     <h6 class="dropdown-header d-flex align-items-center">
-                        <img class="dropdown-user-img" src="/avtar1.profile-1606805561.png" onerror="this.src='/logo.png'">
+                        <img class="dropdown-user-img" src="<%=sessiondata.image %>" onerror="this.src='/logo.png'">
                         <div class="dropdown-user-details">
                             <div class="dropdown-user-details-name">
                                 <% if(sessiondata.role == 1) { %>

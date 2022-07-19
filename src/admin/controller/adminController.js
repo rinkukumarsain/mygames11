@@ -142,8 +142,6 @@ class adminPanelController {
     async viewGeneralTab(req, res, next) {
         try {
             res.locals.message = req.flash();
-            console.log(`req.session.data`, req.session.data);
-            // let emailId=req.session.emailId;
             let adminId = '0';
 
             res.render('generalTabs/generalTab', {
@@ -192,7 +190,7 @@ class adminPanelController {
                     rows1.forEach(async (index) => {
                         let newcount = 1
                         index.general_tabs.forEach(async (doc) => {
-                            console.log(doc);
+                         
                             data.push({
                                 'newcount': `${newcount}`,
                                 'Type': doc.type,

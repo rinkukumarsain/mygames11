@@ -192,7 +192,6 @@ class cricketApiController {
                                 logo: match.teama.logo_url
                             }
                         }, { new: true });
-                        console.log('temaData1---udated----', temaData1._id);
                     } else {
                         let insertTeam1 = new teamModel({
                             fantasy_type: 'Cricket',
@@ -202,7 +201,6 @@ class cricketApiController {
                             logo: match.teama.logo_url
                         });
                         temaData1 = await insertTeam1.save();
-                        console.log('temaData1---inserted----', temaData1._id);
                     }
 
                     if (await teamModel.findOne({ team_key: match.teamb.team_id })) {
@@ -213,7 +211,6 @@ class cricketApiController {
                                 logo: match.teamb.logo_url
                             }
                         }, { new: true });
-                        console.log('teamDAta---------updated--------', temaData2._id);
                     } else {
                         let insertTeam2 = new teamModel({
                             fantasy_type: 'Cricket',
@@ -223,7 +220,6 @@ class cricketApiController {
                             logo: match.teamb.logo_url
                         });
                         temaData2 = await insertTeam2.save();
-                        console.log('teamDAta---------inserted--------', temaData2._id);
                     }
 
                     if (await seriesModel.findOne({ series_key: match.competition.cid })) {
@@ -235,7 +231,6 @@ class cricketApiController {
                                 end_date: `${match.competition.dateend} 23:59:59`
                             }
                         }, { new: true });
-                        console.log('series---------updated--------', series._id);
                     } else {
                         let seriesData = new seriesModel({
                             fantasy_type: 'Cricket',
@@ -246,7 +241,6 @@ class cricketApiController {
                             end_date: `${match.competition.dateend} 23:59:59`
                         })
                         series = await seriesData.save();
-                        console.log('series---------inserted--------', series._id);
                     }
                     let insertListmatch = new listMatchModel({
                         fantasy_type: 'Cricket',
@@ -278,7 +272,6 @@ class cricketApiController {
                                 logo: match.teama.logo_url
                             }
                         }, { new: true });
-                        console.log('temaData1---udated----', temaData1._id);
                     } else {
                         let insertTeam1 = new teamModel({
                             fantasy_type: 'Cricket',
@@ -288,7 +281,6 @@ class cricketApiController {
                             logo: match.teama.logo_url
                         });
                         temaData1 = await insertTeam1.save();
-                        console.log('temaData1---inserted----', temaData1._id);
                     }
 
                     if (await teamModel.findOne({ team_key: match.teamb.team_id })) {
@@ -299,7 +291,6 @@ class cricketApiController {
                                 logo: match.teamb.logo_url
                             }
                         }, { new: true });
-                        console.log('teamDAta---------updated--------', temaData2._id);
                     } else {
                         let insertTeam2 = new teamModel({
                             fantasy_type: 'Cricket',
@@ -309,7 +300,6 @@ class cricketApiController {
                             logo: match.teamb.logo_url
                         });
                         temaData2 = await insertTeam2.save();
-                        console.log('teamDAta---------inserted--------', temaData2._id);
                     }
 
                     if (await seriesModel.findOne({ series_key: match.competition.cid })) {
@@ -321,7 +311,6 @@ class cricketApiController {
                                 end_date: `${match.competition.dateend} 23:59:59`
                             }
                         }, { new: true });
-                        console.log('series---------updated--------', series._id);
                     } else {
                         let seriesData = new seriesModel({
                             fantasy_type: 'Cricket',
@@ -349,7 +338,6 @@ class cricketApiController {
                             toss_decision: toss_decision[match.toss.decision],
                         }
                     }, { new: true });
-                    console.log('updateListMatch-------updateListMatch-------updateListMatch--', updateListMatch);
                 }
             }
         }

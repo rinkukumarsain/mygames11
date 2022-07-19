@@ -85,7 +85,6 @@ class contestCategory {
             if(req.query.searchName){
                 
                 let searchName=req.query.searchName;
-                console.log("searchName.....,,,,,,,,,,,,,,,,,...",searchName);
                 conditions.name= { $regex: new RegExp("^" + searchName.toLowerCase(), "i") } 
             }
             contestCategoryModel.countDocuments(conditions).exec((err, rows) => {
@@ -93,7 +92,7 @@ class contestCategory {
                 let data = [];
                 let count = 1;
                 contestCategoryModel.find(conditions).skip(Number(start) ? Number(start) : '').limit(Number(limit1) ? Number(limit1) : '').sort(sortObject).exec(async(err, rows1) => {
-                    console.log('------?contestCatId=--rows1-------------', rows1);
+                 
                     if (err) console.log(err);
                     rows1.forEach((index) => {
                         let image
