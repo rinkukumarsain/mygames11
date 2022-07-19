@@ -2,6 +2,7 @@ const leaderboardServices=require("../services/leaderboardServices");
 const moment = require("moment");
 const seriesModel=require("../../models/addSeriesModel");
 const mongoose = require("mongoose");
+const seriesLeaderBoardModel=require("../../models/seriesLeaderBoardModel");
 class leaderboardController {
     constructor() {
         return {
@@ -11,6 +12,8 @@ class leaderboardController {
             addSeriesPriceCardData:this.addSeriesPriceCardData.bind(this),
             deleteSeriesPriceCard:this.deleteSeriesPriceCard.bind(this),
             distributeWinningAmountSeriesLeaderboard:this.distributeWinningAmountSeriesLeaderboard.bind(this),
+            leaderboardRank:this.leaderboardRank.bind(this),
+            leaderBoardRankDatatable:this.leaderBoardRankDatatable.bind(this),
         }
     }
   async viewLeaderBoarderPage(req,res,next){
@@ -196,6 +199,87 @@ class leaderboardController {
 
     }catch(error){
         console.log(error)
+    }
+  }
+  async leaderboardRank(req,res,next){
+    try{
+      res.locals.message = req.flash();
+        res.render("leaderboard/leaderboardRank", {
+          sessiondata: req.session.data,
+          seriesId:req.params.id
+        });
+
+    }catch(error){
+      console.log(error)
+    }
+  }
+  async leaderBoardRankDatatable(req,res,next){
+    try{
+     
+      let limit1 = req.query.length;
+      let start = req.query.start;
+      let conditions = [];
+      conditions.push({
+        $match:{
+          _id:req.query.seriesId
+        }
+      });
+      conditions.push({
+        $lookup:{
+          from: 'teams',
+          localField:'teamid',
+          foreignField: '_id',
+          as: "teamData"
+        }
+      });
+      conditions.push({
+        $lookup:{
+          from: 'users',
+          localField:'userid',
+          foreignField: '_id',
+          as: 'userData'
+        }
+      })
+
+
+      seriesLeaderBoardModel.countDocuments(conditions).exec((err, rows) => {
+          let totalFiltered = rows;
+          let data = [];
+          let count = 1;
+          let rank=1
+          seriesLeaderBoardModel.aggregate(conditions).sort({points:-1}).skip(Number(start) ? Number(start) : '').limit(Number(limit1) ? Number(limit1) : '').exec((err, rows1) => {
+              if (err) console.log(err);
+              console.log("rows1...........",rows1)
+              rows1.forEach((index) => {
+                let img
+                if(index.userData[0]?.image){
+                  img=`<img src="${index.userData[0].image}" class="w-40px view_team_table_images h-40px rounded-pill">`
+                }else{
+                  img=`<img src="/default_profile1.png" class="w-40px view_team_table_images h-40px rounded-pill">`
+                }
+                  data.push({
+                     count:count,
+                     user_team:index.teamData[0].username,
+                     image:img,
+                     points:index.points,
+                     rank:rank
+                  });
+                  count++;
+                  if (count > rows1.length) {
+                      let json_data = JSON.stringify({
+                          "recordsTotal": rows,
+                          "recordsFiltered": totalFiltered,
+                          "data": data
+                      });
+                      res.send(json_data);
+                  }
+              });
+          });
+      });
+
+
+    }catch(error){
+      console.log(error)
     }
   }
 }

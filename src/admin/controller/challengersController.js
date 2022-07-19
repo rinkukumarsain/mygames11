@@ -88,7 +88,7 @@ class challengersController {
                         res.redirect(`/addpricecard/${postGlobelchallengers.data._id}`)
                     }
                     else{
-                        console.log("postGlobelchallengers.message......",postGlobelchallengers.message)
+                   
                         req.flash('success',postGlobelchallengers.message);
                         res.redirect('/add-global-contest-challengers');
                     }
@@ -122,9 +122,8 @@ class challengersController {
                     if (err) console.log(err);
                     //  for (let index of rows1){
                         rows1.forEach(async(index)=>{
-                        console.log(index.contest_cat);
                         let catIs=await contestCategoryModel.findOne({_id:index.contest_cat},{name:1,_id:0});
-                        console.log(catIs);
+                  
                         let parseCard;
                        if(index.contest_type == 'Amount'){
                         parseCard=`<a href="/addpricecard/${index._id}" class="btn btn-sm btn-info w-35px h-35px text-uppercase" data-toggle="tooltip" title="Add / Edit"><i class="fas fa-plus"></i></a>`
@@ -178,7 +177,7 @@ class challengersController {
         try {
             res.locals.message = req.flash();
             const getdata = await challengersService.priceCardChallengers(req);
-            console.log("getdata.poistionss.",getdata)
+         
             if (getdata.status == true) {
                 res.render('contest/addPriceCard',{ sessiondata: req.session.data, data:getdata.challenger_Details,contentName:getdata.contest_Name,positionss:getdata.position,priceCardData:getdata.check_PriceCard,tAmount:getdata.totalAmountForPercentage})
             }else if(getdata.status == false){
@@ -196,7 +195,7 @@ class challengersController {
         try {
             res.locals.message = req.flash();
             const getdata = await challengersService.editglobalcontest(req);
-            console.log("getDATa...........",getdata)
+      
             if (getdata.status== true) {
                 res.render('contest/editGlobelContest',{ sessiondata: req.session.data, data:getdata.challengersData,contentNames:getdata.getContest});
             }else if(getdata.status == false){
@@ -215,7 +214,6 @@ class challengersController {
             res.locals.message = req.flash();
             const editContestData=await challengersService.editGlobalContestData(req);
 
-            console.log("editContestData......./////..",editContestData);
             if(editContestData.status == true){
                 req.flash('success',editContestData.message);
                 res.redirect(`/edit-global-contest-challengers/${req.body.globelContestsId}`);
@@ -261,7 +259,7 @@ class challengersController {
         try {
             
             const postPriceData=await challengersService.addpriceCard_Post(req);
-            console.log("hb..postPriceData....",postPriceData)
+         
             if(postPriceData.status==true){
                 req.flash('success',postPriceData.message)
                 res.redirect(`/addpricecard/${req.body.globelchallengersId}`);
@@ -282,7 +280,7 @@ class challengersController {
     async addpricecardPostbyPercentage(req,res,next){
         try{
             const postPriceData=await challengersService.addpricecardPostbyPercentage(req);
-            console.log("hb..postPriceData....",postPriceData)
+         
             if(postPriceData.status==true){
                 req.flash('success',postPriceData.message)
                 res.redirect(`/addpricecard/${req.body.globelchallengersId}`);
@@ -328,7 +326,7 @@ class challengersController {
             
             if(getlunchedMatches.status == true){
                 let mkey=req.query.matchkey
-                // console.log("jnhbbbbbbbbbhh.....",getlunchedMatches.data,"nnnnn",mkey);
+            
                 res.render("contest/createCustomContest",{ sessiondata: req.session.data, listmatches:getlunchedMatches.data,matchkey:mkey,matchData:getlunchedMatches.matchData,dates:getlunchedMatches.dates});
 
             }else if(getlunchedMatches.status == false){
@@ -390,7 +388,7 @@ class challengersController {
         try{
             res.locals.message = req.flash();
             const addData=await challengersService.addCustom_contestData(req);
-            console.log("add data create Match custom.....//////00..............",addData)
+          
             if(addData.status == true){
                 if(addData.renderStatus=='Amount'){
                     req.flash('success',addData.message);
@@ -448,7 +446,7 @@ class challengersController {
     }
     async delete_customcontest(req,res,next){
         try{
-            console.log("req.query..delete///////////////////////////////////..",req.query)
+    
             const deletedata=await challengersService.delete_customcontest(req);
             if(deletedata.status==true){
                 req.flash('success',deletedata.message);
@@ -469,7 +467,7 @@ class challengersController {
     }
     async makeConfirmed(req,res,next){
         try{
-            console.log("req.query..delete/////////////////////////////////////////..",req.query)
+   
             const makeConfData=await challengersService.makeConfirmed(req);
             if(makeConfData.status==true){
                 req.flash('success',makeConfData.message);
@@ -487,7 +485,7 @@ class challengersController {
     }
     async addEditmatchpricecard(req,res,next){
         try{
-            console.log("req.query..delete//////////////////////////////////////////..",req.query)
+    
             res.locals.message = req.flash();
             const getPriceData=await challengersService.addEditmatchpricecard(req);
             // console.log(",editPriceCard..,,,,,,,,,,",getPriceData);
@@ -660,14 +658,15 @@ class challengersController {
 
         }catch(error){
             console.log(error);
-            req.flash('error','something wrong please try again letter')
+            req.flash('error','something wrong please try again letter');
+            res.redirect('/');
         }
     }
     async addExpertContestPage(req,res,next){
         try{
             res.locals.message = req.flash();
             let data=await challengersService.addExpertContestPage(req);
-            console.log("data...",data)
+      
             if(req.query.matchkey){
                 res.render("contest/addExpertContest",{
                     sessiondata: req.session.data,
@@ -711,8 +710,7 @@ class challengersController {
         try{
             res.locals.message = req.flash();
             const data=await challengersService.editExpertContest(req);
-            console.log("data..........................",data.vicecaptain);
-            console.log("data..........................",data.captain);
+          
             // console.log("data.matckeyData///////////////",data.matckeyData)
             if(data){
                 res.render("contest/editExpertContest",{

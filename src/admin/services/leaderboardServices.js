@@ -3,6 +3,7 @@ const moment=require("moment");
 const seriesModel=require("../../models/addSeriesModel");
 const adminModel=require("../../models/adminModel");
 const seriesPricecardModel=require("../../models/seriesPriceCardModel");
+const seriesLeaderBoardModel=require("../../models/seriesLeaderBoardModel");
 class leaderboardServices {
     constructor() {
         return {
