@@ -12,7 +12,7 @@ const userModel = require("../../models/userModel");
 const tempuserModel = require("../../models/tempUserModel");
 const TransactionModel = require("../../models/transactionModel");
 const NotificationModel = require("../../models/notificationModel");
-// const AdminModel = require("../../models/adminModel");
+const AdminModel = require("../../models/adminModel");
 // const WithdrawModel = require("../../models/withdrawModel");
 // const PaymentProcessModel = require("../../models/PaymentProcessModel");
 // const withdrawWebhookModel = require("../../models/withdrawWebhookModel");
@@ -51,6 +51,8 @@ class UserServices {
             userFullDetails:this.userFullDetails.bind(this),
             forgotPassword:this.forgotPassword.bind(this),
             socialAuthentication:this.socialAuthentication.bind(this),
+            getVersion:this.getVersion.bind(this),
+            matchCodeForReset:this.matchCodeForReset.bind(this),
         }
     }
     async findUser(data) {
@@ -1141,6 +1143,48 @@ class UserServices {
         } catch (error) {
           throw error;
         }
+      }
+      async getVersion(req) {
+        const superAdmin = await AdminModel.findOne({
+          role: constant.ADMIN.SUPER_ADMIN,
+        });
+        if (!superAdmin.androidversion)
+          return {
+            status: false,
+            message: "Something went wrong",
+            data: { status: "", point: "" },
+          };
+        return {
+          message: "Android Version Details...!",
+          status: true,
+          data: {
+            version: superAdmin.androidversion.version,
+            point: superAdmin.androidversion.updation_points,
+          },
+        };
+      }
+      async matchCodeForReset(req) {
+        let query = {};
+        query.code = req.body.code;
+        if (req.body.mobile) {
+          query.mobile = req.body.mobile;
+        }
+        if (req.body.email) {
+          query.email = req.body.email;
+        }
+        const hasuser = await userModel.findOne(query);
+        if (!hasuser) {
+          return {
+            message: "Invalid Otp.",
+            status: false,
+            data: {},
+          };
+        }
+        return {
+          message: "OTP Matched",
+          status: true,
+          data: { suerid: hasuser._id },
+        };
       }
 
 
