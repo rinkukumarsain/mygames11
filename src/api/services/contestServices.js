@@ -36,6 +36,7 @@ class contestServices {
      */
     async getAllContests(req) {
         try {
+
             console.log('here', req.query.matchkey);
             let finalData = [],
                 contest_arr = [],
@@ -163,6 +164,8 @@ class contestServices {
                     totalwinners: winners,
                     price_card: price_card,
                     status: 1,
+                    total_joinedcontest:0,
+                    total_teams:0
                 });
                 //     }
                 // }
