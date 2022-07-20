@@ -1418,7 +1418,7 @@ class matchServices {
                 path: 'vicecaptain',
                 select: ["player_name", "image", "role", "team"],
             });
-            // console.log("createTeams.......................................",createTeams)
+            console.log("createTeams.......................................",createTeams)
             if (createTeams.length == 0) {
                 return {
                     message: 'Teams Not Available',

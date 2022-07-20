@@ -2197,7 +2197,7 @@ class challengersService {
                 expert_teamid = realData.expert_teamid;
               }
 
-              let expert_team=await JoinTeamModel.findOne({_id:mongoose.Types.ObjectId(expert_teamid)});
+              let expert_team=await JoinTeamModel.findOne({_id:expert_teamid});
               if(expert_team){
                   realData.expert_team=expert_team
               }
