@@ -1600,7 +1600,7 @@ class contestServices {
                 matchchallengeid = findReferCode.challengeid;
             }
             
-            const matchchallenge = matchchallengesModel.findOne({ _id: mongoose.Types.ObjectId(matchchallengeid) });
+            const matchchallenge =await matchchallengesModel.findOne({ _id: mongoose.Types.ObjectId(matchchallengeid) });
             console.log("-------------------------------------matchchallenge----------------------------------------",matchchallenge)
             if (!matchchallenge) {
                 return { message: 'Invalid code', status: false, data: {} };
@@ -1612,9 +1612,9 @@ class contestServices {
             console.log("matchchallenge.multi_entry.......................",matchchallenge.multi_entry)
             let teamLimit;
             if(matchchallenge.multi_entry == 0){
-             teamLimit=1
+             teamLimit=1;
             }else{
-                teamLimit=matchchallenge.multi_entry
+                teamLimit=matchchallenge.team_limit;
             }
             console.log("------------------------------------teamLimit-------------------------",teamLimit)
             if (matchchallenge.multi_entry == 1) {
