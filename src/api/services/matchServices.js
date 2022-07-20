@@ -376,6 +376,7 @@ class matchServices {
                 series_id: { $ifNull: ['$series._id', ''] },
                 available_status: { $ifNull: [1, 1] },
                 joinedcontest: { $ifNull: ['$count', 0] },
+                playing11_status:1
             }
         });
         const JoiendMatches = await JoinLeaugeModel.aggregate(aggPipe);
