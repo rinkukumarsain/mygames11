@@ -137,6 +137,12 @@ class contestServices {
                     });
                     winners = 1;
                 }
+                let team_limits;
+                if( matchchallenge.multi_entry == 0){
+                    team_limits=1
+                }else{
+                    team_limits=matchchallenge.team_limit
+                }
                 finalData.push({
                     matchchallengeid: matchchallenge._id,
                     catid: matchchallenge.contest_cat ? matchchallenge.contestcategories[0]._id : '',
@@ -154,7 +160,7 @@ class contestServices {
                     confirmed_challenge: matchchallenge.confirmed_challenge,
                     is_running: matchchallenge.is_running,
                     is_bonus: matchchallenge.is_bonus,
-                    team_limit: matchchallenge.team_limit,
+                    team_limit: team_limits,
                     bonus_percentage: matchchallenge.bonus_percentage || 0,
                     pricecard_type: matchchallenge.pricecard_type,
                     isselected: isselected,
@@ -310,6 +316,12 @@ class contestServices {
                     });
                     winners = 1;
                 }
+                let team_limits;
+                if( matchchallenge.multi_entry == 0){
+                    team_limits=1
+                }else{
+                    team_limits=matchchallenge.team_limit
+                }
                 finalData.push({
                     matchchallengeid: matchchallenge._id,
                     catid: matchchallenge.contest_cat,
@@ -324,7 +336,7 @@ class contestServices {
                     confirmed_challenge: matchchallenge.confirmed_challenge,
                     is_running: matchchallenge.is_running,
                     is_bonus: matchchallenge.is_bonus,
-                    team_limit: matchchallenge.team_limit,
+                    team_limit: team_limits,
                     bonus_percentage: matchchallenge.bonus_percentage || 0,
                     pricecard_type: matchchallenge.pricecard_type,
                     isselected: isselected,
@@ -334,6 +346,8 @@ class contestServices {
                     totalwinners: winners,
                     price_card: price_card,
                     status: 1,
+                    total_joinedcontest:0,
+                    total_teams:0
                 });
                 //     }
                 // }
@@ -491,6 +505,7 @@ class contestServices {
      */
     async joinContest(req) {
         try {
+            console.log("...........",req.body,"........req.p",req.params,"....",req.query)
             console.log(`req.user._id`, req.user._id);
             const { matchchallengeid, jointeamid } = req.body;
             let totalchallenges = 0,
