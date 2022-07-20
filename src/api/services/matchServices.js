@@ -1500,7 +1500,7 @@ class matchServices {
                     }
                     players.push({
                         id: playerData._id,
-                        name: playerData.player_name,
+                        name: playerData_team.player_name,
                         role: filterData.role,
                         credit: `${filterData.credit}`,
                         playingstatus: filterData.playingstatus,
