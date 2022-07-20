@@ -169,6 +169,7 @@ class contestServices {
                     refercode: refercode,
                     totalwinners: winners,
                     price_card: price_card,
+                    amount_type:matchchallenge.amount_type,
                     status: 1,
                     joinedleauges:team_limits,
                     total_joinedcontest:0,
