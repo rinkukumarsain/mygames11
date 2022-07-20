@@ -1585,6 +1585,7 @@ class contestServices {
      */
     async joinContestByCode(req) {
         try {
+            console.log("--------------------------------------JOIN-CONTEST-BY-CODE-------------------------------------------------")
             const { getcode, matchkey } = req.body;
             // const tmpObj = {};
             let matchchallengeid, findReferCode;
@@ -1598,29 +1599,38 @@ class contestServices {
                 if (!findReferCode) return { message: 'Invalid code', status: false, data: {} };
                 matchchallengeid = findReferCode.challengeid;
             }
+            
             const matchchallenge = matchchallengesModel.findOne({ _id: mongoose.Types.ObjectId(matchchallengeid) });
             if (!matchchallenge) {
                 return { message: 'Invalid code', status: false, data: {} };
             }
+            console.log("...........matchchallenge..........----------->>>>>",matchchallenge)
             const joinLeagues = await JoinLeaugeModel.find({
                 userid: req.user._id,
                 challengeid: matchchallenge._id,
             }).countDocuments();
+            let teamLimit;
+            if(matchchallenge.multi_entry == 0){
+             teamLimit=1
+            }else{
+                teamLimit=matchchallenge.multi_entry
+            }
+            console.log("------------------------------------teamLimit-------------------------",teamLimit)
             if (matchchallenge.multi_entry == 1) {
                 if (joinLeagues == matchchallenge.team_limit) {
                     return { message: 'Already used', status: false, data: { multi_entry: 1 } };
                 } else if (matchchallenge.status == 'closed') {
-                    return { message: 'Challenge closed', status: false, data: { matchchallengeid: '', entryfee: '', multi_entry: 1 } };
+                    return { message: 'Challenge closed', status: false, data: { matchchallengeid: '', entryfee: '', multi_entry: 1 ,team_limit: teamLimit} };
                 } else {
-                    return { message: 'Challenge opened', status: true, data: { matchchallengeid: matchchallenge._id, entryfee: matchchallenge.entryfee, multi_entry: 1 } };
+                    return { message: 'Challenge opened', status: true, data: { matchchallengeid: matchchallenge._id, entryfee: matchchallenge.entryfee, multi_entry: 1,team_limit: teamLimit} };
                 }
             } else {
                 if (joinLeagues != 0) {
                     return { message: 'Already used', status: false, data: { multi_entry: 0 } };
                 } else if (matchchallenge.status == 'closed') {
-                    return { message: 'Challenge closed', status: false, data: { matchchallengeid: '', entryfee: '', multi_entry: 0 } };
+                    return { message: 'Challenge closed', status: false, data: { matchchallengeid: '', entryfee: '', multi_entry: 0 ,team_limit: teamLimit} };
                 } else {
-                    return { message: 'Challenge opened', status: true, data: { matchchallengeid: matchchallenge._id, entryfee: matchchallenge.entryfee, multi_entry: 0 } };
+                    return { message: 'Challenge opened', status: true, data: { matchchallengeid: matchchallenge._id, entryfee: matchchallenge.entryfee, multi_entry: 0,team_limit: teamLimit } };
                 }
             }
         } catch (error) {

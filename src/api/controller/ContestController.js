@@ -142,7 +142,8 @@ class contestController {
 
     async joinContestByCode(req, res, next) {
         try {
-            // console.log(`here`, req.user._id);
+            console.log(`here`, req.user._id);
+            console.log("-----------------------------joinContestByCode-------------------")
             const data = await contestservices.joinContestByCode(req);
             return res.status(200).json(Object.assign({ success: data.status }, data));
         } catch (error) {
