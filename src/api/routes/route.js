@@ -162,7 +162,7 @@ router.get('/getoffers', auth, userController.getOffers);
  *  @description Starts the Match controller route
  */
 
-// Get All Activated Series
+// Get All Activated Seriesget
 router.get('/getallseries', auth, MatchController.getAllSeries);
 
 // Get All Upcoming Mathes

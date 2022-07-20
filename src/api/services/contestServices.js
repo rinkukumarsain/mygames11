@@ -170,6 +170,7 @@ class contestServices {
                     totalwinners: winners,
                     price_card: price_card,
                     status: 1,
+                    joinedleauges:team_limits,
                     total_joinedcontest:0,
                     total_teams:0
                 });
@@ -346,6 +347,7 @@ class contestServices {
                     totalwinners: winners,
                     price_card: price_card,
                     status: 1,
+                    joinedleauges:team_limits,
                     total_joinedcontest:0,
                     total_teams:0
                 });
