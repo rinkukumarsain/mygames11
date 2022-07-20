@@ -11,6 +11,7 @@ const listMatchesModel = require('../../models/listMatchesModel');
 const SeriesModel = require('../../models/addSeriesModel');
 const matchPlayersModel = require('../../models/matchPlayersModel');
 const JoinLeaugeModel = require('../../models/JoinLeaugeModel');
+const playerModel=require("../../models/playerModel");
 const JoinTeamModel = require('../../models/JoinTeamModel');
 const matchrunModel = require('../../models/matchRunModel');
 const EntityApiController = require('../../admin/controller/cricketApiController');
@@ -381,7 +382,7 @@ class matchServices {
             }
         });
         const JoiendMatches = await JoinLeaugeModel.aggregate(aggPipe);
-        console.log('JoiendMatches -->', JoiendMatches)
+        // console.log('JoiendMatches -->', JoiendMatches)
         return JoiendMatches;
     }
 
@@ -1393,6 +1394,7 @@ class matchServices {
      */
     async getMyTeams(req) {
         try {
+            // console.log("........................................getMyTeams....................................................",req.query.matchkey)
             let finalData = [];
             const listmatchData = await listMatchesModel.findOne({ _id: req.query.matchkey }).populate({
                 path: 'team1Id',
@@ -1401,11 +1403,12 @@ class matchServices {
                 path: 'team2Id',
                 select: 'short_name'
             });
-            // console.log(listmatchData, '-----------------------')
+            console.log(req.user._id, '--------listmatchData------------------',listmatchData)
             const createTeams = await JoinTeamModel.find({
                 matchkey: req.query.matchkey,
                 userid: req.user._id,
-            }).populate({
+            })
+            .populate({
                 path: 'players',
                 select: ["player_name", "image", "role", "team"],
             }).populate({
@@ -1415,6 +1418,7 @@ class matchServices {
                 path: 'vicecaptain',
                 select: ["player_name", "image", "role", "team"],
             });
+            // console.log("createTeams.......................................",createTeams)
             if (createTeams.length == 0) {
                 return {
                     message: 'Teams Not Available',
@@ -1424,6 +1428,7 @@ class matchServices {
             }
             const matchchallenges = await matchchallengesModel.find({ matchkey: mongoose.Types.ObjectId(req.query.matchkey) });
             let i = 0;
+            // console.log("createTeams....................------>>>..................",createTeams)
             for (let element of createTeams) {
                 i++
                 const tempObj = {
@@ -1468,8 +1473,10 @@ class matchServices {
                     wicketKeeperCount = 0,
                     allCount = 0;
                 const players = [];
+                console.log("element.players...................................---------->>.......",element.players)
                 for await (const playerData of element.players) {
-                    const filterData = await matchPlayersModel.findOne({ playerid: playerData._id });
+                    const filterData = await matchPlayersModel.findOne({ _id: playerData._id });
+                    console.log("filterData.....---------->>..........",filterData)
                     if (!playerData) break;
                     if (filterData.role == constant.ROLE.BAT) {
                         batsCount++;
@@ -1483,10 +1490,12 @@ class matchServices {
                     if (filterData.role == constant.ROLE.WK) {
                         wicketKeeperCount++;
                     }
-                    if (listmatchData.team1Id._id.toString() == playerData.team.toString()) {
+                    const playerData_team=await playerModel.findOne({_id:filterData.playerid});
+                    console.log("playerData_team/.......................",playerData_team)
+                    if (listmatchData.team1Id._id.toString() == playerData_team.team.toString()) {
                         team1count++;
                     }
-                    if (listmatchData.team2Id._id.toString() == playerData.team.toString()) {
+                    if (listmatchData.team2Id._id.toString() == playerData_team.team.toString()) {
                         team2count++;
                     }
                     players.push({
@@ -1496,7 +1505,7 @@ class matchServices {
                         credit: `${filterData.credit}`,
                         playingstatus: filterData.playingstatus,
                         // team: team.short_name,
-                        team: listmatchData.team1Id._id.toString() == playerData.team.toString() ? 'team1' : 'team2',
+                        team: listmatchData.team1Id._id.toString() == playerData_team.team.toString() ? 'team1' : 'team2',
                         image: playerData.image != '' &&
                             playerData.image != null &&
                             playerData.image != undefined ? playerData.image : `${constant.BASE_URL}avtar1.png`,

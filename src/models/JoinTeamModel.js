@@ -16,18 +16,18 @@ let JoinTeamSchema = new Schema({
     },
     players: {
         type: Array,
-        ref: 'player'
+        ref: 'matchplayer'
     },
     // playersArray: {
     //     type: String
     // },
     captain: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'player'
+        ref: 'matchplayer'
     },
     vicecaptain: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'player'
+        ref: 'matchplayer'
     },
     points: {
         type: Number,
