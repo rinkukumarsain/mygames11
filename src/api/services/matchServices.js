@@ -1403,7 +1403,7 @@ class matchServices {
                 path: 'team2Id',
                 select: 'short_name'
             });
-            console.log(req.user._id, '--------listmatchData------------------',listmatchData)
+            // console.log(req.user._id, '--------listmatchData------------------',listmatchData)
             const createTeams = await JoinTeamModel.find({
                 matchkey: req.query.matchkey,
                 userid: req.user._id,
@@ -1413,10 +1413,10 @@ class matchServices {
                 select: ["player_name", "image", "role", "team"],
             }).populate({
                 path: 'captain',
-                select: ["player_name", "image", "role", "team"],
+                select: ["player_name", "image", "role", "team","playerid"],
             }).populate({
                 path: 'vicecaptain',
-                select: ["player_name", "image", "role", "team"],
+                select: ["player_name", "image", "role", "team","playerid"],
             });
             console.log("createTeams.......................................",createTeams)
             if (createTeams.length == 0) {
@@ -1428,7 +1428,7 @@ class matchServices {
             }
             const matchchallenges = await matchchallengesModel.find({ matchkey: mongoose.Types.ObjectId(req.query.matchkey) });
             let i = 0;
-            // console.log("createTeams....................------>>>..................",createTeams)
+            // console.log("matchchallenges....................------>>>..................",matchchallenges)
             for (let element of createTeams) {
                 i++
                 const tempObj = {
@@ -1453,9 +1453,11 @@ class matchServices {
                     vicecaptainimage1: '',
                     isSelected: false,
                 };
-
+console.log("-------------------------  req.query.matchchallengeid  --------------------",req.query.matchchallengeid)
                 if (matchchallenges.length != 0 && req.query.matchchallengeid) {
                     for await (const challenges of matchchallenges) {
+                        console.log("challenges...................",challenges)
+                        console.log("challenges._id......................",challenges._id,".....req.query.matchchallengeid..................",req.query.matchchallengeid)
                         if (challenges._id.toString() == req.query.matchchallengeid.toString()) {
                             const joindata = await JoinLeaugeModel.findOne({
                                 challengeid: req.query.matchchallengeid,
@@ -1473,10 +1475,15 @@ class matchServices {
                     wicketKeeperCount = 0,
                     allCount = 0;
                 const players = [];
-                console.log("element.players...................................---------->>.......",element.players)
+                // console.log("element.players...................................---------->>.......",element.players)
+                const captainData=await playerModel.findOne({_id:element.captain.playerid});
+                let captinName=captainData.player_name
+                const vicecaptainData=await playerModel.findOne({_id:element.vicecaptain.playerid});
+                let viceCaptainName=vicecaptainData.player_name;
+
                 for await (const playerData of element.players) {
                     const filterData = await matchPlayersModel.findOne({ _id: playerData._id });
-                    console.log("filterData.....---------->>..........",filterData)
+                    // console.log("filterData.....---------->>..........",filterData)
                     if (!playerData) break;
                     if (filterData.role == constant.ROLE.BAT) {
                         batsCount++;
@@ -1491,13 +1498,14 @@ class matchServices {
                         wicketKeeperCount++;
                     }
                     const playerData_team=await playerModel.findOne({_id:filterData.playerid});
-                    console.log("playerData_team/.......................",playerData_team)
+                    // console.log("playerData_team/.......................",playerData_team)
                     if (listmatchData.team1Id._id.toString() == playerData_team.team.toString()) {
                         team1count++;
                     }
                     if (listmatchData.team2Id._id.toString() == playerData_team.team.toString()) {
                         team2count++;
                     }
+                    
                     players.push({
                         id: playerData._id,
                         name: playerData_team.player_name,
@@ -1517,6 +1525,8 @@ class matchServices {
                             parseFloat(filterData.points.toFixed(2)) * 1.5 : filterData.points}`,
                     });
                 }
+                tempObj['viceCaptain_name']=viceCaptainName;
+                tempObj["captin_name"]=captinName;
                 tempObj['team1count'] = team1count;
                 tempObj['team2count'] = team2count;
                 tempObj['batsmancount'] = batsCount;
