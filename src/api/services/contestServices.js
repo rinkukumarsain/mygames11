@@ -1601,10 +1601,10 @@ class contestServices {
             }
             
             const matchchallenge = matchchallengesModel.findOne({ _id: mongoose.Types.ObjectId(matchchallengeid) });
+            console.log("-------------------------------------matchchallenge----------------------------------------",matchchallenge)
             if (!matchchallenge) {
                 return { message: 'Invalid code', status: false, data: {} };
             }
-            console.log("...........matchchallenge..........----------->>>>>",matchchallenge)
             const joinLeagues = await JoinLeaugeModel.find({
                 userid: req.user._id,
                 challengeid: matchchallenge._id,
