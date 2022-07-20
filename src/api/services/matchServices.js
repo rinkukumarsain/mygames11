@@ -334,6 +334,7 @@ class matchServices {
             $project: {
                 _id: 0,
                 matchkey: 1,
+                playing11_status: { $ifNull:['$match.playing11_status', 1] },
                 matchname: { $ifNull: ['$match.name', ''] },
                 team1ShortName: { $ifNull: ['$team1.short_name', ''] },
                 team2ShortName: { $ifNull: ['$team2.short_name', ''] },
@@ -374,12 +375,13 @@ class matchServices {
                 series_name: { $ifNull: ['$series.name', ''] },
                 type: { $ifNull: ['$match.fantasy_type', 'Cricket'] },
                 series_id: { $ifNull: ['$series._id', ''] },
+                
                 available_status: { $ifNull: [1, 1] },
                 joinedcontest: { $ifNull: ['$count', 0] },
-                playing11_status:1
             }
         });
         const JoiendMatches = await JoinLeaugeModel.aggregate(aggPipe);
+        console.log('JoiendMatches -->', JoiendMatches)
         return JoiendMatches;
     }
 
