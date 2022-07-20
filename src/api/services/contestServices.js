@@ -487,7 +487,6 @@ class contestServices {
                     bonus_date: '',
                     isselectedid: '',
                     refercode: refercode,
-                   
                     totalwinners: winners,
                     price_card: price_card,
                     status: 1,
@@ -1610,6 +1609,7 @@ class contestServices {
                 userid: req.user._id,
                 challengeid: matchchallenge._id,
             }).countDocuments();
+            console.log("matchchallenge.multi_entry.......................",matchchallenge.multi_entry)
             let teamLimit;
             if(matchchallenge.multi_entry == 0){
              teamLimit=1
