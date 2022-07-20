@@ -1580,7 +1580,7 @@ console.log("-------------------------  req.query.matchchallengeid  ------------
                 }
             }
             for await (const playerData of createTeam.players) {
-                const filterData = await matchPlayersModel.findOne({ playerid: playerData._id, matchkey: mongoose.Types.ObjectId(req.query.matchkey) });
+                const filterData = await matchPlayersModel.findOne({ _id: playerData._id, matchkey: mongoose.Types.ObjectId(req.query.matchkey) });
                 if (!playerData) break;
                 finalData.push({
                     id: playerData._id,
@@ -1588,7 +1588,7 @@ console.log("-------------------------  req.query.matchchallengeid  ------------
                     role: filterData.role,
                     credit: filterData.credit,
                     playingstatus: filterData.playingstatus,
-                    team: listmatchData.team1Id.toString() == playerData.team.toString() ? 'team1' : 'team2',
+                    team: listmatchData.team1Id.toString() == playerData._id.toString() ? 'team1' : 'team2',
                     image: playerData.image != '' &&
                         playerData.image != null &&
                         playerData.image != undefined ? playerData.image : `${constant.BASE_URL}avtar1.png`,

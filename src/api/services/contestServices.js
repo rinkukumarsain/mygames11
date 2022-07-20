@@ -1448,17 +1448,31 @@ class contestServices {
     async switchTeams(req) {
         try {
             const { matchkey, switchteam } = req.body;
+            console.log("switchteam------------------------------",switchteam)
             const match = listMatchesModel.findOne({ _id: mongoose.Types.ObjectId(matchkey) });
+            // console.log("match------------------",match)
             if (!match) return { message: 'Match Not Found', status: false, data: {} };
             const matchTime = await matchServices.getMatchTime(match.start_date);
+            console.log("matchTime----------------------------",matchTime)
             if (matchTime === false) return { message: 'Match has been closed.', status: false, data: {} };
-            if (switchteam.length == 0) return { message: 'Team Not exist ', status: false, data: {} };
-            let i = 0;
-            for (let changeTeam of switchteam) {
-                await JoinLeaugeModel.findOneAndUpdate({ _id: mongoose.Types.ObjectId(changeTeam.joinleaugeid) }, { teamid: mongoose.Types.ObjectId(changeTeam.newjointeamid) }, { new: true });
-                i++;
-                if (switchteam.length == i) return { message: 'Team Updated ', status: true, data: {} };
-            }
+            let newData=JSON.parse(switchteam)
+            console.log("switchteam--------------------------------",newData)
+            for(let key of newData){
+                console.log("key.joinleaugeid-------------------------",key.joinleaugeid)
+                console.log("key.newjointeamid-----------------------",key.newjointeamid)
+            let updateData=await JoinLeaugeModel.findOneAndUpdate({ _id: mongoose.Types.ObjectId(key.joinleaugeid) }, { teamid: mongoose.Types.ObjectId(key.newjointeamid) }, { new: true });  
+        }
+        return { message: 'Team Updated ', status: true, data: {} }
+           
+            // let i = 0;
+            // for (let changeTeam of switchteam) {
+            //     console.log("--------------------------changeTeam------------------",changeTeam)
+            //     console.log("------------------------------changeTeam.newjointeamid-----------",changeTeam.newjointeamid)
+            //     console.log("--------------------------changeTeam.joinleaugeid---------------",changeTeam.joinleaugeid)
+            //     await JoinLeaugeModel.findOneAndUpdate({ _id: mongoose.Types.ObjectId(changeTeam.joinleaugeid) }, { teamid: mongoose.Types.ObjectId(changeTeam.newjointeamid) }, { new: true });
+            //     i++;
+            //     if (switchteam.length == i) return { message: 'Team Updated ', status: true, data: {} };
+            // }
         } catch (error) {
             throw error;
         }
