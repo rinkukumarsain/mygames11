@@ -346,6 +346,8 @@ class contestServices {
                     totalwinners: winners,
                     price_card: price_card,
                     status: 1,
+                    total_joinedcontest:0,
+                    total_teams:0
                 });
                 //     }
                 // }
@@ -503,6 +505,7 @@ class contestServices {
      */
     async joinContest(req) {
         try {
+            console.log("...........",req.body,"........req.p",req.params,"....",req.query)
             console.log(`req.user._id`, req.user._id);
             const { matchchallengeid, jointeamid } = req.body;
             let totalchallenges = 0,
