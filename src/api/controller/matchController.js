@@ -26,6 +26,7 @@ class matchController {
             const upcomingMatches = await matchServices.getMatchList(req);
             // console.log(`upcomingMatches`, upcomingMatches);
             const joinedMatches = await matchServices.latestJoinedMatches(req);
+            console.log("joinedMatches_-----------------",joinedMatches)
 
             let final = {
                 message: 'all match data',
