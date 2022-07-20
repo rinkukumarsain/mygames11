@@ -461,6 +461,7 @@ class contestServices {
                     price: matchchallengesData[0].win_amount,
                     total: matchchallengesData[0].win_amount,
                     start_position: 1,
+                    amount_type:matchchallengesData[0].amount_type,
                 });
                 winners = 1;
             }
@@ -486,7 +487,7 @@ class contestServices {
                     bonus_date: '',
                     isselectedid: '',
                     refercode: refercode,
-                    amount_type:matchchallengesData[0].amount_type,
+                   
                     totalwinners: winners,
                     price_card: price_card,
                     status: 1,
