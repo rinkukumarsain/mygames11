@@ -393,6 +393,7 @@ class matchServices {
      * @author Devanshu Gautam
      */
     async Newjoinedmatches(req) {
+        console.log("req---------------",req.body,"---------params--",req.params,"----query----",req.query,"---req---",req.user._id)
         const aggPipe = [];
         aggPipe.push({
             $match: {
@@ -543,6 +544,7 @@ class matchServices {
                 team2ShortName: { $ifNull: ['$team2.short_name', ''] },
                 team1color: { $ifNull: ['$team1.color', constant.TEAM_DEFAULT_COLOR.DEF1] },
                 team2color: { $ifNull: ['$team2.color', constant.TEAM_DEFAULT_COLOR.DEF1] },
+                start_date:"$match.start_date",
                 team1logo: {
                     $ifNull: [{
                         $cond: {
@@ -583,6 +585,11 @@ class matchServices {
                 playing11_status:{ $ifNull: ['$playing11_status', 1] }
             }
         });
+        aggPipe.push({
+            $match:{
+                start_date:{ $lt: moment().format('YYYY-MM-DD HH:mm:ss')},
+              }
+        })
         const JoiendMatches = await JoinLeaugeModel.aggregate(aggPipe);
         if (JoiendMatches.length > 0) {
             return {
