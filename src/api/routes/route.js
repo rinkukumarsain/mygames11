@@ -188,8 +188,11 @@ router.get('/getMyTeams', auth, MatchController.getMyTeams);
 // User team according their TeamId
 router.get('/viewteam', auth, MatchController.viewTeam);
 
-// User Joiend latest 5 Upcoming and live match
+// User Joiend latest 5 Upcoming
 router.get('/newjoinedmatches', auth, MatchController.Newjoinedmatches);
+
+// User Joiend latest 5 live match 
+router.get('/livematches', auth, MatchController.NewjoinedmatchesLive);
 
 // User Joiend all completed matches
 router.get('/all-completed-matches', auth, MatchController.AllCompletedMatches);

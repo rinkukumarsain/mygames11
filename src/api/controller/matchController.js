@@ -17,7 +17,8 @@ class matchController {
             getLiveScores: this.getLiveScores.bind(this),
             liveRanksLeaderboard: this.liveRanksLeaderboard.bind(this),
             fantasyScoreCards: this.fantasyScoreCards.bind(this),
-            matchlivedata: this.matchlivedata.bind(this)
+            matchlivedata: this.matchlivedata.bind(this),
+            NewjoinedmatchesLive:this.NewjoinedmatchesLive.bind(this),
         }
     }
 
@@ -186,6 +187,15 @@ class matchController {
             const data = await matchServices.matchlivedata(req);
             return res.status(200).json(Object.assign({ success: true }, data));
         } catch (error) {
+            next(error);
+        }
+    }
+    async NewjoinedmatchesLive(req,res,next){
+        try{
+            const data = await matchServices.NewjoinedmatchesLive(req);
+            return res.status(200).json(Object.assign({ success: true }, data));
+
+        }catch(error){
             next(error);
         }
     }
