@@ -2198,6 +2198,7 @@ class challengersService {
               }
 
               let expert_team=await JoinTeamModel.findOne({_id:expert_teamid});
+              console.log("expert_team----------------------",expert_team);
               if(expert_team){
                   realData.expert_team=expert_team
               }
@@ -2300,7 +2301,7 @@ class challengersService {
                     }
                     criteria += getRole.credit
                 }
-                
+                console.log("")
             // let realData=await exportsContestModel.findOne({_id:mongoose.Types.ObjectId(req.params.id),matchkey:mongoose.Types.ObjectId(req.query.matchkey)});
             const getContest = await contestCategoryModel.find({}, { name: 1 });
                     

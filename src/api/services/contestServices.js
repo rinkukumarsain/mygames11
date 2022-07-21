@@ -160,7 +160,7 @@ class contestServices {
                         $count:"total_count"
                     }
                 ])
-                console.log("------total_joinedcontestData--------------------------------------",total_joinedcontestData[0].total_count);
+                console.log("------total_joinedcontestData--------------------------------------",total_joinedcontestData[0]?.total_count);
                 console.log("------total_teams---------------------------------------------------",total_teams)
                 finalData.push({
                     matchchallengeid: matchchallenge._id,
