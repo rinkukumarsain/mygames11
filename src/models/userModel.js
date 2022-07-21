@@ -322,6 +322,10 @@ let userSchema = new Schema({
     totalrefercount: {
         type: Number
     },
+    percentage:{
+        type:Number,
+        default:0
+    },
     totalchallenges: {
         type: Number,
         default: 0

@@ -484,6 +484,22 @@ class contestServices {
                 });
                 winners = 1;
             }
+            // const total_teams=await JoinTeamModel.countDocuments({  matchkey: req.query.matchkey,userid: req.user._id,});
+            // const total_joinedcontestData=await JoinLeaugeModel.aggregate([
+            //     {
+            //         $match:{
+            //             userid:mongoose.Types.ObjectId(req.user._id),
+            //             matchkey:mongoose.Types.ObjectId(req.query.matchkey)
+            //           }
+            //     },
+            //     {
+            //         $group:{
+            //             _id: "$challengeid",
+            //         }
+            //     },{
+            //         $count:"total_count"
+            //     }
+            // ])
             finalData = {
                     matchchallengeid: matchchallengesData[0]._id,
                     winning_percentage: matchchallengesData[0].winning_percentage,

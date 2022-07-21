@@ -250,7 +250,12 @@ router.post('/create-private-contest', auth, ContestController.createPrivateCont
 // Contest Join By contestCode
 router.post('/joinContestByCode', auth, ContestController.joinContestByCode);
 
+// get youtuber profit
+router.get('/getutubetprofit',auth,userController.getYoutuberProfit);
+
+
 router.get('/test', CronJob.updatePlayerSelected);
+
 
 
 
