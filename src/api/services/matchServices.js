@@ -37,7 +37,8 @@ class matchServices {
             getLiveScores: this.getLiveScores.bind(this),
             liveRanksLeaderboard: this.liveRanksLeaderboard.bind(this),
             fantasyScoreCards: this.fantasyScoreCards.bind(this),
-            matchlivedata: this.matchlivedata.bind(this)
+            matchlivedata: this.matchlivedata.bind(this),
+            NewjoinedmatchesLive:this.NewjoinedmatchesLive.bind(this),
         }
     }
 
@@ -2300,6 +2301,220 @@ console.log("-------------------------  req.query.matchchallengeid  ------------
             }
         } catch (error) {
             throw error;
+        }
+    }
+    async NewjoinedmatchesLive(req) {
+        console.log("req---------------",req.body,"---------params--",req.params,"----query----",req.query,"---req---",req.user._id)
+        const aggPipe = [];
+        aggPipe.push({
+            $match: {
+                userid: mongoose.Types.ObjectId(req.user._id),
+            },
+        });
+        aggPipe.push({
+            $group: {
+                _id: '$matchkey',
+                matchkey: { $first: '$matchkey' },
+                joinedleaugeId: { $first: '$_id' },
+                userid: { $first: '$userid' },
+                matchchallengeid: { $first: '$challengeid' },
+                jointeamid: { $first: '$teamid' },
+            },
+        });
+        aggPipe.push({
+            $lookup: {
+                from: 'listmatches',
+                localField: 'matchkey',
+                foreignField: '_id',
+                as: 'match',
+            },
+        });
+        aggPipe.push({
+            $unwind: {
+                path: '$match',
+            },
+        });
+        aggPipe.push({
+            $match: {
+                $or: [{ 'match.final_status': 'pending' }, { 'match.final_status': 'IsReviewed' }],
+            },
+        });
+        // aggPipe.push({
+        //     $sort: {
+        //         'match.start_date': -1,
+        //     },
+        // });
+        aggPipe.push({
+            $limit: 5,
+        });
+        aggPipe.push({
+            $lookup: {
+                from: 'joinedleauges',
+                let: { matchkey: '$matchkey', userid: '$userid' },
+                pipeline: [{
+                    $match: {
+                        $expr: {
+                            $and: [{
+                                    $eq: ['$matchkey', '$$matchkey'],
+                                },
+                                {
+                                    $eq: ['$userid', '$$userid'],
+                                },
+                            ],
+                        },
+                    },
+                }, ],
+                as: 'joinedleauges',
+            },
+        });
+        aggPipe.push({
+            $unwind: {
+                path: '$joinedleauges',
+            },
+        });
+        aggPipe.push({
+            $group: {
+                _id: '$joinedleauges.challengeid',
+                // matchchallengeid: { $first: '$joinedleauges.challengeid' },
+                joinedleaugeId: { $first: '$joinedleauges._id' },
+                matchkey: { $first: '$matchkey' },
+                jointeamid: { $first: '$jointeamid' },
+                userid: { $first: '$userid' },
+                match: { $first: '$match' },
+            },
+        });
+        // aggPipe.push({
+        //     $lookup: {
+        //         from: 'matchchallenges',
+        //         localField: '_id',
+        //         foreignField: '_id',
+        //         as: 'matchchallenge',
+        //     },
+        // });
+        // aggPipe.push({
+        //     $unwind: {
+        //         path: '$matchchallenge',
+        //         preserveNullAndEmptyArrays: true,
+        //     },
+        // });
+        aggPipe.push({
+            $group: {
+                _id: '$matchkey',
+                joinedleaugeId: { $first: '$joinedleaugeId' },
+                matchkey: { $first: '$matchkey' },
+                jointeamid: { $first: '$jointeamid' },
+                match: { $first: '$match' },
+                count: { $sum: 1 },
+            },
+        });
+        aggPipe.push({
+            $lookup: {
+                from: 'series',
+                localField: 'match.series',
+                foreignField: '_id',
+                as: 'series',
+            },
+        });
+        aggPipe.push({
+            $lookup: {
+                from: 'teams',
+                localField: 'match.team1Id',
+                foreignField: '_id',
+                as: 'team1',
+            },
+        });
+        aggPipe.push({
+            $lookup: {
+                from: 'teams',
+                localField: 'match.team2Id',
+                foreignField: '_id',
+                as: 'team2',
+            },
+        });
+        aggPipe.push({
+            $unwind: {
+                path: '$series',
+            },
+        });
+        aggPipe.push({
+            $unwind: {
+                path: '$team1',
+            },
+        });
+        aggPipe.push({
+            $unwind: {
+                path: '$team2',
+            },
+        });
+        aggPipe.push({
+            $project: {
+                _id: 0,
+                matchkey: 1,
+                matchname: { $ifNull: ['$match.name', ''] },
+                team1ShortName: { $ifNull: ['$team1.short_name', ''] },
+                team2ShortName: { $ifNull: ['$team2.short_name', ''] },
+                team1color: { $ifNull: ['$team1.color', constant.TEAM_DEFAULT_COLOR.DEF1] },
+                team2color: { $ifNull: ['$team2.color', constant.TEAM_DEFAULT_COLOR.DEF1] },
+                start_date:"$match.start_date",
+                team1logo: {
+                    $ifNull: [{
+                        $cond: {
+                            if: { $or: [{ $eq: [{ $substr: ['$team1.logo', 0, 1] }, '/'] }, { $eq: [{ $substr: ['$team1.logo', 0, 1] }, 't'] }] },
+                            then: { $concat: [`${constant.BASE_URL}`, '', '$team1.logo'] },
+                            else: '$team1.logo',
+                        }
+                    }, `${constant.BASE_URL}team_image.png`]
+                },
+                team2logo: {
+                    $ifNull: [{
+                        $cond: {
+                            if: { $or: [{ $eq: [{ $substr: ['$team2.logo', 0, 1] }, '/'] }, { $eq: [{ $substr: ['$team2.logo', 0, 1] }, 't'] }] },
+                            then: { $concat: [`${constant.BASE_URL}`, '', '$team2.logo'] },
+                            else: '$team2.logo',
+                        }
+                    }, `${constant.BASE_URL}team_image.png`]
+                },
+                start_date: { $ifNull: ['$match.start_date', '0000-00-00 00:00:00'] },
+                status: {
+                    $ifNull: [{
+                            $cond: {
+                                if: { $lt: ['$match.start_date', moment().format('YYYY-MM-DD HH:mm:ss')] },
+                                then: 'closed',
+                                else: 'opened',
+                            },
+                        },
+                        'opened',
+                    ],
+                },
+                launch_status: { $ifNull: ['$match.launch_status', ''] },
+                final_status: { $ifNull: ['$match.final_status', ''] },
+                series_name: { $ifNull: ['$series.name', ''] },
+                type: { $ifNull: ['$match.fantasy_type', 'Cricket'] },
+                series_id: { $ifNull: ['$series._id', ''] },
+                available_status: { $ifNull: [1, 1] },
+                joinedcontest: { $ifNull: ['$count', 0] },
+                playing11_status:{ $ifNull: ['$playing11_status', 1] }
+            }
+        });
+        console.log("------------------moment().format('YYYY-MM-DD HH:mm:ss')----------------------------------",moment().format('YYYY-MM-DD HH:mm:ss'))
+        aggPipe.push({
+            $match:{
+                start_date:{ $lt: moment().format('YYYY-MM-DD HH:mm:ss')},
+              }
+        })
+        const JoiendMatches = await JoinLeaugeModel.aggregate(aggPipe);
+        if (JoiendMatches.length > 0) {
+            return {
+                message: 'User Joiend latest 5 Upcoming and live match data..',
+                status: true,
+                data: JoiendMatches
+            };
+        } else {
+            return {
+                message: 'No Data Found..',
+                status: false,
+                data: []
+            };
         }
     }
 }
