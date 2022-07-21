@@ -143,6 +143,25 @@ class contestServices {
                 }else{
                     team_limits=matchchallenge.team_limit
                 }
+
+                const total_teams=await JoinTeamModel.countDocuments({  matchkey: req.query.matchkey,userid: req.user._id,});
+                const total_joinedcontestData=await JoinLeaugeModel.aggregate([
+                    {
+                        $match:{
+                            userid:mongoose.Types.ObjectId(req.user._id),
+                            matchkey:mongoose.Types.ObjectId(req.query.matchkey)
+                          }
+                    },
+                    {
+                        $group:{
+                            _id: "$challengeid",
+                        }
+                    },{
+                        $count:"total_count"
+                    }
+                ])
+                console.log("------total_joinedcontestData--------------------------------------",total_joinedcontestData[0].total_count);
+                console.log("------total_teams---------------------------------------------------",total_teams)
                 finalData.push({
                     matchchallengeid: matchchallenge._id,
                     catid: matchchallenge.contest_cat ? matchchallenge.contestcategories[0]._id : '',
@@ -171,8 +190,8 @@ class contestServices {
                     price_card: price_card,
                     status: 1,
                     joinedleauges:team_limits,
-                    total_joinedcontest:0,
-                    total_teams:0
+                    total_joinedcontest:total_joinedcontestData[0]?.total_count || 0,
+                    total_teams:total_teams || 0
                 });
                 //     }
                 // }
