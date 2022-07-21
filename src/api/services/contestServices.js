@@ -996,6 +996,7 @@ class contestServices {
      */
     async myJoinedContests(req) {
         try {
+            console.log("--req.user._id-",req.user._id)
             const { matchkey } = req.query;
             const aggPipe = [];
             aggPipe.push({
@@ -1033,6 +1034,7 @@ class contestServices {
                 $project: {
                     _id: 0,
                     matchchallengeid: "$_id",
+                    amount_type:{ $arrayElemAt: [{ $ifNull: ['$matchchallenge.amount_type', 0] }, 0] },
                     jointeamid: 1,
                     joinedleaugeId: 1,
                     userid: 1,
@@ -1150,6 +1152,7 @@ class contestServices {
 
             aggPipe.push({
                 $project: {
+                    // amount_type:"$amount_type",
                     jointeamid: 1,
                     matchchallengeid: 1,
                     userid: 1,
@@ -1184,9 +1187,11 @@ class contestServices {
                     totaljointeams: '$jointeamids.jointeam',
                     refercode: { $ifNull: [{ $arrayElemAt: ['$jointeamids.refercode', 0] }, 0] },
                     finalresultsAmount: { $ifNull: [{ $arrayElemAt: ['$finalresults.amount', 0] }, 0] },
+                    amount_type:{ $ifNull: ['$amount_type', ''] },
                 },
             });
             const JoinContestData = await JoinLeaugeModel.aggregate(aggPipe);
+            // console.log("----------------------------JoinContestData--------------------------------------",JoinContestData)
             let i = 0;
             const finalData = [];
             if (JoinContestData.length == 0) return { message: 'Data Not Found', status: true, data: [] };
@@ -1258,6 +1263,7 @@ class contestServices {
                             winners: pricecard.winners,
                             start_position: Number(pricecard.min_position) + 1 != Number(pricecard.max_position) ?
                                 `${Number(pricecard.min_position) + 1}-${pricecard.max_position}` : `${pricecard.max_position}`,
+                            amount_type:`${challanges.amount_type}`
                         };
                         if (pricecard.type == 'Percentage')
                             priceCard['price_percent'] = `${pricecard.price_percent} %`;
@@ -1269,8 +1275,9 @@ class contestServices {
                         }
                     }
                 } else {
+                    // console.log("challanges------------------------------------------",challanges)
                     tmpObj['totalwinners'] = 1;
-                    tmpObj['price_card'] = [{ start_position: 1, price: `${challanges.win_amount}` }];
+                    tmpObj['price_card'] = [{ start_position: 1, price: `${challanges.win_amount}`,amount_type:`${challanges.amount_type}` }];
                     tmpObj['pricecardstatus'] = 0;
                 }
                 //------------------------------------------Hide Is selected value alway send true-------------------//
