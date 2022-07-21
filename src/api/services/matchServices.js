@@ -1582,9 +1582,11 @@ console.log("-------------------------  req.query.matchchallengeid  ------------
             for await (const playerData of createTeam.players) {
                 const filterData = await matchPlayersModel.findOne({ _id: playerData._id, matchkey: mongoose.Types.ObjectId(req.query.matchkey) });
                 if (!playerData) break;
+
+                let playerName=await playerModel.findOne({_id:filterData.playerid});
                 finalData.push({
                     id: playerData._id,
-                    name: playerData.player_name,
+                    name: playerName.player_name,
                     role: filterData.role,
                     credit: filterData.credit,
                     playingstatus: filterData.playingstatus,
