@@ -528,6 +528,7 @@ class UserServices {
      */
     async logoutUser(req) {
         const user = await userModel.findOne({ _id: req.user._id });
+        console.log("----------------user-----------",user)
         if (!user) {
             return {
                 message: "user not found ...!",
@@ -535,11 +536,12 @@ class UserServices {
                 data: {},
             };
         }
-        await userModel.updateOne(
+        let updfatuser= await userModel.updateOne(
             { _id: user._id },
             { app_key: "" },
             { new: true }
         );
+        console.log("----------------------------------updfatuser----------",updfatuser)
         return {
             message: "Logout successfully..",
             status: true,
