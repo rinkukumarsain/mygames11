@@ -19,6 +19,8 @@ const withdrawWebhookModel = require("../../models/withdrawWebhookModel");
 const OfferModel = require("../../models/offerModel");
 const usedOfferModel = require("../../models/usedOfferModel");
 const ticketOrderModel = require("../../models/ticketOrderModel");
+const JoinLeaugeModel=require("../../models/JoinLeaugeModel");
+const matchChallengersModel=require("../../models/matchChallengersModel");
 
 const constant = require("../../config/const_credential");
 const NOTIFICATION_TEXT = require("../../config/notification_text");
@@ -78,6 +80,7 @@ class UserServices {
       getOffers: this.getOffers.bind(this),
       givebonusToUser: this.givebonusToUser.bind(this),
       cashfreePayoutWebhook: this.cashfreePayoutWebhook.bind(this),
+      getYoutuberProfit:this.getYoutuberProfit.bind(this),
 
         }
     }
@@ -2940,6 +2943,123 @@ class UserServices {
             { new: true }
           );
           return true;
+        }
+      }
+
+      async getYoutuberProfit(req){
+        try{
+          // const referUserData=await userModel.find({refer_id:req.user._id});
+          let condition=[];
+          
+          condition.push({
+              $lookup:{
+                from: "users",
+                localField: "userid",
+                foreignField: "_id",
+                as: "userData"
+              }
+            },);
+            condition.push({
+              $lookup:{
+                from: "matchchallenges",
+                 localField: "challengeid",
+                 foreignField: "_id",
+                 as: "matchchallengeData"
+               }
+            },);
+            condition.push({
+              $lookup:{
+                from: "listmatches",
+                localField:"matchkey" ,
+                foreignField: "_id",
+                as: "listmatcheData"
+              }
+            },);
+            if(req.query.date){
+              condition.push({
+               $match:{
+                "listmatcheData.start_date":moment(req.query.date).format("YYYY-MM-DD HH:mm:ss")
+              }
+              },);
+            }
+
+            condition.push({
+              $unwind:{
+                path: "$userData"
+              }
+            },);
+            condition.push({
+              $unwind:{
+                path:"$matchchallengeData"
+             }
+            },);
+            condition.push({
+              $unwind:{
+                path: "$listmatcheData",
+              }
+            },);
+            condition.push({
+              $project:{
+                userid:1,
+                leaugestransaction:1,
+                matchkey:1,
+                "matchchallengeData.joinedusers":1,
+                "challengeid":1,
+                "listmatcheData.name":1,
+                "matchchallengeData.entryfee":1,
+                "matchchallengeData.win_amount":1,
+                "matchchallengeData.status":1,
+                "matchchallengeData.maximum_user":1,
+                "matchchallengeData.bonus_percentage":1,
+                "listmatcheData.start_date":1,
+                "userData.team":1
+              }
+            },);
+          let data1=await JoinLeaugeModel.aggregate(condition);
+          let myArray=[];
+          if(data1.length >0){
+            
+            for(let key of data1){
+              console.log("key.matchchallengeData.entryfee * key.matchchallengeData.maximum_user <= key.matchchallengeData.win_amount----",key.matchchallengeData.entryfee * key.matchchallengeData.maximum_user , key.matchchallengeData.win_amount)
+              if(key.matchchallengeData.entryfee * key.matchchallengeData.maximum_user <= key.matchchallengeData.win_amount){
+                continue;
+              }
+              let cusers=await matchChallengersModel.countDocuments({_id:key.challengeid});
+              let total_amt=Number(key.leaugestransaction.balance) + Number(key.leaugestransaction.winning) + Number(key.leaugestransaction.bonus);
+              let rema_amt=Number(total_amt) - Number(key.matchchallengeData.win_amount) ;
+              let per_user=(rema_amt/key.matchchallengeData.maximum_user) - (key.leaugestransaction.bonus)
+              let per_u_tuber=per_user * cusers ;
+
+              const net_profit=await userModel.findOne({_id:key.userid},{percentage:1});
+              // console.log("---------------net_profit----------",net_profit.percentage)
+              let total_Profit;
+              if(net_profit.percentage){
+                total_Profit=(Number(per_user) * Number(net_profit.percentage))/100;
+              }else{
+                total_Profit=0;
+              }
+              console.log("-----------net_profit---------------",net_profit)
+              let data={};
+              data.date=key.listmatcheData.start_date;
+              data.team=key.userData.name;
+              data.name=key.listmatcheData.name;
+              data.challengeid=key.challengeid;
+              data.entryfee=key.matchchallengeData.entryfee;
+              data.win_amount=key.matchchallengeData.win_amount;
+              data.maximum_user=key.matchchallengeData.maximum_user;
+              data.joinedusers=key.matchchallengeData.joinedusers;
+              data.net_profit=(total_Profit>0 ? total_Profit.toFixed(2) : 0);
+              myArray.push(data);
+            }
+          }
+
+          return{
+            status:true,
+            data:myArray
+          }
+
+        }catch(error){
+          throw error;
         }
       }
     

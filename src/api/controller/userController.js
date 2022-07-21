@@ -36,7 +36,8 @@ class userController {
             webhookDetail: this.webhookDetail.bind(this),
             socialAuthentication: this.socialAuthentication.bind(this),
             getNotification: this.getNotification.bind(this),
-            getOffers: this.getOffers.bind(this)
+            getOffers: this.getOffers.bind(this),
+            getYoutuberProfit:this.getYoutuberProfit.bind(this),
         }
     }
 
@@ -343,6 +344,14 @@ class userController {
             const data = await userServices.getOffers(req);
             return res.status(200).json(Object.assign({ success: data.status }, data));
         } catch (error) {
+            next(error);
+        }
+    }
+    async getYoutuberProfit(req,res,next){
+        try{
+            const data=await userServices.getYoutuberProfit(req);
+            return res.status(200).json(Object.assign({ success: data.status }, data));
+        }catch(error){
             next(error);
         }
     }
