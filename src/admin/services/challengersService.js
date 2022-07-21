@@ -2301,7 +2301,7 @@ class challengersService {
                     }
                     criteria += getRole.credit
                 }
-                console.log("")
+                
             // let realData=await exportsContestModel.findOne({_id:mongoose.Types.ObjectId(req.params.id),matchkey:mongoose.Types.ObjectId(req.query.matchkey)});
             const getContest = await contestCategoryModel.find({}, { name: 1 });
                     
