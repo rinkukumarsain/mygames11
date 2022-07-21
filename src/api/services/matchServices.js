@@ -585,9 +585,10 @@ class matchServices {
                 playing11_status:{ $ifNull: ['$playing11_status', 1] }
             }
         });
+        console.log("------------------moment().format('YYYY-MM-DD HH:mm:ss')----------------------------------",moment().format('YYYY-MM-DD HH:mm:ss'))
         aggPipe.push({
             $match:{
-                start_date:{ $lt: moment().format('YYYY-MM-DD HH:mm:ss')},
+                start_date:{ $gt: moment().format('YYYY-MM-DD HH:mm:ss')},
               }
         })
         const JoiendMatches = await JoinLeaugeModel.aggregate(aggPipe);
