@@ -3029,7 +3029,7 @@ class UserServices {
               let rema_amt=Number(total_amt) - Number(key.matchchallengeData.win_amount) ;
               let per_user=(rema_amt/key.matchchallengeData.maximum_user) - (key.leaugestransaction.bonus)
               let per_u_tuber=per_user * cusers ;
-
+              console.log("per_user-----------------",per_user)
               const net_profit=await userModel.findOne({_id:key.userid},{percentage:1});
               // console.log("---------------net_profit----------",net_profit.percentage)
               let total_Profit;
