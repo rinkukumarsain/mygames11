@@ -1252,6 +1252,7 @@ class contestServices {
                 let k = 0,
                     winners = 0;
                 const price_card = [];
+                tmpObj['amount_type'] = `${challanges.amount_type}`;
                 if (challanges.matchpricecards && challanges.matchpricecards != '') {
                     const matchpricecards = challanges.matchpricecards;
                     for await (const pricecard of matchpricecards) {
