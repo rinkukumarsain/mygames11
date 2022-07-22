@@ -1741,8 +1741,7 @@ console.log("-------------------------  req.query.matchchallengeid  ------------
                     points: { $ifNull: [{ $arrayElemAt: ['$jointeam.points', 0] }, '0'] },
                     lastpoints: { $ifNull: [{ $arrayElemAt: ['$jointeam.lastpoints', 0] }, '0'] },
                     team: { $ifNull: [{ $arrayElemAt: ['$user.team', 0] }, ''] },
-                    image: { $ifNull: [{ $arrayElemAt: ['$user.image', 0] }, `${constant.BASE_URL}avtar1.png`] },
-                },
+  },
             });
             aggPipe.push({
                 $sort: {
@@ -1762,8 +1761,10 @@ console.log("-------------------------  req.query.matchchallengeid  ------------
                             lastpoints: '$lastpoints',
                             team: '$team',
                             image: '$image',
+                            challengeid:'$challengeid'
                         },
                     },
+                    
                 },
             });
             aggPipe.push({
@@ -1837,6 +1838,7 @@ console.log("-------------------------  req.query.matchchallengeid  ------------
                         ],
                     },
                     lastrank: '$rankBypoints.rank',
+                    challengeid:"$rankBypoints.challengeid"
                 },
             });
             aggPipe.push({
@@ -1858,6 +1860,7 @@ console.log("-------------------------  req.query.matchchallengeid  ------------
                             team: '$team',
                             image: '$image',
                             lastrank: '$lastrank',
+                            challengeid:'$challengeid'
                         },
                     },
                 },
@@ -1922,6 +1925,7 @@ console.log("-------------------------  req.query.matchchallengeid  ------------
                     },
                 });
             }
+            console.log("--------------userid-------------------",req.user._id)
             aggPipe.push({
                 $project: {
                     _id: 0,
@@ -1934,6 +1938,7 @@ console.log("-------------------------  req.query.matchchallengeid  ------------
                     teamname: { $ifNull: ['$rankBypoints.team', 0] },
                     getlastrank: '$rankBypoints.lastrank',
                     getcurrentrank: '$rankBypoints.rank',
+                    challengeid:"$rankBypoints.challengeid",
                     image: {
                         $cond: {
                             if: { $and: [{ $ne: ['$rankBypoints.image', 'null'] }, { $ne: ['$regdata.image', ''] }] },
@@ -1986,6 +1991,19 @@ console.log("-------------------------  req.query.matchchallengeid  ------------
                     teamnumber: 1,
                 },
             });
+            aggPipe.push({
+               $lookup: {
+                 from: "matchchallenges",
+                 localField: "challengeid",
+                 foreignField: "_id",
+                 as: "challengeData"
+               }
+            });
+            aggPipe.push({
+                $addFields:{
+                    contest_winning_type: { $ifNull: [{ $arrayElemAt: ['$challengeData.amount_type', 0] }, '0'] },
+                 }
+             });
             const finalData = await JoinLeaugeModel.aggregate(aggPipe);
             if (finalData.length > 0) {
                 return {
