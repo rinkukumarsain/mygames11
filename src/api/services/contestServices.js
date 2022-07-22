@@ -37,7 +37,7 @@ class contestServices {
     async getAllContests(req) {
         try {
 
-            console.log('here', req.query.matchkey);
+            // console.log('here', req.query.matchkey);
             let finalData = [],
                 contest_arr = [],
                 aggpipe = [];
@@ -263,7 +263,7 @@ class contestServices {
                 $sort: { 'win_amount': -1 }
             });
             const matchchallengesData = await matchchallengesModel.aggregate(aggpipe);
-            console.log(`matchchallengesData-------------------`, matchchallengesData);
+            // console.log(`matchchallengesData-------------------`, matchchallengesData);
             let i = 0;
             if (matchchallengesData.length == 0) {
                 return {
@@ -423,7 +423,7 @@ class contestServices {
                 $sort: { 'win_amount': -1 }
             });
             const matchchallengesData = await matchchallengesModel.aggregate(aggpipe);
-            console.log(`matchchallengesData-------------------`, matchchallengesData);
+            // console.log(`matchchallengesData-------------------`, matchchallengesData);
             let i = 0;
             if (matchchallengesData.length == 0) {
                 return {
@@ -547,8 +547,8 @@ class contestServices {
      */
     async joinContest(req) {
         try {
-            console.log("...........",req.body,"........req.p",req.params,"....",req.query)
-            console.log(`req.user._id`, req.user._id);
+            // console.log("...........",req.body,"........req.p",req.params,"....",req.query)
+            // console.log(`req.user._id`, req.user._id);
             const { matchchallengeid, jointeamid } = req.body;
             let totalchallenges = 0,
                 totalmatches = 0,
@@ -591,12 +591,12 @@ class contestServices {
             const jointeamids = jointeamid.split(',');
 
             const jointeamsCount = await JoinTeamModel.find({ _id: { $in: jointeamids } }).countDocuments();
-            console.log(`<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<jointeamsCount>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.`, jointeamsCount, jointeamids.length);
+            // console.log(`<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<jointeamsCount>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.`, jointeamsCount, jointeamids.length);
 
             if (jointeamids.length != jointeamsCount) return { message: 'Invalid Team', status: false, data: {} }
 
             const user = await userModel.findOne({ _id: req.user._id }, { userbalance: 1 });
-            console.log('CHECKING USER BALANCE-----------', user);
+            // console.log('CHECKING USER BALANCE-----------', user);
             if (!user || !user.userbalance) return { message: 'Insufficient balance', status: false, data: {} };
 
             const bonus = parseFloat(user.userbalance.bonus.toFixed(2));
@@ -610,7 +610,7 @@ class contestServices {
                 mainwin = 0,
                 tranid = '';
             for (const jointeamId of jointeamids) {
-                console.log(`-------------IN ${i} LOOP--------------------`);
+                // console.log(`-------------IN ${i} LOOP--------------------`);
                 i++;
                 const result = await this.findJoinLeaugeExist(listmatchId, req.user._id, jointeamId, matchchallenge);
                 console.log(`---------------------1ST IF BEFORE--------${result}---------`);
@@ -698,9 +698,9 @@ class contestServices {
                 }
                 const resultForBalance = await this.findUsableBalanceMoney(resultForBonus, balance - mainbal);
                 const resultForWinning = await this.findUsableWinningMoney(resultForBalance, winning - mainwin);
-                console.log(`---------------------3RD IF--BEFORE------${resultForWinning}---------`);
+                // console.log(`---------------------3RD IF--BEFORE------${resultForWinning}---------`);
                 if (resultForWinning.reminingfee > 0) {
-                    console.log(`---------------------3RD IF--------${resultForWinning}---------`);
+                    // console.log(`---------------------3RD IF--------${resultForWinning}---------`);
                     if (i > 1) {
                         const userObj = {
                             'userbalance.balance': balance - mainbal,
@@ -1492,18 +1492,18 @@ class contestServices {
     async switchTeams(req) {
         try {
             const { matchkey, switchteam } = req.body;
-            console.log("switchteam------------------------------",switchteam)
+            // console.log("switchteam------------------------------",switchteam)
             const match = listMatchesModel.findOne({ _id: mongoose.Types.ObjectId(matchkey) });
             // console.log("match------------------",match)
             if (!match) return { message: 'Match Not Found', status: false, data: {} };
             const matchTime = await matchServices.getMatchTime(match.start_date);
-            console.log("matchTime----------------------------",matchTime)
+            // console.log("matchTime----------------------------",matchTime)
             if (matchTime === false) return { message: 'Match has been closed.', status: false, data: {} };
             let newData=JSON.parse(switchteam)
-            console.log("switchteam--------------------------------",newData)
+            // console.log("switchteam--------------------------------",newData)
             for(let key of newData){
-                console.log("key.joinleaugeid-------------------------",key.joinleaugeid)
-                console.log("key.newjointeamid-----------------------",key.newjointeamid)
+                // console.log("key.joinleaugeid-------------------------",key.joinleaugeid)
+                // console.log("key.newjointeamid-----------------------",key.newjointeamid)
             let updateData=await JoinLeaugeModel.findOneAndUpdate({ _id: mongoose.Types.ObjectId(key.joinleaugeid) }, { teamid: mongoose.Types.ObjectId(key.newjointeamid) }, { new: true });  
         }
         return { message: 'Team Updated ', status: true, data: {} }
@@ -1612,7 +1612,7 @@ class contestServices {
                 matchpricecards: [],
             }
             let challengeid = await matchchallengesModel.create(obj);
-            console.log(`challengeid`, challengeid);
+            // console.log(`challengeid`, challengeid);
             if (challengeid) {
                 return {
                     message: 'Challenge successfully Created.',
@@ -1659,7 +1659,7 @@ class contestServices {
             }
             
             const matchchallenge =await matchchallengesModel.findOne({ _id: mongoose.Types.ObjectId(matchchallengeid) });
-            console.log("-------------------------------------matchchallenge----------------------------------------",matchchallenge)
+            // console.log("-------------------------------------matchchallenge----------------------------------------",matchchallenge)
             if (!matchchallenge) {
                 return { message: 'Invalid code', status: false, data: {} };
             }
@@ -1667,14 +1667,14 @@ class contestServices {
                 userid: req.user._id,
                 challengeid: matchchallenge._id,
             }).countDocuments();
-            console.log("matchchallenge.multi_entry.......................",matchchallenge.multi_entry)
+            // console.log("matchchallenge.multi_entry.......................",matchchallenge.multi_entry)
             let teamLimit;
             if(matchchallenge.multi_entry == 0){
              teamLimit=1;
             }else{
                 teamLimit=matchchallenge.team_limit;
             }
-            console.log("------------------------------------teamLimit-------------------------",teamLimit)
+            // console.log("------------------------------------teamLimit-------------------------",teamLimit)
             if (matchchallenge.multi_entry == 1) {
                 if (joinLeagues == matchchallenge.team_limit) {
                     return { message: 'Already used', status: false, data: { multi_entry: 1 } };
