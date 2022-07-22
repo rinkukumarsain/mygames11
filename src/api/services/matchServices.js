@@ -1074,6 +1074,7 @@ class matchServices {
                 })
                 // console.log(`playerPipe`, playerPipe);
             let data = await matchPlayersModel.aggregate(playerPipe);
+            console.log("-------------------data-----------------------------------------",data)
             if (data.length > 0) return {
                 message: 'Players List By Match',
                 status: true,
