@@ -419,10 +419,10 @@ class cricketApiController {
             }
         }
     }
-
+    
     async getmatchscore(real_matchkey) {
         try {
-            let matchData = await axios.get(`http://rest.entitysport.com/v2/matches/${real_matchkey}/scorecard?token=1&token=d838e55bf823bc6e6ad46ba9c71106aa`);
+            let matchData = await axios.get(`http://rest.entitysport.com/v2/matches/${real_matchkey}/scorecard?token=1&token=1f56fecf67b5dee16cbdba41eb87bd2e`);
             return matchData.data.response;
         } catch (error) {
             next(error);

@@ -256,6 +256,8 @@ router.post('/joinContestByCode', auth, ContestController.joinContestByCode);
 // get youtuber profit
 router.get('/getutubetprofit',auth,userController.getYoutuberProfit);
 
+// Get All Match Players with their points with playing status 1
+router.get('/getAllPlayersWith_PlayingStatus/:matchId', auth, MatchController.getAllPlayersWithPlayingStatus);
 
 router.get('/test', CronJob.updatePlayerSelected);
 

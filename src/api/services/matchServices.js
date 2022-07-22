@@ -39,6 +39,7 @@ class matchServices {
             fantasyScoreCards: this.fantasyScoreCards.bind(this),
             matchlivedata: this.matchlivedata.bind(this),
             NewjoinedmatchesLive:this.NewjoinedmatchesLive.bind(this),
+            getAllPlayersWithPlayingStatus:this.getAllPlayersWithPlayingStatus.bind(this),
         }
     }
 
@@ -1008,7 +1009,7 @@ class matchServices {
             });
             playerPipe.push({
                 $lookup: {
-                    from: `teams`,
+                    from: "teams",
                     localField: 'playersData.team',
                     foreignField: '_id',
                     as: 'team'
@@ -2516,6 +2517,115 @@ console.log("-------------------------  req.query.matchchallengeid  ------------
                 status: false,
                 data: []
             };
+        }
+    }
+    async getAllPlayersWithPlayingStatus(req) {
+        try {
+            let playerPipe = [];
+            playerPipe.push({
+                $match: { matchkey: mongoose.Types.ObjectId(req.params.matchId) }
+            });
+            playerPipe.push({
+                $lookup: {
+                    from: 'players',
+                    localField: 'playerid',
+                    foreignField: '_id',
+                    as: 'playersData'
+                }
+            });
+            playerPipe.push({
+                $lookup: {
+                    from: 'listmatches',
+                    localField: 'matchkey',
+                    foreignField: '_id',
+                    as: 'listmatches'
+                }
+            });
+            playerPipe.push({
+                $unwind: { path: "$playersData" }
+            });
+            playerPipe.push({
+                $unwind: { path: "$listmatches" }
+            });
+            playerPipe.push({
+                $lookup: {
+                    from: "teams",
+                    localField: 'playersData.team',
+                    foreignField: '_id',
+                    as: 'team'
+                }
+            });
+            playerPipe.push({
+                    $project: {
+                        _id: 0,
+                        id: '$_id',
+                        playerid: 1,
+                        points: 1,
+                        role: 1,
+                        credit: 1,
+                        name: 1,
+                        playingstatus: 1,
+                        vplaying: 1,
+                        players_key: '$playersData.players_key',
+                        image: {
+                            $ifNull: [{
+                                $cond: {
+                                    if: { $or: [{ $eq: [{ $substr: ['$playersData.image', 0, 1] }, '/'] }, { $eq: [{ $substr: ['$playersData.image', 0, 1] }, 'p'] }] },
+                                    then: { $concat: [`${constant.BASE_URL}`, '', '$playersData.image'] },
+                                    else: {
+                                        $cond: {
+                                            if: { $eq: ['$playersData.image', ''] },
+                                            then: `${constant.BASE_URL}player.png`,
+                                            else: '$playersData.image'
+                                        }
+                                    }
+                                }
+                            }, `${constant.BASE_URL}player.png`]
+                        },
+                        teamName: { $toUpper: { $arrayElemAt: ['$team.teamName', 0] } },
+                        teamcolor: { $ifNull: [{ $arrayElemAt: ['$team.color', 0] }, constant.TEAM_DEFAULT_COLOR.DEF1] },
+                        team_logo: {
+                            $ifNull: [{
+                                $cond: {
+                                    if: { $or: [{ $eq: [{ $substr: [{ $arrayElemAt: ['$team.logo', 0] }, 0, 1] }, '/'] }, { $eq: [{ $substr: [{ $arrayElemAt: ['$team.logo', 0] }, 0, 1] }, 't'] }] },
+                                    then: { $concat: [`${constant.BASE_URL}`, '', { $arrayElemAt: ['$team.logo', 0] }] },
+                                    else: { $arrayElemAt: ['$team.logo', 0] },
+                                }
+                            }, `${constant.BASE_URL}team_image.png`]
+                        },
+                        team_short_name: { $arrayElemAt: ['$team.short_name', 0] },
+                        totalpoints: '0',
+                        team: {
+                            $cond: {
+                                if: { $eq: ['$playersData.team', '$listmatches.team1Id'] },
+                                then: 'team1',
+                                else: {
+                                    $cond: {
+                                        if: { $eq: ['$playersData.team', '$listmatches.team2Id'] },
+                                        then: 'team2',
+                                        else: ''
+                                    }
+                                }
+                            }
+                        },
+                        captain_selection_percentage: '0',
+                        vice_captain_selection_percentage: '0',
+                        player_selection_percentage: '0'
+                    }
+                })
+            playerPipe.push({
+                    $match:{playingstatus:1}
+            })
+                // console.log(`playerPipe`, playerPipe);
+            let data = await matchPlayersModel.aggregate(playerPipe);
+            console.log("-------------------data-----------------------------------------",data)
+            if (data.length > 0) return {
+                message: 'Players List By Match',
+                status: true,
+                data
+            }
+        } catch (error) {
+            throw error;
         }
     }
 }
