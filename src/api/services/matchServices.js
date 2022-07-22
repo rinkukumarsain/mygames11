@@ -1546,7 +1546,7 @@ console.log("-------------------------  req.query.matchchallengeid  ------------
                 tempObj['wicketKeeperCount'] = wicketKeeperCount;
                 tempObj['allroundercount'] = allCount;
                 tempObj['player'] = players;
-                tempObj["totalPoints"]=totalPoints;
+                tempObj["totalpoints"]=totalPoints;
                 finalData.push(tempObj);
                 if (i == createTeams.length) {
                     return {
