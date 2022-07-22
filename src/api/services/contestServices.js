@@ -1045,6 +1045,7 @@ class contestServices {
                     is_private: { $arrayElemAt: [{ $ifNull: ['$matchchallenge.is_private', 0] }, 0] },
                     winning_percentage: { $arrayElemAt: [{ $ifNull: ['$matchchallenge.winning_percentage', 0] }, 0] },
                     contest_type: { $arrayElemAt: [{ $ifNull: ['$matchchallenge.contest_type', 0] }, 0] },
+                    contest_name: { $arrayElemAt: [{ $ifNull: ['$matchchallenge.contest_name', 0] }, 0] },
                     multi_entry: { $arrayElemAt: [{ $ifNull: ['$matchchallenge.multi_entry', 0] }, 0] },
                     confirmed_challenge: { $arrayElemAt: [{ $ifNull: ['$matchchallenge.confirmed_challenge', 0] }, 0] },
                     matchkey: { $arrayElemAt: [{ $ifNull: ['$matchchallenge.matchkey', 0] }, 0] },
@@ -1165,6 +1166,7 @@ class contestServices {
                     winning_percentage: '$winning_percentage',
                     contest_type: { $ifNull: ['$contest_type', ''] },
                     multi_entry: { $ifNull: ['$multi_entry', ''] },
+                    contest_name: { $ifNull: ['$contest_name', ''] },
                     confirmed: { $ifNull: ['$confirmed_challenge', 0] },
                     matchkey: { $ifNull: ['$matchkey', 0] },
                     joinedusers: { $ifNull: ['$joinedusers', 0] },
@@ -1191,7 +1193,7 @@ class contestServices {
                 },
             });
             const JoinContestData = await JoinLeaugeModel.aggregate(aggPipe);
-            // console.log("----------------------------JoinContestData--------------------------------------",JoinContestData)
+            console.log("----------------------------JoinContestData--------------------------------------",JoinContestData)
             let i = 0;
             const finalData = [];
             if (JoinContestData.length == 0) return { message: 'Data Not Found', status: true, data: [] };
@@ -1223,6 +1225,7 @@ class contestServices {
                     matchkey: challanges.matchkey,
                     challenge_id: challanges.challangeid,
                     refercode: challanges.refercode,
+                    contest_name:challanges.contest_name,
                     winamount: challanges.win_amount != 0 ? challanges.win_amount : 0,
                     is_private: challanges.is_private != 0 ? challanges.is_private : 0,
                     is_bonus: challanges.is_bonus != 0 ? challanges.is_bonus : 0,
@@ -1244,6 +1247,7 @@ class contestServices {
                     price_card: [],
                     pricecardstatus: 0,
                 };
+                console.log("------------------tmpObj--------------------------",tmpObj)
                 if (challanges.multi_entry != 0) {
                     tmpObj['team_limit'] = challanges.team_limit;
                     tmpObj['plus'] = '+';
