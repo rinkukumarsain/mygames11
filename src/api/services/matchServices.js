@@ -1491,7 +1491,7 @@ console.log("-------------------------  req.query.matchchallengeid  ------------
                 let captinName=captainData.player_name
                 const vicecaptainData=await playerModel.findOne({_id:element.vicecaptain.playerid});
                 let viceCaptainName=vicecaptainData.player_name;
-
+                let totalPoints=0;
                 for await (const playerData of element.players) {
                     const filterData = await matchPlayersModel.findOne({ _id: playerData._id });
                     // console.log("filterData.....---------->>..........",filterData)
@@ -1516,7 +1516,8 @@ console.log("-------------------------  req.query.matchchallengeid  ------------
                     if (listmatchData.team2Id._id.toString() == playerData_team.team.toString()) {
                         team2count++;
                     }
-                    
+                    totalPoints += Number(`${element.captain._id.toString() == playerData._id.toString() ? parseFloat(filterData.points.toFixed(2)) * 2 : element.vicecaptain._id.toString() == playerData._id.toString() ? parseFloat(filterData.points.toFixed(2)) * 1.5 : filterData.points}`)
+                    console.log("--------------------totalPoints-----------------",totalPoints)
                     players.push({
                         id: playerData._id,
                         name: playerData_team.player_name,
@@ -1545,6 +1546,7 @@ console.log("-------------------------  req.query.matchchallengeid  ------------
                 tempObj['wicketKeeperCount'] = wicketKeeperCount;
                 tempObj['allroundercount'] = allCount;
                 tempObj['player'] = players;
+                tempObj["totalPoints"]=totalPoints;
                 finalData.push(tempObj);
                 if (i == createTeams.length) {
                     return {
