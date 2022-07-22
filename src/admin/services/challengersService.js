@@ -1897,7 +1897,7 @@ class challengersService {
             if (req.query.matchkey) {
                 let qukey = req.query.matchkey
                 // console.log("req.query.matchkey.................................", qukey)
-                getlistofMatches = await matchchallengersModel.find({ matchkey: mongoose.Types.ObjectId(qukey) });
+                getlistofMatches = await matchchallengersModel.find({ matchkey: mongoose.Types.ObjectId(qukey),is_expert:1 });
                 // console.log("getlistofMatches.................................",getlistofMatches)
                 for await (let keyy of getlistofMatches) {
                     let obj = {};
@@ -2185,25 +2185,21 @@ class challengersService {
     }
     async editExpertContest(req){
         try{
-
-            let realData = await matchchallengersModel.findOne({_id:req.params.id});
-
-
+            console.log("-------------------------eddit expert contest--------------------------")
+            let realData = await matchchallengersModel.findOne({_id:mongoose.Types.ObjectId(req.params.id)});
+            console.log("realData-----------------------------------",realData)
             let expert_teamid ='';
-
-
-
             if( realData.expert_teamid) {
                 expert_teamid = realData.expert_teamid;
               }
-
+              console.log("------expert_teamid-----------------------",expert_teamid)
               let expert_team=await JoinTeamModel.findOne({_id:expert_teamid});
               console.log("expert_team----------------------",expert_team);
               if(expert_team){
                   realData.expert_team=expert_team
               }
-            //   console.log("..................................//expert_team.expert_team............",expert_team.captain)
-            //   console.log("..................................//expert_team.vicecaptain............",expert_team.vicecaptain)
+              console.log("..................................//expert_team.expert_team............",expert_team.captain)
+              console.log("..................................//expert_team.vicecaptain............",expert_team.vicecaptain)
               let captain=expert_team.captain;
               let vicecaptain=expert_team.vicecaptain;
             //   console.log("....challenge...............................",challenge)
