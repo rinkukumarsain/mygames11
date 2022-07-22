@@ -19,6 +19,7 @@ class matchController {
             fantasyScoreCards: this.fantasyScoreCards.bind(this),
             matchlivedata: this.matchlivedata.bind(this),
             NewjoinedmatchesLive:this.NewjoinedmatchesLive.bind(this),
+            getAllPlayersWithPlayingStatus:this.getAllPlayersWithPlayingStatus.bind(this),
         }
     }
 
@@ -196,6 +197,18 @@ class matchController {
             return res.status(200).json(Object.assign({ success: true }, data));
 
         }catch(error){
+            next(error);
+        }
+    }
+    async getAllPlayersWithPlayingStatus(req, res, next) {
+        try {
+            const data = await matchServices.getAllPlayersWithPlayingStatus(req);
+            if (data.status === false) {
+                return res.status(200).json(Object.assign({ success: data.status }, data));
+            } else {
+                return res.status(200).json(Object.assign({ success: data.status }, data));
+            }
+        } catch (error) {
             next(error);
         }
     }
