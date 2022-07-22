@@ -2025,7 +2025,7 @@ console.log("-------------------------  req.query.matchchallengeid  ------------
             //     select: 'name, '
             // });
             aggpipe.push({
-                $match: { matchkey: mongoose.Types.ObjectId(req.query.matchkey) }
+                $match: { matchkey: mongoose.Types.ObjectId(req.query.matchkey),playingstatus:1 }
             });
             aggpipe.push({
                 $lookup: {
@@ -2077,6 +2077,7 @@ console.log("-------------------------  req.query.matchchallengeid  ------------
                         $project: {
                             _id: 0,
                             image: 1,
+                            role: 1,
                             team: { $arrayElemAt: ["$team.short_name", 0] },
 
                         }
@@ -2088,6 +2089,8 @@ console.log("-------------------------  req.query.matchchallengeid  ------------
                 $addFields: {
                     teamShortName: { $arrayElemAt: ["$playerimage.team", 0] },
                     playerimage: { $arrayElemAt: ["$playerimage.image", 0] },
+                    playerrole: { $arrayElemAt: ["$playerimage.role", 0] },
+                    playerCredit: { $arrayElemAt: ["$playerimage.credit", 0] },
                 }
             });
             aggpipe.push({
@@ -2137,6 +2140,9 @@ console.log("-------------------------  req.query.matchchallengeid  ------------
                         }, `${constant.BASE_URL}player.png`]
                     },
                     matchname: 1,
+                    playerid: 1,
+                    playerrole: 1,
+                    credit:1,
                     duck: { $arrayElemAt: ['$result.duck', 0] },
                     innings: { $arrayElemAt: ['$result.innings', 0] },
                     teamShortName: 1,
@@ -2149,18 +2155,22 @@ console.log("-------------------------  req.query.matchchallengeid  ------------
                     wickets: { $arrayElemAt: ['$resultpoint.wickets', 0] },
                     maidens: { $arrayElemAt: ['$resultpoint.maidens', 0] },
                     economy_rate: { $arrayElemAt: ['$resultpoint.economy_rate', 0] },
-                    runouts: { $arrayElemAt: ['$resultpoint.runouts', 0] },
+                    thrower: { $arrayElemAt: ['$resultpoint.thrower', 0] },
+                    hitter: { $arrayElemAt: ['$resultpoint.hitter', 0] },
                     catch: { $arrayElemAt: ['$resultpoint.catch', 0] },
                     catchpoints: { $arrayElemAt: ['$resultpoint.catch', 0] },
                     stumping: { $sum: [{ $arrayElemAt: ['$resultpoint.stumping', 0] }, { $arrayElemAt: ['$resultpoint.thrower', 0] }, { $arrayElemAt: ['$resultpoint.hitter', 0] }] },
                     bonus: { $arrayElemAt: ['$resultpoint.bonus', 0] },
+                    halfcentury: { $arrayElemAt: ['$resultpoint.halfcentury', 0] },
                     negative: { $arrayElemAt: ['$resultpoint.negative', 0] },
                     total: { $arrayElemAt: ['$resultpoint.total', 0] },
+                    wicketbonuspoint: { $arrayElemAt: ['$resultpoint.wicketbonuspoint', 0] },
                     selectper: { $ifNull: ['$selectper', '0%'] }
 
                 }
             })
             const matchplayer = await matchPlayersModel.aggregate(aggpipe);
+            console.log(matchplayer);
             if (matchplayer.length > 0) {
                 return {
                     message: 'Match Player stats data...',
